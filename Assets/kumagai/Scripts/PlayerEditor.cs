@@ -35,21 +35,20 @@ public class PlayerEditor : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Return))
         {
+
             for (int i = 0; i < playerDatas.Length; i++)
             {
                 PlayerDatas[i] = Resources.Load<TextAsset>(PlayerName[i]);
-
-                PlayerStatus(PlayerDatas[i]);
+                PlayerStatus(PlayerDatas[i],i);
                 DebugDatas[i]=PlayerDatas[i];
+
             }
             
         }
     }
 
-    void PlayerStatus(TextAsset TAD)
+    void PlayerStatus(TextAsset TAD,int Integer)
     {
-        for(int i=0;i<playerDatas.Length;i++)
-        { 
             List<string[]> csvDatas=new List<string[]>();
             StringReader reader =new StringReader(TAD.text);
             while(reader.Peek()!=-1)//Å[ÇPÇ™ì¸ÇÈÇ‹Ç≈ÉãÅ[Év
@@ -57,8 +56,24 @@ public class PlayerEditor : MonoBehaviour
                 string line = reader.ReadLine();
                 csvDatas.Add(line.Split(','));
             }
-            playerData=csvDatas;
-            playerDatas[i] = playerData;
+            if(reader.Peek()==-1)
+            {
+            playerDatas[Integer] = csvDatas;
+            return;
+            }
+
+        for (int i = 2; i != -1; i++)
+        {
+            string[] data = new string[playerDatas[Integer][i].Length];
+            for (int j = 0; j < playerDatas[Integer][0].Length; ++j)
+            {
+                if (playerDatas[Integer][i][j] == "-1")
+                {
+                    Debug.Log("-1");
+                    return;
+                }
+
+            }
         }
     }
 

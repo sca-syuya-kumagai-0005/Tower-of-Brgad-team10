@@ -1489,7 +1489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e6305e270c1604d940d7975f7a8c00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player_ActTime: []
 --- !u!114 &782731816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1503,11 +1502,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name:
-  - CharacterTemplate
-  - TestChar
-  - ProtoEnemy
+  - TMP
+  - TMP2
   DebugDatas:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!1 &794385514

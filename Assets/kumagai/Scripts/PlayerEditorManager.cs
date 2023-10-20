@@ -10,9 +10,8 @@ public class PlayerEditorManager : MonoBehaviour
     
     //[SerializeField]
     //private GameObject Players;
-    public static int Lv=10;
+    private int Lv=0;
 
-    public float[] Player_ActTime;
     public class PlayerInfo : MonoBehaviour//プレイヤー情報
     {
         public static string[] Player_Name;//プレイヤーの名前
@@ -22,7 +21,7 @@ public class PlayerEditorManager : MonoBehaviour
         public static int[] Player_ATK;
         public static int[] Player_MP;
         public static int[] Player_EXP;
-
+        public static float[] Player_ActTime;
     }
     // Start is called before the first frame update
     void Start()
@@ -31,7 +30,7 @@ public class PlayerEditorManager : MonoBehaviour
         Player_ATK = new int[partyTheNumberOf];
         Player_MP = new int[partyTheNumberOf];
         Player_EXP = new int[partyTheNumberOf];
-
+        Player_ActTime=new float[partyTheNumberOf];
     }
 
     // Update is called once per frame
@@ -39,25 +38,29 @@ public class PlayerEditorManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))//エンカウントしたらに変更する
         {
-            PlayerStatas(PlayerEditor.playerDatas);
+            Debug.Log(Player_HP.Length);
+            Debug.Log(playerDatas.Length);
+            for(int i=0;i<partyTheNumberOf;i++)
+            { 
+                PlayerStatas(PlayerEditor.playerDatas[i],i);
+            }
         }
     }
 
-    public void PlayerStatas(List<string[]>[] EData)
+    public void PlayerStatas(List<string[]> EData,int Integer)
     {
-        for(int i=0;i<partyTheNumberOf;i++)
-        { 
-            Debug.Log(i+1+"キャラ目のステータスは");
-            Player_HP[i] = int.Parse(EData[i][Lv+2][1]);//キャラHP
-            Debug.Log("HP"+Player_HP[i]);
-            Player_MP[i]=int.Parse(EData[i][Lv+2][2]);//キャラのMP
-            Debug.Log("MP" + Player_MP[i]);
-            Player_ATK[i] = int.Parse(EData[i][Lv+2][3]);//キャラ攻撃力
-            Debug.Log("ATK" + Player_ATK[i]);
-            Player_EXP[i] = int.Parse(EData[i][Lv+2][4]);//キャラの次のレベルまでに必要な経験値
-            Debug.Log("次のレベルまで" + Player_EXP[i]);
-            //Player_ActTime[i] = float.Parse(EData[i][Lv+2][5]);//キャラの再行動までの時間
+            Debug.Log(Integer+1+"キャラ目のステータスは");
+            Player_HP[Integer] = int.Parse(EData[Lv+2][1]);//キャラHP
+            Debug.Log("HP"+Player_HP[Integer]);
+            Player_MP[Integer]=int.Parse(EData[Lv+2][2]);//キャラのMP
+            Debug.Log("MP" + Player_MP[Integer]);
+            Player_ATK[Integer] = int.Parse(EData[Lv+2][3]);//キャラ攻撃力
+            Debug.Log("ATK" + Player_ATK[Integer]);
+            Player_EXP[Integer] = int.Parse(EData[Lv+2][4]);//キャラの次のレベルまでに必要な経験値
+            Debug.Log("次のレベルまで" + Player_EXP[Integer]);
+            Player_ActTime[Integer] = float.Parse(EData[Lv+2][5]);//キャラの再行動までの時間
+           // Debug.Log("再行動までの時間は"+Player_ActTime[i]+"秒です");
             //[i番目のキャラクター]　[Lv]　[対応するステータス]
-        }
+        
     }
 }
