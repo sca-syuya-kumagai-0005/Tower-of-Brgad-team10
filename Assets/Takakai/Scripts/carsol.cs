@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class carsol : MonoBehaviour
 {
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,16 @@ public class carsol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Dキー（右移動）
+        if (Input.GetKey(KeyCode.D))
+        {
+            
+        }
+
+        // Aキー（左移動）
+        if (Input.GetKey(KeyCode.A))
+        {
+            
+        }
     }
 }
