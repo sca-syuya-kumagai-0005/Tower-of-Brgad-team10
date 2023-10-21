@@ -12,8 +12,7 @@ public class PlayerMoveGage : MonoBehaviour
     private int order=0;//fillAmountが１になったとき何番目に格納するかを決定
     [SerializeField]
     private GameObject[] MoveChar=new GameObject[10];//行動するためのゲージがたまっているキャラを格納 仮で4を入れているが、パーティのキャラ数＋エネミー数が必要
-    [SerializeField]
-    float[] ActTime=new float[4];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
+    public static float[] ActTime=new float[4];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
     float[] elapsedTime=new float[4];//Time.deltaTimeを加算したときに1を超過した場合、fillAmountでは切り捨てられてしまい、他のキャラとの間にずれが生じてしまうので、それを解決するための変数
     // Start is called before the first frame update
     void Start()
@@ -32,41 +31,56 @@ public class PlayerMoveGage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!Flag&&MoveChar[0]==null)//行動しているキャラがいなければ
-        { 
-            for(int i=0;i<this.transform.childCount;i++)
+        SetMoveChar();
+        if (PlayerEditorManager.SetCharStatus)
+        {
+            if (!Flag && MoveChar[0] == null)//行動しているキャラがいなければ
             {
-                elapsedTime[i]+=Time.deltaTime;
-                Player_MoveGageImage[i].fillAmount=elapsedTime[i]/ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
-                if(Player_MoveGageImage[i].fillAmount>=1)//fillAmountが１になったキャラを行動するキャラの配列に格納
+                for (int i = 0; i < this.transform.childCount; i++)
                 {
-                    MoveChar[order]= this.transform.GetChild(i).gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
-                    order+=1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
-                    elapsedTime[i]-=ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
+                    elapsedTime[i] += Time.deltaTime;
+                    Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
+                    if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
+                    {
+                        MoveChar[order] = this.transform.GetChild(i).gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
+                        order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
+                        elapsedTime[i] -= ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
 
-                    Flag =true;//以上の処理を行うための条件付けを仮で入れている　後で変更
+                        Flag = true;//以上の処理を行うための条件付けを仮で入れている　後で変更
+                    }
                 }
             }
         }
-        if(Input.GetKeyDown(KeyCode.Return)&&MoveChar[0]!=null)//仮の条件付け　後で変更
+        if (Input.GetKeyDown(KeyCode.Return) && MoveChar[0] != null)//仮の条件付け　後で変更
         {//行動したキャラのfillAountをリセットして行動するキャラの配列から削除、配列の中身を詰める作業を行っている
             order -= 1;
             GameObject MG = MoveChar[0].transform.Find("MoveGage").gameObject;
             Image IM = MG.GetComponent<Image>();
             IM.fillAmount = 0;
-            MoveChar[0]=null;
-            for(int i=1;i<4;i++)
+            MoveChar[0] = null;
+            for (int i = 1; i < 4; i++)
             {
-                if(MoveChar[i-1]==null)
+                if (MoveChar[i - 1] == null)
                 {
-                    MoveChar[i-1]=MoveChar[i];
-                    MoveChar[i]=null;
+                    MoveChar[i - 1] = MoveChar[i];
+                    MoveChar[i] = null;
                 }
             }
-            if(MoveChar[0]==null)
+            if (MoveChar[0] == null)
             {
-                Flag=false;
+                Flag = false;
             }
         }
+
+    }
+
+    void CheckMoveChar()
+    {
+            
+        
+    }
+    void SetMoveChar()
+    {
+       
     }
 }
