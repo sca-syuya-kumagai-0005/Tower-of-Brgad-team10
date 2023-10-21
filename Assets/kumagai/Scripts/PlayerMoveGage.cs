@@ -10,8 +10,7 @@ public class PlayerMoveGage : MonoBehaviour
     private GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
     private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
     private int order=0;//fillAmountが１になったとき何番目に格納するかを決定
-    [SerializeField]
-    private GameObject[] MoveChar=new GameObject[10];//行動するためのゲージがたまっているキャラを格納 仮で4を入れているが、パーティのキャラ数＋エネミー数が必要
+    public static GameObject[] MoveChar=new GameObject[10];//行動するためのゲージがたまっているキャラを格納 仮で4を入れているが、パーティのキャラ数＋エネミー数が必要
     public static float[] ActTime=new float[4];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
     float[] elapsedTime=new float[4];//Time.deltaTimeを加算したときに1を超過した場合、fillAmountでは切り捨てられてしまい、他のキャラとの間にずれが生じてしまうので、それを解決するための変数
     // Start is called before the first frame update
