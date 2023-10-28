@@ -17,7 +17,7 @@ public class SkillSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerMoveGage.MoveChar[0]!=null)
+        if(PlayerMoveGage.MoveCharName[0]!=null)
         {
             skillSelect=true;
 
