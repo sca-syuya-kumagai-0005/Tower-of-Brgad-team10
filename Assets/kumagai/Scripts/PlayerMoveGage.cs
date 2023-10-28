@@ -11,12 +11,18 @@ public class PlayerMoveGage : MonoBehaviour
     private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
     private int order=0;//fillAmountが１になったとき何番目に格納するかを決定
     public static GameObject[] MoveChar=new GameObject[10];//行動するためのゲージがたまっているキャラを格納 仮で4を入れているが、パーティのキャラ数＋エネミー数が必要
+    public static string[] MoveCharName;
     public static float[] ActTime=new float[4];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
     float[] elapsedTime=new float[4];//Time.deltaTimeを加算したときに1を超過した場合、fillAmountでは切り捨てられてしまい、他のキャラとの間にずれが生じてしまうので、それを解決するための変数
     // Start is called before the first frame update
     void Start()
     {
         order=0;//初期化
+        MoveCharName=new string[PlayerEditor.partyTheNumberOf];
+        for(int i=0;i<PlayerEditor.partyTheNumberOf;i++)
+        { 
+             MoveCharName[i]="";
+        }
         Char_MoveGage=new GameObject[this.transform.childCount];//キャラクターの数だけゲームオブジェクト配列を定義
         Player_MoveGageImage=new Image[this.transform.childCount];//同様にイメージを定義
         for(int i=0;i<this.transform.childCount;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
@@ -30,6 +36,7 @@ public class PlayerMoveGage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         SetMoveChar();
         if (PlayerEditorManager.SetCharStatus)
         {
@@ -42,6 +49,8 @@ public class PlayerMoveGage : MonoBehaviour
                     if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {
                         MoveChar[order] = this.transform.GetChild(i).gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
+                        MoveCharName[i]=MoveChar[order].name;
+                        Debug.Log(MoveCharName[i]);
                         order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
                         elapsedTime[i] -= ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
 
@@ -68,6 +77,10 @@ public class PlayerMoveGage : MonoBehaviour
             if (MoveChar[0] == null)
             {
                 Flag = false;
+            }
+            else if(MoveChar[0]!=null)
+            {
+                
             }
         }
 

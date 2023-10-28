@@ -37,14 +37,14 @@ public class PlayerEditorManager : MonoBehaviour
     void Update()
     {
         
-       
+       if(Input.GetKeyDown(KeyCode.Return))
+        { 
             for (int i = 0; i < partyTheNumberOf; i++)
             {
                 PlayerStatas(PlayerEditor.playerDatas[i], i);
             }
-            Debug.Log(Player_HP.Length);
-            Debug.Log(playerDatas.Length);
             SetCharStatus=true;
+        }
         
     }
 
