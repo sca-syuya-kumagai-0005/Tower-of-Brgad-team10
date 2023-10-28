@@ -66,6 +66,7 @@ public class PlayerMoveGage : MonoBehaviour
             Image IM = MG.GetComponent<Image>();
             IM.fillAmount = 0;
             MoveChar[0] = null;
+            MoveCharName[0]="";
             for (int i = 1; i < 4; i++)
             {
                 if (MoveChar[i - 1] == null)
