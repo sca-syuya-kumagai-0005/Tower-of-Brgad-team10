@@ -6,6 +6,8 @@ public class SkillSelection : MonoBehaviour
 {
     private GameObject nowChar;
     private string[] skillName;
+    public bool skillSelect;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,7 @@ public class SkillSelection : MonoBehaviour
     {
         if(PlayerMoveGage.MoveChar[0]!=null)
         {
+            skillSelect=true;
 
         }
     }
