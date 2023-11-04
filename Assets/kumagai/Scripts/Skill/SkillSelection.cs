@@ -11,10 +11,14 @@ public class SkillSelection : MonoBehaviour
     private GameObject skill;
     [SerializeField]
     private GameObject[] skills=new GameObject[4];
+    private int skillPosX;
+    private float[] farstSkillPosX=new float[4];
+    private float[] farstSkillPosY=new float[4];
     // Start is called before the first frame update
     void Start()
     {
         SkillNumber=0;
+
     }
 
     // Update is called once per frame
@@ -23,6 +27,10 @@ public class SkillSelection : MonoBehaviour
         SkillSet();
         SkillSelect();
         SelectSkill();
+        if(Input.GetKeyDown(KeyCode.Return)&&GameManager.state==GameManager.BattleState.command)
+        {
+
+        }
     }
     void SkillSet()//現在行動しているキャラのスキルを設定
     {
@@ -58,25 +66,33 @@ public class SkillSelection : MonoBehaviour
             { 
                 SkillNumber-=1;
             }
+            else if(SkillNumber==0)
+            {
+                SkillNumber=skills.Length-1;
+            }
         }
         if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if(SkillNumber<3)
+            if(SkillNumber<skills.Length-1)
             { 
                 SkillNumber+=1;
+            }
+            else if(SkillNumber>=skills.Length-1)
+            {
+                SkillNumber=0;
             }
         }
     }
 
     void SelectSkill()
     {
-        for(int i=0;i<4;i++)
+
+        for(int i=0;i<skills.Length;i++)
         {
-             skills[SkillNumber].transform.localScale = new Vector3(1.5f, skills[SkillNumber].transform.localScale.y, 0);
-            
+             skills[SkillNumber].transform.position = new Vector3(370, skills[SkillNumber].transform.position.y, 0);
             if(skills[i]!=skills[SkillNumber])
             {
-                skills[i].transform.localScale = new Vector3(1.0f, skills[i].transform.localScale.y, 0);
+                skills[i].transform.position = new Vector3(300, skills[i].transform.position.y, 0);
             }
         }
 
