@@ -33,7 +33,7 @@ public class PlayerEditor : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (GameManager.state==GameManager.BattleState.start)
         {
 
             for (int i = 0; i < playerDatas.Length; i++)

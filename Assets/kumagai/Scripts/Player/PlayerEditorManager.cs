@@ -37,7 +37,7 @@ public class PlayerEditorManager : MonoBehaviour
     void Update()
     {
         
-       if(Input.GetKeyDown(KeyCode.Return))
+       if(GameManager.state==GameManager.BattleState.start)
         { 
             for (int i = 0; i < partyTheNumberOf; i++)
             {
@@ -50,16 +50,16 @@ public class PlayerEditorManager : MonoBehaviour
 
     public void PlayerStatas(List<string[]> EData,int Integer)
     {
-            Debug.Log(Integer+1+"キャラ目のステータスは");
+           // Debug.Log(Integer+1+"キャラ目のステータスは");
             Player_HP[Integer] = int.Parse(EData[Lv+2][1]);//キャラHP
-            Debug.Log("HP"+Player_HP[Integer]);
+           // Debug.Log("HP"+Player_HP[Integer]);
             Player_ATK[Integer] = int.Parse(EData[Lv+2][2]);//キャラ攻撃力
-            Debug.Log("ATK" + Player_ATK[Integer]);
+           // Debug.Log("ATK" + Player_ATK[Integer]);
             Player_EXP[Integer] = int.Parse(EData[Lv+2][3]);//キャラの次のレベルまでに必要な経験値
-            Debug.Log("次のレベルまで" + Player_EXP[Integer]);
+           // Debug.Log("次のレベルまで" + Player_EXP[Integer]);
             Player_ActTime[Integer] = float.Parse(EData[Lv+2][4]);//キャラの再行動までの時間
-            Debug.Log("再行動までの時間は"+Player_ActTime[Integer]+"秒です");
-            PlayerMoveGage.ActTime[Integer] = Player_ActTime[Integer];
+           // Debug.Log("再行動までの時間は"+Player_ActTime[Integer]+"秒です");
+            CharaMoveGage.ActTime[Integer] = Player_ActTime[Integer];
         //[i番目のキャラクター]　[Lv]　[対応するステータス]
 
     }
