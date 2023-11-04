@@ -14,7 +14,7 @@ public class SkillSelection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SkillNumber=0;
     }
 
     // Update is called once per frame
@@ -22,11 +22,14 @@ public class SkillSelection : MonoBehaviour
     {
         SkillSet();
         SkillSelect();
+        SelectSkill();
     }
     void SkillSet()//現在行動しているキャラのスキルを設定
     {
         if (GameManager.state == GameManager.BattleState.skillSelect)
         {
+            skill = CharaMoveGage.MoveChar[0].transform.Find("Skill").gameObject;
+            skill.SetActive(true);
             if (skills[0] == null)
             {
                 for (int i = 0; i < skill.transform.childCount; i++)
@@ -34,7 +37,8 @@ public class SkillSelection : MonoBehaviour
                     skills[i] = skill.transform.GetChild(i).gameObject;
                 }
             }
-            skill = CharaMoveGage.MoveChar[0].transform.Find("Skill").gameObject;
+           
+
         }
         if (GameManager.state == GameManager.BattleState.effect)
         {
@@ -50,22 +54,32 @@ public class SkillSelection : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if(SkillNumber<3)
+            if(SkillNumber>0)
             { 
-                SkillNumber+=1;
+                SkillNumber-=1;
             }
         }
         if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if(SkillNumber>=0)
+            if(SkillNumber<3)
             { 
-                SkillNumber-=1;
+                SkillNumber+=1;
             }
         }
     }
 
     void SelectSkill()
     {
+        for(int i=0;i<4;i++)
+        {
+             skills[SkillNumber].transform.localScale = new Vector3(1.5f, skills[SkillNumber].transform.localScale.y, 0);
+            
+            if(skills[i]!=skills[SkillNumber])
+            {
+                skills[i].transform.localScale = new Vector3(1.0f, skills[i].transform.localScale.y, 0);
+            }
+        }
 
+       
     }
 }
