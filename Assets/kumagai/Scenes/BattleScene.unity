@@ -1131,7 +1131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &487988952
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1929,7 +1929,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillSelect: 0
-  skills: {fileID: 0}
+  skill: {fileID: 0}
+  skills:
+  - {fileID: 0}
 --- !u!1 &794385514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,7 +2402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &975909359
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3179,7 +3181,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -100.8, y: 128.35}
-  m_SizeDelta: {x: 100, y: 31.8}
+  m_SizeDelta: {x: 86.12, y: 31.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1235903999
 MonoBehaviour:
@@ -4079,7 +4081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1720498100
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5029,7 +5031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2086198236
 RectTransform:
   m_ObjectHideFlags: 0
