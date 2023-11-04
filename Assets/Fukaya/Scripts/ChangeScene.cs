@@ -17,7 +17,6 @@ public class ChangeScene : MonoBehaviour
         SceneManager.LoadScene("CharaSelectScene");
     }
 
-
     //ƒ‰ƒ“ƒLƒ“ƒO‚Ö
     public void OnClickRankingButton()
     {
