@@ -36,6 +36,7 @@ public class CharaMoveGage : MonoBehaviour
         }
     }
     bool Flag;//動作確認用
+    public static bool SetFlag=false;//if(SkillSelection.skillSelect)にてなぜか二回実行されるためそれを解決するためのフラグ
     // Update is called once per frame
     void Update()
     {
@@ -66,29 +67,33 @@ public class CharaMoveGage : MonoBehaviour
                 }
             }
         }
-        if (GameManager.state==GameManager.BattleState.nextChar)//仮の条件付け　後で変更
+        if (SkillSelection.skillSelect)//仮の条件付け　後で変更
         {//行動したキャラのfillAountをリセットして行動するキャラの配列から削除、配列の中身を詰める作業を行っている
-            order -= 1;
-            GameObject MG = MoveChar[0].transform.Find("MoveGage").gameObject;
-            Image IM = MG.GetComponent<Image>();
-            IM.fillAmount = 0;
-            MoveChar[0] = null;
-            MoveCharName[0]="";
-            for (int i = 1; i < 4; i++)
-            {
-                if (MoveChar[i - 1] == null)
+            if(!SetFlag)
+            { 
+                order -= 1;
+                GameObject MG = MoveChar[0].transform.Find("MoveGage").gameObject;
+                Image IM = MG.GetComponent<Image>();
+                IM.fillAmount = 0;
+                MoveChar[0] = null;
+                MoveCharName[0]="";
+                for (int i = 1; i < 4; i++)
                 {
-                    MoveChar[i - 1] = MoveChar[i];
-                    MoveChar[i] = null;
+                    if (MoveChar[i - 1] == null)
+                    {
+                        MoveChar[i - 1] = MoveChar[i];
+                        MoveChar[i] = null;
+                    }
                 }
-            }
-            if (MoveChar[0] == null)
-            {
-                Flag = false;
-            }
-            else if(MoveChar[0]!=null)
-            {
+                if (MoveChar[0] == null)
+                {
+                    Flag = false;
+                }
+                else if(MoveChar[0]!=null)
+                {
                 
+                }
+                SetFlag=true;
             }
         }
 

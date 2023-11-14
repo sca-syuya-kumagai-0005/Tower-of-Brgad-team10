@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]private GameObject mainCanvas;
     public enum BattleState
     {
         start=0,
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.moveWait:
                 {
+                    CharaMoveGage.SetFlag=false;
                     if(CharaMoveGage.characterAct)
                     {
                         state=BattleState.skillSelect;
@@ -50,17 +52,28 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.skillSelect:
                 {
-
+                    if(SkillSelection.skillSelect)
+                    {
+                        state=BattleState.command;
+                    }
                 }
                 break;
             case BattleState.command:
                 {
-
+                    SkillSelection.skillSelect=false;
+                    if(NotesEditor.commandEnd)
+                    {
+                        state=BattleState.effect;
+                    }
                 }
                 break;
             case BattleState.effect:
                 {
-
+                    SkillSelection.skillSelect=false;
+                    NotesEditor.commandEnd=false;
+                    NotesEditor.lastNotes=false;
+                    CharaMoveGage.characterAct=false;
+                    state =BattleState.moveWait;
                 }
                 break;
 

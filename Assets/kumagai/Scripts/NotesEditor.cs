@@ -6,14 +6,15 @@ using System.IO;
 public class NotesEditor : MonoBehaviour
 {
     [SerializeField]
-    private Canvas canvas; //キャンバス
-    [SerializeField]
     private float speed;   //生成したコマンドの移動速度
     public static float s;     //インスペクターからアタッチされたCSVファイルを格納する動的配列//リストに変換した↑のデータを格納する動的配列
     [SerializeField]
     private GameObject[] notes;        //コマンドの画像を格納する配列
+    public static string skillName;
     [SerializeField]
-    private string skillName;
+    private float minWait;
+    [SerializeField]
+    private float maxWait;
 
     public enum NotesType
     {
@@ -45,101 +46,88 @@ public class NotesEditor : MonoBehaviour
     {
         s = speed;
         var notesDatas = Resources.Load<TextAsset>(skillName);
-        if (Input.GetKeyDown(KeyCode.Return)) //試験的に、Enterキー入力でインスペクターにアタッチした一つ目のスキルを実行
-        {
-            StartCoroutine(NotesCreater(notesDatas));
+        if (GameManager.state==GameManager.BattleState.command&&Input.GetKeyDown(KeyCode.Return))
+        { 
+            StartCoroutine(NotesCreater());
         }
     }
-
-    IEnumerator NotesCreater(TextAsset TAD) //引数に入力されたリストをノーツとして生成する関数
+    int maxi=5;
+    public static bool lastNotes;
+    public static bool commandEnd;
+    IEnumerator NotesCreater() //引数に入力されたリストをノーツとして生成する関数
     {
-        List<string[]> csvDatas = new List<string[]>();
-        StringReader reader = new StringReader(TAD.text);
-
-        while (reader.Peek() != -1)
-        {
-            string line = reader.ReadLine();
-            csvDatas.Add(line.Split(','));
-        }
-        var notesData=csvDatas;
-        for (int i = 1; i != -1; ++i)
-        {
-            NotesType c=NotesType.w;
-            float t = 0.0f;
-            Vector3 pos = new Vector3(0, 0, 0);
-            string[] data = new string[notesData[i].Length]; //一行をまとめて格納する配列
-
-            for (int j = 0; j < notesData[0].Length; ++j)
+        for(int i=0;i<maxi;i++)
+        { 
+            if(i==maxi-1)
             {
-                if (notesData[i][j] == (-1).ToString()) //-1が来たら関数終了
-                {
-                    yield break;
-                }
-
-                data[j] = notesData[i][j]; //一行を配列に格納
+                lastNotes=true;
             }
-
-            switch (data[0]) //配列の一つ目に入っている文字よって生成するコマンドを決定
+        NotesType c = NotesType.w;
+        int data = Random.Range(0, 8); 
+            switch (data) //配列の一つ目に入っている文字よって生成するコマンドを決定
             {
-                case "w":
+                case 0:
                     c = NotesType.w;
                     break;
 
-                case "a":
+                case 1:
                     c = NotesType.a;
                     break;
 
-                case "s":
+                case 2:
                     c = NotesType.s;
                     break;
 
-                case "d":
+                case 3:
                     c = NotesType.d;
                     break;
 
-                case "L":
+                case 4:
                     c = NotesType.L;
                     break;
 
-                case "U":
+                case 5:
                     c = NotesType.U;
                     break;
 
-                case "R":
+                case 6:
                     c = NotesType.R;
                     break;
 
-                case "D":
+                case 7:
                     c = NotesType.D;
                     break;
             }　　　　//一列目の値によってノーツの種類を決定
-            t = float.Parse(data[1]);　//二列目の値によってノーツが流れて来るまでの時間を決定
-            switch (data[2]) 
+        
+            float t = Random.Range(minWait,maxWait);　//二列目の値によってノーツが流れて来るまでの時間を決定
+            int dir=Random.Range(0,4);
+            Vector3 pos=new Vector3(10,0,0);
+            switch (dir) 
             {
-                case "L":
+                case 0:
                     {
-                        pos = new Vector3(1010 + canvas.pixelRect.width / 2, canvas.pixelRect.height / 2, 0);
+                       
                         direction = NotesDirection.Left;
                     }
                     break;
 
-                case "U":
+                case 1:
                     {
-                        pos = new Vector3(canvas.pixelRect.width / 2, -590 + canvas.pixelRect.height / 2, 0);
+                      
                         direction = NotesDirection.Up;
                     }
                     break;
 
-                case "R":
+                case 2:
                     {
-                        pos = new Vector3(-1010 + canvas.pixelRect.width / 2, canvas.pixelRect.height / 2, 0);
+                      
                         direction = NotesDirection.Right;
                     }
                     break;
 
-                case "D":
+                case 3:
                     {
-                        pos = new Vector3(canvas.pixelRect.width / 2, 590 + canvas.pixelRect.height / 2, 0);
+                      
                         direction = NotesDirection.Down;
                     }
                     break;
@@ -148,5 +136,6 @@ public class NotesEditor : MonoBehaviour
             Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //生成
         }
     }
-
 }
+
+
