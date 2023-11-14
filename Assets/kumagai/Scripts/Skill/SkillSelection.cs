@@ -27,6 +27,7 @@ public class SkillSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SkillPosReset();
         SkillSet();
         if (GameManager.state==GameManager.BattleState.skillSelect)
         { 
@@ -107,7 +108,15 @@ public class SkillSelection : MonoBehaviour
                 skills[i].transform.position = new Vector3(pos[i].x, skills[i].transform.position.y, 0);
             }
         }
-
-       
+    }
+    void SkillPosReset()
+    {
+        if(GameManager.state==GameManager.BattleState.command)
+        {
+            for(int i=0;i < skill.transform.childCount; i++)
+            {
+                skills[i].transform.position=pos[i];
+            }
+        }
     }
 }
