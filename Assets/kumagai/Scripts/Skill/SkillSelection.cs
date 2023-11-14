@@ -5,8 +5,10 @@ using UnityEngine;
 public class SkillSelection : MonoBehaviour
 {
     private GameObject nowChar;
+    [SerializeField]
+    private GameObject mainCanvas;
     private string[] skillName;
-    public bool skillSelect;
+    public static bool skillSelect;
     [SerializeField]
     private GameObject skill;
     [SerializeField]
@@ -14,6 +16,7 @@ public class SkillSelection : MonoBehaviour
     private int skillPosX;
     private float[] farstSkillPosX=new float[4];
     private float[] farstSkillPosY=new float[4];
+    private Vector3[] pos=new Vector3[4];
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +28,20 @@ public class SkillSelection : MonoBehaviour
     void Update()
     {
         SkillSet();
-        SkillSelect();
-        SelectSkill();
-        if(Input.GetKeyDown(KeyCode.Return)&&GameManager.state==GameManager.BattleState.command)
-        {
+        if (GameManager.state==GameManager.BattleState.skillSelect)
+        { 
 
+            SkillSelect();
+            SelectSkill();
+            if(Input.GetKeyDown(KeyCode.Return)&&GameManager.state==GameManager.BattleState.skillSelect)
+            {
+                Debug.Log(skills[SkillNumber].name);
+                NotesEditor.skillName = skills[SkillNumber].name;
+                skillSelect=true;
+            }
         }
     }
-    void SkillSet()//現在行動しているキャラのスキルを設定
+    void SkillSet()//現在行動しているキャラのスキルを画面左側に設定
     {
         if (GameManager.state == GameManager.BattleState.skillSelect)
         {
@@ -43,10 +52,13 @@ public class SkillSelection : MonoBehaviour
                 for (int i = 0; i < skill.transform.childCount; i++)
                 {
                     skills[i] = skill.transform.GetChild(i).gameObject;
+                    pos[i]=skills[i].transform.position;
                 }
             }
-           
-
+        }
+        else if(GameManager.state==GameManager.BattleState.effect)
+        {
+            skill.SetActive(false);
         }
         if (GameManager.state == GameManager.BattleState.effect)
         {
@@ -83,16 +95,16 @@ public class SkillSelection : MonoBehaviour
             }
         }
     }
-
+    //現在選択されているスキルの設定
     void SelectSkill()
     {
 
         for(int i=0;i<skills.Length;i++)
         {
-             skills[SkillNumber].transform.position = new Vector3(370, skills[SkillNumber].transform.position.y, 0);
+             skills[SkillNumber].transform.position = new Vector3(pos[SkillNumber].x+1, skills[SkillNumber].transform.position.y, 0);
             if(skills[i]!=skills[SkillNumber])
             {
-                skills[i].transform.position = new Vector3(300, skills[i].transform.position.y, 0);
+                skills[i].transform.position = new Vector3(pos[i].x, skills[i].transform.position.y, 0);
             }
         }
 
