@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]private GameObject mainCanvas;
     public enum BattleState
     {
         start=0,
         moveWait,
         skillSelect,
         command,
+        move,
         effect,
         nextChar,
     }
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        state=BattleState.start;
     }
 
     // Update is called once per frame
@@ -63,8 +63,13 @@ public class GameManager : MonoBehaviour
                     SkillSelection.skillSelect=false;
                     if(NotesEditor.commandEnd)
                     {
-                        state=BattleState.effect;
+                        state=BattleState.move;
                     }
+                }
+                break;
+                case BattleState.move:
+                {
+                    state=BattleState.effect;
                 }
                 break;
             case BattleState.effect:
@@ -73,6 +78,7 @@ public class GameManager : MonoBehaviour
                     NotesEditor.commandEnd=false;
                     NotesEditor.lastNotes=false;
                     CharaMoveGage.characterAct=false;
+                    SkillSelection.SkillNumber=0;
                     state =BattleState.moveWait;
                 }
                 break;

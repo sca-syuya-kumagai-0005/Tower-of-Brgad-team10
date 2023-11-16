@@ -70,7 +70,7 @@ public class SkillSelection : MonoBehaviour
         }
     }
 
-    private int SkillNumber;
+    public static int SkillNumber;
     void SkillSelect()//スキルを選択するときのプレイヤーからの入力処理
     {
         if(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow))
