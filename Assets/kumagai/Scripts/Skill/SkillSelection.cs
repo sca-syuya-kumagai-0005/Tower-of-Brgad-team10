@@ -111,7 +111,7 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillPosReset()
     {
-        if(GameManager.state==GameManager.BattleState.command)
+        if(GameManager.state==GameManager.BattleState.move)
         {
             for(int i=0;i < skill.transform.childCount; i++)
             {

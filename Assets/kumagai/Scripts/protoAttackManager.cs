@@ -40,4 +40,11 @@ public class protoAttackManager : MonoBehaviour
             }
         }
     }
+
+    void DamageCalculation() 
+    {
+        if(GameManager.state==GameManager.BattleState.move) {
+            Debug.Log("UŒ‚‚ğ‚µ‚½");
+        }
+    }
 }
