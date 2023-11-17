@@ -26,7 +26,13 @@ public class PlayerEditor : MonoBehaviour
         PlayerName=name;
         playerDatas=new List<string[]>[partyTheNumberOf];//パーティのキャラ数を入れる今は最大値の4を仮で入れる
         PlayerDatas=new TextAsset[partyTheNumberOf];
+        for (int i = 0; i < playerDatas.Length; i++)
+        {
+            PlayerDatas[i] = Resources.Load<TextAsset>(PlayerName[i]);
+            PlayerStatus(PlayerDatas[i], i);
+            DebugDatas[i] = PlayerDatas[i];
 
+        }
     }
 
     // Update is called once per frame
@@ -36,13 +42,7 @@ public class PlayerEditor : MonoBehaviour
         if (GameManager.state==GameManager.BattleState.start)
         {
 
-            for (int i = 0; i < playerDatas.Length; i++)
-            {
-                PlayerDatas[i] = Resources.Load<TextAsset>(PlayerName[i]);
-                PlayerStatus(PlayerDatas[i],i);
-                DebugDatas[i]=PlayerDatas[i];
-
-            }
+           
             
         }
     }

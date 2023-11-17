@@ -30,21 +30,16 @@ public class PlayerEditorManager : MonoBehaviour
         Player_ATK = new int[partyTheNumberOf];
         Player_EXP = new int[partyTheNumberOf];
         Player_ActTime=new float[partyTheNumberOf];
-        
+        for (int i = 0; i < partyTheNumberOf; i++)
+        {
+            PlayerStatas(PlayerEditor.playerDatas[i], i);
+        }
+        SetCharStatus = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-       if(GameManager.state==GameManager.BattleState.start)
-        { 
-            for (int i = 0; i < partyTheNumberOf; i++)
-            {
-                PlayerStatas(PlayerEditor.playerDatas[i], i);
-            }
-            SetCharStatus=true;
-        }
         
     }
 

@@ -57,11 +57,11 @@ public class SkillSelection : MonoBehaviour
                 }
             }
         }
-        else if(GameManager.state==GameManager.BattleState.effect)
+        else if(GameManager.state==GameManager.BattleState.flagReSet&&!EnemyMove.enemyMove)
         {
             skill.SetActive(false);
         }
-        if (GameManager.state == GameManager.BattleState.effect)
+        if (GameManager.state == GameManager.BattleState.flagReSet&&!EnemyMove.enemyMove)
         {
             for (int i = 0; i < skill.transform.childCount; i++)
             {
@@ -111,7 +111,7 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillPosReset()
     {
-        if(GameManager.state==GameManager.BattleState.move)
+        if(GameManager.state==GameManager.BattleState.move&&!EnemyMove.enemyMove)
         {
             for(int i=0;i < skill.transform.childCount; i++)
             {

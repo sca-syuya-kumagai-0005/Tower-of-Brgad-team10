@@ -10,7 +10,7 @@ public class CharaMoveGage : MonoBehaviour
     [SerializeField]
     private GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
     [SerializeField]private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
-    private int order=0;//fillAmountが１になったとき何番目に格納するかを決定
+    public static int order=0;//fillAmountが１になったとき何番目に格納するかを決定
     [SerializeField]
     private GameObject[] tmpMoveChara=new GameObject[10];
     public static GameObject[] MoveChar=new GameObject[10];//行動するためのゲージがたまっているキャラを格納 仮で4を入れているが、パーティのキャラ数＋エネミー数が必要
@@ -46,43 +46,35 @@ public class CharaMoveGage : MonoBehaviour
     void Update()
     {
         tmpMoveChara=MoveChar;
-       if(MoveChar[0]!=null&&GameManager.state==GameManager.BattleState.moveWait)
+       if(MoveChar[0]!=null&&GameManager.state==GameManager.BattleState.moveWait&&MoveChar[0].name!="Enemy")
         {
             characterAct=true;
         }
-        SetMoveChar();
-        if (GameManager.state==GameManager.BattleState.moveWait)
-        {
-            if (!Flag && MoveChar[0] == null)//行動しているキャラがいなければ
-            {
-                for (int i = 0; i < Player_MoveGageImage.Length; i++)
-                {
-                    elapsedTime[i] += Time.deltaTime;
-                    Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
-                    if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
-                    {
-                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
-                        MoveCharName[i]=MoveChar[order].name;
-                        Debug.Log(MoveCharName[i]);
-                        order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
-                        elapsedTime[i] -= ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
+       AddGage();
+       MoveCharaSort();
 
-                        Flag = true;//以上の処理を行うための条件付けを仮で入れている　後で変更
-                    }
-                }
-            }
-        }
-        if (SkillSelection.skillSelect)//仮の条件付け　後で変更
+    }
+
+    public static void MoveCharaSort()
+    {
+        if (SkillSelection.skillSelect || GameManager.state == GameManager.BattleState.enemyStay)//仮の条件付け　後で変更
         {//行動したキャラのfillAountをリセットして行動するキャラの配列から削除、配列の中身を詰める作業を行っている
-            if(!SetFlag)
-            { 
+            if (!SetFlag)
+            {
+                Debug.Log("ソートされています");
                 order -= 1;
+                Debug.Log(MoveChar[0].transform.Find("MoveGage").gameObject);
                 GameObject MG = MoveChar[0].transform.Find("MoveGage").gameObject;
                 Image IM = MG.GetComponent<Image>();
                 IM.fillAmount = 0;
-                MoveChar[0] = null;
-                MoveCharName[0]="";
-                for (int i = 1; i < 4; i++)
+                MoveChar[0]=null;
+                if(MoveChar[0]==null)
+                {
+                    Debug.Log("OK");
+                }
+                Debug.Log(MoveChar[0]);
+                MoveCharName[0] = "";
+                for (int i = 1; i < 5; i++)
                 {
                     if (MoveChar[i - 1] == null)
                     {
@@ -90,20 +82,36 @@ public class CharaMoveGage : MonoBehaviour
                         MoveChar[i] = null;
                     }
                 }
-                if (MoveChar[0] == null)
-                {
-                    Flag = false;
-                }
-                else if(MoveChar[0]!=null)
-                {
-                
-                }
-                SetFlag=true;
+                SetFlag = true;
             }
         }
-
     }
+    public static bool orderFlag;
+    void AddGage()
+    {
+        if (GameManager.state == GameManager.BattleState.moveWait)
+        {
+            if (MoveChar[0] == null&&order<=MoveChar.Length-1)//行動しているキャラがいなければ
+            {
+                Debug.Log("MoveCharの中身はありません");
+                for (int i = 0; i < Player_MoveGageImage.Length; i++)
+                {
+                    elapsedTime[i] += Time.deltaTime;
+                    Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
+                    if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
+                    {
+                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
+                        //MoveCharName[i] = MoveChar[order].name;
+                        //Debug.Log(MoveCharName[i]);
+                        order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
+                        elapsedTime[i] -= ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
 
+
+                    }
+                }
+            }
+        }
+    }
     void CheckMoveChar()
     {
             
