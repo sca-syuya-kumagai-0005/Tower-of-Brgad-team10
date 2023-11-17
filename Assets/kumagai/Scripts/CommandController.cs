@@ -81,7 +81,9 @@ public class CommandController : MonoBehaviour
             NotesEditor.commandEnd = true;
         }
         yield return new WaitForSeconds(6);
+        GameManager.moveEnd = true;
         Destroy(this.gameObject);
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
