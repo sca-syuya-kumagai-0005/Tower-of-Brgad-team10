@@ -9,21 +9,23 @@ public class EnemyEditor : MonoBehaviour
     [SerializeField]
     private string enemyData;
     public static List<string[]> EnemyData;
-
+    public static bool enemyDataSet;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyDataSet=false;
     }
 
     // Update is called once per frame
     void Update()
     {
         var EnemyDatas=Resources.Load<TextAsset>(enemyData);
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(GameManager.state==GameManager.BattleState.start)
         {
             EnemyStatus(EnemyDatas);
+            enemyDataSet=true;
         }
     }
 

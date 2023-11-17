@@ -39,12 +39,6 @@ public class PlayerEditor : MonoBehaviour
     void Update()
     {
         
-        if (GameManager.state==GameManager.BattleState.start)
-        {
-
-           
-            
-        }
     }
 
     void PlayerStatus(TextAsset TAD,int Integer)

@@ -10,32 +10,40 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
     private int skillNumber;
+    public static bool skillSet;
+    public static bool skillOK;
     // Start is called before the first frame update
     void Start()
     {
+        CharaMoveGage.ActTime[0]=2;
     }
 
     // Update is called once per frame
     void Update()
     {
         tmpEM=enemyMove;
+        if(GameManager.moveEnd)
+        {
+            Debug.Log("TRUEになった");
+        }
        protEnemyMove();
         if(GameManager.state==GameManager.BattleState.moveWait&&Input.GetKeyDown(KeyCode.Return))
         {
-            SkillSet();
-            skillNumber=0;
-            if (CharaMoveGage.MoveChar[0].name == "Enemy")
-            {
-                enemyMove = true;
+            
+            if(CharaMoveGage.MoveChar[0]!=null)
+            { 
+                if (CharaMoveGage.MoveChar[0].name == "Enemy")
+                {
+                    enemyMove = true;
+                }
             }
         }
     }
     void protEnemyMove()//プロト版でのエネミーの行動 どのスキルを使用するかの抽選
     {
         
-        if (GameManager.state == GameManager.BattleState.enemyStay&&CharaMoveGage.MoveChar[0].name==null)
+        if (GameManager.state == GameManager.BattleState.enemyStay&&CharaMoveGage.MoveChar[0].name!=null)
         {
-            int sn;
             int MaxSkill = 0;
             for (int i = 0; i < 4; i++)
             {
@@ -47,9 +55,17 @@ public class EnemyMove : MonoBehaviour
                 move-=WolfSkill[i-1];
                 if(move<=0)
                 {
-                    Debug.Log(i+"番目のスキルを使用");
-                    skillNumber=i;
-                    return ;
+                   
+                    if(!skillSet)
+                    {
+                        skillNumber = i;
+                        SkillSet();
+                        Debug.Log(i + "番目のスキルを使用");
+                        skillOK=true;
+                        skillSet =true;
+                    }
+                    
+                    break;
                 }
             }
             
@@ -58,24 +74,45 @@ public class EnemyMove : MonoBehaviour
 
     void EnemySkill1()
     {
+        int target=Random.Range(1,4);//対象の抽選
+        Debug.Log("target");
+        Debug.Log("OK");
+        PlayerEditorManager.PlayerInfo.Player_HP[target]-= EnemyManager.EnemyInfo.Enemy_standardATK;
+        PlayerManager.playerHPBer[target].fillAmount=PlayerEditorManager.PlayerInfo.Player_HP[target]/PlayerEditorManager.MaxHP[target];
+        CharaMoveGage.ActTime[0]=8;
         enemyMoveGageImage.fillAmount=0;
-        
+        GameManager.moveEnd=true;
     }
 
     void EnemySkill2()
     {
+        int target = Random.Range(1, 4);//対象の抽選
+        Debug.Log("target");
+        PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
+        PlayerManager.playerHPBer[target].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[target] / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
         enemyMoveGageImage.fillAmount = 0;
-
+        Debug.Log("OK");
+        GameManager.moveEnd = true;
     }
     void EnemySkill3()
     {
+        int target = Random.Range(1, 4);//対象の抽選
+        Debug.Log("target");
+        PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
+        PlayerManager.playerHPBer[target].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[target] / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
         enemyMoveGageImage.fillAmount = 0;
-
+        Debug.Log("OK");
+        GameManager.moveEnd = true;
     }
     void EnemySkill4()
     {
+        int target = Random.Range(1, 4);//対象の抽選
+        Debug.Log("target");
+        PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
+        PlayerManager.playerHPBer[target].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[target] / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
         enemyMoveGageImage.fillAmount = 0;
-
+        Debug.Log("OK");
+        GameManager.moveEnd = true;
     }
     void SkillSet()
     {

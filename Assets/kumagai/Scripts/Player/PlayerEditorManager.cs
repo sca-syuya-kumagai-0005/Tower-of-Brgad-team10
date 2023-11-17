@@ -23,6 +23,8 @@ public class PlayerEditorManager : MonoBehaviour
         public static int[] Player_EXP;
         public static float[] Player_ActTime;
     }
+    public static int[] MaxHP=new int[4];
+    public static int[] standardATK=new int[4];
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,8 @@ public class PlayerEditorManager : MonoBehaviour
             PlayerStatas(PlayerEditor.playerDatas[i], i);
         }
         SetCharStatus = true;
+       
+
     }
 
     // Update is called once per frame
@@ -55,6 +59,8 @@ public class PlayerEditorManager : MonoBehaviour
             Player_ActTime[Integer] = float.Parse(EData[Lv+1][4]);//キャラの再行動までの時間
            // Debug.Log("再行動までの時間は"+Player_ActTime[Integer]+"秒です");
             CharaMoveGage.ActTime[Integer+1] = Player_ActTime[Integer];
+            MaxHP[Integer]= PlayerInfo.Player_HP[Integer];
+            standardATK[Integer]=Player_HP[Integer];
         //[i番目のキャラクター]　[Lv]　[対応するステータス]
 
     }

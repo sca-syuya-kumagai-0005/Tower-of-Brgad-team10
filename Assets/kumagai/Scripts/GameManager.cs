@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public enum BattleState
     {
         start=0,
+        enemyStatausSet,
         moveWait,
         enemyStay,
         skillSelect,
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public static BattleState state;
     // Start is called before the first frame update
+    public static bool moveEnd;
+    [SerializeField]private bool tmpmoveEnd;
     void Start()
     {
         state=BattleState.start;
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         BattleStateManager();
         Debug.Log(state);
+        tmpmoveEnd=moveEnd;
     }
 
     void BattleStateManager()
@@ -36,8 +40,16 @@ public class GameManager : MonoBehaviour
         {
             case BattleState.start:
                 { 
-                    if(PlayerEditorManager.SetCharStatus)
+                    if(PlayerEditorManager.SetCharStatus&&EnemyEditor.enemyDataSet)
                     {
+                        state=BattleState.enemyStatausSet;
+                    }
+                }
+                break;
+            case BattleState.enemyStatausSet:
+                {
+                    if(EnemyManager.enemyStatusSet)
+                    { 
                         state=BattleState.moveWait;
                     }
                 }
@@ -58,7 +70,7 @@ public class GameManager : MonoBehaviour
             case BattleState.enemyStay:
                 {
                     Debug.Log(CharaMoveGage.SetFlag);
-                    if(EnemyMove.enemyMove)
+                    if(EnemyMove.skillOK)
                     {
                         state=BattleState.move;
                     }
@@ -83,7 +95,11 @@ public class GameManager : MonoBehaviour
                 break;
                 case BattleState.move:
                 {
-                    state=BattleState.effect;
+                    Debug.Log(moveEnd);
+                    if(moveEnd)
+                    { 
+                        state=BattleState.effect; 
+                    }
                 }
                 break;
             case BattleState.effect:
@@ -93,13 +109,15 @@ public class GameManager : MonoBehaviour
                 break;
              case BattleState.flagReSet:
                 {
-                    state = BattleState.moveWait;
+                    
                     SkillSelection.skillSelect = false;
                     NotesEditor.commandEnd = false;
                     NotesEditor.lastNotes = false;
                     CharaMoveGage.characterAct = false;
                     EnemyMove.enemyMove = false;
+                    moveEnd=false;
                     SkillSelection.SkillNumber = 0;
+                    state = BattleState.moveWait;
                 }
                 break;
 
