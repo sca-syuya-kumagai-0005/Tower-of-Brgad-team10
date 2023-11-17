@@ -77,8 +77,9 @@ public class EnemyMove : MonoBehaviour
         Debug.Log("target");
         Debug.Log("OK");
         PlayerEditorManager.PlayerInfo.Player_HP[target]-= EnemyManager.EnemyInfo.Enemy_standardATK;
-        PlayerManager.playerHPBer[target].fillAmount=PlayerEditorManager.PlayerInfo.Player_HP[target]/PlayerEditorManager.MaxHP[target];
-        CharaMoveGage.ActTime[0]=8;
+        float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+        PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
+        CharaMoveGage.ActTime[0]=2;
         enemyMoveGageImage.fillAmount=0;
         GameManager.moveEnd=true;
     }
