@@ -8,11 +8,12 @@ public class GameManager : MonoBehaviour
     {
         start=0,
         moveWait,
+        enemyStay,
         skillSelect,
         command,
         move,
         effect,
-        nextChar,
+        flagReSet,
     }
 
     public static BattleState state;
@@ -48,6 +49,19 @@ public class GameManager : MonoBehaviour
                     {
                         state=BattleState.skillSelect;
                     }
+                    if(EnemyMove.enemyMove)
+                    {
+                        state=BattleState.enemyStay;
+                    }
+                }
+                break;
+            case BattleState.enemyStay:
+                {
+                    Debug.Log(CharaMoveGage.SetFlag);
+                    if(EnemyMove.enemyMove)
+                    {
+                        state=BattleState.move;
+                    }
                 }
                 break;
             case BattleState.skillSelect:
@@ -74,12 +88,18 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.effect:
                 {
-                    SkillSelection.skillSelect=false;
-                    NotesEditor.commandEnd=false;
-                    NotesEditor.lastNotes=false;
-                    CharaMoveGage.characterAct=false;
-                    SkillSelection.SkillNumber=0;
-                    state =BattleState.moveWait;
+                    state=BattleState.flagReSet;
+                }
+                break;
+             case BattleState.flagReSet:
+                {
+                    state = BattleState.moveWait;
+                    SkillSelection.skillSelect = false;
+                    NotesEditor.commandEnd = false;
+                    NotesEditor.lastNotes = false;
+                    CharaMoveGage.characterAct = false;
+                    EnemyMove.enemyMove = false;
+                    SkillSelection.SkillNumber = 0;
                 }
                 break;
 

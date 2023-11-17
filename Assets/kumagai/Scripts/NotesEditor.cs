@@ -46,7 +46,7 @@ public class NotesEditor : MonoBehaviour
     {
         s = speed;
         var notesDatas = Resources.Load<TextAsset>(skillName);
-        if (GameManager.state==GameManager.BattleState.skillSelect&&Input.GetKeyDown(KeyCode.Return))
+        if (GameManager.state==GameManager.BattleState.command&&Input.GetKeyDown(KeyCode.Return))
         { 
             StartCoroutine(NotesCreater());
         }
@@ -101,7 +101,7 @@ public class NotesEditor : MonoBehaviour
         
             float t = Random.Range(minWait,maxWait);　//二列目の値によってノーツが流れて来るまでの時間を決定
             int dir=Random.Range(0,4);
-            Vector3 pos=new Vector3(10,-4,0);//ノーツの生成位置
+            Vector3 pos=new Vector3(10,-4,0);
             switch (dir) 
             {
                 case 0:
