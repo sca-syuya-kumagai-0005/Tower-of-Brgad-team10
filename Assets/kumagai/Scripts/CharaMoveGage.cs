@@ -7,12 +7,11 @@ public class CharaMoveGage : MonoBehaviour
 {
 
     private GameObject Char;//配列への代入に使用　あまり気にしなくてよし
-    [SerializeField]
     private GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
-    [SerializeField]private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
-    public static int order=0;//fillAmountが１になったとき何番目に格納するかを決定
+    private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
+    public static int order = 0;//fillAmountが１になったとき何番目に格納するかを決定
     [SerializeField]
-    private GameObject[] tmpMoveChara=new GameObject[10];
+    private GameObject[] tmpMoveChara = new GameObject[10];
     public static GameObject[] MoveChar=new GameObject[10];//行動するためのゲージがたまっているキャラを格納 仮で4を入れているが、パーティのキャラ数＋エネミー数が必要
     public static string[] MoveCharName;
     public static float[] ActTime=new float[5];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
@@ -38,15 +37,15 @@ public class CharaMoveGage : MonoBehaviour
             Player_MoveGageImage[i] = Char_MoveGage[i].GetComponent<Image>();
 
         }
-        ActTime[0]=2;
+        
     }
     bool Flag;//動作確認用
     public static bool SetFlag=false;//if(SkillSelection.skillSelect)にてなぜか二回実行されるためそれを解決するためのフラグ
     // Update is called once per frame
     void Update()
     {
-        tmpMoveChara=MoveChar;
-       if(MoveChar[0]!=null&&GameManager.state==GameManager.BattleState.moveWait&&MoveChar[0].name!="Enemy")
+        tmpMoveChara = MoveChar;
+        if (MoveChar[0]!=null&&GameManager.state==GameManager.BattleState.moveWait&&MoveChar[0].name!="Enemy")
         {
             characterAct=true;
         }
@@ -57,22 +56,16 @@ public class CharaMoveGage : MonoBehaviour
 
     public static void MoveCharaSort()
     {
-        if (SkillSelection.skillSelect || GameManager.state == GameManager.BattleState.enemyStay)//仮の条件付け　後で変更
+        if (SkillSelection.skillSelect || GameManager.state == GameManager.BattleState.move)//仮の条件付け　後で変更
         {//行動したキャラのfillAountをリセットして行動するキャラの配列から削除、配列の中身を詰める作業を行っている
             if (!SetFlag)
             {
                 Debug.Log("ソートされています");
                 order -= 1;
-                Debug.Log(MoveChar[0].transform.Find("MoveGage").gameObject);
                 GameObject MG = MoveChar[0].transform.Find("MoveGage").gameObject;
                 Image IM = MG.GetComponent<Image>();
                 IM.fillAmount = 0;
                 MoveChar[0]=null;
-                if(MoveChar[0]==null)
-                {
-                    Debug.Log("OK");
-                }
-                Debug.Log(MoveChar[0]);
                 MoveCharName[0] = "";
                 for (int i = 1; i < 5; i++)
                 {

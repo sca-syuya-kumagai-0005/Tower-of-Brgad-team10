@@ -37,16 +37,18 @@ public class EnemyManager : MonoBehaviour
         public static int Enemy_HP;
         public static int Enemy_ATK;
     }
+    public static bool enemyStatusSet;
     // Start is called before the first frame update
     void Start()
     {
         Enemy_Lv=10;
+        enemyStatusSet=false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))//エンカウントしたらに変更する
+        if (GameManager.state==GameManager.BattleState.enemyStatausSet)//エンカウントしたらに変更する
         {
             //enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
             EnemyStataus(EnemyEditor.EnemyData);
@@ -57,10 +59,14 @@ public class EnemyManager : MonoBehaviour
             float ATKScope = Random.Range(Enemy_minHP * 10, (Enemy_maxHP * 10)) / 10;
             float tmpEnemy_ATK = (Enemy_standardATK + ((Enemy_Lv - 1) * Enemy_risingATK)) * ATKScope;//式の関係上一度floatで作る
             Enemy_ATK = (int)tmpEnemy_ATK;//上のfloatをintに変換
-            Debug.Log(Enemy_HP);
-            Debug.Log(Enemy_ATK);
+            enemyStatusSet=true;
            // ATK.text=Enemy_ATK.ToString();
            // Name.text=Enemy_Name;
+        }
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            Debug.Log(Enemy_HP);
+            Debug.Log(Enemy_ATK);
         }
     }
 

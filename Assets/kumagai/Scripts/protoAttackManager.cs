@@ -35,7 +35,7 @@ public class protoAttackManager : MonoBehaviour
                 if(partyCharacter.transform.GetChild(i).gameObject==moveCharacter) {
                     Debug.Log("OK");
                     attack=PlayerEditorManager.PlayerInfo.Player_ATK[i];
-                    Debug.Log(attack);
+                    Debug.Log("プレイヤーの攻撃値は"+attack);
                 }
             }
         }
