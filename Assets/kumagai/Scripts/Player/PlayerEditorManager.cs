@@ -59,7 +59,7 @@ public class PlayerEditorManager : MonoBehaviour
            // Debug.Log("次のレベルまで" + Player_EXP[Integer]);
             Player_ActTime[Integer] = float.Parse(EData[Lv+1][4]);//キャラの再行動までの時間
            // Debug.Log("再行動までの時間は"+Player_ActTime[Integer]+"秒です");
-            CharaMoveGage.ActTime[Integer] = Player_ActTime[Integer];
+            CharaMoveGage.ActTime[Integer+1] = Player_ActTime[Integer];
         //[i番目のキャラクター]　[Lv]　[対応するステータス]
 
     }
