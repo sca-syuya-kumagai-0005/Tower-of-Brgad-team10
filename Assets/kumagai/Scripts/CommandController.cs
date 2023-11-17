@@ -63,11 +63,13 @@ public class CommandController : MonoBehaviour
                 NotesEditor.commandEnd=true;
                 if(NotesEditor.commandEnd)
                 { 
+                    GameManager.moveEnd=true;
                     Destroy(this.gameObject);
                 }
             }
             else { 
             Destroy(this.gameObject);
+                GameManager.moveEnd = true;
             }
         }
     }
@@ -79,7 +81,9 @@ public class CommandController : MonoBehaviour
             NotesEditor.commandEnd = true;
         }
         yield return new WaitForSeconds(6);
+        GameManager.moveEnd = true;
         Destroy(this.gameObject);
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

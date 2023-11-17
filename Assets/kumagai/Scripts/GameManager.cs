@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour
                     NotesEditor.lastNotes = false;
                     CharaMoveGage.characterAct = false;
                     EnemyMove.enemyMove = false;
+                    EnemyMove.skillOK=false;
+                    EnemyMove.skillSet=false;
                     moveEnd=false;
                     SkillSelection.SkillNumber = 0;
                     state = BattleState.moveWait;

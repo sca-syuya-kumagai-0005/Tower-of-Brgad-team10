@@ -55,7 +55,6 @@ public class EnemyMove : MonoBehaviour
                 move-=WolfSkill[i-1];
                 if(move<=0)
                 {
-                   
                     if(!skillSet)
                     {
                         skillNumber = i;
@@ -88,6 +87,7 @@ public class EnemyMove : MonoBehaviour
     {
         int target = Random.Range(1, 4);//‘ÎÛ‚Ì’Š‘I
         Debug.Log("target");
+        CharaMoveGage.ActTime[0] = 2;
         PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
         PlayerManager.playerHPBer[target].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[target] / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
         enemyMoveGageImage.fillAmount = 0;
@@ -98,6 +98,7 @@ public class EnemyMove : MonoBehaviour
     {
         int target = Random.Range(1, 4);//‘ÎÛ‚Ì’Š‘I
         Debug.Log("target");
+        CharaMoveGage.ActTime[0] = 2;
         PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
         PlayerManager.playerHPBer[target].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[target] / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
         enemyMoveGageImage.fillAmount = 0;
@@ -108,6 +109,7 @@ public class EnemyMove : MonoBehaviour
     {
         int target = Random.Range(1, 4);//‘ÎÛ‚Ì’Š‘I
         Debug.Log("target");
+        CharaMoveGage.ActTime[0] = 2;
         PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
         PlayerManager.playerHPBer[target].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[target] / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
         enemyMoveGageImage.fillAmount = 0;
