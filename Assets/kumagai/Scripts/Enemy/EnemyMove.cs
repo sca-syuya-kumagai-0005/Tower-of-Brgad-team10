@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyMove : MonoBehaviour
 {
-    int[] WolfSkill={40,10,40,10 };
+    int[] WolfSkill={40,1000,40,10 };
     public static bool enemyMove;
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
@@ -86,13 +86,17 @@ public class EnemyMove : MonoBehaviour
 
     void EnemySkill2()
     {
-        int target = Random.Range(1, 4);//ëŒè€ÇÃíäëI
-        Debug.Log("target");
-        CharaMoveGage.ActTime[0] = 2;
-        PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
-        PlayerManager.playerHPBer[target].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[target] / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
-        enemyMoveGageImage.fillAmount = 0;
-        Debug.Log("OK");
+        for(int i=0;i<2;i++)
+        { 
+            int target = Random.Range(1, 4);//ëŒè€ÇÃíäëI
+            Debug.Log("target");
+            CharaMoveGage.ActTime[0] = 2;
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
+            enemyMoveGageImage.fillAmount = 0;
+            Debug.Log("OK");
+        }
         GameManager.moveEnd = true;
     }
     void EnemySkill3()
