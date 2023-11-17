@@ -7,16 +7,17 @@ public class CharaMoveGage : MonoBehaviour
 {
 
     private GameObject Char;//配列への代入に使用　あまり気にしなくてよし
+    [SerializeField]
     private GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
-    private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
+    [SerializeField]private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
     private int order=0;//fillAmountが１になったとき何番目に格納するかを決定
     [SerializeField]
     private GameObject[] tmpMoveChara=new GameObject[10];
     public static GameObject[] MoveChar=new GameObject[10];//行動するためのゲージがたまっているキャラを格納 仮で4を入れているが、パーティのキャラ数＋エネミー数が必要
     public static string[] MoveCharName;
-    public static float[] ActTime=new float[4];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
+    public static float[] ActTime=new float[5];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
     public static bool characterAct;
-    float[] elapsedTime=new float[4];//Time.deltaTimeを加算したときに1を超過した場合、fillAmountでは切り捨てられてしまい、他のキャラとの間にずれが生じてしまうので、それを解決するための変数
+    float[] elapsedTime=new float[5];//Time.deltaTimeを加算したときに1を超過した場合、fillAmountでは切り捨てられてしまい、他のキャラとの間にずれが生じてしまうので、それを解決するための変数
     // Start is called before the first frame update
     void Start()
     {
@@ -26,14 +27,18 @@ public class CharaMoveGage : MonoBehaviour
         { 
              MoveCharName[i]="";
         }
-        Char_MoveGage=new GameObject[this.transform.childCount];//キャラクターの数だけゲームオブジェクト配列を定義
-        Player_MoveGageImage=new Image[this.transform.childCount];//同様にイメージを定義
-        for(int i=0;i<this.transform.childCount;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
+        Char_MoveGage=new GameObject[this.transform.childCount+1];//キャラクターの数だけゲームオブジェクト配列を定義+1はenemy
+        Player_MoveGageImage=new Image[this.transform.childCount+1];//同様にイメージを定義
+        Char_MoveGage[0]=GameObject.Find("Enemy").transform.GetChild(1).gameObject;//エネミーについている行動ゲージを取得
+        Player_MoveGageImage[0]=Char_MoveGage[0].GetComponent<Image>();
+        for(int i=1;i<this.transform.childCount+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
         {
-            Char=this.transform.GetChild(i).gameObject;
+            Char=this.transform.GetChild(i-1).gameObject;
             Char_MoveGage[i]=Char.transform.Find("MoveGage").gameObject;
-            Player_MoveGageImage[i]=Char_MoveGage[i].GetComponent<Image>();
+            Player_MoveGageImage[i] = Char_MoveGage[i].GetComponent<Image>();
+
         }
+        ActTime[0]=2;
     }
     bool Flag;//動作確認用
     public static bool SetFlag=false;//if(SkillSelection.skillSelect)にてなぜか二回実行されるためそれを解決するためのフラグ
@@ -50,13 +55,13 @@ public class CharaMoveGage : MonoBehaviour
         {
             if (!Flag && MoveChar[0] == null)//行動しているキャラがいなければ
             {
-                for (int i = 0; i < this.transform.childCount; i++)
+                for (int i = 0; i < Player_MoveGageImage.Length; i++)
                 {
                     elapsedTime[i] += Time.deltaTime;
                     Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
                     if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {
-                        MoveChar[order] = this.transform.GetChild(i).gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
+                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
                         MoveCharName[i]=MoveChar[order].name;
                         Debug.Log(MoveCharName[i]);
                         order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要

@@ -9,13 +9,13 @@ public class EnemyManager : MonoBehaviour
     
     [SerializeField]
     private GameObject Enemys;
-    public static int enemyNumber;
-    [SerializeField]
-    private Text HP;
-    [SerializeField]
-    private Text ATK;
-    [SerializeField]
-    private Text Name;
+    public static int enemyNumber=1;
+   // [SerializeField]
+   // private Text HP;
+   // [SerializeField]
+   // private Text ATK;
+   // [SerializeField]
+  //  private Text Name;
 
     public class EnemyInfo : MonoBehaviour//エネミー情報
     {
@@ -48,23 +48,26 @@ public class EnemyManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))//エンカウントしたらに変更する
         {
-            enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
-            EnemyStatas(EnemyEditor.EnemyData);
+            //enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
+            EnemyStataus(EnemyEditor.EnemyData);
             float HPScope=Random.Range(Enemy_minHP*10,(Enemy_maxHP*10))/10;
             float tmpEnemy_HP=(Enemy_standardHP+((Enemy_Lv-1)*Enemy_risingHP))*HPScope;//式の関係上一度floatで作る
             Enemy_HP=(int)tmpEnemy_HP;//上のfloatをintに変換
-            HP.text=Enemy_HP.ToString();
+           // HP.text=Enemy_HP.ToString();
             float ATKScope = Random.Range(Enemy_minHP * 10, (Enemy_maxHP * 10)) / 10;
             float tmpEnemy_ATK = (Enemy_standardATK + ((Enemy_Lv - 1) * Enemy_risingATK)) * ATKScope;//式の関係上一度floatで作る
             Enemy_ATK = (int)tmpEnemy_ATK;//上のfloatをintに変換
-            ATK.text=Enemy_ATK.ToString();
-            Name.text=Enemy_Name;
+            Debug.Log(Enemy_HP);
+            Debug.Log(Enemy_ATK);
+           // ATK.text=Enemy_ATK.ToString();
+           // Name.text=Enemy_Name;
         }
     }
 
-    void EnemyStatas(List<string[]> EData)
+    void EnemyStataus(List<string[]> EData)
     {
         Enemy_Name = EData[enemyNumber][0];//エネミーの名前を取得
+        Debug.Log(Enemy_Name);
         Enemy_standardHP = int.Parse(EData[enemyNumber][1]);//エネミーの基礎HPを取得
         Enemy_risingHP = int.Parse(EData[enemyNumber][2]);//エネミーのHP上昇値を取得
         Enemy_minHP = float.Parse(EData[enemyNumber][3]);//エネミーのHP最低倍率を取得
