@@ -37,7 +37,7 @@ public class SkillSelection : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Return)&&GameManager.state==GameManager.BattleState.skillSelect)
             {
                 Debug.Log(skills[SkillNumber].name);
-                NotesEditor.skillName = skills[SkillNumber].name;
+               // NotesEditor.skillName = skills[SkillNumber].name;
                 skillSelect=true;
             }
         }

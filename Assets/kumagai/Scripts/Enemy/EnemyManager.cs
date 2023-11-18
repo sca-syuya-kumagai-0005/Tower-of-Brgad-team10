@@ -44,9 +44,23 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Enemy_Lv[1]=10;
+       
         enemyStatusSet=false;
         debugHPBer=HPBer;
+        Enemy_Name=new string[1];
+        Enemy_standardHP=new int[1];
+        Enemy_risingHP=new int[1];
+        Enemy_minHP=new float[1];
+        Enemy_maxHP=new float[1];
+        Enemy_standardATK=new int[1];
+        Enemy_risingATK=new int[1];
+        Enemy_minATK=new float[1];
+        Enemy_maxATK=new float[1];
+        Enemy_EXP=new int[1];
+        Enemy_Lv=new int[1];
+        Enemy_HP=new int[1];
+        Enemy_ATK=new float[1];
+        Enemy_Lv[0] = 10;
     }
 
     // Update is called once per frame
