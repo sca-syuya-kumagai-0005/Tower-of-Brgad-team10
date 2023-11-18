@@ -45,8 +45,8 @@ public class protoAttackManager : MonoBehaviour
     void DamageCalculation() //プレイヤーからエネミーへの攻撃の処理を行う
     {
         if(GameManager.state==GameManager.BattleState.move&&SkillSelection.skillSelect) {
-            EnemyManager.EnemyInfo.Enemy_HP-=attack;
-            float ehp =EnemyManager.EnemyInfo.Enemy_HP;
+            EnemyManager.EnemyInfo.Enemy_HP[0]-=attack;
+            float ehp =EnemyManager.EnemyInfo.Enemy_HP[0];
             EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP;
             GameManager.moveEnd=true;
             Debug.Log("攻撃をした");
