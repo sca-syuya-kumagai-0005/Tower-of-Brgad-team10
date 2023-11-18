@@ -20,7 +20,8 @@ public class SkillStorage : MonoBehaviour
     private float addDamage;
     private void Update()
     {
-        if(GameManager.state==GameManager.BattleState.move)
+        PlayerSkill();
+        if(GameManager.state==GameManager.BattleState.skillSelect)
         { 
             CharStatusGet();
         }
@@ -48,8 +49,11 @@ public class SkillStorage : MonoBehaviour
         {
             case 0:
                 {//ƒXƒ‰ƒbƒVƒ…
-                    Debug.Log(CharaMoveGage.MoveChar[0].name+"‚ÌUŒ‚—Í‚Í"+PlayerInfo.Player_ATK[charaNumber]);
+                   
+                    if(GameManager.state==GameManager.BattleState.skillSelect)
+                    { 
                     NotesEditor.skillName="ƒXƒ‰ƒbƒVƒ…";
+                    }
                     if (GameManager.state==GameManager.BattleState.move)
                     {
                         float pAtk= PlayerInfo.Player_ATK[charaNumber]*pATKCorrect*2;
@@ -66,9 +70,15 @@ public class SkillStorage : MonoBehaviour
                 break;
                 case 1://“¬u“ü°
                 {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "“¬u“ü°";
+                    }
+                    
                     if (GameManager.state == GameManager.BattleState.move)
                     { 
                     pATKCorrect = (NotesEditor.NotesOKCount / CommandCount)+1;
+
                     playerSkill2 =10;
                     }
                     
@@ -76,8 +86,30 @@ public class SkillStorage : MonoBehaviour
                 break;
                 case 2:
                 {
-                    playerSkill3Buff=(rate*100*0.2f)/100+1;
+
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "–WŠQHì";
+                    }
+                   if(GameManager.state==GameManager.BattleState.move)
+                    { 
+                    playerSkill3Buff =(rate*100*0.2f)/100+1;
                     playerSkill3=1;
+                    }
+                }
+                break;
+            case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "‰‹}è“–";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                       float php=PlayerInfo.Player_HP[0];
+                        php+=(rate*100*0.3f)*PlayerEditorManager.MaxHP[0];
+                        PlayerInfo.Player_HP[0]=(int)php;
+                    }
                 }
                 break;
         }
@@ -87,7 +119,6 @@ public class SkillStorage : MonoBehaviour
         if(CharaMoveGage.MoveChar[0].name=="ålŒö")
         {
             PlayerSkill();
-            Debug.Log("true‚Å‚·");
         }
     }
     void CharStatusGet()

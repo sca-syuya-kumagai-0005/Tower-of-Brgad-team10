@@ -664,7 +664,6 @@ GameObject:
   m_Component:
   - component: {fileID: 239231606}
   - component: {fileID: 239231607}
-  - component: {fileID: 239231608}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -700,20 +699,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tmpmoveEnd: 0
---- !u!114 &239231608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239231604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6699298d8cd356b4389dca26d1010994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partyCharacter: {fileID: 1243792711}
-  moveCharacter: {fileID: 0}
 --- !u!1 &275904943
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +807,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841d32b9117dd524c80931086d0e2902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rate: 0
+  pATKCorrect: 1
+  playerSkill2: 0
+  playerSkill3Buff: 0
+  movechara: {fileID: 0}
   partyChara: {fileID: 1243792711}
   charaNumber: -1
 --- !u!4 &285012945
@@ -849,7 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 338921828}
   m_Layer: 5
-  m_Name: Chara1
+  m_Name: "\u4E3B\u4EBA\u516C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1121,7 +1111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 429770820}
   m_Layer: 5
-  m_Name: Chara3
+  m_Name: "\u4E3B\u4EBA\u516C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1508,7 +1498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 535516082}
   m_Layer: 5
-  m_Name: Chara2
+  m_Name: "\u4E3B\u4EBA\u516C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1779,7 +1769,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678047526}
-  - component: {fileID: 678047527}
   m_Layer: 5
   m_Name: MoveChar
   m_TagString: Untagged
@@ -1811,20 +1800,6 @@ RectTransform:
   m_AnchoredPosition: {x: -457.5, y: -3.53}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &678047527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678047525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6699298d8cd356b4389dca26d1010994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partyCharacter: {fileID: 1243792711}
-  moveCharacter: {fileID: 0}
 --- !u!1 &691404699
 GameObject:
   m_ObjectHideFlags: 0
@@ -4005,7 +3980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1334905115}
   m_Layer: 5
-  m_Name: Chara4
+  m_Name: "\u4E3B\u4EBA\u516C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
