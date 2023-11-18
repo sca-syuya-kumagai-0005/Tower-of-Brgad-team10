@@ -11,6 +11,7 @@ public class PlayerEditorManager : MonoBehaviour
     //[SerializeField]
     //private GameObject Players;
     private int Lv=50;
+
     public static bool SetCharStatus=false;
     public class PlayerInfo : MonoBehaviour//ƒvƒŒƒCƒ„[î•ñ
     {
