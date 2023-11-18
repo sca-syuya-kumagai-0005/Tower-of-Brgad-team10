@@ -64,7 +64,8 @@ public class CommandController : MonoBehaviour
                 if(NotesEditor.commandEnd)
                 { 
                     GameManager.moveEnd=true;
-                    Destroy(this.gameObject);
+                    Debug.Log(NotesEditor.commandEnd);
+                    Debug.Log("lastNotes‚ÍTrue");
                 }
             }
             else { 
@@ -79,6 +80,7 @@ public class CommandController : MonoBehaviour
         if (NotesEditor.lastNotes && commandManager.transform.childCount == 1+1)
         {
             NotesEditor.commandEnd = true;
+            Debug.Log(NotesEditor.commandEnd);
         }
         yield return new WaitForSeconds(6);
         GameManager.moveEnd = true;
@@ -112,6 +114,7 @@ public class CommandController : MonoBehaviour
             if (NotesEditor.lastNotes && commandManager.transform.childCount == 1+1)
             {
                 NotesEditor.commandEnd = true;
+                Debug.Log(NotesEditor.commandEnd);
             }
             Destroy(this.gameObject);
         }
