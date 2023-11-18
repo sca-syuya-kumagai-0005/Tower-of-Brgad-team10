@@ -11,9 +11,13 @@ public class SkillStorage : MonoBehaviour
     private float pATKCorrect=1;
     [SerializeField]
     private float playerSkill2;
+    public static int playerSkill3;
+    [SerializeField]
+    private float playerSkill3Buff;
     [SerializeField]
     GameObject movechara;
     public static int CommandCount;
+    private float addDamage;
     private void Update()
     {
         if(GameManager.state==GameManager.BattleState.move)
@@ -39,7 +43,8 @@ public class SkillStorage : MonoBehaviour
     private void PlayerSkill()
     {
         Debug.Log(SkillSelection.SkillNumber);
-        switch(SkillSelection.SkillNumber)
+        rate = NotesEditor.NotesOKCount / CommandCount;
+        switch (SkillSelection.SkillNumber)
         {
             case 0:
                 {//スラッシュ
@@ -47,8 +52,8 @@ public class SkillStorage : MonoBehaviour
                     NotesEditor.skillName="スラッシュ";
                     if (GameManager.state==GameManager.BattleState.move)
                     {
-                        rate = NotesEditor.NotesOKCount / CommandCount;
                         float pAtk= PlayerInfo.Player_ATK[charaNumber]*pATKCorrect*2;
+                        addDamage=(pAtk*rate)*playerSkill3Buff;
                         Debug.Log("pAtkは"+pAtk*rate);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.EnemyInfo.Enemy_HP[0];
@@ -64,8 +69,15 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     { 
                     pATKCorrect = (NotesEditor.NotesOKCount / CommandCount)+1;
-                    playerSkill2 =45;
+                    playerSkill2 =10;
                     }
+                    
+                }
+                break;
+                case 2:
+                {
+                    playerSkill3Buff=(rate*100*0.2f)/100+1;
+                    playerSkill3=1;
                 }
                 break;
         }
@@ -90,7 +102,7 @@ public class SkillStorage : MonoBehaviour
         }
     }
 
-    float BuffTime(float time)
+    float BuffTime(float time)//バフの時間を減らす関数
     {
         if(time>0)
         { 
@@ -100,8 +112,30 @@ public class SkillStorage : MonoBehaviour
         return 0;
     }
 
-    void BuffTimeStorage()
+    float Buff(float time,float buff,float normal)
+    {
+        if(time<=0)
+        {
+            buff=normal;
+        }
+        return buff;
+    }
+    void BuffTimeStorage()//バフの時間を減らす関数を一括で管理するための関数
     {
         playerSkill2=BuffTime(playerSkill2);
+        pATKCorrect=Buff(playerSkill2,pATKCorrect,1);
+    }
+    int DBuffTurn(int turn)
+    {
+        if(turn>0)
+        {
+            turn-=1;
+            return turn;
+        }
+        return 0;
+    }
+    void DBuffTurnStorage()
+    {
+        DBuffTurn(playerSkill3);
     }
 }
