@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.command:
                 {
-                    SkillSelection.skillSelect=false;
+                    
                     if(NotesEditor.commandEnd)
                     {
                         state=BattleState.move;
@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
                 {
                     
                     SkillSelection.skillSelect = false;
+                    NotesEditor.commandStart=false;
                     NotesEditor.commandEnd = false;
                     NotesEditor.lastNotes = false;
                     CharaMoveGage.characterAct = false;
