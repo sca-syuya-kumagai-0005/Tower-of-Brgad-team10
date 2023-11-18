@@ -19,7 +19,7 @@ public class EnemyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CharaMoveGage.ActTime[0]=1;
+        CharaMoveGage.ActTime[0]=8;
     }
 
     // Update is called once per frame
@@ -81,7 +81,8 @@ public class EnemyMove : MonoBehaviour
     {
         Debug.Log("Šš‚İ‚Â‚«");
         int target=Random.Range(1,4);//‘ÎÛ‚Ì’Š‘I
-        PlayerEditorManager.PlayerInfo.Player_HP[target]-= EnemyManager.EnemyInfo.Enemy_standardATK;
+        EnemyManager.EnemyInfo.Enemy_ATK*=atkUpcorrection;
+        PlayerEditorManager.PlayerInfo.Player_HP[target]-= (int)EnemyManager.EnemyInfo.Enemy_standardATK;
         float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
         PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
         CharaMoveGage.ActTime[0]=8*moveUpcorrection;
@@ -95,8 +96,9 @@ public class EnemyMove : MonoBehaviour
         for(int i=0;i<2;i++)
         { 
             int target = Random.Range(1, 4);//‘ÎÛ‚Ì’Š‘I
-            CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
-            PlayerEditorManager.PlayerInfo.Player_HP[target] -= EnemyManager.EnemyInfo.Enemy_standardATK;
+            CharaMoveGage.ActTime[0] = 11*moveUpcorrection; 
+            EnemyManager.EnemyInfo.Enemy_ATK *= atkUpcorrection;
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)EnemyManager.EnemyInfo.Enemy_standardATK;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
             enemyMoveGageImage.fillAmount = 0;
