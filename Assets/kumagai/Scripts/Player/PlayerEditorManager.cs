@@ -11,6 +11,7 @@ public class PlayerEditorManager : MonoBehaviour
     //[SerializeField]
     //private GameObject Players;
     private int Lv=50;
+    private int nowATK;
 
     public static bool SetCharStatus=false;
     public class PlayerInfo : MonoBehaviour//プレイヤー情報
@@ -61,7 +62,7 @@ public class PlayerEditorManager : MonoBehaviour
            // Debug.Log("再行動までの時間は"+Player_ActTime[Integer]+"秒です");
             CharaMoveGage.ActTime[Integer+1] = Player_ActTime[Integer];
             MaxHP[Integer]= PlayerInfo.Player_HP[Integer];
-            standardATK[Integer]=Player_HP[Integer];
+            standardATK[Integer]=Player_ATK[Integer];
         //[i番目のキャラクター]　[Lv]　[対応するステータス]
 
     }

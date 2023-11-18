@@ -47,7 +47,7 @@ public class protoAttackManager : MonoBehaviour
         if(GameManager.state==GameManager.BattleState.move&&SkillSelection.skillSelect) {
             EnemyManager.EnemyInfo.Enemy_HP[0]-=attack;
             float ehp =EnemyManager.EnemyInfo.Enemy_HP[0];
-            EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP;
+            EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
             GameManager.moveEnd=true;
             Debug.Log("UŒ‚‚ğ‚µ‚½");
         }
