@@ -20,22 +20,22 @@ public class EnemyManager : MonoBehaviour
    // [SerializeField]
   //  private Text Name;
 
-    public class EnemyInfo : MonoBehaviour//ƒGƒlƒ~[î•ñ
+    public class EnemyInfo : MonoBehaviour//ã‚¨ãƒãƒŸãƒ¼æƒ…å ±
     {
-        public static string[] Enemy_Name;//ƒGƒlƒ~[‚Ì–¼‘O
+        public static string[] Enemy_Name;//ã‚¨ãƒãƒŸãƒ¼ã®åå‰
 
-        public static int[] Enemy_standardHP;//ƒGƒlƒ~[‚ÌŠî‘bHP@
-        public static int[] Enemy_risingHP;//ƒGƒlƒ~[‚ÌHPã¸’liƒŒƒxƒ‹–ˆj
-        public static float[] Enemy_minHP;//ƒGƒlƒ~[‚ÌHPÅ’á”{—¦@
-        public static float[] Enemy_maxHP;//ƒGƒlƒ~[‚ÌHPÅ‚”{—¦
+        public static int[] Enemy_standardHP;//ã‚¨ãƒãƒŸãƒ¼ã®åŸºç¤HPã€€
+        public static int[] Enemy_risingHP;//ã‚¨ãƒãƒŸãƒ¼ã®HPä¸Šæ˜‡å€¤ï¼ˆãƒ¬ãƒ™ãƒ«æ¯ï¼‰
+        public static float[] Enemy_minHP;//ã‚¨ãƒãƒŸãƒ¼ã®HPæœ€ä½å€ç‡ã€€
+        public static float[] Enemy_maxHP;//ã‚¨ãƒãƒŸãƒ¼ã®HPæœ€é«˜å€ç‡
 
-        public static int[] Enemy_standardATK;// ƒGƒlƒ~[‚ÌŠî‘bATK
-        public static int[] Enemy_risingATK;//ƒGƒlƒ~[‚ÌATKã¸’liƒŒƒxƒ‹–ˆj
-        public static float[] Enemy_minATK;//ƒGƒlƒ~[‚ÌATKÅ’á”{—¦@
-        public static float[] Enemy_maxATK;//ƒGƒlƒ~[‚ÌATKÅ‚”{—¦
+        public static int[] Enemy_standardATK;// ã‚¨ãƒãƒŸãƒ¼ã®åŸºç¤ATK
+        public static int[] Enemy_risingATK;//ã‚¨ãƒãƒŸãƒ¼ã®ATKä¸Šæ˜‡å€¤ï¼ˆãƒ¬ãƒ™ãƒ«æ¯ï¼‰
+        public static float[] Enemy_minATK;//ã‚¨ãƒãƒŸãƒ¼ã®ATKæœ€ä½å€ç‡ã€€
+        public static float[] Enemy_maxATK;//ã‚¨ãƒãƒŸãƒ¼ã®ATKæœ€é«˜å€ç‡
 
-        public static int[] Enemy_EXP;//ƒGƒlƒ~[‚ğ“|‚µ‚½‚Æ‚«‚É“üè‚Å‚«‚éŒoŒ±’l—Ê
-        //‚±‚±‚Ü‚Å‚ÍCSVƒtƒ@ƒCƒ‹‚©‚ç‚Ìæ“¾
+        public static int[] Enemy_EXP;//ã‚¨ãƒãƒŸãƒ¼ã‚’å€’ã—ãŸã¨ãã«å…¥æ‰‹ã§ãã‚‹çµŒé¨“å€¤é‡
+        //ã“ã“ã¾ã§ã¯CSVãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã®å–å¾—
         public static int[] Enemy_Lv;
         public static int[] Enemy_HP;
         public static float[] Enemy_ATK;
@@ -44,7 +44,6 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
         enemyStatusSet=false;
         debugHPBer=HPBer;
         Enemy_Name=new string[1];
@@ -71,17 +70,17 @@ public class EnemyManager : MonoBehaviour
 
     void EnemyStataus(List<string[]> EData)
     {
-        Enemy_Name[0] = EData[enemyNumber][0];//ƒGƒlƒ~[‚Ì–¼‘O‚ğæ“¾
+        Enemy_Name[0] = EData[enemyNumber][0];//ã‚¨ãƒãƒŸãƒ¼ã®åå‰ã‚’å–å¾—
         Debug.Log(Enemy_Name);
-        Enemy_standardHP[0] = int.Parse(EData[enemyNumber][1]);//ƒGƒlƒ~[‚ÌŠî‘bHP‚ğæ“¾
-        Enemy_risingHP[0] = int.Parse(EData[enemyNumber][2]);//ƒGƒlƒ~[‚ÌHPã¸’l‚ğæ“¾
-        Enemy_minHP[0] = float.Parse(EData[enemyNumber][3]);//ƒGƒlƒ~[‚ÌHPÅ’á”{—¦‚ğæ“¾
-        Enemy_maxHP[0] = float.Parse(EData[enemyNumber][4]);//ƒGƒlƒ~[‚ÌHPÅ‚”{—¦
-        Enemy_standardATK[0] = int.Parse(EData[enemyNumber][5]);//ƒGƒlƒ~[‚ÌŠî‘bATK
-        Enemy_risingATK[0] = int.Parse(EData[enemyNumber][6]);//ƒGƒlƒ~[‚ÌATKã¸’l
-        Enemy_minATK[0] = float.Parse(EData[enemyNumber][7]);//ƒGƒlƒ~[‚ÌATKÅ’á”{—¦
-        Enemy_maxATK[0] = float.Parse(EData[enemyNumber][8]);//ƒGƒlƒ~[‚ÌATKÅ‚”{—¦
-        Enemy_EXP[0] = int.Parse(EData[enemyNumber][9]);//ƒGƒlƒ~[‚ÌŒoŒ±’l
+        Enemy_standardHP[0] = int.Parse(EData[enemyNumber][1]);//ã‚¨ãƒãƒŸãƒ¼ã®åŸºç¤HPã‚’å–å¾—
+        Enemy_risingHP[0] = int.Parse(EData[enemyNumber][2]);//ã‚¨ãƒãƒŸãƒ¼ã®HPä¸Šæ˜‡å€¤ã‚’å–å¾—
+        Enemy_minHP[0] = float.Parse(EData[enemyNumber][3]);//ã‚¨ãƒãƒŸãƒ¼ã®HPæœ€ä½å€ç‡ã‚’å–å¾—
+        Enemy_maxHP[0] = float.Parse(EData[enemyNumber][4]);//ã‚¨ãƒãƒŸãƒ¼ã®HPæœ€é«˜å€ç‡
+        Enemy_standardATK[0] = int.Parse(EData[enemyNumber][5]);//ã‚¨ãƒãƒŸãƒ¼ã®åŸºç¤ATK
+        Enemy_risingATK[0] = int.Parse(EData[enemyNumber][6]);//ã‚¨ãƒãƒŸãƒ¼ã®ATKä¸Šæ˜‡å€¤
+        Enemy_minATK[0] = float.Parse(EData[enemyNumber][7]);//ã‚¨ãƒãƒŸãƒ¼ã®ATKæœ€ä½å€ç‡
+        Enemy_maxATK[0] = float.Parse(EData[enemyNumber][8]);//ã‚¨ãƒãƒŸãƒ¼ã®ATKæœ€é«˜å€ç‡
+        Enemy_EXP[0] = int.Parse(EData[enemyNumber][9]);//ã‚¨ãƒãƒŸãƒ¼ã®çµŒé¨“å€¤
     }
 
     void EnemyStatausSet()
@@ -91,13 +90,13 @@ public class EnemyManager : MonoBehaviour
             //enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
             EnemyStataus(EnemyEditor.EnemyData);
             float HPScope = Random.Range(Enemy_minHP[0] * 10, (Enemy_maxHP[0] * 10)) / 10;
-            float tmpEnemy_HP = (Enemy_standardHP[0] + ((Enemy_Lv[0] - 1) * Enemy_risingHP[0])) * HPScope;//®‚ÌŠÖŒWãˆê“xfloat‚Åì‚é
-            Enemy_HP[0] = (int)tmpEnemy_HP;//ã‚Ìfloat‚ğint‚É•ÏŠ·
+            float tmpEnemy_HP = (Enemy_standardHP[0] + ((Enemy_Lv[0] - 1) * Enemy_risingHP[0])) * HPScope;//å¼ã®é–¢ä¿‚ä¸Šä¸€åº¦floatã§ä½œã‚‹
+            Enemy_HP[0] = (int)tmpEnemy_HP;//ä¸Šã®floatã‚’intã«å¤‰æ›
             maxEnemyHP = Enemy_HP[0];
             // HP.text=Enemy_HP.ToString();
             float ATKScope = Random.Range(Enemy_minHP[0] * 10, (Enemy_maxHP[0] * 10)) / 10;
-            float tmpEnemy_ATK = (Enemy_standardATK[0] + ((Enemy_Lv[0] - 1) * Enemy_risingATK[0])) * ATKScope;//®‚ÌŠÖŒWãˆê“xfloat‚Åì‚é
-            Enemy_ATK[0] = (int)tmpEnemy_ATK;//ã‚Ìfloat‚ğint‚É•ÏŠ·
+            float tmpEnemy_ATK = (Enemy_standardATK[0] + ((Enemy_Lv[0] - 1) * Enemy_risingATK[0])) * ATKScope;//å¼ã®é–¢ä¿‚ä¸Šä¸€åº¦floatã§ä½œã‚‹
+            Enemy_ATK[0] = (int)tmpEnemy_ATK;//ä¸Šã®floatã‚’intã«å¤‰æ›
             enemyStatusSet = true;
             // ATK.text=Enemy_ATK.ToString();
             // Name.text=Enemy_Name;
@@ -106,7 +105,7 @@ public class EnemyManager : MonoBehaviour
 
     void EnemyHPJudge()
     {
-        for(int i=0;i<1;i++)//ƒGƒlƒ~[‚Ì”‚¾‚¯ƒ‹[ƒv@ƒvƒƒg”Å‚Å‚Í“G‚Íˆê‘Ì‚Ì‚İ‚ÌÀ‘•‚Ì‚½‚ß1
+        for(int i=0;i<1;i++)//ã‚¨ãƒãƒŸãƒ¼ã®æ•°ã ã‘ãƒ«ãƒ¼ãƒ—ã€€ãƒ—ãƒ­ãƒˆç‰ˆã§ã¯æ•µã¯ä¸€ä½“ã®ã¿ã®å®Ÿè£…ã®ãŸã‚1
         {
 
         }
