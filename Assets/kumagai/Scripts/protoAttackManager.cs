@@ -18,6 +18,7 @@ public class protoAttackManager : MonoBehaviour
     {
         MoveCharaSet();
         StatusReference();
+        DamageCalculation();
     }
 
     private void MoveCharaSet() 
@@ -41,9 +42,13 @@ public class protoAttackManager : MonoBehaviour
         }
     }
 
-    void DamageCalculation() 
+    void DamageCalculation() //プレイヤーからエネミーへの攻撃の処理を行う
     {
-        if(GameManager.state==GameManager.BattleState.move) {
+        if(GameManager.state==GameManager.BattleState.move&&SkillSelection.skillSelect) {
+            EnemyManager.EnemyInfo.Enemy_HP-=attack;
+            float ehp =EnemyManager.EnemyInfo.Enemy_HP;
+            EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP;
+            GameManager.moveEnd=true;
             Debug.Log("攻撃をした");
         }
     }

@@ -15,7 +15,7 @@ public class NotesEditor : MonoBehaviour
     private float minWait;
     [SerializeField]
     private float maxWait;
-
+    public static bool commandStart;
     public enum NotesType
     {
         w=0,
@@ -46,9 +46,10 @@ public class NotesEditor : MonoBehaviour
     {
         s = speed;
         var notesDatas = Resources.Load<TextAsset>(skillName);
-        if (GameManager.state==GameManager.BattleState.command&&Input.GetKeyDown(KeyCode.Return))
+        if (GameManager.state==GameManager.BattleState.command&&!commandStart)
         { 
             StartCoroutine(NotesCreater());
+            commandStart=true;
         }
     }
     int maxi=5;

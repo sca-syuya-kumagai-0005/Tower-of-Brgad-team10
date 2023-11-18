@@ -10,6 +10,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private GameObject Enemys;
     public static int enemyNumber=1;
+    public static int maxEnemyHP;
+    [SerializeField]private Image HPBer;
+    public static Image debugHPBer;
    // [SerializeField]
    // private Text HP;
    // [SerializeField]
@@ -43,31 +46,13 @@ public class EnemyManager : MonoBehaviour
     {
         Enemy_Lv=10;
         enemyStatusSet=false;
+        debugHPBer=HPBer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.state==GameManager.BattleState.enemyStatausSet)//エンカウントしたらに変更する
-        {
-            //enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
-            EnemyStataus(EnemyEditor.EnemyData);
-            float HPScope=Random.Range(Enemy_minHP*10,(Enemy_maxHP*10))/10;
-            float tmpEnemy_HP=(Enemy_standardHP+((Enemy_Lv-1)*Enemy_risingHP))*HPScope;//式の関係上一度floatで作る
-            Enemy_HP=(int)tmpEnemy_HP;//上のfloatをintに変換
-           // HP.text=Enemy_HP.ToString();
-            float ATKScope = Random.Range(Enemy_minHP * 10, (Enemy_maxHP * 10)) / 10;
-            float tmpEnemy_ATK = (Enemy_standardATK + ((Enemy_Lv - 1) * Enemy_risingATK)) * ATKScope;//式の関係上一度floatで作る
-            Enemy_ATK = (int)tmpEnemy_ATK;//上のfloatをintに変換
-            enemyStatusSet=true;
-           // ATK.text=Enemy_ATK.ToString();
-           // Name.text=Enemy_Name;
-        }
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            Debug.Log(Enemy_HP);
-            Debug.Log(Enemy_ATK);
-        }
+       EnemyStatausSet();
     }
 
     void EnemyStataus(List<string[]> EData)
@@ -83,5 +68,25 @@ public class EnemyManager : MonoBehaviour
         Enemy_minATK = float.Parse(EData[enemyNumber][7]);//エネミーのATK最低倍率
         Enemy_maxATK = float.Parse(EData[enemyNumber][8]);//エネミーのATK最高倍率
         Enemy_EXP = int.Parse(EData[enemyNumber][9]);//エネミーの経験値
+    }
+
+    void EnemyStatausSet()
+    {
+        if (GameManager.state == GameManager.BattleState.enemyStatausSet)
+        {
+            //enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
+            EnemyStataus(EnemyEditor.EnemyData);
+            float HPScope = Random.Range(Enemy_minHP * 10, (Enemy_maxHP * 10)) / 10;
+            float tmpEnemy_HP = (Enemy_standardHP + ((Enemy_Lv - 1) * Enemy_risingHP)) * HPScope;//式の関係上一度floatで作る
+            Enemy_HP = (int)tmpEnemy_HP;//上のfloatをintに変換
+            maxEnemyHP = Enemy_HP;
+            // HP.text=Enemy_HP.ToString();
+            float ATKScope = Random.Range(Enemy_minHP * 10, (Enemy_maxHP * 10)) / 10;
+            float tmpEnemy_ATK = (Enemy_standardATK + ((Enemy_Lv - 1) * Enemy_risingATK)) * ATKScope;//式の関係上一度floatで作る
+            Enemy_ATK = (int)tmpEnemy_ATK;//上のfloatをintに変換
+            enemyStatusSet = true;
+            // ATK.text=Enemy_ATK.ToString();
+            // Name.text=Enemy_Name;
+        }
     }
 }
