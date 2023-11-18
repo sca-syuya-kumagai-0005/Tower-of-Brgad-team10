@@ -21,7 +21,7 @@ public class EnemyEditor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var EnemyDatas=Resources.Load<TextAsset>(enemyData);
+        var EnemyDatas=Resources.Load<TextAsset>("Character/"+enemyData);
         if(GameManager.state==GameManager.BattleState.start)
         {
             EnemyStatus(EnemyDatas);

@@ -18,7 +18,8 @@ public class NotesEditor : MonoBehaviour
     public static bool commandStart;
     [SerializeField]
     TextAsset notesDatas;
-    private int skillCommandCount;
+    public static int skillCommandCount;
+    public static float NotesOKCount;
     public enum NotesType
     {
         i=-1,
@@ -49,9 +50,10 @@ public class NotesEditor : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(NotesOKCount);
         tmplastNotes=lastNotes;
         tmpcommandEnd=commandEnd;
-        notesDatas = Resources.Load<TextAsset>(skillName);
+        notesDatas = Resources.Load<TextAsset>("Skill/"+skillName);
         List<string[]> data = CsvReader(notesDatas);
         skillCommandCount =data.Count;
         s = speed;
@@ -70,7 +72,6 @@ public class NotesEditor : MonoBehaviour
     {
         for(int i=0;i<skillCommandCount;i++)
         { 
-            Debug.Log(i);
             if(i==skillCommandCount-1)
             {
                 lastNotes=true;

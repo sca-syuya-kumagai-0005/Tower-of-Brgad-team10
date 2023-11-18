@@ -28,7 +28,7 @@ public class PlayerEditor : MonoBehaviour
         PlayerDatas=new TextAsset[partyTheNumberOf];
         for (int i = 0; i < playerDatas.Length; i++)
         {
-            PlayerDatas[i] = Resources.Load<TextAsset>(PlayerName[i]);
+            PlayerDatas[i] = Resources.Load<TextAsset>("Character/"+PlayerName[i]);
             PlayerStatus(PlayerDatas[i], i);
             DebugDatas[i] = PlayerDatas[i];
 

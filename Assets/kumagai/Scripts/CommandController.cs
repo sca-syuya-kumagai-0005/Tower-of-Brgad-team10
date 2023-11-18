@@ -56,17 +56,20 @@ public class CommandController : MonoBehaviour
         if (Input.GetKeyDown(myName)&&judgeFlag)
         {
             OkFlag=true;
+            NotesEditor.NotesOKCount+=1;
             Debug.Log(NotesEditor.commandEnd);
             CommandKeyManager.KeyFlag[tmpi] = false;
             if (NotesEditor.lastNotes&&commandManager.transform.childCount==1+1)
             {
                 NotesEditor.commandEnd=true;
-                if(NotesEditor.commandEnd)
+                
+                if (NotesEditor.commandEnd)
                 { 
                     GameManager.moveEnd=true;
                     Debug.Log(NotesEditor.commandEnd);
                     Debug.Log("lastNotes‚ÍTrue");
                 }
+                Destroy(this.gameObject);
             }
             else { 
             Destroy(this.gameObject);
