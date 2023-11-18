@@ -20,4 +20,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Fukaya/Scene/CharaSelectScene.unity
     guid: f1dd625fbc8e9aa438150ec391f45a55
+  - enabled: 1
+    path: Assets/Takakai/Scene/carahen.unity
+    guid: da6180aab35a6d84591dc6ebc7961e12
+  - enabled: 1
+    path: Assets/Takakai/Scene/Serect1.unity
+    guid: d88da99ca67f9874ca6c926c575b0e42
+  - enabled: 1
+    path: Assets/Takakai/Scene/Serect2.unity
+    guid: a9eb7dcceee50c3479beb19a460a13b5
+  - enabled: 1
+    path: Assets/Takakai/Scene/Serect3.unity
+    guid: 9ecf8f5e9ba0cdc41b360423333389cc
+  - enabled: 1
+    path: Assets/Takakai/Scene/Game Scene.unity
+    guid: 75d788f2006ef4d44922370b6cb4d364
+  - enabled: 1
+    path: Assets/Takakai/Scene/test2.unity
+    guid: 160be4254f9aadc4a8136c967ac9db90
   m_configObjects: {}

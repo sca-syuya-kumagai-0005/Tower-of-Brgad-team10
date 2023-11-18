@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Button : MonoBehaviour
+public class Button2 : MonoBehaviour
 {
     public void OnClickButton()
     {
-        SceneManager.LoadScene("Serect1");
+        {
+            SceneManager.LoadScene("Serect2");
+        }
+
     }
+
+
 }
