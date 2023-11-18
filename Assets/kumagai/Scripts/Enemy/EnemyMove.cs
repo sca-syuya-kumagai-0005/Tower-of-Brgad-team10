@@ -81,8 +81,8 @@ public class EnemyMove : MonoBehaviour
     {
         Debug.Log("Šš‚İ‚Â‚«");
         int target=Random.Range(1,4);//‘ÎÛ‚Ì’Š‘I
-        EnemyManager.EnemyInfo.Enemy_ATK*=atkUpcorrection;
-        PlayerEditorManager.PlayerInfo.Player_HP[target]-= (int)EnemyManager.EnemyInfo.Enemy_standardATK;
+        EnemyManager.EnemyInfo.Enemy_ATK[0]*=atkUpcorrection;
+        PlayerEditorManager.PlayerInfo.Player_HP[target]-= (int)EnemyManager.EnemyInfo.Enemy_standardATK[0];
         float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
         PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
         CharaMoveGage.ActTime[0]=8*moveUpcorrection;
@@ -97,8 +97,8 @@ public class EnemyMove : MonoBehaviour
         { 
             int target = Random.Range(1, 4);//‘ÎÛ‚Ì’Š‘I
             CharaMoveGage.ActTime[0] = 11*moveUpcorrection; 
-            EnemyManager.EnemyInfo.Enemy_ATK *= atkUpcorrection;
-            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)EnemyManager.EnemyInfo.Enemy_standardATK;
+            EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)EnemyManager.EnemyInfo.Enemy_standardATK[0];
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
             enemyMoveGageImage.fillAmount = 0;
