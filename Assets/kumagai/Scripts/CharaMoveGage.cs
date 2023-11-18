@@ -56,11 +56,10 @@ public class CharaMoveGage : MonoBehaviour
 
     public static void MoveCharaSort()
     {
-        if (SkillSelection.skillSelect || GameManager.state == GameManager.BattleState.move)//仮の条件付け　後で変更
+        if (SkillSelection.skillSelect || GameManager.state == GameManager.BattleState.flagReSet)//仮の条件付け　後で変更
         {//行動したキャラのfillAountをリセットして行動するキャラの配列から削除、配列の中身を詰める作業を行っている
-            if (!SetFlag)
+            if (!SetFlag&&GameManager.state==GameManager.BattleState.flagReSet)
             {
-                Debug.Log("ソートされています");
                 order -= 1;
                 GameObject MG = MoveChar[0].transform.Find("MoveGage").gameObject;
                 Image IM = MG.GetComponent<Image>();

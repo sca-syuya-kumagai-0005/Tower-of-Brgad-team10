@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private GameObject Enemys;
     public static int enemyNumber=1;
-    public static int maxEnemyHP;
+    public static float[] maxEnemyHP=new float[1];
     [SerializeField]private Image HPBer;
     public static Image debugHPBer;
    // [SerializeField]
@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
         public static int[] Enemy_EXP;//エネミーを倒したときに入手できる経験値量
         //ここまではCSVファイルからの取得
         public static int[] Enemy_Lv;
-        public static int[] Enemy_HP;
+        public static float[] Enemy_HP;
         public static float[] Enemy_ATK;
     }
     public static bool enemyStatusSet;
@@ -57,7 +57,7 @@ public class EnemyManager : MonoBehaviour
         Enemy_maxATK=new float[1];
         Enemy_EXP=new int[1];
         Enemy_Lv=new int[1];
-        Enemy_HP=new int[1];
+        Enemy_HP=new float[1];
         Enemy_ATK=new float[1];
         Enemy_Lv[0] = 10;
     }
@@ -92,7 +92,7 @@ public class EnemyManager : MonoBehaviour
             float HPScope = Random.Range(Enemy_minHP[0] * 10, (Enemy_maxHP[0] * 10)) / 10;
             float tmpEnemy_HP = (Enemy_standardHP[0] + ((Enemy_Lv[0] - 1) * Enemy_risingHP[0])) * HPScope;//式の関係上一度floatで作る
             Enemy_HP[0] = (int)tmpEnemy_HP;//上のfloatをintに変換
-            maxEnemyHP = Enemy_HP[0];
+            maxEnemyHP[0] = Enemy_HP[0];
             // HP.text=Enemy_HP.ToString();
             float ATKScope = Random.Range(Enemy_minHP[0] * 10, (Enemy_maxHP[0] * 10)) / 10;
             float tmpEnemy_ATK = (Enemy_standardATK[0] + ((Enemy_Lv[0] - 1) * Enemy_risingATK[0])) * ATKScope;//式の関係上一度floatで作る

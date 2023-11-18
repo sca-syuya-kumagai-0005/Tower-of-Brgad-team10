@@ -50,12 +50,12 @@ public class NotesEditor : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(NotesOKCount);
         tmplastNotes=lastNotes;
         tmpcommandEnd=commandEnd;
         notesDatas = Resources.Load<TextAsset>("Skill/"+skillName);
         List<string[]> data = CsvReader(notesDatas);
         skillCommandCount =data.Count;
+        SkillStorage.CommandCount=data.Count-2;
         s = speed;
 
         if (GameManager.state==GameManager.BattleState.command&&!commandStart)
@@ -169,10 +169,8 @@ public class NotesEditor : MonoBehaviour
 
         for (int i = 1; i != -1; ++i) //CSVファイル最後までループ
         {
-            Debug.Log("ok");
             for (int j = 0; j < skillDatas[0].Length; ++j)
             {
-                Debug.Log("OK");
                 if (skillDatas[i][j] == "-1")
                 {
                     return skillDatas;

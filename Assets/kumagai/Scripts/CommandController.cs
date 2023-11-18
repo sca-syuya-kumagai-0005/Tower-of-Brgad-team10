@@ -55,8 +55,8 @@ public class CommandController : MonoBehaviour
        // }
         if (Input.GetKeyDown(myName)&&judgeFlag)
         {
-            OkFlag=true;
-            NotesEditor.NotesOKCount+=1;
+            NotesEditor.NotesOKCount += 1;
+            OkFlag =true;
             Debug.Log(NotesEditor.commandEnd);
             CommandKeyManager.KeyFlag[tmpi] = false;
             if (NotesEditor.lastNotes&&commandManager.transform.childCount==1+1)
