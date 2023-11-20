@@ -86,7 +86,7 @@ public class CharaMoveGage : MonoBehaviour
             if (MoveChar[0] == null&&order<=MoveChar.Length-1)//s“®‚µ‚Ä‚¢‚éƒLƒƒƒ‰‚ª‚¢‚È‚¯‚ê‚Î
             {
                 Debug.Log("MoveChar‚Ì’†g‚Í‚ ‚è‚Ü‚¹‚ñ");
-                for (int i = 0; i < Player_MoveGageImage.Length; i++)
+                for (int i = 0; i < Player_MoveGageImage.Length; i++) //
                 {
                     elapsedTime[i] += Time.deltaTime;
                     Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmount‚ð‰ÁŽZ@ActTime‚ÅŠ„‚é‚±‚Æ‚ÅActTime•b‚ÅfillAmount‚ª1‚É‚È‚é

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class EnemyMove : MonoBehaviour
 {
-    int[] WolfSkill={40,10,40,10 };
+    [SerializeField]
+    int[] WolfSkill={40,0,0,0 };
     public static bool enemyMove;
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
@@ -14,8 +15,9 @@ public class EnemyMove : MonoBehaviour
     public static bool skillSet;
     public static bool skillOK;
     private int moveUpTurn;
-    private float moveUpcorrection;
+    private float moveUpcorrection=1;
     private int atkUpTurn;
+    [SerializeField]
     private float atkUpcorrection;
     private Image[] charaAlive;
     // Start is called before the first frame update
@@ -30,20 +32,16 @@ public class EnemyMove : MonoBehaviour
     {
        PartyCharaAlive();
         tmpEM=enemyMove;
-        if(GameManager.moveEnd)
-        {
-            Debug.Log("TRUEになった");
-        }
        protEnemyMove();
-        if(GameManager.state==GameManager.BattleState.moveWait&&Input.GetKeyDown(KeyCode.Return))
-        {
-            
-            if(CharaMoveGage.MoveChar[0]!=null)
-            { 
-                if (CharaMoveGage.MoveChar[0].name == "Enemy")
-                {
-                    enemyMove = true;
-                }
+        if(CharaMoveGage.MoveChar[0]!=null)
+        { 
+            if(GameManager.state==GameManager.BattleState.moveWait&&CharaMoveGage.MoveChar[0].name=="Enemy")
+            {
+                    if (CharaMoveGage.MoveChar[0].name == "Enemy")
+                    {
+                        enemyMove = true;
+                    }
+                
             }
         }
     }
@@ -52,7 +50,7 @@ public class EnemyMove : MonoBehaviour
         
         if (GameManager.state == GameManager.BattleState.enemyStay&&CharaMoveGage.MoveChar[0].name!=null)
         {
-            EnemyBuff();
+           // EnemyBuff();
             int MaxSkill = 0;
             for (int i = 0; i < 4; i++)
             {
@@ -68,9 +66,11 @@ public class EnemyMove : MonoBehaviour
                     {
                         skillNumber = i;
                         SkillSet();
-                        Debug.Log(i + "番目のスキルを使用");
+                        if(GameManager.moveEnd)
+                        { 
                         skillOK=true;
                         skillSet =true;
+                        }
                     }
                     
                     break;
@@ -83,28 +83,55 @@ public class EnemyMove : MonoBehaviour
     void EnemySkill1()
     {
         Debug.Log("噛みつき");
-        int target=Random.Range(1,4);//対象の抽選
-        EnemyManager.EnemyInfo.Enemy_ATK[0]*=atkUpcorrection;
-        PlayerEditorManager.PlayerInfo.Player_HP[target]-= (int)EnemyManager.EnemyInfo.Enemy_standardATK[0];
-        float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
-        PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
-        CharaMoveGage.ActTime[0]=8*moveUpcorrection;
-        enemyMoveGageImage.fillAmount=0;
-        GameManager.moveEnd=true;
+        bool flg = false;
+        int target=0;
+
+
+        if(!flg)
+        {
+            target = Random.Range(0, charaAlive.Length);//対象の抽選
+            if (charaAlive[target].fillAmount>0)
+            {   
+                flg=true;
+            }
+        }
+        if(flg)
+        { 
+            EnemyManager.EnemyInfo.Enemy_ATK[0]*=1000*atkUpcorrection;
+            PlayerEditorManager.PlayerInfo.Player_HP[target]-= (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
+            CharaMoveGage.ActTime[0]=1*moveUpcorrection;
+            enemyMoveGageImage.fillAmount=0;
+            GameManager.moveEnd=true;
+        }
     }
 
     void EnemySkill2()
     {
+        bool flg=false;
+        int target=0;
         Debug.Log("二度噛み");
         for(int i=0;i<2;i++)
         { 
-            int target = Random.Range(1, 4);//対象の抽選
-            CharaMoveGage.ActTime[0] = 11*moveUpcorrection; 
-            EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
-            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)EnemyManager.EnemyInfo.Enemy_standardATK[0];
-            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
-            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; CharaMoveGage.ActTime[0] = 8;
-            enemyMoveGageImage.fillAmount = 0;
+            if(!flg)
+            {
+                target = Random.Range(1, charaAlive.Length);//対象の抽選
+                if (charaAlive[target].fillAmount > 0)
+                {
+                    flg = true;
+                }
+            }
+            if(flg)
+            { 
+                CharaMoveGage.ActTime[0] = 11*moveUpcorrection; 
+                EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
+                PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)EnemyManager.EnemyInfo.Enemy_standardATK[0];
+                float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+                PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; 
+                CharaMoveGage.ActTime[0] = 8;
+                enemyMoveGageImage.fillAmount = 0;
+            }
         }
         GameManager.moveEnd = true;
     }
@@ -155,7 +182,7 @@ public class EnemyMove : MonoBehaviour
             for(int i=0;i<partyChara.transform.childCount;i++)
             {
                GameObject obj= partyChara.transform.GetChild(i).gameObject;
-               GameObject mobj=obj.transform.Find("MoveGage").gameObject;
+               GameObject mobj=obj.transform.Find("HP").gameObject;
                charaAlive[i]=mobj.GetComponent<Image>();
                 Debug.Log(charaAlive);
             }
@@ -167,7 +194,10 @@ public class EnemyMove : MonoBehaviour
         {
             case 1:
                 {
-                    EnemySkill1();
+                    while(!GameManager.moveEnd)
+                    { 
+                        EnemySkill1();
+                    }
                 }
                 break;
             case 2:
