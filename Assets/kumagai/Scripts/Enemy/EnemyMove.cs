@@ -89,7 +89,7 @@ public class EnemyMove : MonoBehaviour
 
         if(!flg)
         {
-            target = Random.Range(0, 1);//‘ÎÛ‚Ì’Š‘I
+            target = Random.Range(0, charaAlive.Length);//‘ÎÛ‚Ì’Š‘I
             if (charaAlive[target].fillAmount>0)
             {   
                 flg=true;
