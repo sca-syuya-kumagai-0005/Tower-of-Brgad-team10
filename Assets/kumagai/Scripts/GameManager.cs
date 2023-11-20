@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         BattleStateManager();
-        Debug.Log(state);
+        //Debug.Log(state);
         tmpmoveEnd=moveEnd;
     }
 
@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.enemyStay:
                 {
-                    Debug.Log(CharaMoveGage.SetFlag);
                     if(EnemyMove.skillOK)
                     {
                         state=BattleState.move;

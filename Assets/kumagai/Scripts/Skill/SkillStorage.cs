@@ -62,15 +62,10 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state==GameManager.BattleState.move)
                     {
                         float pAtk= PlayerInfo.Player_ATK[charaNumber]*pATKCorrect*2;
-                        Debug.Log(charaNumber);
                         addDamage=(pAtk*rate)*playerSkill3Buff;
-                        Debug.Log("pAtkは"+pAtk*rate);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
-                        Debug.Log("エネミーのHPは"+ehp);
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
-                        Debug.Log("ehpは"+ehp);
-                        Debug.Log("enemyの最大HPは"+ EnemyManager.EnemyInfo.Enemy_HP[0]);
 
                         GameManager.moveEnd=true;
                     }
@@ -88,6 +83,7 @@ public class SkillStorage : MonoBehaviour
                     pATKCorrect = (NotesEditor.NotesOKCount / CommandCount)+1;
 
                     playerSkill2 =10;
+                    GameManager.moveEnd=true;
                     }
                     
                 }
@@ -103,6 +99,7 @@ public class SkillStorage : MonoBehaviour
                     { 
                     playerSkill3Buff =(rate*100*0.2f)/100+1;
                     playerSkill3=1;
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -114,9 +111,13 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                       float php=PlayerInfo.Player_HP[0];
-                        php+=(rate*100*0.3f)*PlayerEditorManager.MaxHP[0];
-                        PlayerInfo.Player_HP[0]=(int)php;
+                       float php=PlayerInfo.Player_HP[charaNumber];
+                        php+=(((rate*100*0.3f)/100))*PlayerEditorManager.MaxHP[charaNumber];
+                        Debug.Log("入りました");
+                        PlayerInfo.Player_HP[charaNumber]=(int)php;
+                        PlayerManager.playerHPBer[charaNumber].fillAmount=PlayerInfo.Player_HP[charaNumber]/PlayerEditorManager.MaxHP[charaNumber];
+                        Debug.Log("通過しました");
+                        
                     }
                 }
                 break;

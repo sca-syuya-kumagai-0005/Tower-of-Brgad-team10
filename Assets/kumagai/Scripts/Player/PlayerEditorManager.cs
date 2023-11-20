@@ -25,7 +25,7 @@ public class PlayerEditorManager : MonoBehaviour
         public static int[] Player_EXP;
         public static float[] Player_ActTime;
     }
-    public static int[] MaxHP=new int[4];
+    public static float[] MaxHP=new float[4];
     public static int[] standardATK=new int[4];
     // Start is called before the first frame update
     void Start()
