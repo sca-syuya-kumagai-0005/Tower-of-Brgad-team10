@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public enum BattleState
@@ -118,10 +118,31 @@ public class GameManager : MonoBehaviour
                     EnemyMove.skillSet=false;
                     moveEnd=false;
                     SkillSelection.SkillNumber = 0;
+                    GameSetController();
                     state = BattleState.moveWait;
                 }
                 break;
+        }
+    }
 
+    void GameSetController()
+    {
+        int count = 0;
+        for (int i=0;i<4;i++)
+        {
+            if(PlayerManager.playerHPBer[i].fillAmount==0)
+            {
+                count+=1;
+            }
+        }
+        if(count==4)
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
+        if(EnemyManager.debugHPBer.fillAmount==0)
+        {
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }
