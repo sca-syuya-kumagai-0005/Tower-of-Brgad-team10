@@ -43,7 +43,6 @@ public class SkillStorage : MonoBehaviour
     }
     private void PlayerSkill()
     {
-        Debug.Log(SkillSelection.SkillNumber);
         rate = NotesEditor.NotesOKCount / CommandCount;
         switch (SkillSelection.SkillNumber)
         {
@@ -57,6 +56,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state==GameManager.BattleState.move)
                     {
                         float pAtk= PlayerInfo.Player_ATK[charaNumber]*pATKCorrect*2;
+                        Debug.Log(charaNumber);
                         addDamage=(pAtk*rate)*playerSkill3Buff;
                         Debug.Log("pAtk‚Í"+pAtk*rate);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
