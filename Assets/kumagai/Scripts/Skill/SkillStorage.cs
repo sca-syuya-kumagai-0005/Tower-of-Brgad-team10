@@ -20,7 +20,13 @@ public class SkillStorage : MonoBehaviour
     private float addDamage;
     private void Update()
     {
-        PlayerSkill();
+        if(CharaMoveGage.MoveChar[0]!=null)
+        { 
+            if(CharaMoveGage.MoveChar[0].name=="主人公")
+            { 
+                PlayerSkill();
+            }
+        }
         if(GameManager.state==GameManager.BattleState.skillSelect)
         { 
             CharStatusGet();
@@ -60,7 +66,9 @@ public class SkillStorage : MonoBehaviour
                         addDamage=(pAtk*rate)*playerSkill3Buff;
                         Debug.Log("pAtkは"+pAtk*rate);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
-                        EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.EnemyInfo.Enemy_HP[0];
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        Debug.Log("エネミーのHPは"+ehp);
+                        EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
                         Debug.Log("ehpは"+ehp);
                         Debug.Log("enemyの最大HPは"+ EnemyManager.EnemyInfo.Enemy_HP[0]);
 

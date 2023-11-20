@@ -813,7 +813,7 @@ MonoBehaviour:
   playerSkill3Buff: 0
   movechara: {fileID: 0}
   partyChara: {fileID: 1243792711}
-  charaNumber: -1
+  charaNumber: 0
 --- !u!4 &285012945
 Transform:
   m_ObjectHideFlags: 0
@@ -2016,8 +2016,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d444ee770da0704d8b2ff13dab49563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WolfSkill: 28000000000000000000000000000000
   tmpEM: 0
   enemyMoveGageImage: {fileID: 2127014423}
+  partyChara: {fileID: 1243792711}
+  atkUpcorrection: 1
 --- !u!1 &767966381
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
                 break;
                 case BattleState.move:
                 {
-                    Debug.Log(moveEnd);
                     if(moveEnd)
                     { 
                         state=BattleState.effect; 
