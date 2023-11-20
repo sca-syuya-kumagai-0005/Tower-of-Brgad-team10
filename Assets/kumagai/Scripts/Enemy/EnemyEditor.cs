@@ -47,7 +47,6 @@ public class EnemyEditor : MonoBehaviour
             {
                 if(EnemyData[i][j]=="-1")
                 {
-                    Debug.Log("-1");
                     return;
                 }
                     data[j]=EnemyData[EnemyManager.enemyNumber][j];

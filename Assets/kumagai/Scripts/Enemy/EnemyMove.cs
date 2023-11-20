@@ -9,6 +9,7 @@ public class EnemyMove : MonoBehaviour
     public static bool enemyMove;
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
+    [SerializeField]private GameObject partyChara;
     private int skillNumber;
     public static bool skillSet;
     public static bool skillOK;
@@ -16,16 +17,18 @@ public class EnemyMove : MonoBehaviour
     private float moveUpcorrection;
     private int atkUpTurn;
     private float atkUpcorrection;
+    private Image[] charaAlive;
     // Start is called before the first frame update
     void Start()
     {
         CharaMoveGage.ActTime[0]=1;
+        charaAlive=new Image[partyChara.transform.childCount];
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+       PartyCharaAlive();
         tmpEM=enemyMove;
         if(GameManager.moveEnd)
         {
@@ -143,6 +146,19 @@ public class EnemyMove : MonoBehaviour
         else
         {
             WolfSkill[3]=10;
+        }
+    }
+    void PartyCharaAlive()
+    {
+        if(GameManager.state==GameManager.BattleState.start)
+        { 
+            for(int i=0;i<partyChara.transform.childCount;i++)
+            {
+               GameObject obj= partyChara.transform.GetChild(i).gameObject;
+               GameObject mobj=obj.transform.Find("MoveGage").gameObject;
+               charaAlive[i]=mobj.GetComponent<Image>();
+                Debug.Log(charaAlive);
+            }
         }
     }
     void SkillSet()
