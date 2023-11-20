@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField]
-    int[] WolfSkill={40,0,0,0 };
+    int[] WolfSkill;
     public static bool enemyMove;
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
@@ -89,7 +89,7 @@ public class EnemyMove : MonoBehaviour
 
         if(!flg)
         {
-            target = Random.Range(0, charaAlive.Length);//‘ÎÛ‚Ì’Š‘I
+            target = Random.Range(0, 1);//‘ÎÛ‚Ì’Š‘I
             if (charaAlive[target].fillAmount>0)
             {   
                 flg=true;
@@ -97,7 +97,7 @@ public class EnemyMove : MonoBehaviour
         }
         if(flg)
         { 
-            EnemyManager.EnemyInfo.Enemy_ATK[0]*=1000*atkUpcorrection;
+            EnemyManager.EnemyInfo.Enemy_ATK[0]*=atkUpcorrection;
             PlayerEditorManager.PlayerInfo.Player_HP[target]-= (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
