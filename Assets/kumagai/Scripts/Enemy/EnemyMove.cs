@@ -20,6 +20,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]
     private float atkUpcorrection;
     private Image[] charaAlive;
+    float Damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,12 +99,14 @@ public class EnemyMove : MonoBehaviour
         if(flg)
         { 
             EnemyManager.EnemyInfo.Enemy_ATK[0]*=atkUpcorrection;
-            PlayerEditorManager.PlayerInfo.Player_HP[target]-= (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+            Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+            DamageCutController(target);
+            PlayerEditorManager.PlayerInfo.Player_HP[target]-=(int)Damage;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0]=1*moveUpcorrection;
             enemyMoveGageImage.fillAmount=0;
-            CharaMoveGage.ActTime[0] = 8;
+            CharaMoveGage.ActTime[0] = 1;
             GameManager.moveEnd=true;
         }
     }
@@ -218,4 +221,13 @@ public class EnemyMove : MonoBehaviour
                 break;
         }
     }
+    void DamageCutController(int target)
+    {
+        if (partyChara.transform.GetChild(target).gameObject.name == "ƒS[ƒhƒ“" && SkillStorage.DameCutTime > 0)
+        {
+            Damage = Damage * (0.01f * (100 - SkillStorage.DameCutPar));
+            Debug.Log("Damage‚©‚Á‚Æ‚µ‚½‚æ");
+        }
+    }
 }
+   
