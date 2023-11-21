@@ -5,8 +5,8 @@ using static PlayerEditorManager;
 
 public class SkillStorage : MonoBehaviour
 {
-    [SerializeField]
-    private float rate;
+
+    public  static float rate;
     [SerializeField]
     private float pATKCorrect=1;
     [SerializeField]
@@ -33,7 +33,6 @@ public class SkillStorage : MonoBehaviour
         if(NotesEditor.commandEnd)
         {
             rate = NotesEditor.NotesOKCount / CommandCount;
-            Debug.Log(100);
             Debug.Log(CharaMoveGage.MoveChar[0].name);
             CharaSet();
         }
@@ -266,9 +265,11 @@ public class SkillStorage : MonoBehaviour
     public static float DameCutTime;
     public  const float DameCutMaxTime=30f;
     public static int gordonHateCorrection;
-    [SerializeField]
-    private float hateUpTime;
+    public static float hateUpTime;
     public static float hateUpMaxTime;
+    public static float atkDownDeBuff;
+    public static float atkDownTime;
+    public static float atkDownMaxTime;
     void GorDonSkill()
     {
         switch (SkillSelection.SkillNumber)
@@ -283,7 +284,7 @@ public class SkillStorage : MonoBehaviour
                     {
                         DameCutPar=(rate*100)-40f;
                         DameCutTime=DameCutMaxTime;
-
+                        GameManager.moveEnd = true;
                         Debug.Log(DameCutPar);
                     }
                     break;
@@ -299,6 +300,25 @@ public class SkillStorage : MonoBehaviour
                         gordonHateCorrection = 50;
                         hateUpMaxTime=rate*100;
                         hateUpTime=hateUpMaxTime;
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+                case 2:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "ˆÐˆ³";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        float eAtk=PlayerInfo.Player_ATK[charaNumber];
+                        atkDownDeBuff=rate*100*0.3f*eAtk;
+                        Debug.Log(atkDownDeBuff);
+                        atkDownMaxTime= rate * 100 * 0.6f;
+                        Debug.Log(atkDownMaxTime);
+                        atkDownTime =atkDownMaxTime;
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -360,6 +380,8 @@ public class SkillStorage : MonoBehaviour
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
         hateUpTime=BuffTime(hateUpTime);
         gordonHateCorrection= (int)Buff(hateUpTime,gordonHateCorrection,0);
+        atkDownTime=BuffTime(atkDownTime);
+        atkDownDeBuff=Buff(atkDownTime,atkDownDeBuff,0);
     }
     public static int DBuffTurn(int turn)
     {

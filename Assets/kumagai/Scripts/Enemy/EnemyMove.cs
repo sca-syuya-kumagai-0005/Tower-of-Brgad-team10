@@ -129,10 +129,11 @@ public class EnemyMove : MonoBehaviour
             { 
                 CharaMoveGage.ActTime[0] = 11*moveUpcorrection; 
                 EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
-                PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)EnemyManager.EnemyInfo.Enemy_standardATK[0];
+                Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+                DamageCutController(target);
+                PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; 
-                CharaMoveGage.ActTime[0] = 8;
                 enemyMoveGageImage.fillAmount = 0;
             }
         }
@@ -225,6 +226,11 @@ public class EnemyMove : MonoBehaviour
         if (partyChara.transform.GetChild(target).gameObject.name == "ƒS[ƒhƒ“" && SkillStorage.DameCutTime > 0)
         {
             Damage = Damage * (0.01f * (100 - SkillStorage.DameCutPar));
+        }
+        if(SkillStorage.atkDownTime>0)
+        {
+            Damage=Damage-SkillStorage.atkDownDeBuff;
+            Debug.Log(SkillStorage.atkDownDeBuff);
         }
     }
 
