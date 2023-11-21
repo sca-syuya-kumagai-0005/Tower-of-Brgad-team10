@@ -18,7 +18,9 @@ public class SkillStorage : MonoBehaviour
     private float addDamage;
     private void Update()
     {
-        if(CharaMoveGage.MoveChar[0]!=null)
+       
+       
+        if (CharaMoveGage.MoveChar[0]!=null)
         { 
             if(CharaMoveGage.MoveChar[0].name=="éÂêlåˆ")
             { 
@@ -35,11 +37,20 @@ public class SkillStorage : MonoBehaviour
         }
         if(NotesEditor.commandEnd)
         {
+            rate = NotesEditor.NotesOKCount / CommandCount;
             Debug.Log(100);
             Debug.Log(CharaMoveGage.MoveChar[0].name);
             CharaSet();
         }
+        if(GameManager.state==GameManager.BattleState.move)
+        {
+
+        }
         BuffTimeStorage();
+        if (rate >= 1)
+        {
+            rate = 1;
+        }
     }
     [SerializeField]
     private GameObject partyChara;
@@ -52,7 +63,7 @@ public class SkillStorage : MonoBehaviour
     
     private void PlayerSkill()
     {
-        rate = NotesEditor.NotesOKCount / CommandCount;
+
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -64,12 +75,12 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state==GameManager.BattleState.move)
                     {
+                        
                         float pAtk= PlayerInfo.Player_ATK[charaNumber]*pATKCorrect*2;
                         addDamage=(pAtk*rate)*playerSkill3Buff;
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
-
                         GameManager.moveEnd=true;
                     }
                 }
@@ -128,7 +139,8 @@ public class SkillStorage : MonoBehaviour
     
     public static float addSpeed=1;
     public static int addSpeedTurn;
-    public static float rateCorrection;
+    [SerializeField]
+    private float rateCorrection;
     public static float annaSKill3;
     public static float annaSkill3MaxTime;
     public static float annSkill3Time;
@@ -225,11 +237,52 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        rateCorrection=rate*100*0.3f;
-                        rate=rate*rateCorrection;
+                        rateCorrection=(rate*100*0.3f)/100;
+                       
                     }
                 }
                 break;
+                case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "åãññÇ÷ÇÃí≤êÆ";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        float ehp= EnemyManager.EnemyInfo.Enemy_HP[0];
+                        ehp -=ehp * (rate * 100 * 0.01f)*0.1f;
+                        Debug.Log("ehpÇÕ"+ehp);
+                        EnemyManager.EnemyInfo.Enemy_HP[0]=ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / (float)EnemyManager.maxEnemyHP[0];
+
+                    }
+                }
+                break;
+        }
+    }
+
+
+    public static bool  DameCut;
+    public static float DameCutPar;
+    public static float DameCutTime;
+    public static float DameCutMaxTime;
+    void GoDon()
+    {
+        switch (SkillSelection.SkillNumber)
+        {
+            case 0:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "éÁåÏÇÃç\Ç¶";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+
+                    }
+                    break;
+                }
         }
     }
     void CharaSet()
