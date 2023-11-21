@@ -14,8 +14,6 @@ public class SkillStorage : MonoBehaviour
     public static int playerSkill3;
     [SerializeField]
     private float playerSkill3Buff;
-    [SerializeField]
-    GameObject movechara;
     public static int CommandCount;
     private float addDamage;
     private void Update()
@@ -26,16 +24,20 @@ public class SkillStorage : MonoBehaviour
             { 
                 PlayerSkill();
             }
+            if(CharaMoveGage.MoveChar[0].name=="アンナリーナ")
+            {
+                AnnaSkill();
+            }
         }
         if(GameManager.state==GameManager.BattleState.skillSelect)
         { 
-            CharStatusGet();
+            CharNumberGet();
         }
         if(NotesEditor.commandEnd)
         {
             Debug.Log(100);
             Debug.Log(CharaMoveGage.MoveChar[0].name);
-            CharaSet(movechara.name);
+            CharaSet();
         }
         BuffTimeStorage();
     }
@@ -47,6 +49,7 @@ public class SkillStorage : MonoBehaviour
     {
       
     }
+    
     private void PlayerSkill()
     {
         rate = NotesEditor.NotesOKCount / CommandCount;
@@ -117,27 +120,138 @@ public class SkillStorage : MonoBehaviour
                         PlayerInfo.Player_HP[charaNumber]=(int)php;
                         PlayerManager.playerHPBer[charaNumber].fillAmount=PlayerInfo.Player_HP[charaNumber]/PlayerEditorManager.MaxHP[charaNumber];
                         Debug.Log("通過しました");
-                        
                     }
                 }
                 break;
         }
     }
-    void CharaSet(string str)
+    
+    public static float addSpeed=1;
+    public static int addSpeedTurn;
+    public static float rateCorrection;
+    public static float annaSKill3;
+    public static float annaSkill3MaxTime;
+    public static float annSkill3Time;
+    void AnnaSkill()
     {
-        if(CharaMoveGage.MoveChar[0].name=="主人公")
+        switch(SkillSelection.SkillNumber)
+        {
+            case 0:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "加速する未来";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        Debug.Log("加速する未来");
+                        addSpeed=1.3f;
+                        switch(rate)
+                        {
+                            case 0.2f:
+                                {
+                                    addSpeedTurn=1;
+                                }
+                                break;
+                            case 0.4f:
+                                {
+                                    addSpeedTurn=2;
+                                }
+                                break;
+                            case 0.6f:
+                                {
+                                    addSpeedTurn=3;
+                                }
+                                break;
+                            case 0.8f:
+                                {
+                                    addSpeedTurn=4;
+                                }
+                                break;
+                            case 1f:
+                                {
+                                    addSpeedTurn=5;
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                }
+                case 1:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "減速する過去";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        addSpeed =0.7f;
+                        switch (rate)
+                        {
+                            case 0.2f:
+                                {
+                                    addSpeedTurn = 1;
+                                }
+                                break;
+                            case 0.4f:
+                                {
+                                    addSpeedTurn = 2;
+                                }
+                                break;
+                            case 0.6f:
+                                {
+                                    addSpeedTurn = 3;
+                                }
+                                break;
+                            case 0.8f:
+                                {
+                                    addSpeedTurn = 4;
+                                }
+                                break;
+                            case 1f:
+                                {
+                                    addSpeedTurn = 5;
+                                }
+                                break;
+                        }
+                    } 
+                }
+                break;
+                case 2:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "ありえた選択";
+                    }
+                    if(GameManager.state==GameManager.BattleState.move)
+                    {
+                        rateCorrection=rate*100*0.3f;
+                        rate=rate*rateCorrection;
+                    }
+                }
+                break;
+        }
+    }
+    void CharaSet()
+    {
+        string mChar=CharaMoveGage.MoveChar[0].name;
+        if(mChar=="主人公")
         {
             PlayerSkill();
         }
+        if (mChar == "アンナリーナ")
+        {
+            AnnaSkill();
+        }
+
     }
-    void CharStatusGet()
+    void CharNumberGet()//行動するキャラが何番目のキャラかを取得
     {
          for(int i=0;i<4;i++)
         {
             if(partyChara.transform.GetChild(i).gameObject==CharaMoveGage.MoveChar[0])
             {
                 charaNumber=i;
-                movechara=CharaMoveGage.MoveChar[0];
             }
         }
     }
@@ -164,8 +278,9 @@ public class SkillStorage : MonoBehaviour
     {
         playerSkill2=BuffTime(playerSkill2);
         pATKCorrect=Buff(playerSkill2,pATKCorrect,1);
+        Buff(addSpeedTurn,addSpeed,1);
     }
-    int DBuffTurn(int turn)
+    public static int DBuffTurn(int turn)
     {
         if(turn>0)
         {
@@ -174,8 +289,12 @@ public class SkillStorage : MonoBehaviour
         }
         return 0;
     }
-    void DBuffTurnStorage()
+    public static void DBuffTurnStorage()
     {
         DBuffTurn(playerSkill3);
+    }
+    public static void BuffTurnStorage()
+    {
+        DBuffTurn(addSpeedTurn);
     }
 }
