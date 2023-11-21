@@ -807,10 +807,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841d32b9117dd524c80931086d0e2902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rate: 0
   pATKCorrect: 1
   playerSkill2: 0
   playerSkill3Buff: 0
+  hate: 0
   partyChara: {fileID: 1243792711}
   charaNumber: 0
   rateCorrection: 0
@@ -839,7 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 338921828}
   m_Layer: 5
-  m_Name: "\u30A2\u30F3\u30CA\u30EA\u30FC\u30CA"
+  m_Name: "\u4E3B\u4EBA\u516C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1111,7 +1111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 429770820}
   m_Layer: 5
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u30B4\u30FC\u30C9\u30F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3638,7 +3638,6 @@ RectTransform:
   - {fileID: 1779898679}
   - {fileID: 918809173}
   - {fileID: 782731814}
-  - {fileID: 1995532980}
   - {fileID: 794385515}
   - {fileID: 757574327}
   - {fileID: 786270578}
@@ -4013,6 +4012,7 @@ RectTransform:
   - {fileID: 1270700512}
   - {fileID: 1480126041}
   - {fileID: 1373382615}
+  - {fileID: 1995532980}
   m_Father: {fileID: 1243792712}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5453,17 +5453,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995532979}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 360611281}
-  m_Father: {fileID: 1122665798}
+  m_Father: {fileID: 1334905115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 808.1, y: 406.2}
+  m_AnchoredPosition: {x: 475.26672, y: 337.43335}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1995532981
