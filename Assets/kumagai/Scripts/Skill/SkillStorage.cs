@@ -263,11 +263,10 @@ public class SkillStorage : MonoBehaviour
     }
 
 
-    public static bool  DameCut;
     public static float DameCutPar;
     public static float DameCutTime;
-    public static float DameCutMaxTime;
-    void GoDon()
+    public  const float DameCutMaxTime=30f;
+    void GoDonSkill()
     {
         switch (SkillSelection.SkillNumber)
         {
@@ -279,10 +278,14 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-
+                        DameCutPar=(rate*100)-40f;
+                        DameCutTime=DameCutMaxTime;
+                        
+                        Debug.Log(DameCutPar);
                     }
                     break;
                 }
+                
         }
     }
     void CharaSet()
@@ -295,6 +298,10 @@ public class SkillStorage : MonoBehaviour
         if (mChar == "アンナリーナ")
         {
             AnnaSkill();
+        }
+        if(mChar=="ゴードン")
+        {
+            GoDonSkill();
         }
 
     }
@@ -319,7 +326,7 @@ public class SkillStorage : MonoBehaviour
         return 0;
     }
 
-    float Buff(float time,float buff,float normal)
+    float Buff(float time,float buff,float normal)//バフの時間が切れたら初期値に戻す関数
     {
         if(time<=0)
         {
@@ -331,7 +338,9 @@ public class SkillStorage : MonoBehaviour
     {
         playerSkill2=BuffTime(playerSkill2);
         pATKCorrect=Buff(playerSkill2,pATKCorrect,1);
-        Buff(addSpeedTurn,addSpeed,1);
+        addSpeed=Buff(addSpeedTurn,addSpeed,1);
+        DameCutTime=BuffTime(DameCutTime);
+        DameCutPar= Buff(DameCutTime,DameCutPar,0);
     }
     public static int DBuffTurn(int turn)
     {
