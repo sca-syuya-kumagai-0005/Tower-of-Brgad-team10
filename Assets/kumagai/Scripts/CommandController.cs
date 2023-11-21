@@ -31,7 +31,7 @@ public class CommandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed = int.Parse(this.gameObject.transform.GetChild(0).gameObject.name)*SkillStorage.addSpeed;
+        speed = int.Parse(this.gameObject.transform.GetChild(0).gameObject.name);//*SkillStorage.addSpeed;
         if (Input.GetKeyDown(KeyCode.Return))//後で変更　仕様待ち
         {
             Debug.Log(this.gameObject.name);
