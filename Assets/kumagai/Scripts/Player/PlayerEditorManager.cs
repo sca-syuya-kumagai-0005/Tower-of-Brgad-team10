@@ -24,6 +24,7 @@ public class PlayerEditorManager : MonoBehaviour
         public static int[] Player_MP;
         public static int[] Player_EXP;
         public static float[] Player_ActTime;
+        public static int[] Player_Hate=new int[4];
     }
     public static float[] MaxHP=new float[4];
     public static int[] standardATK=new int[4];
@@ -34,6 +35,7 @@ public class PlayerEditorManager : MonoBehaviour
         Player_ATK = new int[partyTheNumberOf];
         Player_EXP = new int[partyTheNumberOf];
         Player_ActTime=new float[partyTheNumberOf];
+       
         for (int i = 0; i < partyTheNumberOf; i++)
         {
             PlayerStatas(PlayerEditor.playerDatas[i], i);
@@ -63,6 +65,9 @@ public class PlayerEditorManager : MonoBehaviour
             CharaMoveGage.ActTime[Integer+1] = Player_ActTime[Integer];
             MaxHP[Integer]= PlayerInfo.Player_HP[Integer];
             standardATK[Integer]=Player_ATK[Integer];
+            Player_Hate[Integer] = int.Parse(EData[0][1]);
+            Debug.Log("ヘイト値は" + Player_Hate[Integer]);
+
         //[i番目のキャラクター]　[Lv]　[対応するステータス]
 
     }

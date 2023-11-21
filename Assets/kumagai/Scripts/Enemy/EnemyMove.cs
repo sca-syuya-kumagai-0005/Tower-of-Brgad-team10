@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class EnemyMove : MonoBehaviour
 {
@@ -73,11 +74,9 @@ public class EnemyMove : MonoBehaviour
                         skillSet =true;
                         }
                     }
-                    
                     break;
                 }
             }
-            
         }
     }
 
@@ -90,7 +89,7 @@ public class EnemyMove : MonoBehaviour
 
         if(!flg)
         {
-            target = Random.Range(0, charaAlive.Length);//対象の抽選
+            target = EnemyAttackTarget();//対象の抽選
             if (charaAlive[target].fillAmount>0)
             {   
                 flg=true;
@@ -120,7 +119,7 @@ public class EnemyMove : MonoBehaviour
         { 
             if(!flg)
             {
-                target = Random.Range(1, charaAlive.Length);//対象の抽選
+                target = EnemyAttackTarget();
                 if (charaAlive[target].fillAmount > 0)
                 {
                     flg = true;
@@ -226,8 +225,23 @@ public class EnemyMove : MonoBehaviour
         if (partyChara.transform.GetChild(target).gameObject.name == "ゴードン" && SkillStorage.DameCutTime > 0)
         {
             Damage = Damage * (0.01f * (100 - SkillStorage.DameCutPar));
-            Debug.Log("Damageかっとしたよ");
         }
+    }
+
+    int EnemyAttackTarget()
+    {
+        int MaxHate=PlayerEditorManager.PlayerInfo.Player_Hate.Sum();
+        Debug.Log(MaxHate);
+        int target=Random.Range(0,MaxHate+1);
+        for(int i=0;i<partyChara.transform.childCount;i++)
+        {
+           target-=PlayerEditorManager.PlayerInfo.Player_Hate[i];
+            if(target<0)
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 }
    
