@@ -20,6 +20,7 @@ public class NotesEditor : MonoBehaviour
     TextAsset notesDatas;
     public static int skillCommandCount;
     public static float NotesOKCount;
+    GameObject speedManager;
     public enum NotesType
     {
         i=-1,
@@ -53,6 +54,7 @@ public class NotesEditor : MonoBehaviour
         tmplastNotes=lastNotes;
         tmpcommandEnd=commandEnd;
         notesDatas = Resources.Load<TextAsset>("Skill/"+skillName);
+
         List<string[]> data = CsvReader(notesDatas);
         skillCommandCount =data.Count;
         SkillStorage.CommandCount=data.Count-2;
@@ -150,7 +152,9 @@ public class NotesEditor : MonoBehaviour
             yield return new WaitForSeconds(t); //“ñ—ñ–Ú‚Ì’l•ª‚¾‚¯‘Ò‹@
             if(c!=NotesType.i)
             { 
-            Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //¶¬
+            speedManager=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //¶¬
+                speedManager=speedManager.transform.GetChild(0).gameObject;
+                speedManager.name=(float.Parse(data[i][2])).ToString();
             }
         }
     }

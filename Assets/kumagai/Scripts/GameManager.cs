@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
                     if(EnemyMove.skillOK)
                     {
                         state=BattleState.move;
+                        SkillStorage.DBuffTurnStorage();
                     }
                 }
                 break;
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
                     if(NotesEditor.commandEnd)
                     {
                         state=BattleState.move;
+                        SkillStorage.BuffTurnStorage();
                     }
                 }
                 break;
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour
                     { 
                         state=BattleState.effect; 
                     }
+                    
                 }
                 break;
             case BattleState.effect:

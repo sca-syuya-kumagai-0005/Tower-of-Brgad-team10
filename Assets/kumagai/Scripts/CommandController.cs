@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CommandController : MonoBehaviour
 {
+    [SerializeField]
     private float speed;//ノーツのスピード
     private string myName;//生成されたプレハブの名前
     private bool judgeFlag;
@@ -30,8 +31,8 @@ public class CommandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed = NotesEditor.s;
-        if(Input.GetKeyDown(KeyCode.Return))//後で変更　仕様待ち
+        speed = int.Parse(this.gameObject.transform.GetChild(0).gameObject.name)*SkillStorage.addSpeed;
+        if (Input.GetKeyDown(KeyCode.Return))//後で変更　仕様待ち
         {
             Debug.Log(this.gameObject.name);
         }

@@ -103,6 +103,7 @@ public class EnemyMove : MonoBehaviour
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0]=1*moveUpcorrection;
             enemyMoveGageImage.fillAmount=0;
+            CharaMoveGage.ActTime[0] = 8;
             GameManager.moveEnd=true;
         }
     }
