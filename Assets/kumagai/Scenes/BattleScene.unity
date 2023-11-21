@@ -811,7 +811,6 @@ MonoBehaviour:
   pATKCorrect: 1
   playerSkill2: 0
   playerSkill3Buff: 0
-  movechara: {fileID: 0}
   partyChara: {fileID: 1243792711}
   charaNumber: 0
 --- !u!4 &285012945
@@ -1498,7 +1497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 535516082}
   m_Layer: 5
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u30A2\u30F3\u30CA\u30EA\u30FC\u30CA"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2016,7 +2015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d444ee770da0704d8b2ff13dab49563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WolfSkill: 28000000000000000000000000000000
+  WolfSkill: 280000000a000000280000000a000000
   tmpEM: 0
   enemyMoveGageImage: {fileID: 2127014423}
   partyChara: {fileID: 1243792711}
