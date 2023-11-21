@@ -53,17 +53,22 @@ public class NotesEditor : MonoBehaviour
     {
         tmplastNotes=lastNotes;
         tmpcommandEnd=commandEnd;
-        notesDatas = Resources.Load<TextAsset>("Skill/"+skillName);
-
-        List<string[]> data = CsvReader(notesDatas);
+       
+        if (CharaMoveGage.MoveChar[0] != null)
+        {
+            notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
+            List<string[]> data = CsvReader(notesDatas);
+        
         skillCommandCount =data.Count;
         SkillStorage.CommandCount=data.Count-2;
         s = speed;
 
-        if (GameManager.state==GameManager.BattleState.command&&!commandStart)
-        { 
-            StartCoroutine(NotesCreater());
-            commandStart=true;
+            if (GameManager.state==GameManager.BattleState.command&&!commandStart)
+            { 
+                StartCoroutine(NotesCreater());
+                NotesOKCount=0;
+                commandStart=true;
+            }
         }
     }
     [SerializeField]private bool tmplastNotes;
@@ -152,7 +157,7 @@ public class NotesEditor : MonoBehaviour
             yield return new WaitForSeconds(t); //“ñ—ñ–Ú‚Ì’l•ª‚¾‚¯‘Ò‹@
             if(c!=NotesType.i)
             { 
-            speedManager=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //¶¬
+                speedManager=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //¶¬
                 speedManager=speedManager.transform.GetChild(0).gameObject;
                 speedManager.name=(float.Parse(data[i][2])).ToString();
             }
