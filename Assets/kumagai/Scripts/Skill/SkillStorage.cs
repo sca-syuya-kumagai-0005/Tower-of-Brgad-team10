@@ -16,20 +16,15 @@ public class SkillStorage : MonoBehaviour
     private float playerSkill3Buff;
     public static int CommandCount;
     private float addDamage;
+    [SerializeField]
+    private int hate;
     private void Update()
     {
-       
+       hate=PlayerEditorManager.PlayerInfo.Player_Hate[2]+gordonHateCorrection;
        
         if (CharaMoveGage.MoveChar[0]!=null)
         { 
-            if(CharaMoveGage.MoveChar[0].name=="主人公")
-            { 
-                PlayerSkill();
-            }
-            if(CharaMoveGage.MoveChar[0].name=="アンナリーナ")
-            {
-                AnnaSkill();
-            }
+            CharaSet();
         }
         if(GameManager.state==GameManager.BattleState.skillSelect)
         { 
@@ -131,6 +126,7 @@ public class SkillStorage : MonoBehaviour
                         PlayerInfo.Player_HP[charaNumber]=(int)php;
                         PlayerManager.playerHPBer[charaNumber].fillAmount=PlayerInfo.Player_HP[charaNumber]/PlayerEditorManager.MaxHP[charaNumber];
                         Debug.Log("通過しました");
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -186,6 +182,7 @@ public class SkillStorage : MonoBehaviour
                                 }
                                 break;
                         }
+                        GameManager.moveEnd = true;
                     }
                     break;
                 }
@@ -226,6 +223,7 @@ public class SkillStorage : MonoBehaviour
                                 }
                                 break;
                         }
+                        GameManager.moveEnd = true;
                     } 
                 }
                 break;
@@ -238,7 +236,7 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state==GameManager.BattleState.move)
                     {
                         rateCorrection=(rate*100*0.3f)/100;
-                       
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -255,7 +253,7 @@ public class SkillStorage : MonoBehaviour
                         Debug.Log("ehpは"+ehp);
                         EnemyManager.EnemyInfo.Enemy_HP[0]=ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / (float)EnemyManager.maxEnemyHP[0];
-
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -263,10 +261,15 @@ public class SkillStorage : MonoBehaviour
     }
 
 
+
     public static float DameCutPar;
     public static float DameCutTime;
     public  const float DameCutMaxTime=30f;
-    void GoDonSkill()
+    public static int gordonHateCorrection;
+    [SerializeField]
+    private float hateUpTime;
+    public static float hateUpMaxTime;
+    void GorDonSkill()
     {
         switch (SkillSelection.SkillNumber)
         {
@@ -280,11 +283,25 @@ public class SkillStorage : MonoBehaviour
                     {
                         DameCutPar=(rate*100)-40f;
                         DameCutTime=DameCutMaxTime;
-                        
+
                         Debug.Log(DameCutPar);
                     }
                     break;
                 }
+            case 1:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "挑発";
+                    }
+                    if(GameManager.state==GameManager.BattleState.move)
+                    {
+                        gordonHateCorrection = 50;
+                        hateUpMaxTime=rate*100;
+                        hateUpTime=hateUpMaxTime;
+                    }
+                }
+                break;
                 
         }
     }
@@ -301,7 +318,7 @@ public class SkillStorage : MonoBehaviour
         }
         if(mChar=="ゴードン")
         {
-            GoDonSkill();
+            GorDonSkill();
         }
 
     }
@@ -341,6 +358,8 @@ public class SkillStorage : MonoBehaviour
         addSpeed=Buff(addSpeedTurn,addSpeed,1);
         DameCutTime=BuffTime(DameCutTime);
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
+        hateUpTime=BuffTime(hateUpTime);
+        gordonHateCorrection= (int)Buff(hateUpTime,gordonHateCorrection,0);
     }
     public static int DBuffTurn(int turn)
     {

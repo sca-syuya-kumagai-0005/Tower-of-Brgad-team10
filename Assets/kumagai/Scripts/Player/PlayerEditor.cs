@@ -31,7 +31,6 @@ public class PlayerEditor : MonoBehaviour
             PlayerDatas[i] = Resources.Load<TextAsset>("Character/"+PlayerName[i]);
             PlayerStatus(PlayerDatas[i], i);
             DebugDatas[i] = PlayerDatas[i];
-
         }
     }
 
