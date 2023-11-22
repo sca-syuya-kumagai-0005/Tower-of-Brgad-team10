@@ -18,7 +18,10 @@ public class SkillStorage : MonoBehaviour
     private float addDamage;
     [SerializeField]
     private int hate;
-    public static float enemyActTime;
+    public static float enemyActTime=8;
+    private void Start()
+    {
+    }
     private void Update()
     {
        hate=PlayerEditorManager.PlayerInfo.Player_Hate[2]+gordonHateCorrection;
