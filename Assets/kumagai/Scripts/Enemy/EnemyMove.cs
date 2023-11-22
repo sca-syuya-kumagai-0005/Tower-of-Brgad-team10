@@ -59,9 +59,9 @@ public class EnemyMove : MonoBehaviour
                 MaxSkill += WolfSkill[i];
             }
             int move=Random.Range(0,MaxSkill+1);
-            for(int i=1;i<5;i++)
+            for(int i=0;i<5;i++)
             {
-                move-=WolfSkill[i-1];
+                move-=WolfSkill[i];
                 if(move<=0)
                 {
                     if(!skillSet)
@@ -100,24 +100,26 @@ public class EnemyMove : MonoBehaviour
             EnemyManager.EnemyInfo.Enemy_ATK[0]*=atkUpcorrection;
             Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
             DamageCutController(target);
+            DamageReflection(Damage);
             PlayerEditorManager.PlayerInfo.Player_HP[target]-=(int)Damage;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
-            CharaMoveGage.ActTime[0]=1*moveUpcorrection;
+            CharaMoveGage.ActTime[0]= 8*SkillStorage.DeBuffSpeed * moveUpcorrection;
             enemyMoveGageImage.fillAmount=0;
-            CharaMoveGage.ActTime[0] = 1;
+            CharaMoveGage.ActTime[0] = 8*SkillStorage.DeBuffSpeed;
             GameManager.moveEnd=true;
         }
     }
 
     void EnemySkill2()
     {
-        bool flg=false;
+        
         int target=0;
         Debug.Log("“ñ“xŠš‚Ý");
         for(int i=0;i<2;i++)
-        { 
-            if(!flg)
+        {
+            bool flg = false;
+            if (!flg)
             {
                 target = EnemyAttackTarget();
                 if (charaAlive[target].fillAmount > 0)
@@ -127,10 +129,11 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             { 
-                CharaMoveGage.ActTime[0] = 11*moveUpcorrection; 
+                CharaMoveGage.ActTime[0] = 11*SkillStorage.DeBuffSpeed*moveUpcorrection; 
                 EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
                 Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
                 DamageCutController(target);
+                DamageReflection(Damage);
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; 
@@ -145,14 +148,14 @@ public class EnemyMove : MonoBehaviour
         moveUpTurn=5;
         moveUpcorrection = 0.75f;
         Debug.Log(moveUpcorrection);
-        CharaMoveGage.ActTime[0] = 10*moveUpcorrection;
+        CharaMoveGage.ActTime[0] = 10*SkillStorage.DeBuffSpeed * moveUpcorrection;
         enemyMoveGageImage.fillAmount = 0;
         GameManager.moveEnd = true;
     }
     void EnemySkill4()
     {
         Debug.Log("™ôšK");atkUpTurn=2;
-        CharaMoveGage.ActTime[0] = 8*moveUpcorrection;
+        CharaMoveGage.ActTime[0] = 8 * SkillStorage.DeBuffSpeed * moveUpcorrection;
         enemyMoveGageImage.fillAmount = 0;
         GameManager.moveEnd = true;
     }
@@ -196,25 +199,23 @@ public class EnemyMove : MonoBehaviour
     {
        switch(skillNumber)
         {
-            case 1:
+            case 0:
                 {
-                    while(!GameManager.moveEnd)
-                    { 
-                        EnemySkill1();
-                    }
+                    EnemySkill1();
+                
                 }
                 break;
-            case 2:
+            case 1:
                 {
                     EnemySkill2();
                 }
                 break;
-            case 3:
+            case 2:
                 {
                     EnemySkill3();
                 }
                 break;
-            case 4:
+            case 3:
                 {
                     EnemySkill4();
                 }
@@ -248,6 +249,16 @@ public class EnemyMove : MonoBehaviour
             }
         }
         return 0;
+    }
+
+    void DamageReflection(float atk)
+    {
+        if(SkillStorage.RefrectCount>0)
+        { 
+            int Damage=(int)((atk*0.02f)+SkillStorage.RefrectDamage);
+            EnemyManager.EnemyInfo.Enemy_HP[0]-=Damage;
+            SkillStorage.RefrectCount--;
+        }
     }
 }
    
