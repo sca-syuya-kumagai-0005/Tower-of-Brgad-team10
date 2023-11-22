@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         BattleStateManager();
-        //Debug.Log(state);
+        Debug.Log(state);
         tmpmoveEnd=moveEnd;
     }
 

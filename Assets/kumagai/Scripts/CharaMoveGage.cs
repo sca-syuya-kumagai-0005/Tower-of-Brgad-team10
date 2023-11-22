@@ -30,6 +30,7 @@ public class CharaMoveGage : MonoBehaviour
         Player_MoveGageImage=new Image[this.transform.childCount+1];//同様にイメージを定義
         Char_MoveGage[0]=GameObject.Find("Enemy").transform.GetChild(1).gameObject;//エネミーについている行動ゲージを取得
         Player_MoveGageImage[0]=Char_MoveGage[0].GetComponent<Image>();
+
         for(int i=1;i<this.transform.childCount+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
         {
             Char=this.transform.GetChild(i-1).gameObject;
