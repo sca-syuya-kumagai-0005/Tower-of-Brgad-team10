@@ -312,12 +312,29 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        float eAtk=PlayerInfo.Player_ATK[charaNumber];
-                        atkDownDeBuff=rate*100*0.3f*eAtk;
+                        float pAtk=PlayerInfo.Player_ATK[charaNumber];
+                        atkDownDeBuff=(int)(rate*pAtk*0.3f);
                         Debug.Log(atkDownDeBuff);
                         atkDownMaxTime= rate * 100 * 0.6f;
                         Debug.Log(atkDownMaxTime);
                         atkDownTime =atkDownMaxTime;
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+                case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "Žh“Ë";
+                    }
+                    if(GameManager.state == GameManager.BattleState.move)
+                    {
+                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                        addDamage = ((pAtk * rate) +PlayerInfo.Player_ATK[charaNumber])*playerSkill3Buff;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * rate;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         GameManager.moveEnd = true;
                     }
                 }
