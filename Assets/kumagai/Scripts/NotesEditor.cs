@@ -5,6 +5,13 @@ using System.IO;
 
 public class NotesEditor : MonoBehaviour
 {
+    [SerializeField]private GameObject notesBackGround;
+    [SerializeField]private GameObject moveText;
+    [SerializeField]private GameObject moveTextImage;
+    [SerializeField]private GameObject Judge;
+    [SerializeField]private GameObject goodText;
+    public static bool goodflg=false;
+    public static GameObject tmpgoodText;
     [SerializeField]
     private float speed;   //生成したコマンドの移動速度
     public static float s;     //インスペクターからアタッチされたCSVファイルを格納する動的配列//リストに変換した↑のデータを格納する動的配列
@@ -47,13 +54,27 @@ public class NotesEditor : MonoBehaviour
     void Start()
     {
         skillName="スラッシュ";
+        tmpgoodText=goodText;
     }
 
     void Update()
     {
         tmplastNotes=lastNotes;
         tmpcommandEnd=commandEnd;
-       
+       if(GameManager.state==GameManager.BattleState.command)
+        {
+            moveTextImage.SetActive(false);
+            moveText.SetActive(false);
+            notesBackGround.SetActive(true);
+            Judge.SetActive(true);
+        }
+        else
+        {
+            moveTextImage.SetActive(true);
+            moveText.SetActive(true);
+            notesBackGround.SetActive(false);
+            Judge.SetActive(false);
+        }
         if (CharaMoveGage.MoveChar[0] != null)
         {
             notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
@@ -189,6 +210,13 @@ public class NotesEditor : MonoBehaviour
         }
         return skillDatas;
     }
+    //public static IEnumerator good(GameObject obj)
+    //{
+    //    tmpgoodText.SetActive(goodflg);
+    //    yield return 1;
+    //    Destroy(obj);
+    //}
+
 }
 
 

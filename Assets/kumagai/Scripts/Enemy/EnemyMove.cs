@@ -26,7 +26,7 @@ public class EnemyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CharaMoveGage.ActTime[0]=1;
+        CharaMoveGage.ActTime[0]=8;
         charaAlive=new Image[partyChara.transform.childCount];
     }
 
@@ -34,9 +34,9 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
        PartyCharaAlive();
-        tmpEM=enemyMove;
+       tmpEM=enemyMove;
        protEnemyMove();
-        if(CharaMoveGage.MoveChar[0]!=null)
+        if (CharaMoveGage.MoveChar[0]!=null)
         { 
             if(GameManager.state==GameManager.BattleState.moveWait&&CharaMoveGage.MoveChar[0].name=="Enemy")
             {
@@ -44,7 +44,6 @@ public class EnemyMove : MonoBehaviour
                     {
                         enemyMove = true;
                     }
-                
             }
         }
     }
@@ -106,9 +105,10 @@ public class EnemyMove : MonoBehaviour
             PlayerEditorManager.PlayerInfo.Player_HP[target]-=(int)Damage;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
-            CharaMoveGage.ActTime[0]= 8*SkillStorage.DeBuffSpeed * moveUpcorrection;
+            CharaMoveGage.ActTime[0]= 8* moveUpcorrection;
             enemyMoveGageImage.fillAmount=0;
-            CharaMoveGage.ActTime[0] = 8*SkillStorage.DeBuffSpeed;
+            CharaMoveGage.ActTime[0] =8* atkUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             GameManager.moveEnd=true;
         }
     }
@@ -132,7 +132,8 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             { 
-                CharaMoveGage.ActTime[0] = 11*SkillStorage.DeBuffSpeed*moveUpcorrection; 
+                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
+                SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
                 Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
                 DamageCutController(target);
@@ -152,7 +153,8 @@ public class EnemyMove : MonoBehaviour
         moveUpTurn=5;
         moveUpcorrection = 0.75f;
         Debug.Log(moveUpcorrection);
-        CharaMoveGage.ActTime[0] = 10*SkillStorage.DeBuffSpeed * moveUpcorrection;
+        CharaMoveGage.ActTime[0] = 10*moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         enemyMoveGageImage.fillAmount = 0;
         GameManager.moveEnd = true;
     }
@@ -160,7 +162,8 @@ public class EnemyMove : MonoBehaviour
     {
         Debug.Log("™ôšK");atkUpTurn=2;
         EMT.text="’Ç‚¢‚Í‚¬˜T‚Ì™ôšK";
-        CharaMoveGage.ActTime[0] = 8 * SkillStorage.DeBuffSpeed * moveUpcorrection;
+        CharaMoveGage.ActTime[0] = 8  * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         enemyMoveGageImage.fillAmount = 0;
         GameManager.moveEnd = true;
     }
