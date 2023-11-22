@@ -18,6 +18,7 @@ public class SkillStorage : MonoBehaviour
     private float addDamage;
     [SerializeField]
     private int hate;
+    public static float enemyActTime;
     private void Update()
     {
        hate=PlayerEditorManager.PlayerInfo.Player_Hate[2]+gordonHateCorrection;
@@ -45,6 +46,8 @@ public class SkillStorage : MonoBehaviour
         {
             rate = 1;
         }
+            CharaMoveGage.ActTime[0]=enemyActTime*DeBuffSpeed;
+        
     }
     [SerializeField]
     private GameObject partyChara;
@@ -354,7 +357,7 @@ public class SkillStorage : MonoBehaviour
                 
         }
     }
-    public static float DeBuffSpeed=0;
+    public static float DeBuffSpeed=1;
     public static float DeSpeedTime;
     private const float DeSpeedMaxTime=20;
     public static float DeInvalidTime;

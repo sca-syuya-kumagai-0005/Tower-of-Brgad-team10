@@ -5,19 +5,27 @@ using UnityEngine;
 
 public class CommandController : MonoBehaviour
 {
+    [SerializeField]private GameObject sponePos;
     [SerializeField]
     private float speed;//ノーツのスピード
     private string myName;//生成されたプレハブの名前
     private bool judgeFlag;
     private bool OkFlag;
     private int tmpi;
-    [SerializeField]
     private GameObject commandManager;
+    [SerializeField]private GameObject mainCanvas;
+    [SerializeField]Vector3 pos;
+    private GameObject good;
 
     // Start is called before the first frame update
 
     private void OnEnable()
     {
+        mainCanvas=GameObject.Find("MainCanvas").gameObject;
+        sponePos=GameObject.Find("goodSponePos");
+        pos=sponePos.transform.position;
+        good=Resources.Load<GameObject>("Prefabs/Good");
+        Debug.Log(good);
        judgeFlag=false;
        OkFlag=false;
        //gameObject.tag=(NotesEditor.direction.ToString());//NotesEditorから方向を取得して対応タグに変更
@@ -70,10 +78,14 @@ public class CommandController : MonoBehaviour
                     Debug.Log(NotesEditor.commandEnd);
                     Debug.Log("lastNotesはTrue");
                 }
+                //StartCoroutine(NotesEditor.good(this.gameObject));
+                Instantiate(good,pos,Quaternion.identity,mainCanvas.transform);
                 Destroy(this.gameObject);
             }
-            else { 
-            Destroy(this.gameObject);
+            else {
+                //StartCoroutine(NotesEditor.good(this.gameObject));
+                Instantiate(good, pos, Quaternion.identity, mainCanvas.transform);
+                Destroy(this.gameObject);
                 GameManager.moveEnd = true;
             }
         }

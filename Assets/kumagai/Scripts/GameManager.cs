@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
@@ -15,12 +16,16 @@ public class GameManager : MonoBehaviour
         move,
         effect,
         flagReSet,
+        gameEnd,
     }
 
     public static BattleState state;
     // Start is called before the first frame update
     public static bool moveEnd;
+    [SerializeField]private bool GameClear;
+    [SerializeField]private bool GameOver;
     [SerializeField]private bool tmpmoveEnd;
+    [SerializeField]private Text gameSetText;
     void Start()
     {
         state=BattleState.start;
@@ -122,7 +127,15 @@ public class GameManager : MonoBehaviour
                     moveEnd=false;
                     SkillSelection.SkillNumber = 0;
                     GameSetController();
-                    state = BattleState.moveWait;
+                    if(GameOver||GameClear)
+                    {
+                        state=BattleState.gameEnd;
+                    }
+                    else 
+                    {
+                        state = BattleState.moveWait;
+                    }
+                    
                 }
                 break;
         }
@@ -140,12 +153,14 @@ public class GameManager : MonoBehaviour
         }
         if(count==4)
         {
-            SceneManager.LoadScene("SampleScene");
+            GameOver=true;
+            gameSetText.text="GameOver";
         }
 
         if(EnemyManager.debugHPBer.fillAmount==0)
         {
-            SceneManager.LoadScene("SampleScene");
+            GameClear=true;
+            gameSetText.text="GameClear";
         }
     }
 }
