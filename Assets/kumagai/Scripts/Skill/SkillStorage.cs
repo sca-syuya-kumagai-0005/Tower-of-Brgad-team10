@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static PlayerEditorManager;
 
 public class SkillStorage : MonoBehaviour
 {
-
+    [SerializeField]
+    private Text skilltext;
     public  static float rate;
     [SerializeField]
     private float pATKCorrect=1;
-    [SerializeField]
-    private float playerSkill2;
     public static int playerSkill3;
     [SerializeField]
     private float playerSkill3Buff;
@@ -54,7 +54,8 @@ public class SkillStorage : MonoBehaviour
     {
       
     }
-    
+    private const float p2AtkUpMaxTime=45f;
+    private float p2AtkUpTime;
     private void PlayerSkill()
     {
 
@@ -66,6 +67,7 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state==GameManager.BattleState.skillSelect)
                     { 
                     NotesEditor.skillName="スラッシュ";
+                        skilltext.text="敵一体に攻撃";
                     }
                     if (GameManager.state==GameManager.BattleState.move)
                     {
@@ -84,13 +86,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "闘志入魂";
+                        skilltext.text="味方全体の攻撃力が上昇";
                     }
                     
                     if (GameManager.state == GameManager.BattleState.move)
                     { 
                     pATKCorrect = (NotesEditor.NotesOKCount / CommandCount)+1;
-
-                    playerSkill2 =10;
+                    p2AtkUpTime=p2AtkUpMaxTime;
                     GameManager.moveEnd=true;
                     }
                     
@@ -102,6 +104,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "妨害工作";
+                        skilltext.text="敵の被ダメージ増加";
                     }
                    if(GameManager.state==GameManager.BattleState.move)
                     { 
@@ -116,6 +119,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "応急手当";
+                        skilltext.text="自身を回復";
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -148,6 +152,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "加速する未来";
+                        skilltext.text = "コマンド速度上昇";
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -190,6 +195,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "減速する過去";
+                        skilltext.text = "コマンド速度減少";
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -231,6 +237,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "ありえた選択";
+                        skilltext.text = "コマンド成功率を加算";
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
@@ -244,6 +251,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "結末への調整";
+                        skilltext.text = "敵の現在HPに割合攻撃";
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -279,6 +287,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "守護の構え";
+                        skilltext.text = "被ダメージ割合カット";
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -294,6 +303,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "挑発";
+                        skilltext.text = "狙われやすくなる";
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
@@ -309,6 +319,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "威圧";
+                        skilltext.text = "敵の攻撃力ダウン";
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -327,6 +338,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "刺突";
+                        skilltext.text = "敵一体に攻撃";
                     }
                     if(GameManager.state == GameManager.BattleState.move)
                     {
@@ -342,21 +354,123 @@ public class SkillStorage : MonoBehaviour
                 
         }
     }
+    public static float DeBuffSpeed=0;
+    public static float DeSpeedTime;
+    private const float DeSpeedMaxTime=20;
+    public static float DeInvalidTime;
+    public static float DeInvalidMaxTime;
+    public static int RefrectCount;
+    public static float RefrectDamage;
+    public static bool reCoveryTargetFlg=false;
+    private int recoveryTarget;
+    void RinSkill()
+    {
+        switch(SkillSelection.SkillNumber)
+        {
+            case 0:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "呪符：鈍足香";
+                        skilltext.text="敵行動速度ダウン";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        DeBuffSpeed=1+((rate)/2);
+                        DeSpeedTime=DeSpeedMaxTime;
+                        GameManager.moveEnd=true;
+                    }
+                }
+                break;
+            case 1:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "御神水です！";
+                        skilltext.text="HPの最も低い味方を回復";
+                    }
+                    if(GameManager.state==GameManager.BattleState.move)
+                    {
+                        recoveryTarget=0;
+                        if(!reCoveryTargetFlg)
+                        {
+                            recoveryTarget = RecoverySubject(recoveryTarget);
+                            reCoveryTargetFlg=true;
+                        }
+                        Debug.Log(recoveryTarget);
+                        float php=PlayerInfo.Player_HP[recoveryTarget];
+                        Debug.Log(PlayerInfo.Player_HP);
+                        php+=(php*0.3f)+PlayerInfo.Player_ATK[charaNumber];
+                        Debug.Log(php);
+                        PlayerInfo.Player_HP[recoveryTarget] =(int)php;
+                        PlayerManager.playerHPBer[recoveryTarget].fillAmount=php/PlayerEditorManager.MaxHP[recoveryTarget];
+                        GameManager.moveEnd=true;
+                    }
+                }
+                break;
+            case 2:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "護符：厄払";
+                        skilltext.text = "状態異常を無効";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        DeInvalidMaxTime=((rate*100)*0.3f)+10;
+                        DeInvalidTime=DeInvalidMaxTime;
+                        GameManager.moveEnd=true;
+                    }
+                }
+                break;
+             case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "霊符：風鎌";
+                        skilltext.text = "ダメージ反射付与";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        RefrectCount=0;
+                        RefrectDamage=(PlayerInfo.Player_ATK[charaNumber]*pATKCorrect)/2;
+                        for(int i=(int)(rate*100);i<=-1;i-=25)
+                        {
+                            RefrectCount++;
+                        }
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+        }
+    }
     void CharaSet()
     {
         string mChar=CharaMoveGage.MoveChar[0].name;
-        if(mChar=="主人公")
+        switch(mChar)
         {
-            PlayerSkill();
+            case "主人公":
+                {
+                    PlayerSkill();
+                }
+                break;
+            case "アンナリーナ":
+                {
+                    AnnaSkill();
+                }
+                break;
+            case "ゴードン":
+                {
+                    GorDonSkill();
+                }
+                break;
+            case "平櫛凛":
+                {
+                    RinSkill();
+                }
+                break;
         }
-        if (mChar == "アンナリーナ")
-        {
-            AnnaSkill();
-        }
-        if(mChar=="ゴードン")
-        {
-            GorDonSkill();
-        }
+
 
     }
     void CharNumberGet()//行動するキャラが何番目のキャラかを取得
@@ -370,13 +484,18 @@ public class SkillStorage : MonoBehaviour
         }
     }
 
-    float BuffTime(float time)//バフの時間を減らす関数
+    float BuffTime(float time,float maxTime)//バフの時間を減らす関数
     {
         if(time>0)
         { 
             time-=Time.deltaTime;
             return time;
+            if (false)//ブレイカー用　現在は到達できない
+            {
+                time=maxTime;
+            }
         }
+        
         return 0;
     }
 
@@ -390,15 +509,18 @@ public class SkillStorage : MonoBehaviour
     }
     void BuffTimeStorage()//バフの時間を減らす関数を一括で管理するための関数
     {
-        playerSkill2=BuffTime(playerSkill2);
-        pATKCorrect=Buff(playerSkill2,pATKCorrect,1);
+        p2AtkUpTime=BuffTime(p2AtkUpTime,p2AtkUpMaxTime);
+        pATKCorrect=Buff(p2AtkUpTime,pATKCorrect,1);
         addSpeed=Buff(addSpeedTurn,addSpeed,1);
-        DameCutTime=BuffTime(DameCutTime);
+        DameCutTime=BuffTime(DameCutTime,DameCutMaxTime);
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
-        hateUpTime=BuffTime(hateUpTime);
+        hateUpTime=BuffTime(hateUpTime,hateUpMaxTime);
         gordonHateCorrection= (int)Buff(hateUpTime,gordonHateCorrection,0);
-        atkDownTime=BuffTime(atkDownTime);
+        atkDownTime=BuffTime(atkDownTime,atkDownMaxTime);
         atkDownDeBuff=Buff(atkDownTime,atkDownDeBuff,0);
+        DeSpeedTime=BuffTime(DeSpeedTime,DeSpeedMaxTime);
+        DeBuffSpeed=Buff(DeSpeedTime,DeBuffSpeed,1);
+        DeInvalidTime=BuffTime(DeInvalidTime,DeInvalidMaxTime);
     }
     public static int DBuffTurn(int turn)
     {
@@ -416,5 +538,24 @@ public class SkillStorage : MonoBehaviour
     public static void BuffTurnStorage()
     {
         DBuffTurn(addSpeedTurn);
+    }
+
+    int RecoverySubject(int target)
+    {
+        int minHP=10000000;
+        
+        for(int i=0;i<PlayerInfo.Player_HP.Length;i++)
+        { 
+            if(minHP>PlayerInfo.Player_HP[i])
+            {
+                if(PlayerInfo.Player_HP[i]>0&&PlayerInfo.Player_HP[i]<PlayerEditorManager.MaxHP[i])
+                {
+                    minHP=PlayerInfo.Player_HP[i];
+                    target=i;
+                    Debug.Log("ターゲットは"+target);
+                }
+            }
+        }
+        return target;
     }
 }

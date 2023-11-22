@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
                 break;
              case BattleState.flagReSet:
                 {
+                    SkillStorage.reCoveryTargetFlg=false;
                     SkillSelection.skillSelect = false;
                     NotesEditor.commandStart=false;
                     NotesEditor.commandEnd = false;

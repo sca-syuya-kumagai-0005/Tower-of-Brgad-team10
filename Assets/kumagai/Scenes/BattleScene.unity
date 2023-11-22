@@ -807,8 +807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841d32b9117dd524c80931086d0e2902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skilltext: {fileID: 1054705960}
   pATKCorrect: 1
-  playerSkill2: 0
   playerSkill3Buff: 0
   hate: 0
   partyChara: {fileID: 1243792711}
@@ -2610,7 +2610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5266182449361602401, guid: c110dee5dd1fa1b418b81865b77ae37d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.47
+      value: -3.83
       objectReference: {fileID: 0}
     - target: {fileID: 5266182449361602401, guid: c110dee5dd1fa1b418b81865b77ae37d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3114,8 +3114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -580.7, y: -463.7}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: -565.5, y: -463.7}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054705960
 MonoBehaviour:
@@ -3139,11 +3139,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 50
+    m_MaxSize: 230
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3990,7 +3990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1334905115}
   m_Layer: 5
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u5E73\u6ADB\u51DB"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
