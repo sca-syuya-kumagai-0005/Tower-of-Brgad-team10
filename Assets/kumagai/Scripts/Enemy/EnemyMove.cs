@@ -6,6 +6,7 @@ using System.Linq;
 
 public class EnemyMove : MonoBehaviour
 {
+    [SerializeField]private Text EMT;
     [SerializeField]
     int[] WolfSkill;
     public static bool enemyMove;
@@ -83,6 +84,7 @@ public class EnemyMove : MonoBehaviour
     void EnemySkill1()
     {
         Debug.Log("Šš‚Ý‚Â‚«");
+        EMT.text="’Ç‚¢‚Í‚¬˜T‚ÌŠš‚Ý‚Â‚«";
         bool flg = false;
         int target=0;
 
@@ -116,6 +118,7 @@ public class EnemyMove : MonoBehaviour
         
         int target=0;
         Debug.Log("“ñ“xŠš‚Ý");
+        EMT.text="’Ç‚¢‚Í‚¬˜T‚Ì“ñ“xŠš‚Ý";
         for(int i=0;i<2;i++)
         {
             bool flg = false;
@@ -145,6 +148,7 @@ public class EnemyMove : MonoBehaviour
     void EnemySkill3()
     {
         Debug.Log("r‘«");
+        EMT.text="’Ç‚¢‚Í‚¬˜T‚Ìr‘«";
         moveUpTurn=5;
         moveUpcorrection = 0.75f;
         Debug.Log(moveUpcorrection);
@@ -155,6 +159,7 @@ public class EnemyMove : MonoBehaviour
     void EnemySkill4()
     {
         Debug.Log("™ôšK");atkUpTurn=2;
+        EMT.text="’Ç‚¢‚Í‚¬˜T‚Ì™ôšK";
         CharaMoveGage.ActTime[0] = 8 * SkillStorage.DeBuffSpeed * moveUpcorrection;
         enemyMoveGageImage.fillAmount = 0;
         GameManager.moveEnd = true;
