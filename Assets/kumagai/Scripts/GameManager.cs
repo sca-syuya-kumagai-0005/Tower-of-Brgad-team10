@@ -113,21 +113,23 @@ public class GameManager : MonoBehaviour
                 case BattleState.move:
                 {
                     
-                    if(CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
-                    {
-                        for(int i=0;i<4;i++)
-                        {
-                            if(CharaHP[i]!=PlayerEditorManager.PlayerInfo.Player_HP[i])
-                            {
-                                StartCoroutine(PlayerDamage());
-                            }
-                        }
-                    }
+                    
                     if (moveEnd)
                     {
                         if (CharaMoveGage.MoveChar[0].CompareTag("Player")&&!SkillStorage.nowTurnExclusion)
                         {
                             SkillStorage.MagicBarrelDamage();
+                        }
+                        if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
+                        {
+                            Debug.Log("’Ê‚Á‚½‚æ");
+                            for (int i = 0; i < 4; i++)
+                            {
+                                if (CharaHP[i] != PlayerEditorManager.PlayerInfo.Player_HP[i])
+                                {
+                                    StartCoroutine(PlayerDamage());
+                                }
+                            }
                         }
                         state =BattleState.effect; 
                     }
