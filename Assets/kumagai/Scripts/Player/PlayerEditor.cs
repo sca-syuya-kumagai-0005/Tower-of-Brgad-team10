@@ -10,7 +10,6 @@ public class PlayerEditor : MonoBehaviour
     public static int partyTheNumberOf;
     [SerializeField]
     private string[] name;
-    [SerializeField]
     public static string[] PlayerName;
     public static List<string[]> playerData;
     public static List<string[]>[] playerDatas;
