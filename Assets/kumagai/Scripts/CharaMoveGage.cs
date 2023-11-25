@@ -82,7 +82,7 @@ public class CharaMoveGage : MonoBehaviour
     public static bool orderFlag;
     void AddGage()
     {
-        if (GameManager.state == GameManager.BattleState.moveWait)
+        if (GameManager.state == GameManager.BattleState.moveWait||GameManager.state==GameManager.BattleState.effect)
         {
             if (MoveChar[0] == null&&order<=MoveChar.Length-1)//s“®‚µ‚Ä‚¢‚éƒLƒƒƒ‰‚ª‚¢‚È‚¯‚ê‚Î
             {

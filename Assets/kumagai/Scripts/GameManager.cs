@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]private bool GameOver;
     [SerializeField]private bool tmpmoveEnd;
     [SerializeField]private Text gameSetText;
+    public static int enemyTmpHP;
+    [SerializeField]private GameObject enemyImage;
     void Start()
     {
         state=BattleState.start;
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
                     {
                         state=BattleState.enemyStay;
                     }
+                    enemyTmpHP=(int)EnemyManager.EnemyInfo.Enemy_HP[0];
                 }
                 break;
             case BattleState.enemyStay:
@@ -110,7 +113,15 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.effect:
                 {
-                    state=BattleState.flagReSet;
+                    if((int)EnemyManager.EnemyInfo.Enemy_HP[0]!=enemyTmpHP)
+                    {
+                        StartCoroutine(enemyDamage());
+                        state = BattleState.flagReSet;
+                    }
+                    else {
+                        state = BattleState.flagReSet;
+                    }
+                  
                 }
                 break;
              case BattleState.flagReSet:
@@ -162,5 +173,25 @@ public class GameManager : MonoBehaviour
             GameClear=true;
             gameSetText.text="GameClear";
         }
+    }
+    IEnumerator enemyDamage()
+    {
+        bool flg=false;
+        int n=0;
+        if(EnemyManager.EnemyInfo.Enemy_HP[0]>0)
+        {
+            n=6;
+        }
+        else
+        {
+            n=5;
+        }
+        for(int i=0;i<n;i++)
+        {
+            enemyImage.SetActive(flg);
+            yield return new WaitForSeconds(0.1f);
+            flg=!flg;
+        }
+       
     }
 }
