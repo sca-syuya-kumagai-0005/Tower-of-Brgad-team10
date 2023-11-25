@@ -1134,7 +1134,8 @@ MonoBehaviour:
   - {fileID: 503437855}
   - {fileID: 619142365}
   - {fileID: 71792658}
-  mainCanvas: {fileID: 1122665794}
+  partyChar: {fileID: 1243792711}
+  SkillSponer: {fileID: 606726475}
 --- !u!1 &786270577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,6 +1923,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tmpKeyFlag: 0000000000000000
+  Judge: {fileID: 2028225284}
+  obj: {fileID: 0}
 --- !u!4 &1084422303
 Transform:
   m_ObjectHideFlags: 0
@@ -2356,7 +2359,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1458699915}
-  - component: {fileID: 1458699916}
   m_Layer: 5
   m_Name: partyChar (1)
   m_TagString: Untagged
@@ -2388,29 +2390,6 @@ RectTransform:
   m_AnchoredPosition: {x: 95.2, y: -99.95}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1458699916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458699914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b1cfb2582b2ed54292359f4cd882ce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tmpMoveChara:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &1465732742
 GameObject:
   m_ObjectHideFlags: 0
