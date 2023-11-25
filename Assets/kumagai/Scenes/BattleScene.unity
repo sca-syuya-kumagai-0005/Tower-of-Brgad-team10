@@ -702,6 +702,7 @@ MonoBehaviour:
   GameOver: 0
   tmpmoveEnd: 0
   gameSetText: {fileID: 1054705960}
+  enemyImage: {fileID: 2031586083}
 --- !u!1 &275904943
 GameObject:
   m_ObjectHideFlags: 0
@@ -3770,7 +3771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -701.92, y: -316.04}
+  m_AnchoredPosition: {x: -704.07, y: -351.59}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1130591935
@@ -5422,14 +5423,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7dc9c87dffbf7ee468f285f861235c11, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5903,6 +5904,11 @@ CanvasRenderer:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6614273020607305110, guid: c110dee5dd1fa1b418b81865b77ae37d, type: 3}
   m_PrefabInstance: {fileID: 812529570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2031586083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 559419808123210284, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
+  m_PrefabInstance: {fileID: 6285376438817734886}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2039115470
 GameObject:
@@ -6514,15 +6520,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e2f9275affa6a164195ab5940a9b81cb, type: 3}
     - target: {fileID: 5265827784234593754, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5265827784234593754, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.0018956661
       objectReference: {fileID: 0}
     - target: {fileID: 5265827784234593754, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5265827784234593754, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
       propertyPath: m_FillAmount

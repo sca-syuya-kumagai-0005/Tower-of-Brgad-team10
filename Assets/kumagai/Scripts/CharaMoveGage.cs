@@ -88,8 +88,15 @@ public class CharaMoveGage : MonoBehaviour
             {
                 for (int i = 0; i < Player_MoveGageImage.Length; i++) //
                 {
+                    if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
+                    {
+                        elapsedTime[i]+=Time.deltaTime * SkillStorage.DeBuffSpeed;
+                    }
+                    else { 
                     elapsedTime[i] += Time.deltaTime;
+                    }
                     Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
+                    
                     if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {
                         MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
