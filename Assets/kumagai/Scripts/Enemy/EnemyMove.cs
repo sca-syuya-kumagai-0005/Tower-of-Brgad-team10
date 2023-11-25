@@ -26,7 +26,7 @@ public class EnemyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CharaMoveGage.ActTime[0] = 8;
+        CharaMoveGage.ActTime[0] = 1;
         charaAlive =new Image[partyChara.transform.childCount];
     }
 

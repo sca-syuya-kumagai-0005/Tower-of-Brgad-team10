@@ -19,13 +19,15 @@ public class SkillStorage : MonoBehaviour
     [SerializeField]
     private int hate;
     public static float enemyActTime=8;
+    private float atkBuff;
     private void Start()
     {
     }
     private void Update()
     {
+        
        hate=PlayerEditorManager.PlayerInfo.Player_Hate[2]+gordonHateCorrection;
-       
+       ATKBuff();
         if (CharaMoveGage.MoveChar[0]!=null)
         { 
             CharaSet();
@@ -49,7 +51,7 @@ public class SkillStorage : MonoBehaviour
         {
             rate = 1;
         }
-            CharaMoveGage.ActTime[0]=enemyActTime*DeBuffSpeed;
+           
         
     }
     [SerializeField]
@@ -78,7 +80,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state==GameManager.BattleState.move)
                     {
                         
-                        float pAtk= PlayerInfo.Player_ATK[charaNumber]*pATKCorrect*2;
+                        float pAtk= PlayerInfo.Player_ATK[charaNumber]*atkBuff*2;
                         addDamage=(pAtk*rate)*playerSkill3Buff;
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -97,7 +99,7 @@ public class SkillStorage : MonoBehaviour
                     
                     if (GameManager.state == GameManager.BattleState.move)
                     { 
-                    pATKCorrect = (NotesEditor.NotesOKCount / CommandCount)+1;
+                    pATKCorrect = (NotesEditor.NotesOKCount / CommandCount);
                     p2AtkUpTime=p2AtkUpMaxTime;
                     GameManager.moveEnd=true;
                     }
@@ -114,7 +116,7 @@ public class SkillStorage : MonoBehaviour
                     }
                    if(GameManager.state==GameManager.BattleState.move)
                     { 
-                    playerSkill3Buff =(rate*100*0.2f)/100+1;
+                    playerSkill3Buff =(rate*100/20f)/100;
                     playerSkill3=1;
                         GameManager.moveEnd = true;
                     }
@@ -349,7 +351,7 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state == GameManager.BattleState.move)
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                        addDamage = ((pAtk * rate) +PlayerInfo.Player_ATK[charaNumber])*playerSkill3Buff;
+                        addDamage = (pAtk * rate) *atkBuff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -382,7 +384,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DeBuffSpeed=1+((rate)/2);
+                        DeBuffSpeed=((rate)/2);
                         DeSpeedTime=DeSpeedMaxTime;
                         GameManager.moveEnd=true;
                     }
@@ -450,6 +452,97 @@ public class SkillStorage : MonoBehaviour
                 break;
         }
     }
+
+    public static int MagicBarrel;
+    public static float MagicBarrelTime=0;
+    private float maxMagicBarrelTime;
+    float MagicBarrelBuff=0.5f;
+    bool NextBarret;
+    public static bool nowTurnExclusion;
+
+    void LetitiaSkill()
+    {
+        switch (SkillSelection.SkillNumber)
+        {
+            case 0:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "サンバレット";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        int rand=Random.Range(1,6);
+                        addDamage=PlayerInfo.Player_ATK[charaNumber]*rand*rate*atkBuff;
+                        Debug.Log("ダメージは"+addDamage);
+                        int ehp=(int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
+                        ehp-=(int)addDamage;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        GameManager.moveEnd = true;
+
+                    }
+                }
+                break;
+            case 1:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "アイスランス";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        int rand = Random.Range(1, 4);
+                        addDamage = PlayerInfo.Player_ATK[charaNumber] * rand * rate * atkBuff;
+                        int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
+                        ehp -= (int)addDamage;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+             case 2:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "マジックバレル";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        if(NextBarret)
+                        {
+                            NextBarret=false;
+                        }
+                        else
+                        {
+                            MagicBarrelBuff=0.5f;
+                        }
+                        nowTurnExclusion=true;
+                        MagicBarrel=(int)(PlayerInfo.Player_ATK[charaNumber]*atkBuff*MagicBarrelBuff);
+                        maxMagicBarrelTime=20+(rate*10);
+                        MagicBarrelTime=maxMagicBarrelTime;
+                        GameManager.moveEnd=true;
+                    }
+                }
+                break;
+
+            case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "魔力次弾装填";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        NextBarret=true;
+                        MagicBarrelBuff = 1 + (rate) / 2;
+                        GameManager.moveEnd=true;
+                    }
+                }
+                break;
+        }
+    }
     void CharaSet()
     {
         string mChar=CharaMoveGage.MoveChar[0].name;
@@ -473,6 +566,11 @@ public class SkillStorage : MonoBehaviour
             case "平櫛凛":
                 {
                     RinSkill();
+                }
+                break;
+            case "レティシア":
+                {
+                    LetitiaSkill();
                 }
                 break;
         }
@@ -527,6 +625,7 @@ public class SkillStorage : MonoBehaviour
         DeSpeedTime=BuffTime(DeSpeedTime,DeSpeedMaxTime);
         DeBuffSpeed=Buff(DeSpeedTime,DeBuffSpeed,1);
         DeInvalidTime=BuffTime(DeInvalidTime,DeInvalidMaxTime);
+        MagicBarrelTime=BuffTime(MagicBarrelTime,maxMagicBarrelTime);
     }
     public static int DBuffTurn(int turn)
     {
@@ -563,5 +662,19 @@ public class SkillStorage : MonoBehaviour
             }
         }
         return target;
+    }
+    void ATKBuff()
+    {
+        atkBuff=((pATKCorrect)+1)*((playerSkill3Buff)+1);
+    }
+
+    public static void MagicBarrelDamage()
+    {
+        if(MagicBarrelTime>=0)
+        {
+            EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel;
+            EnemyManager.debugHPBer.fillAmount=EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0];
+        }
+        
     }
 }

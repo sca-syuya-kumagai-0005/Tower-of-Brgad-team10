@@ -82,14 +82,21 @@ public class CharaMoveGage : MonoBehaviour
     public static bool orderFlag;
     void AddGage()
     {
-        if (GameManager.state == GameManager.BattleState.moveWait)
+        if (GameManager.state == GameManager.BattleState.moveWait||GameManager.state==GameManager.BattleState.effect)
         {
             if (MoveChar[0] == null&&order<=MoveChar.Length-1)//行動しているキャラがいなければ
             {
                 for (int i = 0; i < Player_MoveGageImage.Length; i++) //
                 {
+                    if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
+                    {
+                        elapsedTime[i]+=Time.deltaTime * SkillStorage.DeBuffSpeed;
+                    }
+                    else { 
                     elapsedTime[i] += Time.deltaTime;
+                    }
                     Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
+                    
                     if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {
                         MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
