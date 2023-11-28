@@ -39,7 +39,6 @@ public class SkillStorage : MonoBehaviour
         if(NotesEditor.commandEnd)
         {
             rate = NotesEditor.NotesOKCount / CommandCount;
-            Debug.Log(CharaMoveGage.MoveChar[0].name);
             CharaSet();
         }
         if(GameManager.state==GameManager.BattleState.move)

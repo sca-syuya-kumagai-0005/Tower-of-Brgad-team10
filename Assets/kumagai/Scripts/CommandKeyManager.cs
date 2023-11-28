@@ -33,7 +33,7 @@ public class CommandKeyManager : MonoBehaviour
        
         for (int i = 0; i < 8; i++)
         {
-            if (Input.anyKey && !startFlag)
+            if (Input.GetKeyDown(AllKey[i]) && !startFlag)
             {
                 if (!KeyFlag[i])
                 {
@@ -43,6 +43,7 @@ public class CommandKeyManager : MonoBehaviour
                         Debug.Log(hit.collider);
                         obj = hit.collider.gameObject;
                         Destroy(hit.collider.gameObject);
+                        NotesEditor.commandDestroy+=1;
                     }
 
 
