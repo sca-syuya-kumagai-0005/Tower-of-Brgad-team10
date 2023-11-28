@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MoveTextController;
 
 public class SkillSelection : MonoBehaviour
 {
@@ -76,23 +77,31 @@ public class SkillSelection : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow))
         {
             if(SkillNumber>0)
-            { 
-                SkillNumber-=1;
+            {
+                moveText.text = "";
+                MoveTextController.moveTextFlag = false;
+                SkillNumber -=1;
             }
             else if(SkillNumber==0)
             {
-                SkillNumber=skills.Length-1;
+                moveText.text = "";
+                MoveTextController.moveTextFlag = false;
+                SkillNumber =skills.Length-1;
             }
         }
         if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow))
         {
             if(SkillNumber<skills.Length-1)
-            { 
-                SkillNumber+=1;
+            {
+                moveText.text = "";
+                MoveTextController.moveTextFlag = false;
+                SkillNumber +=1;
             }
             else if(SkillNumber>=skills.Length-1)
             {
-                SkillNumber=0;
+                moveText.text = "";
+                MoveTextController.moveTextFlag = false;
+                SkillNumber =0;
             }
         }
     }

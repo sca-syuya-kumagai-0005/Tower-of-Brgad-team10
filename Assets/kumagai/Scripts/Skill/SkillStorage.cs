@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static PlayerEditorManager;
+using static MoveTextController;
 
 public class SkillStorage : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class SkillStorage : MonoBehaviour
     private int hate;
     public static float enemyActTime=8;
     private float atkBuff;
+    public static Coroutine croutine;
     private void Start()
     {
     }
@@ -73,8 +75,10 @@ public class SkillStorage : MonoBehaviour
                    
                     if(GameManager.state==GameManager.BattleState.skillSelect)
                     { 
-                    NotesEditor.skillName="スラッシュ";
-                        skilltext.text="敵一体に攻撃";
+                        NotesEditor.skillName="スラッシュ";
+                        StartCoroutine(moveTextCoroutine("敵1体に攻撃"));
+                        Debug.Log(croutine);
+                        moveTextFlag = true;
                     }
                     if (GameManager.state==GameManager.BattleState.move)
                     {
@@ -93,7 +97,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "闘志入魂";
-                        skilltext.text="味方全体の攻撃力が上昇";
+                        StartCoroutine(moveTextCoroutine("味方全体の攻撃力が上昇"));
+                        moveTextFlag = true;
                     }
                     
                     if (GameManager.state == GameManager.BattleState.move)
@@ -111,7 +116,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "妨害工作";
-                        skilltext.text="敵の被ダメージ増加";
+                        StartCoroutine(moveTextCoroutine("敵の被ダメージ増加"));
+                        moveTextFlag = true;
                     }
                    if(GameManager.state==GameManager.BattleState.move)
                     { 
@@ -126,16 +132,15 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "応急手当";
-                        skilltext.text="自身を回復";
+                        StartCoroutine(moveTextCoroutine("自身を回復"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                        float php=PlayerInfo.Player_HP[charaNumber];
                         php+=(((rate*100*0.3f)/100))*PlayerEditorManager.MaxHP[charaNumber];
-                        Debug.Log("入りました");
                         PlayerInfo.Player_HP[charaNumber]=(int)php;
                         PlayerManager.playerHPBer[charaNumber].fillAmount=PlayerInfo.Player_HP[charaNumber]/PlayerEditorManager.MaxHP[charaNumber];
-                        Debug.Log("通過しました");
                         GameManager.moveEnd = true;
                     }
                 }
@@ -159,11 +164,11 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "加速する未来";
-                        skilltext.text = "コマンド速度上昇";
+                        StartCoroutine(moveTextCoroutine("コマンド速度が上昇"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        Debug.Log("加速する未来");
                         addSpeed=1.3f;
                         switch(rate)
                         {
@@ -202,7 +207,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "減速する過去";
-                        skilltext.text = "コマンド速度減少";
+                        StartCoroutine(moveTextCoroutine("コマンド速度が減少"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -244,7 +250,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "ありえた選択";
-                        skilltext.text = "コマンド成功率を加算";
+                        StartCoroutine(moveTextCoroutine("コマンド成功率を加算"));
+                        moveTextFlag = true;
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
@@ -258,7 +265,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "結末への調整";
-                        skilltext.text = "敵の現在HPに割合攻撃";
+                        StartCoroutine(moveTextCoroutine("敵1体にその敵の現在HP割合ダメージ"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -294,7 +302,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "守護の構え";
-                        skilltext.text = "被ダメージ割合カット";
+                        StartCoroutine(moveTextCoroutine("被ダメージを割合カット"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -310,7 +319,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "挑発";
-                        skilltext.text = "狙われやすくなる";
+                        StartCoroutine(moveTextCoroutine("敵の攻撃を受けやすくなる"));
+                        moveTextFlag = true;
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
@@ -326,7 +336,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "威圧";
-                        skilltext.text = "敵の攻撃力ダウン";
+                        StartCoroutine(moveTextCoroutine("敵の攻撃力低下"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -345,7 +356,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "刺突";
-                        skilltext.text = "敵一体に攻撃";
+                        StartCoroutine(moveTextCoroutine("敵1体に攻撃"));
+                        moveTextFlag = true;
                     }
                     if(GameManager.state == GameManager.BattleState.move)
                     {
@@ -379,7 +391,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "呪符：鈍足香";
-                        skilltext.text="敵行動速度ダウン";
+                        StartCoroutine(moveTextCoroutine("敵の行動速度低下"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -394,7 +407,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "御神水です！";
-                        skilltext.text="HPの最も低い味方を回復";
+                        StartCoroutine(moveTextCoroutine("HPの最も低い味方1体を回復"));
+                        moveTextFlag = true;
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
@@ -420,7 +434,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "護符：厄払";
-                        skilltext.text = "状態異常を無効";
+                        StartCoroutine(moveTextCoroutine("状態異常を無効化"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -435,7 +450,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "霊符：風鎌";
-                        skilltext.text = "ダメージ反射付与";
+                        StartCoroutine(moveTextCoroutine("味方全体にダメージ反射を付与"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -468,6 +484,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "サンバレット";
+                        StartCoroutine(moveTextCoroutine("敵単体にランダムな倍率でダメージ"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -488,6 +506,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "アイスランス";
+                        StartCoroutine(moveTextCoroutine("敵全体にランダムな倍率でダメージ"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -506,6 +526,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "マジックバレル";
+                        StartCoroutine(moveTextCoroutine("味方が行動するたびに敵単体に追加ダメージを与える"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -531,6 +553,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "魔力次弾装填";
+                        StartCoroutine(moveTextCoroutine("次に使うマジックバレルの効果が上昇"));
+                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -646,15 +670,15 @@ public class SkillStorage : MonoBehaviour
 
     int RecoverySubject(int target)
     {
-        int minHP=10000000;
+        float minHP=1;
         
         for(int i=0;i<PlayerInfo.Player_HP.Length;i++)
         { 
-            if(minHP>PlayerInfo.Player_HP[i])
+            if(minHP>PlayerInfo.Player_HP[i]/MaxHP[i])
             {
                 if(PlayerInfo.Player_HP[i]>0&&PlayerInfo.Player_HP[i]<PlayerEditorManager.MaxHP[i])
                 {
-                    minHP=PlayerInfo.Player_HP[i];
+                    minHP=(float)(PlayerInfo.Player_HP[i]/MaxHP[0]);
                     target=i;
                     Debug.Log("ターゲットは"+target);
                 }
