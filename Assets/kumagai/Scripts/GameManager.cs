@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         state=BattleState.start;
+        enemyImage=GameObject.Find(EnemySponer.enemy.name);
     }
 
     // Update is called once per frame
@@ -151,6 +152,7 @@ public class GameManager : MonoBehaviour
                 break;
              case BattleState.flagReSet:
                 {
+                    MoveTextController.moveTextFlag=false;
                     NotesEditor.commandDestroy=0;
                     SkillStorage.nowTurnExclusion=false;
                     SkillStorage.reCoveryTargetFlg=false;

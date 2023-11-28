@@ -30,7 +30,8 @@ public class CommandKeyManager : MonoBehaviour
     void ElseJudge()
     {
         RaycastHit2D hit;
-       
+       if(GameManager.state==GameManager.BattleState.command)
+        { 
         for (int i = 0; i < 8; i++)
         {
             if (Input.GetKeyDown(AllKey[i]) && !startFlag)
@@ -49,6 +50,7 @@ public class CommandKeyManager : MonoBehaviour
 
                 }
             }
+        }
         }
     }
 }
