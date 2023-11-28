@@ -12,6 +12,7 @@ public class NotesEditor : MonoBehaviour
     [SerializeField]private GameObject goodText;
     public static bool goodflg=false;
     public static GameObject tmpgoodText;
+    public static int commandDestroy=0;
     [SerializeField]
     private float speed;   //生成したコマンドの移動速度
     public static float s;     //インスペクターからアタッチされたCSVファイルを格納する動的配列//リストに変換した↑のデータを格納する動的配列
@@ -61,6 +62,14 @@ public class NotesEditor : MonoBehaviour
     {
         tmplastNotes=lastNotes;
         tmpcommandEnd=commandEnd;
+        notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
+        List<string[]> csvdata= CsvReader(notesDatas);
+        Debug.Log("Countは"+csvdata.Count);
+        Debug.Log("commandDestroyは"+commandDestroy);
+        if (commandDestroy==csvdata.Count-2)
+        {
+           commandEnd=true;
+        }
        if(GameManager.state==GameManager.BattleState.command)
         {
             moveTextImage.SetActive(false);
