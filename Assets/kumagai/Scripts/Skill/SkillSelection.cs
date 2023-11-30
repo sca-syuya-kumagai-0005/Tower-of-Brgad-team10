@@ -78,12 +78,14 @@ public class SkillSelection : MonoBehaviour
         {
             if(SkillNumber>0)
             {
+                StopCoroutine(SkillStorage.croutine);
                 moveText.text = "";
                 MoveTextController.moveTextFlag = false;
                 SkillNumber -=1;
             }
             else if(SkillNumber==0)
             {
+                StopCoroutine(SkillStorage.croutine);
                 moveText.text = "";
                 MoveTextController.moveTextFlag = false;
                 SkillNumber =skills.Length-1;
@@ -93,12 +95,14 @@ public class SkillSelection : MonoBehaviour
         {
             if(SkillNumber<skills.Length-1)
             {
+                StopCoroutine(SkillStorage.croutine);
                 moveText.text = "";
                 MoveTextController.moveTextFlag = false;
                 SkillNumber +=1;
             }
             else if(SkillNumber>=skills.Length-1)
             {
+                StopCoroutine(SkillStorage.croutine);
                 moveText.text = "";
                 MoveTextController.moveTextFlag = false;
                 SkillNumber =0;
