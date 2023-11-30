@@ -477,7 +477,6 @@ MonoBehaviour:
   playerSkill3Buff: 0
   hate: 0
   partyChara: {fileID: 1243792711}
-  charaNumber: 0
   rateCorrection: 0
 --- !u!4 &285012945
 Transform:
@@ -1266,6 +1265,7 @@ MonoBehaviour:
   name:
   - "\u4E3B\u4EBA\u516C"
   - "\u30A2\u30F3\u30CA\u30EA\u30FC\u30CA"
+  - "\u30EC\u30C6\u30A3\u30B7\u30A2"
   - "\u30EC\u30C6\u30A3\u30B7\u30A2"
   DebugDatas:
   - {fileID: 0}
