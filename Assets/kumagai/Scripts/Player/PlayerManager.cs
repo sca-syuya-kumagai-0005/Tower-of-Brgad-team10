@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i=0;i<4;i++)
+        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
             GameObject p=partyChara.transform.GetChild(i).gameObject;
             GameObject mg=p.transform.Find("HP").gameObject;

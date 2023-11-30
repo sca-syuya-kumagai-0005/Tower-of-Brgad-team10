@@ -16,7 +16,7 @@ public class PlayerSponer : MonoBehaviour
     void Awake()
     {
 
-        for (int i=0;i<4;i++)
+        for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
             sponeChar = Resources.Load<GameObject>("Prefabs/" + PlayerEditor.PlayerName[i]);
             SponeChara=Instantiate(sponeChar,SponePos[i].transform.position,Quaternion.identity,partyChar.transform);

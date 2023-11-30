@@ -27,7 +27,9 @@ public class SkillStorage : MonoBehaviour
     }
     private void Update()
     {
-        
+        if(CharaMoveGage.MoveChar[0]==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
+            charaNumber=-1;
+        }
        hate=PlayerEditorManager.PlayerInfo.Player_Hate[2]+gordonHateCorrection;
        ATKBuff();
         if (CharaMoveGage.MoveChar[0]!=null)
@@ -57,8 +59,7 @@ public class SkillStorage : MonoBehaviour
     }
     [SerializeField]
     private GameObject partyChara;
-    [SerializeField]
-    int charaNumber;
+    public static int charaNumber;
     public static void PlayerSkillExecution()
     {
       
