@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
                     }
                     if(EnemyMove.enemyMove)
                     {
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
                         {
                             CharaHP[i] = PlayerEditorManager.PlayerInfo.Player_HP[i];
                         }
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
                         if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                         {
                             Debug.Log("’Ê‚Á‚½‚æ");
-                            for (int i = 0; i < 4; i++)
+                            for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
                             {
                                 if (CharaHP[i] != PlayerEditorManager.PlayerInfo.Player_HP[i])
                                 {
@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour
     void GameSetController()
     {
         int count = 0;
-        for (int i=0;i<4;i++)
+        for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
             if(PlayerManager.playerHPBer[i].fillAmount==0)
             {
