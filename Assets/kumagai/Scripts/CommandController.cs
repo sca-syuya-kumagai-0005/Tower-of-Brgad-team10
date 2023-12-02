@@ -22,7 +22,7 @@ public class CommandController : MonoBehaviour
 
     private void OnEnable()
     {
-        this.transform.CompareTag("Command");
+        this.tag="Command";
         mainCanvas=GameObject.Find("MainCanvas").gameObject;
         sponePos=GameObject.Find("goodSponePos");
         pos=sponePos.transform.position;
@@ -48,7 +48,7 @@ public class CommandController : MonoBehaviour
         //switch (gameObject.tag)//タグを判定して対応する方向へノーツを流す
         //{
         //    case "Left":
-                transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+            
                // break;
 
             //case "Up":
@@ -82,19 +82,23 @@ public class CommandController : MonoBehaviour
                 //StartCoroutine(NotesEditor.good(this.gameObject));
                 Instantiate(good,pos,Quaternion.identity,mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
-                this.transform.CompareTag("EndCommand");
+                this.tag = "EndCommand";
                 Destroy(this.gameObject);
             }
             else 
             {
                 //StartCoroutine(NotesEditor.good(this.gameObject));
                 OkFlag=true;
-                this.transform.CompareTag("EndCommand");
+                this.tag = "EndCommand";
                 Instantiate(good, pos, Quaternion.identity, mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
                 Destroy(this.gameObject);
                 GameManager.moveEnd = true;
             }
+        }
+        if(this.tag=="Command")
+        { 
+        this.transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
         }
     }
 
@@ -114,7 +118,7 @@ public class CommandController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
+        this.tag="Command";
         if (other.transform.CompareTag("judge"))
         {
             for (int i = 0; i < 8; i++)
@@ -131,10 +135,10 @@ public class CommandController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("aa");
-        if(other.transform.CompareTag("judge")&&this.transform.CompareTag("Command"))
+        if(other.transform.CompareTag("DestroyPos")&&!OkFlag)
         {
-            judgeFlag=false;
+            Debug.Log("aa");
+            judgeFlag =false;
             CommandKeyManager.KeyFlag[tmpi] = false;
             if (NotesEditor.lastNotes && commandManager.transform.childCount == 1+1)
             {

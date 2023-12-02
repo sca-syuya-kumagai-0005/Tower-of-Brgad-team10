@@ -10,10 +10,11 @@ public class EXPManager : MonoBehaviour
     private int GetEXP=0;
     [SerializeField]
     private int[] LvUpCount=new int[4];
+    private bool GetEXPFlag=false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetEXPFlag=false;
     }
 
     // Update is called once per frame
@@ -32,13 +33,18 @@ public class EXPManager : MonoBehaviour
                 LvUpCount[i] = 0;
                 tmpLv[i] = PlayerEditorManager.Lv[i];
             }
+            
         }
         if(GameManager.state==GameManager.BattleState.reSult)
         {
-            for (int j = 0; j < enemyCount; j++)
+            if(!GetEXPFlag)
             {
-                GetEXP += EnemyManager.EnemyInfo.Enemy_EXP[j];//Šl“¾‘ŒoŒ±’l‚ðŽZo
+                for (int j = 0; j < enemyCount; j++)
+                {
+                    GetEXP += EnemyManager.EnemyInfo.Enemy_EXP[j];//Šl“¾‘ŒoŒ±’l‚ðŽZo
+                }
             }
+            
             for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
             {
                 int EXP=GetEXP;
@@ -46,13 +52,13 @@ public class EXPManager : MonoBehaviour
                 {
                     EXP -= PlayerEditorManager.PlayerInfo.Player_EXP[i];
                     int exp= EXP;
-                    PlayerEditorManager.PlayerInfo.Player_EXP[i] -= EXP;
+                   
                     if (exp>=0)
                     {
                         PlayerEditorManager.Lv[i]+=1;
                         LvUpCount[i]++;
                     }
-                    else if(exp<0)
+                    else 
                     {
                         PlayerEditorManager.PlayerInfo.Player_EXP[i]+=exp;
                         EXP=0;
