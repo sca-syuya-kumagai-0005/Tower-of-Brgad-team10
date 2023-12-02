@@ -10,7 +10,7 @@ public class PlayerEditorManager : MonoBehaviour
     
     //[SerializeField]
     //private GameObject Players;
-    public static int[] Lv=new int[4];
+    public static int[] Lv={1,1,1,1 };
     private int nowATK;
 
     public static bool SetCharStatus=false;
@@ -35,10 +35,6 @@ public class PlayerEditorManager : MonoBehaviour
         Player_ATK = new int[partyTheNumberOf];
         Player_EXP = new int[partyTheNumberOf];
         Player_ActTime=new float[partyTheNumberOf];
-        for (int i = 0; i < 4; i++)
-        {
-            Lv[i] = 50;
-        }
         for (int i = 0; i < partyTheNumberOf; i++)
         {
             PlayerStatas(PlayerEditor.playerDatas[i], i);

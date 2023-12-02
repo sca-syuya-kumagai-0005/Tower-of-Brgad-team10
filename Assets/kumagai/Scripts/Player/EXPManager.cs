@@ -5,7 +5,7 @@ using UnityEngine;
 public class EXPManager : MonoBehaviour
 {
     [SerializeField]
-    private int[] tmpLv;
+    private int[] tmpLv=new int[4];
     private int enemyCount=1;
     private int GetEXP=0;
     [SerializeField]
