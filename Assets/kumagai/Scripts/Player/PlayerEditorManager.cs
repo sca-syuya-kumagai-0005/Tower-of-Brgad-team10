@@ -10,7 +10,7 @@ public class PlayerEditorManager : MonoBehaviour
     
     //[SerializeField]
     //private GameObject Players;
-    private int Lv=50;
+    public static int[] Lv=new int[4];
     private int nowATK;
 
     public static bool SetCharStatus=false;
@@ -35,14 +35,17 @@ public class PlayerEditorManager : MonoBehaviour
         Player_ATK = new int[partyTheNumberOf];
         Player_EXP = new int[partyTheNumberOf];
         Player_ActTime=new float[partyTheNumberOf];
-       
+        for (int i = 0; i < 4; i++)
+        {
+            Lv[i] = 50;
+        }
         for (int i = 0; i < partyTheNumberOf; i++)
         {
             PlayerStatas(PlayerEditor.playerDatas[i], i);
         }
         SetCharStatus = true;
        
-
+        
     }
 
     // Update is called once per frame
@@ -54,13 +57,13 @@ public class PlayerEditorManager : MonoBehaviour
     public void PlayerStatas(List<string[]> EData,int Integer)
     {
            // Debug.Log(Integer+1+"キャラ目のステータスは");
-            Player_HP[Integer] = int.Parse(EData[Lv+1][1]);//キャラHP
+            Player_HP[Integer] = int.Parse(EData[Lv[Integer]+1][1]);//キャラHP
            // Debug.Log("HP"+Player_HP[Integer]);
-            Player_ATK[Integer] = int.Parse(EData[Lv+1][2]);//キャラ攻撃力
+            Player_ATK[Integer] = int.Parse(EData[Lv[Integer] + 1][2]);//キャラ攻撃力
            // Debug.Log("ATK" + Player_ATK[Integer]);
-            Player_EXP[Integer] = int.Parse(EData[Lv+1][3]);//キャラの次のレベルまでに必要な経験値
+            Player_EXP[Integer] = int.Parse(EData[Lv[Integer] + 1][3]);//キャラの次のレベルまでに必要な経験値
            // Debug.Log("次のレベルまで" + Player_EXP[Integer]);
-            Player_ActTime[Integer] = float.Parse(EData[Lv+1][4]);//キャラの再行動までの時間
+            Player_ActTime[Integer] = float.Parse(EData[Lv[Integer] + 1][4]);//キャラの再行動までの時間
            // Debug.Log("再行動までの時間は"+Player_ActTime[Integer]+"秒です");
             CharaMoveGage.ActTime[Integer+1] = Player_ActTime[Integer];
             MaxHP[Integer]= PlayerInfo.Player_HP[Integer];

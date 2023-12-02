@@ -144,8 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b01947d828f534ebd0a91610f7bb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sponePos: {fileID: 0}
   speed: 0
-  commandManager: {fileID: 0}
+  mainCanvas: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1 &4646765993057152053
 GameObject:
   m_ObjectHideFlags: 0

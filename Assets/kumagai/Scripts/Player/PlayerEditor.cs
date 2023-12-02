@@ -23,8 +23,8 @@ public class PlayerEditor : MonoBehaviour
         partyTheNumberOf=name.Length;
         PlayerName=new string[partyTheNumberOf];
         PlayerName=name;
-        playerDatas=new List<string[]>[partyTheNumberOf];//パーティのキャラ数を入れる今は最大値の4を仮で入れる
-        PlayerDatas=new TextAsset[partyTheNumberOf];
+        playerDatas=new List<string[]>[name.Length];//パーティのキャラ数を入れる今は最大値の4を仮で入れる
+        PlayerDatas=new TextAsset[name.Length];
         for (int i = 0; i < playerDatas.Length; i++)
         {
             PlayerDatas[i] = Resources.Load<TextAsset>("Character/"+PlayerName[i]);

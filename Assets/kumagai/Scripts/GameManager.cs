@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
         move,
         effect,
         flagReSet,
-        gameEnd,
+        reSult,
+        DebugStay,
     }
 
     public static BattleState state;
@@ -169,13 +170,23 @@ public class GameManager : MonoBehaviour
                     GameSetController();
                     if(GameOver||GameClear)
                     {
-                        state=BattleState.gameEnd;
+                        state=BattleState.reSult;
                     }
                     else 
                     {
                         state = BattleState.moveWait;
                     }
                     
+                }
+                break;
+            case BattleState.reSult:
+                {
+                    state=BattleState.DebugStay;
+                }
+                break;
+            case BattleState.DebugStay:
+                {
+
                 }
                 break;
         }

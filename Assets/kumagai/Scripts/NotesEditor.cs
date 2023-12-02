@@ -91,6 +91,7 @@ public class NotesEditor : MonoBehaviour
         
         skillCommandCount =data.Count;
         SkillStorage.CommandCount=data.Count-2;
+            CommandController.Count=data.Count-2;
         s = speed;
 
             if (GameManager.state==GameManager.BattleState.command&&!commandStart)

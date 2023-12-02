@@ -12,6 +12,7 @@ public class CommandController : MonoBehaviour
     private bool judgeFlag;
     private bool OkFlag;
     private int tmpi;
+    public static int Count;
     private GameObject commandManager;
     [SerializeField]private GameObject mainCanvas;
     [SerializeField]Vector3 pos;
@@ -21,6 +22,7 @@ public class CommandController : MonoBehaviour
 
     private void OnEnable()
     {
+        this.transform.CompareTag("Command");
         mainCanvas=GameObject.Find("MainCanvas").gameObject;
         sponePos=GameObject.Find("goodSponePos");
         pos=sponePos.transform.position;
@@ -33,7 +35,6 @@ public class CommandController : MonoBehaviour
        myName=this.gameObject.name.Replace("(Clone)","");//¶¬Žž‚ÉŽ©“®‚Å•t‚­iClonej‚ðØ‚èŽæ‚è
        this.gameObject.name= this.gameObject.name.Replace("(Clone)", "");
         commandManager=this.transform.parent.gameObject;
-        StartCoroutine(NotesDestroy());
     }
 
     // Update is called once per frame
@@ -68,7 +69,7 @@ public class CommandController : MonoBehaviour
             OkFlag =true;
             Debug.Log(NotesEditor.commandEnd);
             CommandKeyManager.KeyFlag[tmpi] = false;
-            if (NotesEditor.lastNotes&&commandManager.transform.childCount==1+1)
+            if (NotesEditor.commandDestroy>=Count)
             {
                 NotesEditor.commandEnd=true;
                 
@@ -81,10 +82,14 @@ public class CommandController : MonoBehaviour
                 //StartCoroutine(NotesEditor.good(this.gameObject));
                 Instantiate(good,pos,Quaternion.identity,mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
+                this.transform.CompareTag("EndCommand");
                 Destroy(this.gameObject);
             }
-            else {
+            else 
+            {
                 //StartCoroutine(NotesEditor.good(this.gameObject));
+                OkFlag=true;
+                this.transform.CompareTag("EndCommand");
                 Instantiate(good, pos, Quaternion.identity, mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
                 Destroy(this.gameObject);
@@ -93,19 +98,19 @@ public class CommandController : MonoBehaviour
         }
     }
 
-    IEnumerator NotesDestroy()
-    {
-        if (NotesEditor.lastNotes && commandManager.transform.childCount == 1+1)
-        {
-            NotesEditor.commandEnd = true;
-            Debug.Log(NotesEditor.commandEnd);
-        }
-        yield return new WaitForSeconds(6);
-        GameManager.moveEnd = true;
-        NotesEditor.commandDestroy+=1;
-        Destroy(this.gameObject);
+    //IEnumerator NotesDestroy()
+    //{
+    //    if (NotesEditor.lastNotes && commandManager.transform.childCount == 1+1)
+    //    {
+    //        NotesEditor.commandEnd = true;
+    //        Debug.Log(NotesEditor.commandEnd);
+    //    }
+    //    yield return new WaitForSeconds(6);
+    //    GameManager.moveEnd = true;
+    //    NotesEditor.commandDestroy+=1;
+    //    Destroy(this.gameObject);
 
-    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -126,7 +131,8 @@ public class CommandController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.transform.CompareTag("judge")&&!OkFlag)
+        Debug.Log("aa");
+        if(other.transform.CompareTag("judge")&&this.transform.CompareTag("Command"))
         {
             judgeFlag=false;
             CommandKeyManager.KeyFlag[tmpi] = false;
