@@ -22,8 +22,10 @@ public class CommandController : MonoBehaviour
 
     private void OnEnable()
     {
-        this.transform.localScale=new Vector3(90,90,0);
-        this.tag="Command";
+        if(GameManager.state==GameManager.BattleState.breakerCommand)
+        {
+            this.transform.localScale = new Vector3(90, 90, 0);
+        }
         mainCanvas=GameObject.Find("MainCanvas").gameObject;
         sponePos=GameObject.Find("goodSponePos");
         pos=sponePos.transform.position;
@@ -46,24 +48,24 @@ public class CommandController : MonoBehaviour
         {
             Debug.Log(this.gameObject.name);
         }
-        //switch (gameObject.tag)//タグを判定して対応する方向へノーツを流す
-        //{
-        //    case "Left":
-            
-               // break;
+        switch (gameObject.tag)//タグを判定して対応する方向へノーツを流す
+        {
+            case "U":
+                transform.Translate(new Vector3(0,speed*Time.deltaTime, 0));
+                break;
 
-            //case "Up":
-            //    transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
-            //    break;
+            case "D":
+                transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
+                break;
 
-            //case "Right":
-            //    transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-            //    break;
+            case "L":
+                transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+                break;
 
-            //case "Down":
-            //    transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
-            //    break;
-       // }
+            case "R":
+                transform.Translate(new Vector3( speed * Time.deltaTime,0, 0));
+                break;
+        }
         if (Input.GetKeyDown(myName)&&judgeFlag)
         {
             NotesEditor.NotesOKCount += 1;

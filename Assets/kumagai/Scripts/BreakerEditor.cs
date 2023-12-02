@@ -23,8 +23,11 @@ public class BreakerEditor : MonoBehaviour
     [SerializeField] private bool tmpcommandEnd;
     public static bool commandEnd;
     [SerializeField] private GameObject breakerBackGorund;
+    [SerializeField]
+    private GameObject SpeedObject;
     public enum NotesType
     {
+        i=-1,
         w = 0,
         a = 1,
         s = 2,
@@ -93,19 +96,19 @@ public class BreakerEditor : MonoBehaviour
             NotesType c = NotesType.w;
             float t = 0.0f;
             Vector3 pos = new Vector3(0, 0, 0);
-            string[] data = new string[notesData[i].Length]; //一行をまとめて格納する配列
+            List<string[]> data = CsvReader(notesDatas); //一行をまとめて格納する配列
 
-            for (int j = 0; j < notesData[0].Length; ++j)
-            {
-                if (notesData[i][j] == (-1).ToString()) //-1が来たら関数終了
-                {
-                    yield break;
-                }
+            //for (int j = 0; j < notesData[0].Length; ++j)
+            //{
+            //    if (notesData[i][j] == (-1).ToString()) //-1が来たら関数終了
+            //    {
+            //        yield break;
+            //    }
 
-                data[j] = notesData[i][j]; //一行を配列に格納
-            }
-
-            switch (data[0]) //配列の一つ目に入っている文字よって生成するコマンドを決定
+            //    data[j] = notesData[i][j]; //一行を配列に格納
+            //}
+        
+            switch (data[i][0]) //配列の一つ目に入っている文字よって生成するコマンドを決定
             {
                 case "w":
                     c = NotesType.w;
@@ -139,8 +142,8 @@ public class BreakerEditor : MonoBehaviour
                     c = NotesType.D;
                     break;
             }　　　　//一列目の値によってノーツの種類を決定
-            t = float.Parse(data[1]);　//二列目の値によってノーツが流れて来るまでの時間を決定
-            switch (data[2])
+            t = float.Parse(data[i][1]);　//二列目の値によってノーツが流れて来るまでの時間を決定
+            switch (data[i][2])
             {
                 case "L":
                     {
@@ -171,7 +174,14 @@ public class BreakerEditor : MonoBehaviour
                     break;
             }　     //三列目の値によってノーツの向きを決定
             yield return new WaitForSeconds(t); //二列目の値分だけ待機
-            Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //生成
+            SpeedObject=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //生成
+            Debug.Log(float.Parse(data[i][3]));
+            if(c != NotesType.i)
+            { 
+                SpeedObject.tag=data[i][2].ToString();
+            SpeedObject=SpeedObject.transform.GetChild(0).gameObject;
+            SpeedObject.name  = (float.Parse(data[i][3])).ToString();
+            }
         }
     }
     private List<string[]> CsvReader(TextAsset csvData) //引数に入力したCSVファイルをリストに変換する関数
