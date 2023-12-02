@@ -22,6 +22,7 @@ public class CommandController : MonoBehaviour
 
     private void OnEnable()
     {
+        this.transform.localScale=new Vector3(90,90,0);
         this.tag="Command";
         mainCanvas=GameObject.Find("MainCanvas").gameObject;
         sponePos=GameObject.Find("goodSponePos");

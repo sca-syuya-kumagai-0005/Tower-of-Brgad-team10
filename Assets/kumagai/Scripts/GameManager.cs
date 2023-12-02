@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         enemyStay,
         skillSelect,
         command,
+        breakerCommand,
         move,
         effect,
         flagReSet,
@@ -96,12 +97,17 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.skillSelect:
                 {
-                    if(SkillSelection.skillSelect)
+                    if(SkillSelection.skillSelect&&!SkillSelection.breakerFlag)
                     {
                         state=BattleState.command;
                     }
+                    else if(SkillSelection.skillSelect&&SkillSelection.breakerFlag)
+                    {
+                        state=BattleState.breakerCommand;
+                    }
                 }
                 break;
+            
             case BattleState.command:
                 {
                     
@@ -112,9 +118,17 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 break;
-                case BattleState.move:
+            case BattleState.breakerCommand:
                 {
-                    
+                    if(BreakerEditor.commandEnd)
+                    {
+                        state = BattleState.move;
+                        SkillStorage.BuffTurnStorage();
+                    }
+                }
+                break;
+            case BattleState.move:
+                {
                     
                     if (moveEnd)
                     {

@@ -42,15 +42,15 @@ public class NotesEditor : MonoBehaviour
         D=7
     }
 
-    //public enum NotesDirection
-    //{
-    //    Left=0,
-    //    Up,
-    //    Right,
-    //    Down
-    //}
+    public enum NotesDirection
+    {
+        Left = 0,
+        Up,
+        Right,
+        Down
+    }
 
-   // public static NotesDirection direction;
+    public static NotesDirection direction;
 
     void Start()
     {
@@ -60,6 +60,8 @@ public class NotesEditor : MonoBehaviour
 
     void Update()
     {
+        if(!SkillSelection.breakerFlag)
+        { 
         tmplastNotes=lastNotes;
         tmpcommandEnd=commandEnd;
         notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
@@ -100,6 +102,7 @@ public class NotesEditor : MonoBehaviour
                 NotesOKCount=0;
                 commandStart=true;
             }
+        }
         }
     }
     [SerializeField]private bool tmplastNotes;
@@ -153,38 +156,38 @@ public class NotesEditor : MonoBehaviour
             }　　　　//一列目の値によってノーツの種類を決定
         
             float t = Random.Range(minWait,maxWait);　//二列目の値によってノーツが流れて来るまでの時間を決定
-            //int dir=Random.Range(0,4);
-            Vector3 pos=new Vector3(10,-4,0);
-            //switch (dir) 
-            //{
-            //    case 0:
-            //        {
+            int dir = Random.Range(0, 4);
+            Vector3 pos = new Vector3(10, -4, 0);
+            switch (dir)
+            {
+                case 0:
+                    {
                        
-            //            direction = NotesDirection.Left;
-            //        }
-            //        break;
+                        direction = NotesDirection.Left;
+                    }
+                    break;
 
-            //    case 1:
-            //        {
-                      
-            //            direction = NotesDirection.Up;
-            //        }
-            //        break;
+                case 1:
+                    {
+                    
+                        direction = NotesDirection.Up;
+                    }
+                    break;
 
-            //    case 2:
-            //        {
+                case 2:
+                    {
                       
-            //            direction = NotesDirection.Right;
-            //        }
-            //        break;
+                        direction = NotesDirection.Right;
+                    }
+                    break;
 
-            //    case 3:
-            //        {
-                      
-            //            direction = NotesDirection.Down;
-            //        }
-            //        break;
-            //}　     //三列目の値によってノーツの向きを決定
+                case 3:
+                    {
+                        
+                        direction = NotesDirection.Down;
+                    }
+                    break;
+            }　     //三列目の値によってノーツの向きを決定
             yield return new WaitForSeconds(t); //二列目の値分だけ待機
             if(c!=NotesType.i)
             { 
