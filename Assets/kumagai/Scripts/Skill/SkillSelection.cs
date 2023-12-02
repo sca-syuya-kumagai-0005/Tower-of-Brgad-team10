@@ -10,14 +10,14 @@ public class SkillSelection : MonoBehaviour
     private GameObject mainCanvas;
     private string[] skillName;
     public static bool skillSelect;
+    public static bool breakerFlag;
     [SerializeField]
     private GameObject skill;
-    [SerializeField]
-    private GameObject[] skills=new GameObject[4];
+    private GameObject[] skills=new GameObject[5];
     private int skillPosX;
-    private float[] farstSkillPosX=new float[4];
-    private float[] farstSkillPosY=new float[4];
-    private Vector3[] pos=new Vector3[4];
+    private float[] farstSkillPosX=new float[5];
+    private float[] farstSkillPosY=new float[5];
+    private Vector3[] pos=new Vector3[5];
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +30,14 @@ public class SkillSelection : MonoBehaviour
     {
         SkillPosReset();
         SkillSet();
+        if(SkillNumber==4&&GameManager.state==GameManager.BattleState.skillSelect)
+        {
+            breakerFlag=true;
+        }
+        else if( GameManager.state == GameManager.BattleState.skillSelect)
+        {
+            breakerFlag=false;
+        }
         if (GameManager.state==GameManager.BattleState.skillSelect)
         { 
 
@@ -40,6 +48,10 @@ public class SkillSelection : MonoBehaviour
                 Debug.Log(skills[SkillNumber].name);
                // NotesEditor.skillName = skills[SkillNumber].name;
                 skillSelect=true;
+                if(SkillNumber==4)
+                {
+
+                }
             }
         }
     }
@@ -51,8 +63,10 @@ public class SkillSelection : MonoBehaviour
             skill.SetActive(true);
             if (skills[0] == null)
             {
+                Debug.Log(skills.Length);
                 for (int i = 0; i < skill.transform.childCount; i++)
                 {
+                    Debug.Log(i);
                     skills[i] = skill.transform.GetChild(i).gameObject;
                     pos[i]=skills[i].transform.position;
                 }

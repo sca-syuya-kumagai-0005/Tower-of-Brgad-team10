@@ -22,6 +22,7 @@ public class SkillStorage : MonoBehaviour
     public static float enemyActTime=8;
     private float atkBuff;
     public static IEnumerator croutine;
+
     private void Start()
     {
     }
@@ -150,6 +151,21 @@ public class SkillStorage : MonoBehaviour
                     }
                 }
                 break;
+            case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        BreakerEditor.skillName = "勇気の斬跡";
+                        croutine = (moveTextCoroutine("敵単体にパーティの生存人数に応じてダメージ"));
+                        StartCoroutine(croutine);
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        
+                    }
+                    break;
+                }
         }
     }
     
