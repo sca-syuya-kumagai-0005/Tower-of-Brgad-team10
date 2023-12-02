@@ -182,13 +182,14 @@ public class GameManager : MonoBehaviour
             case BattleState.reSult:
                 {
                     state=BattleState.DebugStay;
+                    SceneManager.LoadScene("BattleScene");
                 }
                 break;
-            case BattleState.DebugStay:
-                {
+            //case BattleState.DebugStay:
+            //    {
 
-                }
-                break;
+            //    }
+            //    break;
         }
     }
 
