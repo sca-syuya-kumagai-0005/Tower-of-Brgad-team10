@@ -9,6 +9,10 @@ TagManager:
   - Command
   - EndCommand
   - DestroyPos
+  - R
+  - L
+  - D
+  - U
   layers:
   - Default
   - TransparentFX
