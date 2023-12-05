@@ -43,7 +43,10 @@ public class CommandKeyManager : MonoBehaviour
                     {
                         Debug.Log(hit.collider);
                         obj = hit.collider.gameObject;
-                        Destroy(hit.collider.gameObject);
+                         CommandController CC=obj.GetComponent<CommandController>();
+                         CC.OkFlag=true;
+                         //obj.SetActive(false);
+                        Destroy(obj);
                         NotesEditor.commandDestroy+=1;
                     }
 
