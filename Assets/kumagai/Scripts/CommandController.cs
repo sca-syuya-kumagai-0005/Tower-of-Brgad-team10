@@ -94,6 +94,7 @@ public class CommandController : MonoBehaviour
                 //StartCoroutine(NotesEditor.good(this.gameObject));
                 Instantiate(good,pos,Quaternion.identity,mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
+                BreakerEditor.commandDestroy+=1;
                 // this.tag = "EndCommand";
                 Destroy(this.gameObject);
             }
@@ -104,6 +105,7 @@ public class CommandController : MonoBehaviour
               //  this.tag = "EndCommand";
                 Instantiate(good, pos, Quaternion.identity, mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
+                BreakerEditor.commandDestroy += 1;
                 Destroy(this.gameObject);
                 GameManager.moveEnd = true;
             }
@@ -158,6 +160,7 @@ public class CommandController : MonoBehaviour
                 Debug.Log(NotesEditor.commandEnd);
             }
             NotesEditor.commandDestroy+=1;
+            BreakerEditor.commandDestroy += 1;
             Destroy(this.gameObject);
         }
     }

@@ -162,7 +162,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        
+                        GameManager.moveEnd=true;
                     }
                     break;
                 }

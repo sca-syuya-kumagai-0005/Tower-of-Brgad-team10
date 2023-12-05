@@ -57,6 +57,9 @@ public class BreakerKeyJudge : MonoBehaviour
                                 nearObj=obj;
                             }
                         }
+                        CommandController C=nearObj.GetComponent<CommandController>();
+                        C.OkFlag = true;
+                        BreakerEditor.commandDestroy += 1;
                         Destroy(nearObj);
                     }
                 }
