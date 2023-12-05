@@ -25,9 +25,9 @@ public class BreakerEditor : MonoBehaviour
     [SerializeField] private GameObject breakerBackGorund;
     [SerializeField]
     private GameObject SpeedObject;
+    public static bool NotesCreate=false;
     public enum NotesType
     {
-        i=-1,
         w = 0,
         a = 1,
         s = 2,
@@ -55,6 +55,7 @@ public class BreakerEditor : MonoBehaviour
     void Update()
     {
         
+
         if (SkillSelection.breakerFlag&&GameManager.state==GameManager.BattleState.breakerCommand)
         {
             breakerBackGorund.SetActive(true);
@@ -69,8 +70,9 @@ public class BreakerEditor : MonoBehaviour
                 commandEnd = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Return)) //試験的に、Enterキー入力でインスペクターにアタッチした一つ目のスキルを実行
+            if (!NotesCreate) //試験的に、Enterキー入力でインスペクターにアタッチした一つ目のスキルを実行
             {
+                NotesCreate=true;
                 StartCoroutine(NotesCreater(notesDatas));
             }
         }
@@ -98,16 +100,16 @@ public class BreakerEditor : MonoBehaviour
             Vector3 pos = new Vector3(0, 0, 0);
             List<string[]> data = CsvReader(notesDatas); //一行をまとめて格納する配列
 
-            //for (int j = 0; j < notesData[0].Length; ++j)
-            //{
-            //    if (notesData[i][j] == (-1).ToString()) //-1が来たら関数終了
-            //    {
-            //        yield break;
-            //    }
+            for (int j = 0; j < notesData[0].Length; ++j)
+            {
+                if (notesData[i][j] == (-1).ToString()) //-1が来たら関数終了
+                {
+                    yield break;
+                }
 
-            //    data[j] = notesData[i][j]; //一行を配列に格納
-            //}
-        
+                data[j] = notesData[i]; //一行を配列に格納
+            }
+
             switch (data[i][0]) //配列の一つ目に入っている文字よって生成するコマンドを決定
             {
                 case "w":
@@ -175,13 +177,9 @@ public class BreakerEditor : MonoBehaviour
             }　     //三列目の値によってノーツの向きを決定
             yield return new WaitForSeconds(t); //二列目の値分だけ待機
             SpeedObject=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //生成
-            Debug.Log(float.Parse(data[i][3]));
-            if(c != NotesType.i)
-            { 
                 SpeedObject.tag=data[i][2].ToString();
                 SpeedObject=SpeedObject.transform.GetChild(0).gameObject;
                 SpeedObject.name  = (float.Parse(data[i][3])).ToString();
-            }
         }
     }
     private List<string[]> CsvReader(TextAsset csvData) //引数に入力したCSVファイルをリストに変換する関数
