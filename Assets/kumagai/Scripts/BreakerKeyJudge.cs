@@ -34,14 +34,15 @@ public class BreakerKeyJudge : MonoBehaviour
             for (int i = 0; i < 8; i++)
             {
                 GameObject obj;
-                //if (Input.GetKeyDown(AllKey[i]) && !startFlag)
-                //{
-                    //if (!KeyFlag[i])
-                    //{
-                        for(int j=3;j<this.transform.childCount-3;j++)
+                Debug.Log("子オブジェクトの数は" + this.gameObject.transform.childCount);
+                if (Input.GetKeyDown(AllKey[i]) && !startFlag)
+                {
+                    if (!KeyFlag[i])
+                    {
+                        for (int j=3;j<this.gameObject.transform.childCount;j++)
                         {
-                            obj=transform.GetChild(4).gameObject;
-                        Debug.Log(obj);
+                            obj=transform.GetChild(j).gameObject;
+                            Debug.Log("通過しています");
                             CommandController CC=obj.GetComponent<CommandController>();
                             if(nearObj!=null)
                             {
@@ -51,13 +52,14 @@ public class BreakerKeyJudge : MonoBehaviour
                                     nearObj=obj;
                                 }
                             }
-                            else if(nearObj==null)
+                            if(nearObj==null)
                             {
                                 nearObj=obj;
                             }
                         }
-                   // }
-                //}
+                        Destroy(nearObj);
+                    }
+                }
             }
         }
     }
