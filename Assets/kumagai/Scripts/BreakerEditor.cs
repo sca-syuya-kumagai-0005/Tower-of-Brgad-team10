@@ -179,8 +179,8 @@ public class BreakerEditor : MonoBehaviour
             if(c != NotesType.i)
             { 
                 SpeedObject.tag=data[i][2].ToString();
-            SpeedObject=SpeedObject.transform.GetChild(0).gameObject;
-            SpeedObject.name  = (float.Parse(data[i][3])).ToString();
+                SpeedObject=SpeedObject.transform.GetChild(0).gameObject;
+                SpeedObject.name  = (float.Parse(data[i][3])).ToString();
             }
         }
     }
