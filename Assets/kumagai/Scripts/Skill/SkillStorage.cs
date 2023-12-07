@@ -9,7 +9,10 @@ public class SkillStorage : MonoBehaviour
 {
     [SerializeField]
     private Text skilltext;
+    public static float breakerRate;
     public  static float rate;
+    [SerializeField]
+    private float tmpRate;
     [SerializeField]
     private float pATKCorrect=1;
     public static int playerSkill3;
@@ -28,6 +31,8 @@ public class SkillStorage : MonoBehaviour
     }
     private void Update()
     {
+        tmpRate=breakerRate;
+      
         if(CharaMoveGage.MoveChar[0]==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
             charaNumber=-1;
         }
@@ -41,8 +46,17 @@ public class SkillStorage : MonoBehaviour
         { 
             CharNumberGet();
         }
+        if(BreakerEditor.commandEnd)
+        {
+            Debug.Log("BreakerEditor.NotesOKCountÇÕ"+ BreakerEditor.NotesOKCount);
+            Debug.Log(" CommandCountÇÕ" + CommandCount);
+            breakerRate = BreakerEditor.NotesOKCount / CommandCount;
+            CharaSet();
+        }
         if(NotesEditor.commandEnd)
         {
+            
+         
             rate = NotesEditor.NotesOKCount / CommandCount;
             CharaSet();
         }
@@ -162,7 +176,12 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        GameManager.moveEnd=true;
+                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate*100)*GameManager.aliveCount;
+                        Debug.Log("É_ÉÅÅ[ÉWÇÕ"+pAtk * (breakerRate * 100) * GameManager.aliveCount);
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        GameManager.moveEnd = true;
                     }
                     break;
                 }

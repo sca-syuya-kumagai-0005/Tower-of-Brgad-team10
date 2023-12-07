@@ -34,7 +34,6 @@ public class BreakerKeyJudge : MonoBehaviour
             for (int i = 0; i < 8; i++)
             {
                 GameObject obj;
-                Debug.Log("子オブジェクトの数は" + this.gameObject.transform.childCount);
                 if (Input.GetKeyDown(AllKey[i]) && !startFlag)
                 {
                     if (!KeyFlag[i])

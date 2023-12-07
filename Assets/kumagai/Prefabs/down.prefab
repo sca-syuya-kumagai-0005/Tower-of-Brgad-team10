@@ -132,8 +132,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sponePos: {fileID: 0}
   speed: 0
+  OkFlag: 0
   mainCanvas: {fileID: 0}
   pos: {x: 0, y: 0, z: 0}
+  judgeDistance: 0
+  judgeObject: {fileID: 0}
 --- !u!61 &-1736190717951674420
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -166,7 +169,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0017, y: 0.0017}
+  m_Offset: {x: -0.0017089844, y: 0.004638672}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -177,5 +180,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 1.7866211, y: 1.9414062}
   m_EdgeRadius: 0

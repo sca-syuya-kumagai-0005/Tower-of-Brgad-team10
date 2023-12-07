@@ -66,7 +66,6 @@ public class SkillSelection : MonoBehaviour
                 Debug.Log(skills.Length);
                 for (int i = 0; i < skill.transform.childCount; i++)
                 {
-                    Debug.Log(i);
                     skills[i] = skill.transform.GetChild(i).gameObject;
                     pos[i]=skills[i].transform.position;
                 }

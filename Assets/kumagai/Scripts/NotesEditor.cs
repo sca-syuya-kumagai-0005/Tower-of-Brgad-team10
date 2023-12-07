@@ -66,8 +66,6 @@ public class NotesEditor : MonoBehaviour
         tmpcommandEnd=commandEnd;
         notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
         List<string[]> csvdata= CsvReader(notesDatas);
-        Debug.Log("Count‚Í"+csvdata.Count);
-        Debug.Log("commandDestroy‚Í"+commandDestroy);
         if (commandDestroy==csvdata.Count-2)
         {
            commandEnd=true;
@@ -86,14 +84,14 @@ public class NotesEditor : MonoBehaviour
             notesBackGround.SetActive(false);
             Judge.SetActive(false);
         }
-        if (CharaMoveGage.MoveChar[0] != null)
+        if (CharaMoveGage.MoveChar[0] != null&&GameManager.state==GameManager.BattleState.command)
         {
             notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
             List<string[]> data = CsvReader(notesDatas);
         
         skillCommandCount =data.Count;
         SkillStorage.CommandCount=data.Count-2;
-            CommandController.Count=data.Count-2;
+        CommandController.Count=data.Count-2;
         s = speed;
 
             if (GameManager.state==GameManager.BattleState.command&&!commandStart)
