@@ -25,6 +25,7 @@ public class BreakerEditor : MonoBehaviour
     [SerializeField] private GameObject breakerBackGorund;
     [SerializeField]
     private GameObject SpeedObject;
+    public static float NotesOKCount;
     public static bool NotesCreate=false;
     public enum NotesType
     {
@@ -50,21 +51,18 @@ public class BreakerEditor : MonoBehaviour
 
     void Start()
     {
+        NotesOKCount=0;
     }
 
     void Update()
     {
-        
-
         if (SkillSelection.breakerFlag&&GameManager.state==GameManager.BattleState.breakerCommand)
         {
             breakerBackGorund.SetActive(true);
-            tmplastNotes = lastNotes;
-            tmpcommandEnd = commandEnd;
             var notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
             List<string[]> csvdata = CsvReader(notesDatas);
-            Debug.Log("Count‚Í" + csvdata.Count);
-            Debug.Log("commandDestroy‚Í" + commandDestroy);
+            SkillStorage.CommandCount = csvdata.Count - 2;
+            CommandController.Count = csvdata.Count - 2;
             if (commandDestroy == csvdata.Count - 2)
             {
                 commandEnd = true;

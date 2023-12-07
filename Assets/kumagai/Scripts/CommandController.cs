@@ -35,7 +35,6 @@ public class CommandController : MonoBehaviour
         sponePos=GameObject.Find("goodSponePos");
         pos=sponePos.transform.position;
         good=Resources.Load<GameObject>("Prefabs/Good");
-        Debug.Log(good);
        judgeFlag=false;
        OkFlag=false;
        //gameObject.tag=(NotesEditor.direction.ToString());//NotesEditor‚©‚ç•ûŒü‚ðŽæ“¾‚µ‚Ä‘Î‰žƒ^ƒO‚É•ÏX
@@ -77,10 +76,12 @@ public class CommandController : MonoBehaviour
         }
         if (Input.GetKeyDown(myName)&&judgeFlag)
         {
-            NotesEditor.NotesOKCount += 1;
+            NotesEditor.NotesOKCount +=1;
+            BreakerEditor.NotesOKCount+=1;
             OkFlag =true;
             Debug.Log(NotesEditor.commandEnd);
             CommandKeyManager.KeyFlag[tmpi] = false;
+            BreakerKeyJudge.KeyFlag[tmpi]=false;
             if (NotesEditor.commandDestroy>=Count)
             {
                 NotesEditor.commandEnd=true;
@@ -139,6 +140,7 @@ public class CommandController : MonoBehaviour
             {
                 if (CommandKeyManager.AllKey[i] == this.gameObject.name)
                 {
+                    BreakerKeyJudge.KeyFlag[i]=true;
                     CommandKeyManager.KeyFlag[i] = true;
                     tmpi = i;
                 }
@@ -153,6 +155,7 @@ public class CommandController : MonoBehaviour
         {
             Debug.Log("aa");
             judgeFlag =false;
+            BreakerKeyJudge.KeyFlag[tmpi]=false;
             CommandKeyManager.KeyFlag[tmpi] = false;
             if (NotesEditor.lastNotes && commandManager.transform.childCount == 1+1)
             {

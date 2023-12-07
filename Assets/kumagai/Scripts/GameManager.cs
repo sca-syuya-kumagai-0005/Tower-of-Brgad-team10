@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject playerDamageImage;
     void Start()
     {
+        aliveCount=PlayerEditor.PlayerName.Length;
         state=BattleState.start;
         enemyImage=GameObject.Find(EnemySponer.enemy.name);
     }
@@ -179,6 +180,7 @@ public class GameManager : MonoBehaviour
                     EnemyMove.enemyMove = false;
                     EnemyMove.skillOK=false;
                     EnemyMove.skillSet=false;
+                    BreakerEditor.NotesOKCount=0;
                     moveEnd=false;
                     SkillSelection.SkillNumber = 0;
                     GameSetController();
@@ -207,17 +209,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public static int aliveCount;
     void GameSetController()
     {
-        int count = 0;
         for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
             if(PlayerManager.playerHPBer[i].fillAmount==0)
             {
-                count+=1;
+                aliveCount-=1;
             }
         }
-        if(count==4)
+        if(aliveCount==0)
         {
             GameOver=true;
             gameSetText.text="GameOver";
