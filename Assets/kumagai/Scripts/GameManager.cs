@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         BattleStateManager();
         Debug.Log(state);
+        Debug.Log(SkillStorage.gordonHateCorrection);
         tmpmoveEnd=moveEnd;
     }
 
