@@ -356,6 +356,8 @@ public class SkillStorage : MonoBehaviour
     public static float atkDownDeBuff;
     public static float atkDownTime;
     public static float atkDownMaxTime;
+    public static float gordonBreakerMaxTime;
+    public static float gordonBreakerTime;
     void GorDonSkill()
     {
         switch (SkillSelection.SkillNumber)
@@ -389,7 +391,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        gordonHateCorrection = 50;
+                        gordonHateCorrection += 50;
                         hateUpMaxTime=rate*100;
                         hateUpTime=hateUpMaxTime;
                         GameManager.moveEnd = true;
@@ -433,6 +435,24 @@ public class SkillStorage : MonoBehaviour
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+                case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        BreakerEditor.skillName = "â‘Î–h‰qw";
+                        croutine = (moveTextCoroutine("‘_‚í‚ê‚â‚·‚­‚È‚é{UŒ‚‚ð–³Œø‰»"));
+                        StartCoroutine(croutine);
+                        moveTextFlag = true;
+                    }
+                     if(GameManager.state==GameManager.BattleState.move)
+                    {
+                        gordonHateCorrection += 50;
+                        gordonBreakerMaxTime=rate*130+130;
+                        gordonBreakerTime=gordonBreakerMaxTime;
                         GameManager.moveEnd = true;
                     }
                 }
@@ -717,7 +737,11 @@ public class SkillStorage : MonoBehaviour
         DameCutTime=BuffTime(DameCutTime,DameCutMaxTime);
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
         hateUpTime=BuffTime(hateUpTime,hateUpMaxTime);
-        gordonHateCorrection= (int)Buff(hateUpTime,gordonHateCorrection,0);
+        if(gordonHateCorrection>0)
+        { 
+            gordonHateCorrection= (int)Buff(hateUpTime,gordonHateCorrection,gordonHateCorrection-50);
+            gordonHateCorrection=(int)Buff(gordonBreakerTime,gordonBreakerMaxTime,gordonHateCorrection-50);
+        }
         atkDownTime=BuffTime(atkDownTime,atkDownMaxTime);
         atkDownDeBuff=Buff(atkDownTime,atkDownDeBuff,0);
         DeSpeedTime=BuffTime(DeSpeedTime,DeSpeedMaxTime);
