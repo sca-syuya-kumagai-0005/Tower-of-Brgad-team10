@@ -195,6 +195,8 @@ public class SkillStorage : MonoBehaviour
     public static float annaSKill3;
     public static float annaSkill3MaxTime;
     public static float annSkill3Time;
+    public static float annBreakerMaxTime;
+    public static float annBreakerTime;
     void AnnaSkill()
     {
         switch(SkillSelection.SkillNumber)
@@ -319,6 +321,23 @@ public class SkillStorage : MonoBehaviour
                         Debug.Log("ehpは"+ehp);
                         EnemyManager.EnemyInfo.Enemy_HP[0]=ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / (float)EnemyManager.maxEnemyHP[0];
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+                case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        BreakerEditor.skillName = "定められし運命";
+                        croutine = (moveTextCoroutine("流れてくるコマンドがすべてAになる"));
+                        StartCoroutine(croutine);
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        annBreakerMaxTime=breakerRate*100+25;
+                        annBreakerTime=annBreakerMaxTime;
                         GameManager.moveEnd = true;
                     }
                 }
@@ -673,7 +692,7 @@ public class SkillStorage : MonoBehaviour
         { 
             time-=Time.deltaTime;
             return time;
-            if (false)//ブレイカー用　現在は到達できない
+            if (false)//協力ブレイカー用　現在は到達できない
             {
                 time=maxTime;
             }
@@ -705,6 +724,7 @@ public class SkillStorage : MonoBehaviour
         DeBuffSpeed=Buff(DeSpeedTime,DeBuffSpeed,1);
         DeInvalidTime=BuffTime(DeInvalidTime,DeInvalidMaxTime);
         MagicBarrelTime=BuffTime(MagicBarrelTime,maxMagicBarrelTime);
+        annBreakerTime=BuffTime(annBreakerTime,annBreakerMaxTime);
     }
     public static int DBuffTurn(int turn)
     {

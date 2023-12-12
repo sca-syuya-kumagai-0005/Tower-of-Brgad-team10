@@ -181,8 +181,12 @@ public class GameManager : MonoBehaviour
                     EnemyMove.skillOK=false;
                     EnemyMove.skillSet=false;
                     BreakerEditor.NotesOKCount=0;
+                    BreakerEditor.commandDestroy=0;
+                    BreakerEditor.commandEnd=false;
+                    BreakerEditor.NotesCreate=false;
                     moveEnd=false;
                     SkillSelection.SkillNumber = 0;
+                    SkillSelection.breakerFlag=false;
                     GameSetController();
                     if(GameOver||GameClear)
                     {
@@ -198,7 +202,7 @@ public class GameManager : MonoBehaviour
             case BattleState.reSult:
                 {
                     state=BattleState.DebugStay;
-                    SceneManager.LoadScene("BattleScene");
+                    StartCoroutine(BattleEndWait());
                 }
                 break;
             //case BattleState.DebugStay:
@@ -255,5 +259,11 @@ public class GameManager : MonoBehaviour
         playerDamageImage.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         playerDamageImage.SetActive(false);
+    }
+
+    IEnumerator BattleEndWait()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("BattleScene");
     }
 }
