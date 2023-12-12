@@ -28,6 +28,7 @@ public class NotesEditor : MonoBehaviour
     TextAsset notesDatas;
     public static int skillCommandCount;
     public static float NotesOKCount;
+    [SerializeField]
     GameObject speedManager;
     public enum NotesType
     {
@@ -109,7 +110,7 @@ public class NotesEditor : MonoBehaviour
     public static bool commandEnd;
     IEnumerator NotesCreater() //引数に入力されたリストをノーツとして生成する関数
     {
-        for(int i=0;i<skillCommandCount;i++)
+        for(int i=1;i<skillCommandCount;i++)
         { 
             if(i==skillCommandCount-1)
             {
@@ -117,41 +118,46 @@ public class NotesEditor : MonoBehaviour
             }
             List<string[]> data = CsvReader(notesDatas);
             NotesType c = NotesType.i;
-      
-            switch (data[i][0]) //配列の一つ目に入っている文字よって生成するコマンドを決定
+                switch (data[i][0]) //配列の一つ目に入っている文字よって生成するコマンドを決定
+                {
+                    case "w":
+                        c = NotesType.w;
+                        break;
+
+                    case "a":
+                        c = NotesType.a;
+                        break;
+
+                    case "s":
+                        c = NotesType.s;
+                        break;
+
+                    case "d":
+                        c = NotesType.d;
+                        break;
+
+                    case "←":
+                        c = NotesType.L;
+                        break;
+
+                    case "↑":
+                        c = NotesType.U;
+                        break;
+
+                    case "→":
+                        c = NotesType.R;
+                        break;
+
+                    case "↓":
+                        c = NotesType.D;
+                        break;
+                }　　　　//一列目の値によってノーツの種類を決定
+            
+        if(SkillStorage.annBreakerTime>0)
             {
-                case "w":
-                    c = NotesType.w;
-                    break;
-
-                case "a":
-                    c = NotesType.a;
-                    break;
-
-                case "s":
-                    c = NotesType.s;
-                    break;
-
-                case "d":
-                    c = NotesType.d;
-                    break;
-
-                case "←":
-                    c = NotesType.L;
-                    break;
-
-                case "↑":
-                    c = NotesType.U;
-                    break;
-
-                case "→":
-                    c = NotesType.R;
-                    break;
-
-                case "↓":
-                    c = NotesType.D;
-                    break;
-            }　　　　//一列目の値によってノーツの種類を決定
+                c=NotesType.a;
+                data = CsvReader(notesDatas);
+            }
         
             float t = Random.Range(minWait,maxWait);　//二列目の値によってノーツが流れて来るまでの時間を決定
             int dir = Random.Range(0, 4);
@@ -189,9 +195,11 @@ public class NotesEditor : MonoBehaviour
             yield return new WaitForSeconds(t); //二列目の値分だけ待機
             if(c!=NotesType.i)
             { 
+                Debug.Log("iは"+i);
+                Debug.Log($"data[i][2]は{data[i][2]}");
                 speedManager=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //生成
                 speedManager=speedManager.transform.GetChild(0).gameObject;
-                speedManager.name=(float.Parse(data[i][2])).ToString();
+                speedManager.name=float.Parse(data[i][2]).ToString();
             }
         }
     }
