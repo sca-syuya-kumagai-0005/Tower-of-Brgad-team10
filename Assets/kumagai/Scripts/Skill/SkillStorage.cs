@@ -176,9 +176,9 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                        float pAtk = PlayerInfo.Player_ATK[charaNumber]*atkBuff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate*100)*GameManager.aliveCount;
-                        Debug.Log("ダメージは"+pAtk * (breakerRate * 100) * GameManager.aliveCount);
+                        Debug.Log("ダメージは"+pAtk * breakerRate * GameManager.aliveCount);
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         GameManager.moveEnd = true;
@@ -788,7 +788,7 @@ public class SkillStorage : MonoBehaviour
     }
     void ATKBuff()
     {
-        atkBuff=((pATKCorrect)+1)*((playerSkill3Buff)+1);
+        atkBuff=((pATKCorrect)+1)*((playerSkill3Buff)+1);//これをキャラクターの基礎攻撃力に×
     }
 
     public static void MagicBarrelDamage()
