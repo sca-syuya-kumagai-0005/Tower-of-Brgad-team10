@@ -92,7 +92,7 @@ public class EnemyMove : MonoBehaviour
         {
             target = EnemyAttackTarget();//対象の抽選
             if (charaAlive[target].fillAmount>0)
-            {   
+            {
                 flg=true;
             }
         }
@@ -117,7 +117,6 @@ public class EnemyMove : MonoBehaviour
     {
         
         int target=0;
-        Debug.Log("二度噛み");
         EMT.text="追いはぎ狼の二度噛み";
         for(int i=0;i<2;i++)
         {
@@ -232,14 +231,21 @@ public class EnemyMove : MonoBehaviour
     }
     void DamageCutController(int target)
     {
-        if (partyChara.transform.GetChild(target).gameObject.name == "ゴードン" && SkillStorage.DameCutTime > 0)
-        {
+        
+        if(partyChara.transform.GetChild(target).gameObject.name=="ゴードン"&&SkillStorage.gordonBreakerTime>0) {
+            Damage=0;
+        }
+        else if(partyChara.transform.GetChild(target).gameObject.name == "ゴードン" && SkillStorage.DameCutTime > 0) {
             Damage = Damage * (0.01f * (100 - SkillStorage.DameCutPar));
         }
         if(SkillStorage.atkDownTime>0)
         {
             Damage=Damage-SkillStorage.atkDownDeBuff;
             Debug.Log(SkillStorage.atkDownDeBuff);
+        }
+        if(Damage<0) 
+        {
+            Damage=0;
         }
     }
 
