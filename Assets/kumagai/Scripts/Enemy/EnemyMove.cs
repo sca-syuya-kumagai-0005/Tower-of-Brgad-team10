@@ -26,7 +26,7 @@ public class EnemyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CharaMoveGage.ActTime[0] = 1;
+        CharaMoveGage.ActTime[0] = 8;
         charaAlive =new Image[partyChara.transform.childCount];
     }
 
@@ -38,9 +38,9 @@ public class EnemyMove : MonoBehaviour
        protEnemyMove();
         if (CharaMoveGage.MoveChar[0]!=null)
         { 
-            if(GameManager.state==GameManager.BattleState.moveWait&&CharaMoveGage.MoveChar[0].name=="Enemy")
+            if(GameManager.state==GameManager.BattleState.moveWait&&CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
             {
-                    if (CharaMoveGage.MoveChar[0].name == "Enemy")
+                    if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                     {
                         enemyMove = true;
                     }
@@ -203,30 +203,38 @@ public class EnemyMove : MonoBehaviour
     }
     void SkillSet()
     {
-        
-       switch(skillNumber)
-        {
-            case 0:
-                {
-                    EnemySkill1();
+        string eN=CharaMoveGage.enemyName;
+        if(eN=="’Ç‚¢‚Í‚¬˜T")
+        { 
+           switch(skillNumber)
+           {
+                case 0:
+                    {
+                        EnemySkill1();
                 
-                }
-                break;
-            case 1:
-                {
-                    EnemySkill2();
-                }
-                break;
-            case 2:
-                {
-                    EnemySkill3();
-                }
-                break;
-            case 3:
-                {
-                    EnemySkill4();
-                }
-                break;
+                    }
+                    break;
+                case 1:
+                    {
+                        EnemySkill2();
+                    }
+                    break;
+                case 2:
+                    {
+                        EnemySkill3();
+                    }
+                    break;
+                case 3:
+                    {
+                        EnemySkill4();
+                    }
+                    break;
+            }
+        }
+        if(eN=="Ž€_")
+        {
+            CharaMoveGage.ActTime[0]=10;
+            GameManager.moveEnd = true;
         }
     }
     void DamageCutController(int target)
@@ -234,6 +242,10 @@ public class EnemyMove : MonoBehaviour
         
         if(partyChara.transform.GetChild(target).gameObject.name=="ƒS[ƒhƒ“"&&SkillStorage.gordonBreakerTime>0) {
             Damage=0;
+        }
+        else if(SkillStorage.rinBreakerTime>0)
+        {
+            Damage*=SkillStorage.rinBreaker;
         }
         else if(partyChara.transform.GetChild(target).gameObject.name == "ƒS[ƒhƒ“" && SkillStorage.DameCutTime > 0) {
             Damage = Damage * (0.01f * (100 - SkillStorage.DameCutPar));

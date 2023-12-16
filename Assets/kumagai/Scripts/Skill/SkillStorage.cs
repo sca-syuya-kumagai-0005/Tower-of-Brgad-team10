@@ -468,6 +468,8 @@ public class SkillStorage : MonoBehaviour
     public static int RefrectCount;
     public static float RefrectDamage;
     public static bool reCoveryTargetFlg=false;
+    public static float rinBreakerTime;
+    public static float rinBreaker;
     private int recoveryTarget;
     void RinSkill()
     {
@@ -552,6 +554,23 @@ public class SkillStorage : MonoBehaviour
                         {
                             RefrectCount++;
                         }
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+             case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        BreakerEditor.skillName = "禁符：御法の障壁";
+                        croutine = (moveTextCoroutine("味方全体にダメージカットを付与"));
+                        StartCoroutine(croutine);
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        rinBreakerTime=130;
+                        rinBreaker=90*rate;
                         GameManager.moveEnd = true;
                     }
                 }

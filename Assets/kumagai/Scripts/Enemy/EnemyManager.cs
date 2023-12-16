@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     
     [SerializeField]
     private GameObject Enemys;
-    public static int enemyNumber=1;
+    public static int enemyNumber;
     public static float[] maxEnemyHP=new float[1];
     [SerializeField]private Image HPBer;
     public static Image debugHPBer;

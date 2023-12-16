@@ -89,8 +89,8 @@ GameObject:
   m_Component:
   - component: {fileID: 56152608082382577}
   m_Layer: 5
-  m_Name: Enemy
-  m_TagString: Untagged
+  m_Name: "\u8FFD\u3044\u306F\u304E\u72FC"
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
