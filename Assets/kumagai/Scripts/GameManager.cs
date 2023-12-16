@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
                         if (CharaMoveGage.MoveChar[0].CompareTag("Player")&&!SkillStorage.nowTurnExclusion)
                         {
                             SkillStorage.MagicBarrelDamage();
+                           
                         }
                         if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                         {
@@ -156,7 +157,8 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.effect:
                 {
-                    if((int)EnemyManager.EnemyInfo.Enemy_HP[0]!=enemyTmpHP)
+                    
+                    if ((int)EnemyManager.EnemyInfo.Enemy_HP[0]!=enemyTmpHP)
                     {
                         StartCoroutine(enemyDamage());
                         state = BattleState.flagReSet;
