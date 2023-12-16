@@ -12,7 +12,7 @@ public class EnemySponer : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        EnemyManager.enemyNumber=Random.Range(0,Enemies.Length)+1;
+        EnemyManager.enemyNumber=Random.Range(1,Enemies.Length)+1;
         enemy=Instantiate(Enemies[EnemyManager.enemyNumber-1],SponePos.transform.position,Quaternion.identity,Enemy.transform);
         enemy.gameObject.name = enemy.gameObject.name.Replace("(Clone)", "");
         sponeEnemy[0]=enemy;

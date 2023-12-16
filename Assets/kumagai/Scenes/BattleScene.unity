@@ -531,6 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skilltext: {fileID: 1054705960}
+  tmpRate: 0
   pATKCorrect: 1
   playerSkill3Buff: 0
   hate: 0
@@ -1434,6 +1435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - {fileID: 313452933668080879, guid: 698697a7d2119bd49a5be8fc7751d54b, type: 3}
+  - {fileID: 313452933668080879, guid: db817c2ef8607fc4ca33390093a72c67, type: 3}
   SponePos: {fileID: 1269257130}
   Enemy: {fileID: 757574326}
 --- !u!1 &769314312
@@ -2596,6 +2598,7 @@ MonoBehaviour:
   minWait: 0.5
   maxWait: 0.5
   notesDatas: {fileID: 0}
+  speedManager: {fileID: 0}
   tmplastNotes: 0
   tmpcommandEnd: 0
 --- !u!114 &1084422301
