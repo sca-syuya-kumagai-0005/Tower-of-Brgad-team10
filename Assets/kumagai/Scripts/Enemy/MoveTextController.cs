@@ -13,7 +13,6 @@ public class MoveTextController : MonoBehaviour
     {
         moveText=text;
         moveTextFlag=false;
-        StartCoroutine(moveTextCoroutine("‚±‚ê‚ÍƒeƒXƒg‚Å‚·"));
     }
 
     // Update is called once per frame
@@ -27,12 +26,13 @@ public class MoveTextController : MonoBehaviour
         if(!moveTextFlag)
         { 
             moveText.text="";
-            moveTextFlag=true;
             for(int i=0;i<str.Length;i++)
             {
-                moveText.text+=str[i].ToString();
+                moveText.text=str.Substring(0,i+1);
                 yield return new WaitForSeconds(0.01f);
             }
+            moveTextFlag = true;
         }
+      
     }
 }
