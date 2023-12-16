@@ -15,13 +15,13 @@ public class EXPManager : MonoBehaviour
     [SerializeField]
     private int[] tmpOver=new int[4];
     private bool flag;
-     int[] a=new int [4];
+    public static int a=5;
     // Start is called before the first frame update
     void Start()
     {
         for(int i=0;i<4;i++)
         {
-            a[i]=5;
+           //OverEXP[i]=0;
         }
         flag=false;
         
@@ -35,17 +35,22 @@ public class EXPManager : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                Debug.Log(OverEXP[i]*-1);
-                OverEXP[i]*=-1;
-                tmpOver=OverEXP;
-                PlayerEditorManager.PlayerInfo.Player_EXP[i] = tmpOver[i];
+                a=(int)OverEXP[i];
+                float b=a;
+                OverEXP[i]=Mathf.Abs(OverEXP[i]);
+                Debug.Log("OverEXP‚Í"+OverEXP[i]);
+                if(OverEXP[i]!=0)
+                {
+                    PlayerEditorManager.PlayerInfo.Player_EXP[i] = OverEXP[i];
+                }
+               
             }
             flag=true;
         }
-        LvJudge();
+        StartCoroutine(LvJudge());
     }
 
-    void LvJudge()
+    IEnumerator  LvJudge()
     {
 
         if (GameManager.state == GameManager.BattleState.start)
@@ -80,13 +85,16 @@ public class EXPManager : MonoBehaviour
                     {
                         PlayerEditorManager.Lv[i] += 1;
                         LvUpCount[i]++;
+                        Debug.Log("EXP‚Í"+EXP);
                     }
                     else
                     {
                         Debug.Log("EXP‚Í"+EXP);
-                        OverEXP[i] = EXP;
+                        OverEXP[i] =EXP;
                         EXP = 0;
+                        break;
                     }
+                    yield return null;
                 }
                 Debug.Log(LvUpCount[i] + "Lvã¸‚µ‚Ü‚µ‚½");
             }

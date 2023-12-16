@@ -60,7 +60,7 @@ public class PlayerEditorManager : MonoBehaviour
                                                                    // Debug.Log("ATK" + Player_ATK[Integer]);
         Player_EXP[Integer] = int.Parse(EData[Lv[Integer] + 1][3]); ;//キャラの次のレベルまでに必要な経験値
         
-        // Debug.Log("次のレベルまで" + Player_EXP[Integer]);
+        Debug.Log("次のレベルまで" + Player_EXP[Integer]);
         Player_ActTime[Integer] = float.Parse(EData[Lv[Integer] + 1][4]);//キャラの再行動までの時間
                                                                          // Debug.Log("再行動までの時間は"+Player_ActTime[Integer]+"秒です");
         CharaMoveGage.ActTime[Integer + 1] = Player_ActTime[Integer];

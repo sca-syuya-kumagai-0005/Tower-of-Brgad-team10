@@ -25,6 +25,8 @@ public class SkillStorage : MonoBehaviour
     public static float enemyActTime=8;
     private float atkBuff;
     public static IEnumerator croutine;
+    [SerializeField]
+    private Text moveMember;
 
     private void Start()
     {
@@ -83,7 +85,7 @@ public class SkillStorage : MonoBehaviour
     private float p2AtkUpTime;
     private void PlayerSkill()
     {
-
+        moveMember.text =  "レオンはどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -125,7 +127,6 @@ public class SkillStorage : MonoBehaviour
                     p2AtkUpTime=p2AtkUpMaxTime;
                     GameManager.moveEnd=true;
                     }
-                    
                 }
                 break;
                 case 2:
@@ -199,7 +200,8 @@ public class SkillStorage : MonoBehaviour
     public static float annBreakerTime;
     void AnnaSkill()
     {
-        switch(SkillSelection.SkillNumber)
+        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
+        switch (SkillSelection.SkillNumber)
         {
             case 0:
                 {
@@ -360,6 +362,7 @@ public class SkillStorage : MonoBehaviour
     public static float gordonBreakerTime;
     void GorDonSkill()
     {
+        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -473,7 +476,8 @@ public class SkillStorage : MonoBehaviour
     private int recoveryTarget;
     void RinSkill()
     {
-        switch(SkillSelection.SkillNumber)
+        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
+        switch (SkillSelection.SkillNumber)
         {
             case 0:
                 {
@@ -587,6 +591,7 @@ public class SkillStorage : MonoBehaviour
 
     void LetitiaSkill()
     {
+        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
