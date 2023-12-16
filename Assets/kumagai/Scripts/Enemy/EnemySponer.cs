@@ -7,13 +7,15 @@ public class EnemySponer : MonoBehaviour
     [SerializeField]GameObject[] Enemies;
     [SerializeField]GameObject SponePos;
     [SerializeField]private GameObject Enemy;
+    public static GameObject[] sponeEnemy=new GameObject[1];
     public static  GameObject enemy;
     // Start is called before the first frame update
     void Awake()
     {
-        int rand=Random.Range(0,Enemies.Length);
-        enemy=Instantiate(Enemies[rand],SponePos.transform.position,Quaternion.identity,Enemy.transform);
+        EnemyManager.enemyNumber=Random.Range(0,Enemies.Length)+1;
+        enemy=Instantiate(Enemies[EnemyManager.enemyNumber-1],SponePos.transform.position,Quaternion.identity,Enemy.transform);
         enemy.gameObject.name = enemy.gameObject.name.Replace("(Clone)", "");
+        sponeEnemy[0]=enemy;
     }
 
     // Update is called once per frame
