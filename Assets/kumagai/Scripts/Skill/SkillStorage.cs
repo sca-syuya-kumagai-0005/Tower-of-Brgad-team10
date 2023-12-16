@@ -369,14 +369,12 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "çŒì‚Ì\‚¦";
-                        croutine =(moveTextCoroutine("”íƒ_ƒ[ƒW‚ğŠ„‡ƒJƒbƒg"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         DameCutPar=(rate*100)-40f;
                         DameCutTime=DameCutMaxTime;
+                        comparText="çŒì‚Ì\‚¦‚ğŒJ‚èo‚µ‚½\nƒ_ƒ[ƒW‚ğˆê•”–h‚°‚é‚æ‚¤‚É‚È‚é";
                         GameManager.moveEnd = true;
                         Debug.Log(DameCutPar);
                     }
@@ -387,15 +385,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "’§”­";
-                        croutine =(moveTextCoroutine("“G‚ÌUŒ‚‚ğó‚¯‚â‚·‚­‚È‚é"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
                         gordonHateCorrection += 50;
                         hateUpMaxTime=rate*100;
                         hateUpTime=hateUpMaxTime;
+                        comparText="’§”­‚ğŒJ‚èo‚µ‚½\n“G‚©‚ç‘_‚í‚ê‚â‚·‚­‚È‚Á‚½";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -405,9 +401,6 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "ˆĞˆ³";
-                        croutine =(moveTextCoroutine("“G‚ÌUŒ‚—Í’á‰º"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -417,6 +410,7 @@ public class SkillStorage : MonoBehaviour
                         atkDownMaxTime= rate * 100 * 0.6f;
                         Debug.Log(atkDownMaxTime);
                         atkDownTime =atkDownMaxTime;
+                        comparText="ˆĞˆ³‚ğŒJ‚èo‚µ‚½\n“G‚ÌUŒ‚—Í‚ªŒ¸­‚µ‚½";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -426,17 +420,17 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "h“Ë";
-                        croutine =(moveTextCoroutine("“G1‘Ì‚ÉUŒ‚"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if(GameManager.state == GameManager.BattleState.move)
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         addDamage = (pAtk * rate) *atkBuff;
-                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * rate;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] -addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        targetText=EnemyNameGet.enemyNameText;
+                        DamageText=
+                        comparText="h“Ë‚ğŒJ‚èo‚µ‚½\n"+targetText+"‚É"+ addDamage.ToString() ;
                         GameManager.moveEnd = true;
                     }
                 }
@@ -446,15 +440,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         BreakerEditor.skillName = "â‘Î–h‰qw";
-                        croutine = (moveTextCoroutine("‘_‚í‚ê‚â‚·‚­‚È‚é{UŒ‚‚ğ–³Œø‰»"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                      if(GameManager.state==GameManager.BattleState.move)
                     {
                         gordonHateCorrection += 50;
                         gordonBreakerMaxTime=rate*130+130;
                         gordonBreakerTime=gordonBreakerMaxTime;
+                        comparText="â‘Î–h‰qw‚ğŒJ‚èo‚µ‚½";
                         GameManager.moveEnd = true;
                     }
                 }
