@@ -481,7 +481,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DeBuffSpeed=((rate)/2);
+                        DeBuffSpeed=((2-rate)/2);
                         DeSpeedTime=DeSpeedMaxTime;
                         GameManager.moveEnd=true;
                     }
