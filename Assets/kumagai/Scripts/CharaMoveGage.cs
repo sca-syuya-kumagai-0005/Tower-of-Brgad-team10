@@ -7,7 +7,7 @@ public class CharaMoveGage : MonoBehaviour
 {
 
     private GameObject Char;//配列への代入に使用　あまり気にしなくてよし
-    private GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
+    public static GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
     private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
     public static int order = 0;//fillAmountが１になったとき何番目に格納するかを決定
     [SerializeField]
@@ -98,7 +98,11 @@ public class CharaMoveGage : MonoBehaviour
                     else { 
                     elapsedTime[i] += Time.deltaTime;
                     }
-                    Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];//fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
+                    if(GameManager.aliveFlag[i])
+                    {
+                        Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];
+                    }
+                   //fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
                     
                     if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private Text gameSetText;
     public static int enemyTmpHP;
     public static int[] CharaHP=new int[4];
+    public static bool[] aliveFlag=new bool[5];
     [SerializeField]private GameObject enemyImage;
     [SerializeField]private GameObject playerDamageImage;
     void Start()
@@ -37,6 +38,10 @@ public class GameManager : MonoBehaviour
         aliveCount=PlayerEditor.PlayerName.Length;
         state=BattleState.start;
         enemyImage=GameObject.Find(EnemySponer.enemy.name);
+        for(int i=0;i<aliveFlag.Length;i++)
+        {
+            aliveFlag[i]=true;
+        }
     }
 
     // Update is called once per frame
@@ -217,9 +222,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static int aliveCount;
+    public static int aliveCount=4;
     void GameSetController()
     {
+        aliveCount=4;
         for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
             if(PlayerManager.playerHPBer[i].fillAmount==0)
@@ -235,6 +241,7 @@ public class GameManager : MonoBehaviour
 
         if(EnemyManager.debugHPBer.fillAmount==0)
         {
+            Debug.Log("“G‚ð“|‚µ‚Ü‚µ‚½");
             GameClear=true;
             gameSetText.text="GameClear";
         }
@@ -278,6 +285,17 @@ public class GameManager : MonoBehaviour
             if(PlayerManager.playerHPBer[i].fillAmount==0)
             {
                 PlayerManager.playerDeadBackGround[i].SetActive(true);
+                if(CharaMoveGage.MoveChar[0]!=null)
+                {
+                    if (CharaMoveGage.MoveChar[0].name == PlayerEditor.PlayerName[i])
+                    {
+                        Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚Ü‚·");
+                        CharaMoveGage.MoveChar[0] = null;
+                    }
+                }
+                
+                CharaMoveGage.Char_MoveGage[i+1].transform.GetComponent<Image>().fillAmount=0;
+                aliveFlag[i+1]=false;
             }
         }
     }
