@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         BattleStateManager();
+        CharaAliveJudge();
         Debug.Log(state);
         Debug.Log(SkillStorage.gordonHateCorrection);
         tmpmoveEnd=moveEnd;
@@ -268,5 +269,16 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene("BattleScene");
+    }
+
+    void CharaAliveJudge()
+    {
+        for(int i=0;i<PlayerManager.playerHPBer.Length;i++)
+        {
+            if(PlayerManager.playerHPBer[i].fillAmount==0)
+            {
+                PlayerManager.playerDeadBackGround[i].SetActive(true);
+            }
+        }
     }
 }

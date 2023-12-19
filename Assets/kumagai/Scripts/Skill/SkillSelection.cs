@@ -152,7 +152,6 @@ public class SkillSelection : MonoBehaviour
             skillsNumber = skills[SkillNumber];
             if (skills[SkillNumber]==skills[i])
             {
-                Debug.Log("Mathf.Cos‚Í"+Mathf.Cos(f));
                 skills[i].transform.position=new Vector3(skills[i].transform.position.x+Mathf.Cos(f)/3,skills[i].transform.position.y,skills[i].transform.position.z);
             }
             else

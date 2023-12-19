@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject partyChara;
     public Image[] phtm=new Image[4];
     public static Image[] playerHPBer=new Image[4];
+    public static GameObject[] playerDeadBackGround=new GameObject[4];
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,14 @@ public class PlayerManager : MonoBehaviour
         {
             GameObject p=partyChara.transform.GetChild(i).gameObject;
             GameObject mg=p.transform.Find("HP").gameObject;
-            playerHPBer[i]=mg.GetComponent<Image>();
+            Debug.Log(mg.name);
+            GameObject imobj=mg.transform.Find("HPGreen").gameObject;
+            Debug.Log(imobj.name);
+            Image im=imobj.GetComponent<Image>();
+            playerHPBer[i]=im;
+            GameObject obj=p.transform.Find("BackGround").gameObject;
+            playerDeadBackGround[i]=obj.transform.Find("DeadBackGround").gameObject;
+            playerDeadBackGround[i].SetActive(false);
         }
         phtm=playerHPBer;
     }
