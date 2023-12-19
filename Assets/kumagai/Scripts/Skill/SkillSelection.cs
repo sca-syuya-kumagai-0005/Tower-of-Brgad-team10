@@ -24,6 +24,8 @@ public class SkillSelection : MonoBehaviour
     private GameObject skillsi;
     [SerializeField]
     private GameObject skillsNumber;
+    [SerializeField]
+    private int skillCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,14 @@ public class SkillSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(BreakerEditor.breakerGageMax)
+        {
+            skillCount=5;
+        }
+        else
+        {
+            skillCount=4;
+        }
         f+=Time.deltaTime*5;
         SkillPosReset();
         SkillSet();
@@ -106,17 +116,18 @@ public class SkillSelection : MonoBehaviour
             else if(SkillNumber==0)
             {
                 MoveTextController.moveTextFlag = false;
-                SkillNumber =skills.Length-1;
+                SkillNumber =skillCount-1;
                 
             }
         }
         if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if(SkillNumber<skills.Length-1)
+            f=0;
+            if(SkillNumber<skillCount-1)
             {
                 SkillNumber +=1;
             }
-            else if(SkillNumber>=skills.Length-1)
+            else if(SkillNumber>=skillCount-1)
             {
                 SkillNumber =0;
             }
@@ -128,7 +139,7 @@ public class SkillSelection : MonoBehaviour
 
         for(int i=0;i<skills.Length;i++)
         {
-             skills[SkillNumber].transform.position = new Vector3(pos[SkillNumber].x+1, skills[SkillNumber].transform.position.y, 0);
+             skills[SkillNumber].transform.position = new Vector3(pos[SkillNumber].x+0.3f, skills[SkillNumber].transform.position.y, 0);
             if(skills[i]!=skills[SkillNumber])
             {
                 skills[i].transform.position = new Vector3(pos[i].x, skills[i].transform.position.y, 0);
@@ -152,7 +163,7 @@ public class SkillSelection : MonoBehaviour
             skillsNumber = skills[SkillNumber];
             if (skills[SkillNumber]==skills[i])
             {
-                skills[i].transform.position=new Vector3(skills[i].transform.position.x+Mathf.Cos(f)/3,skills[i].transform.position.y,skills[i].transform.position.z);
+                skills[i].transform.position=new Vector3(skills[i].transform.position.x+Mathf.Cos(f)/5,skills[i].transform.position.y,skills[i].transform.position.z);
             }
             else
             { 

@@ -27,7 +27,7 @@ public class SkillStorage : MonoBehaviour
     private float addDamage;
     [SerializeField]
     private int hate;
-    public static float enemyActTime=8;
+    public static float enemyActTime=4;
     private float atkBuff;
     public static IEnumerator croutine;
     [SerializeField]

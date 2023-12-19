@@ -38,8 +38,8 @@ public class goodManager : MonoBehaviour
             }
             targetSize=new Vector2(sizeX,sizeY);
             this.gameObject.transform.localScale = targetSize;
-            this.transform.position = new Vector3(this.transform.position.x - 3 * (Mathf.Cos(a / 100)) / 100, this.transform.position.y + (Mathf.Sin(a / 10)) / 100, this.transform.position.z);
-        }
+            this.transform.position = new Vector3(this.transform.position.x , this.transform.position.y + (Mathf.Sin(a / 10)) / 100, this.transform.position.z);
+        }//- 3 * (Mathf.Cos(a / 100)) / 100
     }
     IEnumerator ThisDestroy()
     {

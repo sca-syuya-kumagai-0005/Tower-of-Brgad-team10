@@ -7,7 +7,6 @@ public class NotesEditor : MonoBehaviour
 {
     [SerializeField]private GameObject notesBackGround;
     [SerializeField]private GameObject moveText;
-    [SerializeField]private GameObject moveTextImage;
     [SerializeField]private GameObject Judge;
     [SerializeField]private GameObject goodText;
     public static bool goodflg=false;
@@ -73,14 +72,12 @@ public class NotesEditor : MonoBehaviour
         }
        if(GameManager.state==GameManager.BattleState.command)
         {
-            moveTextImage.SetActive(false);
             moveText.SetActive(false);
             notesBackGround.SetActive(true);
             Judge.SetActive(true);
         }
         else
         {
-            moveTextImage.SetActive(true);
             moveText.SetActive(true);
             notesBackGround.SetActive(false);
             Judge.SetActive(false);
