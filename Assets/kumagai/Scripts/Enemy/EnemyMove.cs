@@ -197,7 +197,8 @@ public class EnemyMove : MonoBehaviour
             {
                GameObject obj= partyChara.transform.GetChild(i).gameObject;
                GameObject mobj=obj.transform.Find("HP").gameObject;
-               charaAlive[i]=mobj.GetComponent<Image>();
+                GameObject hpobj=mobj.transform.Find("HPGreen").gameObject;
+               charaAlive[i]=hpobj.GetComponent<Image>();
             }
         }
     }
