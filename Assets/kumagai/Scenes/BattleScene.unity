@@ -1663,8 +1663,8 @@ MonoBehaviour:
   name:
   - "\u4E3B\u4EBA\u516C"
   - "\u30A2\u30F3\u30CA\u30EA\u30FC\u30CA"
-  - "\u30EC\u30C6\u30A3\u30B7\u30A2"
-  - "\u30EC\u30C6\u30A3\u30B7\u30A2"
+  - "\u30B4\u30FC\u30C9\u30F3"
+  - "\u5E73\u6ADB\u51DB"
   DebugDatas:
   - {fileID: 0}
   - {fileID: 0}
@@ -1684,6 +1684,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 1122665794}
   skill: {fileID: 0}
+  skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillsi: {fileID: 0}
+  skillsNumber: {fileID: 0}
 --- !u!114 &782731818
 MonoBehaviour:
   m_ObjectHideFlags: 0
