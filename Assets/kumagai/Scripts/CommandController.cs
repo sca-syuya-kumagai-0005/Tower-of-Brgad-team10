@@ -78,6 +78,7 @@ public class CommandController : MonoBehaviour
         {
             NotesEditor.NotesOKCount +=1;
             BreakerEditor.NotesOKCount+=1;
+            BreakerEditor.BreakerGageCount++;
             OkFlag =true;
             Debug.Log(NotesEditor.commandEnd);
             CommandKeyManager.KeyFlag[tmpi] = false;

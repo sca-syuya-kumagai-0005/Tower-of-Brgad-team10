@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 
 public class BreakerEditor : MonoBehaviour
@@ -27,6 +28,12 @@ public class BreakerEditor : MonoBehaviour
     private GameObject SpeedObject;
     public static float NotesOKCount;
     public static bool NotesCreate=false;
+    public static int BreakerGageCount;
+    public static bool breakerGageMax;
+    [SerializeField]
+    private Image BreakerGageImage;
+    [SerializeField]
+    private GameObject ready;
     public enum NotesType
     {
         w = 0,
@@ -52,10 +59,22 @@ public class BreakerEditor : MonoBehaviour
     void Start()
     {
         NotesOKCount=0;
+        BreakerGageImage.fillAmount=BreakerGageCount/70;
     }
 
     void Update()
     {
+        BreakerGageImage.fillAmount = BreakerGageCount / 70f;
+        if(BreakerGageImage.fillAmount>=1)
+        {
+            ready.SetActive(true);
+            breakerGageMax=true;
+        }
+        else
+        {
+            ready.SetActive(false);
+            breakerGageMax=false;
+        }
         if (SkillSelection.breakerFlag&&GameManager.state==GameManager.BattleState.breakerCommand)
         {
             breakerBackGorund.SetActive(true);

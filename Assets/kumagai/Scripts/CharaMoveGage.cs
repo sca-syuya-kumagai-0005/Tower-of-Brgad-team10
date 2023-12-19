@@ -92,7 +92,6 @@ public class CharaMoveGage : MonoBehaviour
                 {
                     if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {
-                        Debug.Log(Player_MoveGageImage[i].transform.parent);
                         elapsedTime[i]+=Time.deltaTime * SkillStorage.DeBuffSpeed;
                     }
                     else { 

@@ -291,6 +291,17 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚Ü‚·");
                         CharaMoveGage.MoveChar[0] = null;
+                        if(CharaMoveGage.MoveChar[1]!=null)
+                        {
+                            for (int j = 1; i < 5; i++)
+                            {
+                                if (CharaMoveGage.MoveChar[j - 1] == null)
+                                {
+                                    CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
+                                    CharaMoveGage. MoveChar[j] = null;
+                                }
+                            }
+                        }
                     }
                 }
                 
