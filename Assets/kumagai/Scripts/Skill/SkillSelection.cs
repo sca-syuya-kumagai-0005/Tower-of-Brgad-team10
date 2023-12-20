@@ -63,7 +63,6 @@ public class SkillSelection : MonoBehaviour
             SkillPosEffect();
             if(Input.GetKeyDown(KeyCode.Return)&&GameManager.state==GameManager.BattleState.skillSelect)
             {
-                Debug.Log(skills[SkillNumber].name);
                // NotesEditor.skillName = skills[SkillNumber].name;
                 skillSelect=true;
                 if(SkillNumber==4)
@@ -81,7 +80,6 @@ public class SkillSelection : MonoBehaviour
             skill.SetActive(true);
             if (skills[0] == null)
             {
-                Debug.Log(skills.Length);
                 for (int i = 0; i < skill.transform.childCount; i++)
                 {
                     skills[i] = skill.transform.GetChild(i).gameObject;
