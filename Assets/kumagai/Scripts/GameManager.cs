@@ -196,6 +196,8 @@ public class GameManager : MonoBehaviour
                     moveEnd=false;
                     SkillSelection.SkillNumber = 0;
                     SkillSelection.breakerFlag=false;
+                    SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
+                    SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
                     GameSetController();
                     if(GameOver||GameClear)
                     {
