@@ -25,6 +25,10 @@ public class EnemyMove : MonoBehaviour
     private Image[] charaAlive;
     float Damage;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        CharaMoveGage.ActTime[0]=1;
+    }
     void Start()
     {
         switch (CharaMoveGage.enemyName)

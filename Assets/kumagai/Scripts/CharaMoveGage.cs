@@ -19,6 +19,11 @@ public class CharaMoveGage : MonoBehaviour
     public static string enemyName;
     float[] elapsedTime=new float[5];//Time.deltaTimeを加算したときに1を超過した場合、fillAmountでは切り捨てられてしまい、他のキャラとの間にずれが生じてしまうので、それを解決するための変数
     // Start is called before the first frame update
+
+    private void OnEnable()
+    {
+        enemyName = EnemySponer.sponeEnemy[0].name;
+    }
     void Start()
     {
         order=0;//初期化
@@ -29,7 +34,7 @@ public class CharaMoveGage : MonoBehaviour
         }
         Char_MoveGage=new GameObject[this.transform.childCount+1];//キャラクターの数だけゲームオブジェクト配列を定義+1はenemy
         Player_MoveGageImage=new Image[this.transform.childCount+1];//同様にイメージを定義
-        enemyName=EnemySponer.sponeEnemy[0].name;
+        
         Char_MoveGage[0]=GameObject.Find("Enemy").transform.GetChild(0).gameObject;//エネミーについている行動ゲージを取得
         Player_MoveGageImage[0]=Char_MoveGage[0].GetComponent<Image>();
 

@@ -80,7 +80,7 @@ public class SkillSelection : MonoBehaviour
             skill.SetActive(true);
             if (skills[0] == null)
             {
-                for (int i = 0; i < skill.transform.childCount; i++)
+                for (int i = 0; i < skillCount; i++)
                 {
                     skills[i] = skill.transform.GetChild(i).gameObject;
                     pos[i]=skills[i].transform.position;
@@ -93,7 +93,7 @@ public class SkillSelection : MonoBehaviour
         }
         if (GameManager.state == GameManager.BattleState.flagReSet&&!EnemyMove.enemyMove)
         {
-            for (int i = 0; i < skill.transform.childCount; i++)
+            for (int i = 0; i < skillCount; i++)
             {
                 skills[i] = null;
             }
@@ -135,7 +135,7 @@ public class SkillSelection : MonoBehaviour
     void SelectSkill()
     {
 
-        for(int i=0;i<skills.Length;i++)
+        for(int i=0;i<skillCount;i++)
         {
              skills[SkillNumber].transform.position = new Vector3(pos[SkillNumber].x+0.3f, skills[SkillNumber].transform.position.y, 0);
             if(skills[i]!=skills[SkillNumber])
@@ -148,7 +148,7 @@ public class SkillSelection : MonoBehaviour
     {
         if(GameManager.state==GameManager.BattleState.move&&!EnemyMove.enemyMove)
         {
-            for(int i=0;i < skill.transform.childCount; i++)
+            for(int i=0;i < skillCount; i++)
             {
                 skills[i].transform.position=pos[i];
             }
@@ -156,7 +156,7 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillPosEffect()
     {
-        for(int i=0;i<skill.transform.childCount;i++)
+        for(int i=0;i<skillCount;i++)
         {
             skillsNumber = skills[SkillNumber];
             if (skills[SkillNumber]==skills[i])

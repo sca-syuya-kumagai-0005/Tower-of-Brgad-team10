@@ -177,6 +177,16 @@ public class GameManager : MonoBehaviour
                 break;
              case BattleState.flagReSet:
                 {
+                    if(NowCharaSet.nowChara!=null)
+                    { 
+                        NowCharaSet.nowChara.SetActive(false);
+                        NowCharaSet.nowChara=null;
+                    }
+                    if(NowCharaSet.nextChara!=null)
+                    {
+                        NowCharaSet.nextChara.SetActive(false);
+                        NowCharaSet.nextChara=null;
+                    }
                     MoveTextController.moveTextFlag=false;
                     NotesEditor.commandDestroy=0;
                     SkillStorage.nowTurnExclusion=false;
