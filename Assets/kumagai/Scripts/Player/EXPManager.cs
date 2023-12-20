@@ -38,7 +38,6 @@ public class EXPManager : MonoBehaviour
                 a=(int)OverEXP[i];
                 float b=a;
                 OverEXP[i]=Mathf.Abs(OverEXP[i]);
-                Debug.Log("OverEXP‚Í"+OverEXP[i]);
                 if(OverEXP[i]!=0)
                 {
                     PlayerEditorManager.PlayerInfo.Player_EXP[i] = OverEXP[i];

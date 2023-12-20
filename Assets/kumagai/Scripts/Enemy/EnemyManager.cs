@@ -71,7 +71,6 @@ public class EnemyManager : MonoBehaviour
     void EnemyStataus(List<string[]> EData)
     {
         Enemy_Name[0] = EData[enemyNumber][0];//エネミーの名前を取得
-        Debug.Log(Enemy_Name);
         Enemy_standardHP[0] = int.Parse(EData[enemyNumber][1]);//エネミーの基礎HPを取得
         Enemy_risingHP[0] = int.Parse(EData[enemyNumber][2]);//エネミーのHP上昇値を取得
         Enemy_minHP[0] = float.Parse(EData[enemyNumber][3]);//エネミーのHP最低倍率を取得

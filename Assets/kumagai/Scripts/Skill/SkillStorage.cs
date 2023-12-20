@@ -48,11 +48,9 @@ public class SkillStorage : MonoBehaviour
         if (CharaMoveGage.MoveChar[0]!=null)
         { 
             CharaSet();
-        }
-        if(GameManager.state==GameManager.BattleState.skillSelect)
-        { 
+        } 
             CharNumberGet();
-        }
+        
         if(BreakerEditor.commandEnd)
         {
             Debug.Log("BreakerEditor.NotesOKCountは"+ BreakerEditor.NotesOKCount);
@@ -88,7 +86,7 @@ public class SkillStorage : MonoBehaviour
     private float p2AtkUpTime;
     private void PlayerSkill()
     {
-        moveMember.text =  "レオンはどうする？";
+        moveMember.text =  "レオンは\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -109,7 +107,6 @@ public class SkillStorage : MonoBehaviour
                         DamageText=(pAtk*rate).ToString()+"のダメージ";
                         targetText=EnemyNameGet.enemyNameText.ToString()+"に";
                         comparText="スラッシュを繰り出した"+"\n"+targetText+DamageText;
-                        Debug.Log(DamageText);
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd=true;
                     }
@@ -201,7 +198,7 @@ public class SkillStorage : MonoBehaviour
     public static float annBreakerTime;
     void AnnaSkill()
     {
-        moveMember.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
+        moveMember.text="アンナリーナは\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -361,7 +358,7 @@ public class SkillStorage : MonoBehaviour
     public static float gordonBreakerTime;
     void GorDonSkill()
     {
-        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
+        moveMember.text = "ゴードンは\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -374,7 +371,8 @@ public class SkillStorage : MonoBehaviour
                     {
                         DameCutPar=(rate*100)-40f;
                         DameCutTime=DameCutMaxTime;
-                        comparText="守護の構えを繰り出した\nダメージを一部防げるようになる";
+                        comparText="守護の構えを繰り出した\nゴードンがダメージを一部防げるようになった";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                         Debug.Log(DameCutPar);
                     }
@@ -392,6 +390,7 @@ public class SkillStorage : MonoBehaviour
                         hateUpMaxTime=rate*100;
                         hateUpTime=hateUpMaxTime;
                         comparText="挑発を繰り出した\n敵から狙われやすくなった";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -411,6 +410,7 @@ public class SkillStorage : MonoBehaviour
                         Debug.Log(atkDownMaxTime);
                         atkDownTime =atkDownMaxTime;
                         comparText="威圧を繰り出した\n敵の攻撃力が減少した";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -431,6 +431,7 @@ public class SkillStorage : MonoBehaviour
                         targetText=EnemyNameGet.enemyNameText;
                         DamageText=
                         comparText="刺突を繰り出した\n"+targetText+"に"+ addDamage.ToString() ;
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -446,7 +447,8 @@ public class SkillStorage : MonoBehaviour
                         gordonHateCorrection += 50;
                         gordonBreakerMaxTime=rate*130+130;
                         gordonBreakerTime=gordonBreakerMaxTime;
-                        comparText="絶対防衛陣を繰り出した";
+                        comparText="絶対防衛陣を繰り出した\nどんな攻撃も防いで見せましょう！";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -467,7 +469,7 @@ public class SkillStorage : MonoBehaviour
     private int recoveryTarget;
     void RinSkill()
     {
-        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
+        moveMember.text = "平櫛凛は\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -475,14 +477,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "呪符：鈍足香";
-                        croutine =(moveTextCoroutine("敵の行動速度低下"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         DeBuffSpeed=((2-rate)/2);
                         DeSpeedTime=DeSpeedMaxTime;
+                        comparText="呪符:鈍足香を繰り出した\n敵の行動速度が減少した";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd=true;
                     }
                 }
@@ -492,9 +493,6 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "御神水です！";
-                        croutine =(moveTextCoroutine("HPの最も低い味方1体を回復"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
@@ -511,6 +509,9 @@ public class SkillStorage : MonoBehaviour
                         Debug.Log(php);
                         PlayerInfo.Player_HP[recoveryTarget] =(int)php;
                         PlayerManager.playerHPBer[recoveryTarget].fillAmount=php/PlayerEditorManager.MaxHP[recoveryTarget];
+                        comparText="御神水です!を繰り出した\n"+partyChara.transform.GetChild(recoveryTarget).gameObject.name+"のHPが"+
+                        (php / PlayerEditorManager.MaxHP[recoveryTarget]).ToString()+"回復した";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd=true;
                     }
                 }
@@ -520,14 +521,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "護符：厄払";
-                        croutine =(moveTextCoroutine("状態異常を無効化"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         DeInvalidMaxTime=((rate*100)*0.3f)+10;
                         DeInvalidTime=DeInvalidMaxTime;
+                        comparText="護符:厄払を繰り出した\n一定時間弱体化攻撃を無効化する";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd=true;
                     }
                 }
@@ -537,9 +537,6 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "霊符：風鎌";
-                        croutine =(moveTextCoroutine("味方全体にダメージ反射を付与"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -549,6 +546,8 @@ public class SkillStorage : MonoBehaviour
                         {
                             RefrectCount++;
                         }
+                        comparText="霊符:風鎌を繰り出した\nダメージの一部を反射するようになった";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -558,14 +557,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         BreakerEditor.skillName = "禁符：御法の障壁";
-                        croutine = (moveTextCoroutine("味方全体にダメージカットを付与"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         rinBreakerTime=130;
                         rinBreaker=90*rate;
+                        comparText="禁符:御法の障壁を繰り出した\n味方全体がダメージの一部を防げるようになった";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -710,6 +708,9 @@ public class SkillStorage : MonoBehaviour
 
 
     }
+    public static int nextCharaNumber=-1;
+    [SerializeField]
+    private int tmpnextCharaNumber;
     void CharNumberGet()//行動するキャラが何番目のキャラかを取得
     {
          for(int i=0;i<4;i++)
@@ -718,7 +719,28 @@ public class SkillStorage : MonoBehaviour
             {
                 charaNumber=i;
             }
+            if(CharaMoveGage.MoveChar[1]!=null)
+            {
+                if(!CharaMoveGage.MoveChar[1].CompareTag("Enemy"))
+                {
+                    if(partyChara.transform.GetChild(i).gameObject==CharaMoveGage.MoveChar[1])
+                    {
+                        Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
+                        nextCharaNumber=i;
+                    }
+                }
+               
+            }
+            else if (CharaMoveGage.MoveChar[2] != null)
+            {
+                nextCharaNumber = i;
+            }
         }
+         if(CharaMoveGage.MoveChar[1]==null)
+        {
+            nextCharaNumber=-1;
+        }
+         tmpnextCharaNumber=nextCharaNumber;
     }
 
     float BuffTime(float time,float maxTime)//バフの時間を減らす関数

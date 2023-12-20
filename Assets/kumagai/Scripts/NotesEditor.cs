@@ -192,8 +192,6 @@ public class NotesEditor : MonoBehaviour
             yield return new WaitForSeconds(t); //“ñ—ñ–Ú‚Ì’l•ª‚¾‚¯‘Ò‹@
             if(c!=NotesType.i)
             { 
-                Debug.Log("i‚Í"+i);
-                Debug.Log($"data[i][2]‚Í{data[i][2]}");
                 speedManager=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //¶¬
                 speedManager=speedManager.transform.GetChild(0).gameObject;
                 speedManager.name=float.Parse(data[i][2]).ToString();
