@@ -9,6 +9,8 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]private Text EMT;
     [SerializeField]
     int[] WolfSkill;
+    [SerializeField]
+    int[] reaper;
     public static bool enemyMove;
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
