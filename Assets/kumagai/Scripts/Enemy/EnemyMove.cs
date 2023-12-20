@@ -20,21 +20,33 @@ public class EnemyMove : MonoBehaviour
     public static bool skillOK;
     private int moveUpTurn;
     private float moveUpcorrection=1;
-    private int atkUpTurn;
-    [SerializeField]
-    private float atkUpcorrection;
+    public static int atkUpTurn;
+    public static float atkUpcorrection=1;
     private Image[] charaAlive;
     float Damage;
     // Start is called before the first frame update
     void Start()
     {
-        CharaMoveGage.ActTime[0] = 8;
+        switch (CharaMoveGage.enemyName)
+        { 
+            case "’Ç‚¢‚Í‚¬˜T":
+                {
+                   @CharaMoveGage.ActTime[0]=8;
+                }
+                break;
+            case "Ž€_":
+                {
+                    CharaMoveGage.ActTime[0]=15;
+                }
+                break;
+        }
         charaAlive =new Image[partyChara.transform.childCount];
     }
 
     // Update is called once per frame
     void Update()
     {
+       
        PartyCharaAlive();
        tmpEM=enemyMove;
        protEnemyMove();
@@ -82,15 +94,15 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    void EnemySkill1()
+    void WolfSkill1()
     {
         Debug.Log("Šš‚Ý‚Â‚«");
         EMT.text="’Ç‚¢‚Í‚¬˜T‚ÌŠš‚Ý‚Â‚«";
         bool flg = false;
-        int target=0;
+        int target = 0;
 
 
-        if(!flg)
+        if (!flg)
         {
             target = EnemyAttackTarget();//‘ÎÛ‚Ì’Š‘I
             if (charaAlive[target].fillAmount>0)
@@ -115,7 +127,7 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    void EnemySkill2()
+    void WolfSkill2()
     {
         
         int target=0;
@@ -147,7 +159,7 @@ public class EnemyMove : MonoBehaviour
         }
         GameManager.moveEnd = true;
     }
-    void EnemySkill3()
+    void WolfSkill3()
     {
         Debug.Log("r‘«");
         EMT.text="’Ç‚¢‚Í‚¬˜T‚Ìr‘«";
@@ -159,13 +171,100 @@ public class EnemyMove : MonoBehaviour
         enemyMoveGageImage.fillAmount = 0;
         GameManager.moveEnd = true;
     }
-    void EnemySkill4()
+    void WolfSkill4()
     {
         Debug.Log("™ôšK");atkUpTurn=2;
         EMT.text="’Ç‚¢‚Í‚¬˜T‚Ì™ôšK";
         CharaMoveGage.ActTime[0] = 8  * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         enemyMoveGageImage.fillAmount = 0;
+        GameManager.moveEnd = true;
+    }
+
+
+    void ReaperSkill1()
+    {
+        bool flg = false;
+        int target = 0;
+
+        if (!flg)
+        {
+            target = EnemyAttackTarget();//‘ÎÛ‚Ì’Š‘I
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
+        }
+        if (flg)
+        {
+            EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
+            Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+            CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
+            enemyMoveGageImage.fillAmount = 0;
+            CharaMoveGage.ActTime[0] = 8 * atkUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            atkUpcorrection=1.15f;
+            atkUpTurn=2;
+            GameManager.moveEnd = true;
+        }
+    }
+
+    void ReaperSkill2()
+    {
+        int target = 0;
+        
+            bool flg = false;
+            if (!flg)
+            {
+                target = EnemyAttackTarget();
+                if (charaAlive[target].fillAmount > 0)
+                {
+                    flg = true;
+                }
+            }
+            if (flg)
+            {
+                CharaMoveGage.ActTime[0] = 20 * moveUpcorrection;
+                SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+                EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
+                Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+                DamageCutController(target);
+                DamageReflection(Damage);
+                PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+                float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+                PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+                enemyMoveGageImage.fillAmount = 0;
+            }
+        
+        GameManager.moveEnd = true;
+    }
+
+    void ReaperSkill3()
+    {
+        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
+        {
+            
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
+            if(hp>0)
+            {
+                PlayerEditorManager.PlayerInfo.Player_HP[i] -= (int)(PlayerEditorManager.MaxHP[i] / 10f*atkUpcorrection);
+                hp=PlayerEditorManager.PlayerInfo.Player_HP[i];
+                PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
+                CharaMoveGage.ActTime[0] = 25 * moveUpcorrection;
+            }
+        }
+        GameManager.moveEnd = true;
+    }
+
+    void ReaperSkill4()
+    {
+        EnemyManager.EnemyInfo.Enemy_ATK[0]*=1.1f;
+        CharaMoveGage.ActTime[0] = 13 * moveUpcorrection;
         GameManager.moveEnd = true;
     }
     void EnemyBuff()
@@ -213,23 +312,23 @@ public class EnemyMove : MonoBehaviour
            {
                 case 0:
                     {
-                        EnemySkill1();
+                        WolfSkill1();
                 
                     }
                     break;
                 case 1:
                     {
-                        EnemySkill2();
+                        WolfSkill2();
                     }
                     break;
                 case 2:
                     {
-                        EnemySkill3();
+                        WolfSkill3();
                     }
                     break;
                 case 3:
                     {
-                        EnemySkill4();
+                        WolfSkill4();
                     }
                     break;
             }

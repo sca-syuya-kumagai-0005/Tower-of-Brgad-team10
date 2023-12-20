@@ -725,7 +725,6 @@ public class SkillStorage : MonoBehaviour
                 {
                     if(partyChara.transform.GetChild(i).gameObject==CharaMoveGage.MoveChar[1])
                     {
-                        Debug.Log("AAAAAAAAAAAAAAAAAAAAA");
                         nextCharaNumber=i;
                     }
                 }
@@ -758,7 +757,7 @@ public class SkillStorage : MonoBehaviour
         return 0;
     }
 
-    float Buff(float time,float buff,float normal)//バフの時間が切れたら初期値に戻す関数
+    public static float Buff(float time,float buff,float normal)//バフの時間が切れたら初期値に戻す関数
     {
         if(time<=0)
         {
@@ -787,7 +786,7 @@ public class SkillStorage : MonoBehaviour
         MagicBarrelTime=BuffTime(MagicBarrelTime,maxMagicBarrelTime);
         annBreakerTime=BuffTime(annBreakerTime,annBreakerMaxTime);
     }
-    public static int DBuffTurn(int turn)
+    public static int BuffTurn(int turn)
     {
         if(turn>0)
         {
@@ -798,11 +797,11 @@ public class SkillStorage : MonoBehaviour
     }
     public static void DBuffTurnStorage()
     {
-        DBuffTurn(playerSkill3);
+        BuffTurn(playerSkill3);
     }
     public static void BuffTurnStorage()
     {
-        DBuffTurn(addSpeedTurn);
+        BuffTurn(addSpeedTurn);
     }
 
     int RecoverySubject(int target)
