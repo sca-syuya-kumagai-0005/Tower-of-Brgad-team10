@@ -23,8 +23,6 @@ public class MoveTextController : MonoBehaviour
 
     public static IEnumerator moveTextCoroutine(string str)
     {
-        if(!moveTextFlag)
-        { 
             moveText.text="";
             for(int i=0;i<str.Length;i++)
             {
@@ -32,7 +30,7 @@ public class MoveTextController : MonoBehaviour
                 yield return new WaitForSeconds(0.01f);
             }
             moveTextFlag = true;
-        }
+        
       
     }
 }
