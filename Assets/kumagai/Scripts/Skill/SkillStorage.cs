@@ -108,6 +108,7 @@ public class SkillStorage : MonoBehaviour
                         targetText=EnemyNameGet.enemyNameText.ToString()+"‚É";
                         comparText="ƒXƒ‰ƒbƒVƒ…‚ğŒJ‚èo‚µ‚½"+"\n"+targetText+DamageText;
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd=true;
                     }
                 }
@@ -142,6 +143,7 @@ public class SkillStorage : MonoBehaviour
                         playerSkill3=1;
                         comparText="–WŠQHì‚ğŒJ‚èo‚µ‚½\n“G‚Ì”íƒ_ƒ[ƒW‚ªã¸‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -160,6 +162,7 @@ public class SkillStorage : MonoBehaviour
                         PlayerManager.playerHPBer[charaNumber].fillAmount=PlayerInfo.Player_HP[charaNumber]/PlayerEditorManager.MaxHP[charaNumber];
                         comparText="‰‹}è“–‚ğŒJ‚èo‚µ‚½\nƒŒƒIƒ“‚ÌHP‚ª"+ (((rate * 100 * 0.3f) / 100)) * PlayerEditorManager.MaxHP[charaNumber]+"‰ñ•œ‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -180,6 +183,7 @@ public class SkillStorage : MonoBehaviour
                         targetText=EnemyNameGet.enemyNameText;
                         comparText="—E‹C‚ÌaÕ‚ğŒJ‚èo‚µ‚½\n" + pAtk * (breakerRate * 100) * GameManager.aliveCount+targetText+"‚Ìƒ_ƒ[ƒW";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                     break;
@@ -240,6 +244,7 @@ public class SkillStorage : MonoBehaviour
                         }
                         comparText="‰Á‘¬‚·‚é–¢—ˆ‚ğŒJ‚èo‚µ‚½\n"+"ƒRƒ}ƒ“ƒh‚Ì—¬‚ê‚é‘¬“x‚ª•Ï‰»‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
 
                         GameManager.moveEnd = true;
                     }
@@ -284,6 +289,7 @@ public class SkillStorage : MonoBehaviour
                         }
                         comparText = "Œ¸‘¬‚·‚é‰ß‹‚ğŒJ‚èo‚µ‚½\nƒRƒ}ƒ“ƒh‚Ì—¬‚ê‚é‘¬“x‚ª•Ï‰»‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     } 
                 }
@@ -320,6 +326,7 @@ public class SkillStorage : MonoBehaviour
                         targetText=EnemyNameGet.enemyNameText+"‚É";
                         comparText ="Œ‹––‚Ö‚Ì’²®‚ğŒJ‚èo‚µ‚½\n"+targetText+DamageText+"‚Ìƒ_ƒ[ƒW‚ğ—^‚¦‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -336,6 +343,7 @@ public class SkillStorage : MonoBehaviour
                         annBreakerTime=annBreakerMaxTime;
                         comparText= "’è‚ß‚ç‚ê‚µ‰^–½‚ğŒJ‚èo‚µ‚½\n¡‚±‚»‰^–½‚ğAA‚Ìˆê•¶š‚ÉI";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -373,8 +381,8 @@ public class SkillStorage : MonoBehaviour
                         DameCutTime=DameCutMaxTime;
                         comparText="çŒì‚Ì\‚¦‚ğŒJ‚èo‚µ‚½\nƒS[ƒhƒ“‚ªƒ_ƒ[ƒW‚ğˆê•”–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
-                        Debug.Log(DameCutPar);
                     }
                     break;
                 }
@@ -391,6 +399,7 @@ public class SkillStorage : MonoBehaviour
                         hateUpTime=hateUpMaxTime;
                         comparText="’§”­‚ğŒJ‚èo‚µ‚½\n“G‚©‚ç‘_‚í‚ê‚â‚·‚­‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -411,6 +420,7 @@ public class SkillStorage : MonoBehaviour
                         atkDownTime =atkDownMaxTime;
                         comparText="ˆĞˆ³‚ğŒJ‚èo‚µ‚½\n“G‚ÌUŒ‚—Í‚ªŒ¸­‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -432,6 +442,7 @@ public class SkillStorage : MonoBehaviour
                         DamageText=
                         comparText="h“Ë‚ğŒJ‚èo‚µ‚½\n"+targetText+"‚É"+ addDamage.ToString() ;
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -449,6 +460,8 @@ public class SkillStorage : MonoBehaviour
                         gordonBreakerTime=gordonBreakerMaxTime;
                         comparText="â‘Î–h‰qw‚ğŒJ‚èo‚µ‚½\n‚Ç‚ñ‚ÈUŒ‚‚à–h‚¢‚ÅŒ©‚¹‚Ü‚µ‚å‚¤I";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
+                        comparText ="";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -484,6 +497,7 @@ public class SkillStorage : MonoBehaviour
                         DeSpeedTime=DeSpeedMaxTime;
                         comparText="ô•„:“İ‘«‚ğŒJ‚èo‚µ‚½\n“G‚Ìs“®‘¬“x‚ªŒ¸­‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd=true;
                     }
                 }
@@ -512,6 +526,7 @@ public class SkillStorage : MonoBehaviour
                         comparText="Œä_…‚Å‚·!‚ğŒJ‚èo‚µ‚½\n"+partyChara.transform.GetChild(recoveryTarget).gameObject.name+"‚ÌHP‚ª"+
                         (php / PlayerEditorManager.MaxHP[recoveryTarget]).ToString()+"‰ñ•œ‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd=true;
                     }
                 }
@@ -528,6 +543,7 @@ public class SkillStorage : MonoBehaviour
                         DeInvalidTime=DeInvalidMaxTime;
                         comparText="Œì•„:–ï•¥‚ğŒJ‚èo‚µ‚½\nˆê’èŠÔã‘Ì‰»UŒ‚‚ğ–³Œø‰»‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd=true;
                     }
                 }
@@ -548,6 +564,7 @@ public class SkillStorage : MonoBehaviour
                         }
                         comparText="—ì•„:•—Š™‚ğŒJ‚èo‚µ‚½\nƒ_ƒ[ƒW‚Ìˆê•”‚ğ”½Ë‚·‚é‚æ‚¤‚É‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }
@@ -564,6 +581,7 @@ public class SkillStorage : MonoBehaviour
                         rinBreaker=90*rate;
                         comparText="‹Ö•„:Œä–@‚Ìá•Ç‚ğŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ªƒ_ƒ[ƒW‚Ìˆê•”‚ğ–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
                         GameManager.moveEnd = true;
                     }
                 }

@@ -187,6 +187,7 @@ public class GameManager : MonoBehaviour
                         NowCharaSet.nextChara.SetActive(false);
                         NowCharaSet.nextChara=null;
                     }
+                    SkillStorage.comparText="";
                     MoveTextController.moveTextFlag=false;
                     NotesEditor.commandDestroy=0;
                     SkillStorage.nowTurnExclusion=false;
