@@ -10,7 +10,6 @@ public class CommandController : MonoBehaviour
     private float speed;//ノーツのスピード
     private string myName;//生成されたプレハブの名前
     private bool judgeFlag;
-    [SerializeField]
     public  bool OkFlag;
     private int tmpi;
     public static int Count;
@@ -135,7 +134,7 @@ public class CommandController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
        // this.tag="Command";
-        if (other.transform.CompareTag("judge"))
+        if (other.transform.CompareTag("judge") && !OkFlag)
         {
             for (int i = 0; i < 8; i++)
             {

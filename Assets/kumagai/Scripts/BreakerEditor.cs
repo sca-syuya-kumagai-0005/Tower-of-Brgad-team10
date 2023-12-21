@@ -17,7 +17,6 @@ public class BreakerEditor : MonoBehaviour
     [SerializeField]
     GameObject[] SponePos;
     public static int commandDestroy = 0;
-    [SerializeField]
     TextAsset notesDatas;
     [SerializeField] private bool tmplastNotes;
     public static bool lastNotes;
@@ -66,7 +65,7 @@ public class BreakerEditor : MonoBehaviour
     void Start()
     {
         NotesOKCount=0;
-        BreakerGageImage.fillAmount=BreakerGageCount/70f;
+        BreakerGageImage.fillAmount=70f/70f;
         for(int i = 0; i < PlayerEditor.PlayerName.Length; i++) {
             Chara.Add(breakerChara.transform.GetChild(i).gameObject);
         }
@@ -83,7 +82,7 @@ public class BreakerEditor : MonoBehaviour
         else
         {
             ready.SetActive(false);
-            breakerGageMax=false;
+           
         }
         if (SkillSelection.breakerFlag&&GameManager.state==GameManager.BattleState.breakerCommand)
         {
@@ -92,7 +91,7 @@ public class BreakerEditor : MonoBehaviour
             breakerChara.SetActive(true);
           
             breakerBackGorund.SetActive(true);
-            var notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
+             notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
             List<string[]> csvdata = CsvReader(notesDatas);
             SkillStorage.CommandCount = csvdata.Count - 2;
             CommandController.Count = csvdata.Count - 2;
@@ -103,9 +102,11 @@ public class BreakerEditor : MonoBehaviour
 
             if (!NotesCreate) //試験的に、Enterキー入力でインスペクターにアタッチした一つ目のスキルを実行
             {
-                NotesCreate=true;
                 lightning.Play();
+                Debug.Log(notesDatas.name);
                 StartCoroutine(NotesCreater(notesDatas));
+                NotesCreate =true;
+              
             }
         }
         if(GameManager.state==GameManager.BattleState.move)
@@ -113,7 +114,10 @@ public class BreakerEditor : MonoBehaviour
             Judge.SetActive(false);
             breakerBackGorund.SetActive(false);
             breakerChara.SetActive(false);
-            Chara[SkillStorage.charaNumber].SetActive(false);
+            if(Chara[SkillSelection.SkillNumber].activeSelf)
+            { 
+                Chara[SkillStorage.charaNumber].SetActive(false);
+            }
             lightning.Stop();
         }
     }
@@ -134,6 +138,7 @@ public class BreakerEditor : MonoBehaviour
             NotesType c = NotesType.w;
             float t = 0.0f;
             Vector3 pos = new Vector3(0, 0, 0);
+            Debug.Log("138行目は"+notesDatas.name);
             List<string[]> data = CsvReader(notesDatas); //一行をまとめて格納する配列
 
             for (int j = 0; j < notesData[0].Length; ++j)
@@ -181,7 +186,7 @@ public class BreakerEditor : MonoBehaviour
                     break;
             }　　　　//一列目の値によってノーツの種類を決定
             t = float.Parse(data[i][1]);　//二列目の値によってノーツが流れて来るまでの時間を決定
-            switch (data[i][2])
+            switch (data[i][3])
             {
                 case "L":
                     {
@@ -213,9 +218,9 @@ public class BreakerEditor : MonoBehaviour
             }　     //三列目の値によってノーツの向きを決定
             yield return new WaitForSeconds(t); //二列目の値分だけ待機
                 SpeedObject=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //生成
-                SpeedObject.tag=data[i][2].ToString();
+                SpeedObject.transform.tag=data[i][3].ToString();
                 SpeedObject=SpeedObject.transform.GetChild(0).gameObject;
-                SpeedObject.name  = (float.Parse(data[i][3])).ToString();
+                SpeedObject.name  = (float.Parse(data[i][2])).ToString();
         }
     }
     private List<string[]> CsvReader(TextAsset csvData) //引数に入力したCSVファイルをリストに変換する関数
