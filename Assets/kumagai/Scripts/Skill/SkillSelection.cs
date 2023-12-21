@@ -21,11 +21,8 @@ public class SkillSelection : MonoBehaviour
     private Vector3[] pos=new Vector3[5];
     private float f;
     [SerializeField]
-    private GameObject skillsi;
-    [SerializeField]
     private GameObject skillsNumber;
-    [SerializeField]
-    private int skillCount;
+    public static int skillCount=4;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,14 +33,7 @@ public class SkillSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(BreakerEditor.breakerGageMax)
-        {
-            skillCount=5;
-        }
-        else
-        {
-            skillCount=4;
-        }
+        
         f+=Time.deltaTime*5;
         SkillPosReset();
         SkillSet();
@@ -65,10 +55,6 @@ public class SkillSelection : MonoBehaviour
             {
                // NotesEditor.skillName = skills[SkillNumber].name;
                 skillSelect=true;
-                if(SkillNumber==4)
-                {
-
-                }
             }
         }
     }
@@ -146,10 +132,11 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillPosReset()
     {
-        if(GameManager.state==GameManager.BattleState.move&&!EnemyMove.enemyMove)
+        if(GameManager.state==GameManager.BattleState.move)
         {
             for(int i=0;i < skillCount; i++)
             {
+                Debug.Log("AAAAAA");
                 skills[i].transform.position=pos[i];
             }
         }

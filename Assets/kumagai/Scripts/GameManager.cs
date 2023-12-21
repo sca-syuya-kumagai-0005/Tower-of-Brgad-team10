@@ -64,6 +64,14 @@ public class GameManager : MonoBehaviour
                     {
                         state=BattleState.enemyStatausSet;
                     }
+                    if (BreakerEditor.breakerGageMax)
+                    {
+                        SkillSelection.skillCount = 5;
+                    }
+                    else
+                    {
+                        SkillSelection.skillCount = 4;
+                    }
                 }
                 break;
             case BattleState.enemyStatausSet:
@@ -177,7 +185,7 @@ public class GameManager : MonoBehaviour
                 break;
              case BattleState.flagReSet:
                 {
-                    if(NowCharaSet.nowChara!=null)
+                    if (NowCharaSet.nowChara!=null)
                     { 
                         NowCharaSet.nowChara.SetActive(false);
                         NowCharaSet.nowChara=null;
@@ -186,6 +194,14 @@ public class GameManager : MonoBehaviour
                     {
                         NowCharaSet.nextChara.SetActive(false);
                         NowCharaSet.nextChara=null;
+                    }
+                    if (BreakerEditor.breakerGageMax)
+                    {
+                        SkillSelection.skillCount = 5;
+                    }
+                    else
+                    {
+                        SkillSelection.skillCount = 4;
                     }
                     SkillStorage.comparText="";
                     MoveTextController.moveTextFlag=false;
