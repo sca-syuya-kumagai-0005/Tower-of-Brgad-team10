@@ -38,7 +38,7 @@ public class BreakerKeyJudge : MonoBehaviour
                 {
                     if (!KeyFlag[i])
                     {
-                        for (int j=3;j<this.gameObject.transform.childCount;j++)
+                        for (int j=5;j<this.gameObject.transform.childCount;j++)
                         {
                             obj=transform.GetChild(j).gameObject;
                             Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚Ü‚·");

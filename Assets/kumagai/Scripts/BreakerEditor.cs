@@ -34,6 +34,13 @@ public class BreakerEditor : MonoBehaviour
     private Image BreakerGageImage;
     [SerializeField]
     private GameObject ready;
+    [SerializeField]
+    private ParticleSystem lightning;
+    [SerializeField]
+    private GameObject breakerChara;
+    public List<GameObject> Chara;
+    [SerializeField]
+    private GameObject Judge;
     public enum NotesType
     {
         w = 0,
@@ -60,6 +67,9 @@ public class BreakerEditor : MonoBehaviour
     {
         NotesOKCount=0;
         BreakerGageImage.fillAmount=BreakerGageCount/70f;
+        for(int i = 0; i < PlayerEditor.PlayerName.Length; i++) {
+            Chara.Add(breakerChara.transform.GetChild(i).gameObject);
+        }
     }
 
     void Update()
@@ -77,6 +87,10 @@ public class BreakerEditor : MonoBehaviour
         }
         if (SkillSelection.breakerFlag&&GameManager.state==GameManager.BattleState.breakerCommand)
         {
+            Chara[SkillStorage.charaNumber].SetActive(true);
+            Judge.SetActive(true);
+            breakerChara.SetActive(true);
+          
             breakerBackGorund.SetActive(true);
             var notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
             List<string[]> csvdata = CsvReader(notesDatas);
@@ -90,12 +104,17 @@ public class BreakerEditor : MonoBehaviour
             if (!NotesCreate) //試験的に、Enterキー入力でインスペクターにアタッチした一つ目のスキルを実行
             {
                 NotesCreate=true;
+                lightning.Play();
                 StartCoroutine(NotesCreater(notesDatas));
             }
         }
         if(GameManager.state==GameManager.BattleState.move)
         {
+            Judge.SetActive(false);
             breakerBackGorund.SetActive(false);
+            breakerChara.SetActive(false);
+            Chara[SkillStorage.charaNumber].SetActive(false);
+            lightning.Stop();
         }
     }
 
