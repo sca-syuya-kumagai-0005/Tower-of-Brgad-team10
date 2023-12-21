@@ -80,7 +80,7 @@ public class CommandController : MonoBehaviour
             BreakerEditor.NotesOKCount+=1;
             BreakerEditor.BreakerGageCount++;
             OkFlag =true;
-            Debug.Log(NotesEditor.commandEnd);
+            Debug.Log("ブレイカーゲージカウントは"+BreakerEditor.BreakerGageCount);
             CommandKeyManager.KeyFlag[tmpi] = false;
             BreakerKeyJudge.KeyFlag[tmpi]=false;
             if (NotesEditor.commandDestroy>=Count)

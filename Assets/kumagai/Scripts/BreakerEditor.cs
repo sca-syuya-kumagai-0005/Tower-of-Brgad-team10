@@ -59,7 +59,7 @@ public class BreakerEditor : MonoBehaviour
     void Start()
     {
         NotesOKCount=0;
-        BreakerGageImage.fillAmount=BreakerGageCount/70;
+        BreakerGageImage.fillAmount=BreakerGageCount/70f;
     }
 
     void Update()
