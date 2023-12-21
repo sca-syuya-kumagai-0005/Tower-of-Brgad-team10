@@ -42,6 +42,7 @@ public class CommandController : MonoBehaviour
        myName=this.gameObject.name.Replace("(Clone)","");//¶¬‚É©“®‚Å•t‚­iClonej‚ğØ‚èæ‚è
        this.gameObject.name= this.gameObject.name.Replace("(Clone)", "");
         commandManager=this.transform.parent.gameObject;
+        
     }
 
     // Update is called once per frame
@@ -78,9 +79,8 @@ public class CommandController : MonoBehaviour
         {
             NotesEditor.NotesOKCount +=1;
             BreakerEditor.NotesOKCount+=1;
-            BreakerEditor.BreakerGageCount++;
+            BreakerEditor.BreakerGageCount+=10;
             OkFlag =true;
-            Debug.Log(NotesEditor.commandEnd);
             CommandKeyManager.KeyFlag[tmpi] = false;
             BreakerKeyJudge.KeyFlag[tmpi]=false;
             if (NotesEditor.commandDestroy>=Count)

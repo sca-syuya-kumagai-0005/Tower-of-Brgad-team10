@@ -23,6 +23,7 @@ public class CharaMoveGage : MonoBehaviour
     private void OnEnable()
     {
         enemyName = EnemySponer.sponeEnemy[0].name;
+        Debug.Log(enemyName);
     }
     void Start()
     {
