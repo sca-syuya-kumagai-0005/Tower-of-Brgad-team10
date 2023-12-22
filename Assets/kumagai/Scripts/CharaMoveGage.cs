@@ -8,6 +8,7 @@ public class CharaMoveGage : MonoBehaviour
 
     private GameObject Char;//配列への代入に使用　あまり気にしなくてよし
     public static GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
+    [SerializeField]
     private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
     public static int order = 0;//fillAmountが１になったとき何番目に格納するかを決定
     [SerializeField]
@@ -42,7 +43,7 @@ public class CharaMoveGage : MonoBehaviour
         for(int i=1;i<this.transform.childCount+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
         {
             Char=this.transform.GetChild(i-1).gameObject;
-            Char_MoveGage[i]=Char.transform.Find("MoveGage").gameObject;
+            Char_MoveGage[i]=Char.transform.Find("MoveGage").gameObject.transform.Find("MoveGage").gameObject;
             Player_MoveGageImage[i] = Char_MoveGage[i].GetComponent<Image>();
 
         }
@@ -70,7 +71,15 @@ public class CharaMoveGage : MonoBehaviour
             if (!SetFlag&&GameManager.state==GameManager.BattleState.flagReSet)
             {
                 order -= 1;
-                GameObject MG = MoveChar[0].transform.Find("MoveGage").gameObject;
+                GameObject MG;
+                if(MoveChar[0].name!="Enemy")
+                {
+                MG = MoveChar[0].transform.Find("MoveGage").gameObject.transform.Find("MoveGage").gameObject;
+                }
+                else
+                {
+                  MG = MoveChar[0].transform.Find("EnemyMoveGage").gameObject;
+                }
                 Image IM = MG.GetComponent<Image>();
                 IM.fillAmount = 0;
                 MoveChar[0]=null;
@@ -109,15 +118,22 @@ public class CharaMoveGage : MonoBehaviour
                     }
                    //fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
                     
-                    if (Player_MoveGageImage[i].fillAmount >= 1)//fillAmountが１になったキャラを行動するキャラの配列に格納
+                    if (Player_MoveGageImage[i].fillAmount >= 1&&Player_MoveGageImage[i].name=="MoveGage")//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {
-                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
+                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject.transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
                         //MoveCharName[i] = MoveChar[order].name;
                         //Debug.Log(MoveCharName[i]);
                         order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
                         elapsedTime[i] -= ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
-
-
+                    }
+                    else if(Player_MoveGageImage[i].fillAmount >= 1 && Player_MoveGageImage[i].name == "EnemyMoveGage")
+                    {
+                        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
+                        //MoveCharName[i] = MoveChar[order].name;
+                        //Debug.Log(MoveCharName[i]);
+                        order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
+                        elapsedTime[i] -= ActTime[i];
                     }
                 }
             }
