@@ -323,14 +323,17 @@ public class GameManager : MonoBehaviour
                         CharaMoveGage.MoveChar[0] = null;
                         if(CharaMoveGage.MoveChar[1]!=null)
                         {
-                            for (int j = 1; i < 5; i++)
-                            {
-                                if (CharaMoveGage.MoveChar[j - 1] == null)
+                                for (int j = 1; i < 5; i++)
                                 {
-                                    CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
-                                    CharaMoveGage. MoveChar[j] = null;
+                                    if (CharaMoveGage.MoveChar[j - 1] == null)
+                                    {
+                                        CharaMoveGage.order--;
+                                        CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
+                                        CharaMoveGage. MoveChar[j] = null;
+                                    
+                                    }
                                 }
-                            }
+                            
                         }
                     }
                 }

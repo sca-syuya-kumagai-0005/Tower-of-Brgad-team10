@@ -172,16 +172,17 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         BreakerEditor.skillName = "—E‹C‚Ì‹OÕ";
+                        BreakerEditor.allTime = 65*(2f-addSpeed);
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber]*atkBuff;
-                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate*100)*GameManager.aliveCount;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate)*GameManager.aliveCount;
                         Debug.Log("ƒ_ƒ[ƒW‚Í"+pAtk * breakerRate * GameManager.aliveCount);
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
-                        targetText=EnemyNameGet.enemyNameText;
-                        comparText="—E‹C‚ÌaÕ‚ğŒJ‚èo‚µ‚½\n" + (int)(pAtk * (breakerRate * 100) * GameManager.aliveCount)+targetText+"‚Ìƒ_ƒ[ƒW";
+                        targetText=EnemyNameGet.enemyNameText+"‚É";
+                        comparText="—E‹C‚ÌaÕ‚ğŒJ‚èo‚µ‚½\n" + targetText+ (int)(pAtk * (breakerRate) * GameManager.aliveCount)+"‚Ìƒ_ƒ[ƒW";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         BreakerEditor.BreakerGageCount = 0;
@@ -337,13 +338,12 @@ public class SkillStorage : MonoBehaviour
                 {
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
-                        Debug.Log("AAAAAAAAAAAA");
                         BreakerEditor.skillName = "’è‚ß‚ç‚ê‚µ‰^–½";
-                        Debug.Log(BreakerEditor.skillName);
+                        BreakerEditor.allTime = 50*(2f-addSpeed);
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        annBreakerMaxTime=breakerRate*100+25;
+                        annBreakerMaxTime =breakerRate*100+25;
                         annBreakerTime=annBreakerMaxTime;
                         comparText= "’è‚ß‚ç‚ê‚µ‰^–½‚ğŒJ‚èo‚µ‚½\n¡‚±‚»‰^–½‚ğAA‚Ìˆê•¶š‚ÉI";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -381,6 +381,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "çŒì‚Ì\‚¦";
+
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -447,7 +448,7 @@ public class SkillStorage : MonoBehaviour
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         targetText=EnemyNameGet.enemyNameText;
                         DamageText=
-                        comparText="h“Ë‚ğŒJ‚èo‚µ‚½\n"+targetText+"‚É"+ ((int)addDamage).ToString() ;
+                        comparText="h“Ë‚ğŒJ‚èo‚µ‚½\n"+targetText+"‚É"+ ((int)addDamage).ToString()+"‚Ìƒ_ƒ[ƒW" ;
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd = true;
@@ -459,6 +460,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         BreakerEditor.skillName = "â‘Î–h‰qw";
+                        BreakerEditor.allTime = 85*(2f - addSpeed);
                     }
                      if(GameManager.state==GameManager.BattleState.move)
                     {
@@ -583,10 +585,12 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         BreakerEditor.skillName = "‹Ö•„FŒä–@‚Ìá•Ç";
+                        BreakerEditor.allTime = 50* (2f - addSpeed);
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        rinBreakerTime=130;
+                       
+                        rinBreakerTime =130;
                         rinBreaker=90*rate;
                         comparText="‹Ö•„:Œä–@‚Ìá•Ç‚ğŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ªƒ_ƒ[ƒW‚Ìˆê•”‚ğ–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
