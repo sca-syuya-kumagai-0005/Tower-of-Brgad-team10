@@ -50,6 +50,8 @@ public class BreakerEditor : MonoBehaviour
     private float scaleSize;
     [SerializeField]
     private GameObject light;
+    [SerializeField]
+    private ParticleSystem line;
     public enum NotesType
     {
         w = 0,
@@ -80,7 +82,6 @@ public class BreakerEditor : MonoBehaviour
         for(int i = 0; i < PlayerEditor.PlayerName.Length; i++) {
             Chara.Add(breakerChara.transform.GetChild(i).gameObject);
         }
-        lightning.Play();
         light.SetActive(false);
         
     }
@@ -88,7 +89,10 @@ public class BreakerEditor : MonoBehaviour
     void Update()
     {
         BreakerGageImage.fillAmount = BreakerGageCount / 70f;
-        
+        if(!breakerGageMax)
+        {
+            readyFlag=false;
+        }
         if(BreakerGageImage.fillAmount>=1)
         {
             ready.SetActive(true);
@@ -110,6 +114,7 @@ public class BreakerEditor : MonoBehaviour
             Chara[SkillStorage.charaNumber].SetActive(true);
            
             CircleRotation();
+            line.Play();
             Judge.SetActive(true);
             breakerChara.SetActive(true);
             StartCoroutine(CircleMove());
@@ -137,6 +142,7 @@ public class BreakerEditor : MonoBehaviour
         }
         if(GameManager.state==GameManager.BattleState.move)
         {
+            line.Stop();
             circle.GetComponent<RectTransform>().localScale=new Vector3(0.3f,0.3f,0.3f);
             light.SetActive(false);
             Chara[SkillStorage.charaNumber].SetActive(false);
@@ -301,7 +307,7 @@ public class BreakerEditor : MonoBehaviour
         circle.transform.Rotate(new Vector3(0,0,60*Time.deltaTime));
     }
 
-    private bool readyFlag=false;
+    public static bool readyFlag=false;
     private IEnumerator ReadyEffect()
     {
        
