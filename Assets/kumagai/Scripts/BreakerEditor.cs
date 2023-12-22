@@ -40,6 +40,12 @@ public class BreakerEditor : MonoBehaviour
     public List<GameObject> Chara;
     [SerializeField]
     private GameObject Judge;
+    public static bool circleSet;
+    [SerializeField]
+    private GameObject circle;
+    private Vector3 tmpSize;
+    [SerializeField]
+    private float scaleSize;
     public enum NotesType
     {
         w = 0,
@@ -64,7 +70,7 @@ public class BreakerEditor : MonoBehaviour
 
     void Start()
     {
-        NotesOKCount=0;
+        NotesOKCount =0;
         BreakerGageImage.fillAmount=70f/70f;
         for(int i = 0; i < PlayerEditor.PlayerName.Length; i++) {
             Chara.Add(breakerChara.transform.GetChild(i).gameObject);
@@ -74,6 +80,7 @@ public class BreakerEditor : MonoBehaviour
     void Update()
     {
         BreakerGageImage.fillAmount = BreakerGageCount / 70f;
+        
         if(BreakerGageImage.fillAmount>=1)
         {
             ready.SetActive(true);
@@ -87,9 +94,10 @@ public class BreakerEditor : MonoBehaviour
         if (SkillSelection.breakerFlag&&GameManager.state==GameManager.BattleState.breakerCommand)
         {
             Chara[SkillStorage.charaNumber].SetActive(true);
+            CircleRotation();
             Judge.SetActive(true);
             breakerChara.SetActive(true);
-          
+            StartCoroutine(CircleMove());
             breakerBackGorund.SetActive(true);
              notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
             List<string[]> csvdata = CsvReader(notesDatas);
@@ -111,6 +119,7 @@ public class BreakerEditor : MonoBehaviour
         }
         if(GameManager.state==GameManager.BattleState.move)
         {
+            lightning.Stop();
             Judge.SetActive(false);
             breakerBackGorund.SetActive(false);
             breakerChara.SetActive(false);
@@ -118,7 +127,7 @@ public class BreakerEditor : MonoBehaviour
             { 
                 Chara[SkillStorage.charaNumber].SetActive(false);
             }
-            lightning.Stop();
+            
         }
     }
 
@@ -250,4 +259,25 @@ public class BreakerEditor : MonoBehaviour
         return skillDatas;
     }
 
+    private IEnumerator CircleMove()
+    {
+        tmpSize=circle.GetComponent<RectTransform>().localScale;
+        Vector3 size=tmpSize;
+        if(!circleSet)
+        { 
+            for (int i = 0; i < 150; i++)
+            {
+                size= new Vector3(size.x - scaleSize*Time.deltaTime, size.y - scaleSize*Time.deltaTime, 0);
+                circle.GetComponent<RectTransform>().localScale=size;
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            circleSet=true;
+        }
+    }
+
+    private void CircleRotation()
+    {
+        Quaternion rot=circle.transform.rotation;
+        circle.transform.Rotate(new Vector3(0,0,60*Time.deltaTime));
+    }
 }
