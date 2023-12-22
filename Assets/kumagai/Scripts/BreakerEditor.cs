@@ -52,6 +52,7 @@ public class BreakerEditor : MonoBehaviour
     private GameObject light;
     [SerializeField]
     private ParticleSystem line;
+    public static float allTime;
     public enum NotesType
     {
         w = 0,
@@ -134,6 +135,7 @@ public class BreakerEditor : MonoBehaviour
                 Debug.Log(notesDatas.name);
                 if(circleSet)
                 { 
+                  
                     StartCoroutine(NotesCreater(notesDatas));
                     NotesCreate =true;
                 }
@@ -157,6 +159,7 @@ public class BreakerEditor : MonoBehaviour
 
     IEnumerator NotesCreater(TextAsset TAD) //引数に入力されたリストをノーツとして生成する関数
     {
+        yield return new WaitForSeconds(0.5f);
         List<string[]> csvDatas = new List<string[]>();
         StringReader reader = new StringReader(TAD.text);
 
@@ -202,19 +205,19 @@ public class BreakerEditor : MonoBehaviour
                     c = NotesType.d;
                     break;
 
-                case "L":
+                case "←":
                     c = NotesType.L;
                     break;
 
-                case "U":
+                case "↑":
                     c = NotesType.U;
                     break;
 
-                case "R":
+                case "→":
                     c = NotesType.R;
                     break;
 
-                case "D":
+                case "↓":
                     c = NotesType.D;
                     break;
             }　　　　//一列目の値によってノーツの種類を決定
@@ -260,7 +263,6 @@ public class BreakerEditor : MonoBehaviour
     {
         List<string[]> skillDatas = new List<string[]>();
         StringReader reader = new StringReader(csvData.text);
-
         while (reader.Peek() != -1)
         {
             string line = reader.ReadLine();
@@ -287,13 +289,13 @@ public class BreakerEditor : MonoBehaviour
     
     private IEnumerator CircleMove()
     {
-        tmpSize=circle.GetComponent<RectTransform>().localScale;
+       // tmpSize=circle.GetComponent<RectTransform>().localScale;
         Vector3 size=tmpSize;
         if(!circleSet)
         { 
-            while(size.x>0.0f)
+            while(GameManager.state==GameManager.BattleState.breakerCommand)
             { 
-                size= new Vector3(size.x - scaleSize*Time.deltaTime/40, size.y - scaleSize*Time.deltaTime/40, 0);
+                size= new Vector3(size.x - scaleSize*Time.deltaTime/allTime, size.y - scaleSize*Time.deltaTime/allTime, 0);
                 circle.GetComponent<RectTransform>().localScale=size;
                 yield return new WaitForSeconds(Time.deltaTime);
                 circleSet = true;
