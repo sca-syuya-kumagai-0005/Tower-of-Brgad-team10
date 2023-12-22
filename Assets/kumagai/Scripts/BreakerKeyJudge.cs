@@ -62,7 +62,7 @@ public class BreakerKeyJudge : MonoBehaviour
                             C.OkFlag = true;
 
                         }
-
+                        KeyFlag[CommandController.tmpi]=false;
                         BreakerEditor.commandDestroy += 1;
                         Destroy(nearObj);
                     }

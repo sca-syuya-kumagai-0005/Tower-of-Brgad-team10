@@ -11,7 +11,7 @@ public class CommandController : MonoBehaviour
     private string myName;//生成されたプレハブの名前
     private bool judgeFlag;
     public  bool OkFlag;
-    private int tmpi;
+    public static int tmpi;
     public static int Count;
     private GameObject commandManager;
     [SerializeField]private GameObject mainCanvas;
@@ -101,9 +101,12 @@ public class CommandController : MonoBehaviour
             }
             else 
             {
+                BreakerKeyJudge.KeyFlag[tmpi] = false;
+                CommandKeyManager.KeyFlag[tmpi] = false;
                 //StartCoroutine(NotesEditor.good(this.gameObject));
-                OkFlag=true;
-              //  this.tag = "EndCommand";
+                OkFlag =true;
+                
+                //  this.tag = "EndCommand";
                 Instantiate(good, pos, Quaternion.identity, mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
                 BreakerEditor.commandDestroy += 1;

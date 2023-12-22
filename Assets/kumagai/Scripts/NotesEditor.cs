@@ -105,9 +105,18 @@ public class NotesEditor : MonoBehaviour
     public static bool lastNotes;
     [SerializeField]private bool tmpcommandEnd;
     public static bool commandEnd;
+    private int cor;
     IEnumerator NotesCreater() //引数に入力されたリストをノーツとして生成する関数
     {
-        for(int i=1;i<skillCommandCount;i++)
+        if(SkillStorage.annBreakerTime>0)
+        {
+            cor=1;
+        }
+        else
+        {
+            cor=0;
+        }
+        for(int i=1;i<skillCommandCount-cor;i++)
         { 
             if(i==skillCommandCount-1)
             {
