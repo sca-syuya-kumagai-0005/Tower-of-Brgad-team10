@@ -34,6 +34,8 @@ public class BreakerEditor : MonoBehaviour
     [SerializeField]
     private GameObject ready;
     [SerializeField]
+    private GameObject readyEff;
+    [SerializeField]
     private ParticleSystem lightning;
     [SerializeField]
     private GameObject breakerChara;
@@ -80,6 +82,7 @@ public class BreakerEditor : MonoBehaviour
         }
         lightning.Play();
         light.SetActive(false);
+        
     }
 
     void Update()
@@ -89,7 +92,13 @@ public class BreakerEditor : MonoBehaviour
         if(BreakerGageImage.fillAmount>=1)
         {
             ready.SetActive(true);
+            readyEff.SetActive(true);
             breakerGageMax=true;
+            if(!readyFlag)
+            { 
+                 StartCoroutine(ReadyEffect());
+            }
+            readyFlag=true;
         }
         else
         {
@@ -283,7 +292,6 @@ public class BreakerEditor : MonoBehaviour
                 yield return new WaitForSeconds(Time.deltaTime);
                 circleSet = true;
             }
-          
         }
     }
 
@@ -291,5 +299,28 @@ public class BreakerEditor : MonoBehaviour
     {
         Quaternion rot=circle.transform.rotation;
         circle.transform.Rotate(new Vector3(0,0,60*Time.deltaTime));
+    }
+
+    private bool readyFlag=false;
+    private IEnumerator ReadyEffect()
+    {
+       
+            while(ready.activeSelf)
+            {
+            float alpha = 1;
+            Vector3 size = ready.GetComponent<RectTransform>().localScale;
+            Debug.Log("BBBBAAA");
+                while (alpha>0)
+                {
+                    size = new Vector3(size.x + scaleSize * Time.deltaTime , size.y + scaleSize * Time.deltaTime , 0);
+                    alpha-=Time.deltaTime*2;
+                    readyEff.GetComponent<Image>().color=new Color(1,1,1,alpha);
+                    readyEff.GetComponent<RectTransform>().localScale = size;
+                    yield return new WaitForSeconds(Time.deltaTime);
+                }
+            yield return new WaitForSeconds(0.5f);
+        }
+       
+
     }
 }
