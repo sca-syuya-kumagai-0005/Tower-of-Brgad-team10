@@ -39,7 +39,8 @@ public class CommandKeyManager : MonoBehaviour
                 if (!KeyFlag[i])
                 {
                      hit = Physics2D.Raycast(Judge.transform.position, new Vector3(100, 0, 0), 100f);
-                    if (hit.collider.gameObject.name != "judge")
+                        KeyFlag[CommandController.tmpi] = false;
+                        if (hit.collider.gameObject.name != "judge")
                     {
                         Debug.Log(hit.collider);
                         obj = hit.collider.gameObject;

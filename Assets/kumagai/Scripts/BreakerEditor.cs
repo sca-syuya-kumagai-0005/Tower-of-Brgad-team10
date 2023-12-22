@@ -46,6 +46,8 @@ public class BreakerEditor : MonoBehaviour
     private Vector3 tmpSize;
     [SerializeField]
     private float scaleSize;
+    [SerializeField]
+    private GameObject light;
     public enum NotesType
     {
         w = 0,
@@ -71,10 +73,13 @@ public class BreakerEditor : MonoBehaviour
     void Start()
     {
         NotesOKCount =0;
+        tmpSize = circle.GetComponent<RectTransform>().localScale;
         BreakerGageImage.fillAmount=70f/70f;
         for(int i = 0; i < PlayerEditor.PlayerName.Length; i++) {
             Chara.Add(breakerChara.transform.GetChild(i).gameObject);
         }
+        lightning.Play();
+        light.SetActive(false);
     }
 
     void Update()
@@ -94,12 +99,13 @@ public class BreakerEditor : MonoBehaviour
         if (SkillSelection.breakerFlag&&GameManager.state==GameManager.BattleState.breakerCommand)
         {
             Chara[SkillStorage.charaNumber].SetActive(true);
+           
             CircleRotation();
             Judge.SetActive(true);
             breakerChara.SetActive(true);
             StartCoroutine(CircleMove());
             breakerBackGorund.SetActive(true);
-             notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
+            notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
             List<string[]> csvdata = CsvReader(notesDatas);
             SkillStorage.CommandCount = csvdata.Count - 2;
             CommandController.Count = csvdata.Count - 2;
@@ -110,16 +116,20 @@ public class BreakerEditor : MonoBehaviour
 
             if (!NotesCreate) //試験的に、Enterキー入力でインスペクターにアタッチした一つ目のスキルを実行
             {
-                lightning.Play();
+                light.SetActive(true);
                 Debug.Log(notesDatas.name);
-                StartCoroutine(NotesCreater(notesDatas));
-                NotesCreate =true;
+                if(circleSet)
+                { 
+                    StartCoroutine(NotesCreater(notesDatas));
+                    NotesCreate =true;
+                }
               
             }
         }
         if(GameManager.state==GameManager.BattleState.move)
         {
-            lightning.Stop();
+            circle.GetComponent<RectTransform>().localScale= tmpSize;
+            light.SetActive(false);
             Judge.SetActive(false);
             breakerBackGorund.SetActive(false);
             breakerChara.SetActive(false);
