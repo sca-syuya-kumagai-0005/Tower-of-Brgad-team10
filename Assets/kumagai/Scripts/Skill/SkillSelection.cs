@@ -60,7 +60,7 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillSet()//現在行動しているキャラのスキルを画面左側に設定
     {
-        if (GameManager.state == GameManager.BattleState.skillSelect&&CharaMoveGage.MoveChar[0].name!= "EnemyMoveGage")
+        if (GameManager.state == GameManager.BattleState.skillSelect&&CharaMoveGage.MoveChar[0].name!= "Enemy")
         {
             skill = CharaMoveGage.MoveChar[0].transform.Find("Skill").gameObject;
             skill.SetActive(true);

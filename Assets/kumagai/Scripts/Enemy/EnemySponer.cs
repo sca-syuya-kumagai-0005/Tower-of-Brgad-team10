@@ -13,7 +13,7 @@ public class EnemySponer : MonoBehaviour
     void Awake()
     {
         EnemyManager.enemyNumber=Random.Range(0,Enemies.Length)+1;
-        enemy=Instantiate(Enemies[EnemyManager.enemyNumber-1],SponePos.transform.position,Quaternion.identity,Enemy.transform);
+        enemy=Instantiate(Enemies[EnemyManager.enemyNumber-1],SponePos.transform.position,Quaternion.identity,Enemy.transform.Find("Enemy").transform);
         enemy.gameObject.name = enemy.gameObject.name.Replace("(Clone)", "");
         sponeEnemy[0]=enemy;
     }
