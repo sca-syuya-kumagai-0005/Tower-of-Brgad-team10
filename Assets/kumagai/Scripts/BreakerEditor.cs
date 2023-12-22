@@ -128,15 +128,14 @@ public class BreakerEditor : MonoBehaviour
         }
         if(GameManager.state==GameManager.BattleState.move)
         {
-            circle.GetComponent<RectTransform>().localScale= tmpSize;
+            circle.GetComponent<RectTransform>().localScale=new Vector3(0.3f,0.3f,0.3f);
             light.SetActive(false);
+            Chara[SkillStorage.charaNumber].SetActive(false);
             Judge.SetActive(false);
             breakerBackGorund.SetActive(false);
             breakerChara.SetActive(false);
-            if(Chara[SkillSelection.SkillNumber].activeSelf)
-            { 
-                Chara[SkillStorage.charaNumber].SetActive(false);
-            }
+               
+            
             
         }
     }
@@ -269,19 +268,22 @@ public class BreakerEditor : MonoBehaviour
         return skillDatas;
     }
 
+   
+    
     private IEnumerator CircleMove()
     {
         tmpSize=circle.GetComponent<RectTransform>().localScale;
         Vector3 size=tmpSize;
         if(!circleSet)
         { 
-            for (int i = 0; i < 150; i++)
-            {
-                size= new Vector3(size.x - scaleSize*Time.deltaTime, size.y - scaleSize*Time.deltaTime, 0);
+            while(size.x>0.0f)
+            { 
+                size= new Vector3(size.x - scaleSize*Time.deltaTime/40, size.y - scaleSize*Time.deltaTime/40, 0);
                 circle.GetComponent<RectTransform>().localScale=size;
                 yield return new WaitForSeconds(Time.deltaTime);
+                circleSet = true;
             }
-            circleSet=true;
+          
         }
     }
 
