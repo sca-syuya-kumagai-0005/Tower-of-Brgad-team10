@@ -101,7 +101,8 @@ public class EnemyMove : MonoBehaviour
     void WolfSkill1()
     {
         Debug.Log("Šš‚İ‚Â‚«");
-        EMT.text="’Ç‚¢‚Í‚¬˜T‚ÌŠš‚İ‚Â‚«";
+        SkillStorage.comparText="Šš‚İ‚Â‚«‚ğŒJ‚èo‚µ‚Ä‚«‚½\nƒ_ƒ[ƒW‚ğó‚¯‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         bool flg = false;
         int target = 0;
 
@@ -127,6 +128,7 @@ public class EnemyMove : MonoBehaviour
             enemyMoveGageImage.fillAmount=0;
             CharaMoveGage.ActTime[0] =8* atkUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            CharaMoveGage.alpha=0;
             GameManager.moveEnd=true;
         }
     }
@@ -135,8 +137,9 @@ public class EnemyMove : MonoBehaviour
     {
         
         int target=0;
-        EMT.text="’Ç‚¢‚Í‚¬˜T‚Ì“ñ“xŠš‚İ";
-        for(int i=0;i<2;i++)
+        SkillStorage.comparText = "“ñ“xŠš‚İ‚ğŒJ‚èo‚µ‚Ä‚«‚½\n“ñ‰ñ‚Ìƒ_ƒ[ƒW‚ğó‚¯‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        for (int i=0;i<2;i++)
         {
             bool flg = false;
             if (!flg)
@@ -157,7 +160,8 @@ public class EnemyMove : MonoBehaviour
                 DamageReflection(Damage);
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
-                PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target]; 
+                PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+                CharaMoveGage.alpha = 0;
                 enemyMoveGageImage.fillAmount = 0;
             }
         }
@@ -165,23 +169,26 @@ public class EnemyMove : MonoBehaviour
     }
     void WolfSkill3()
     {
-        Debug.Log("r‘«");
-        EMT.text="’Ç‚¢‚Í‚¬˜T‚Ìr‘«";
-        moveUpTurn=5;
+        SkillStorage.comparText = "r‘«‚ğŒJ‚èo‚µ‚Ä‚«‚½\n“G‚Ìs“®‘¬“x‚ªã¸‚µ‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        moveUpTurn =5;
         moveUpcorrection = 0.75f;
         Debug.Log(moveUpcorrection);
         CharaMoveGage.ActTime[0] = 10*moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         enemyMoveGageImage.fillAmount = 0;
+        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
     void WolfSkill4()
     {
         Debug.Log("™ôšK");atkUpTurn=2;
-        EMT.text="’Ç‚¢‚Í‚¬˜T‚Ì™ôšK";
+        SkillStorage.comparText = "™ôšK‚ğŒJ‚èo‚µ‚Ä‚«‚½\n“G‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         CharaMoveGage.ActTime[0] = 8  * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         enemyMoveGageImage.fillAmount = 0;
+        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
 
@@ -190,7 +197,8 @@ public class EnemyMove : MonoBehaviour
     {
         bool flg = false;
         int target = 0;
-
+        SkillStorage.comparText = "–½ë‚è‚ÌŠ™‚ğŒJ‚èo‚µ‚Ä‚«‚½\nƒ_ƒ[ƒW‚ğó‚¯‚½\n‚³‚ç‚É“G‚Ì—^ƒ_ƒ[ƒW‚ªã¸‚µ‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         if (!flg)
         {
             target = EnemyAttackTarget();//‘ÎÛ‚Ì’Š‘I
@@ -214,6 +222,7 @@ public class EnemyMove : MonoBehaviour
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             atkUpcorrection=1.15f;
             atkUpTurn=2;
+            CharaMoveGage.alpha = 0;
             GameManager.moveEnd = true;
         }
     }
@@ -221,8 +230,9 @@ public class EnemyMove : MonoBehaviour
     void ReaperSkill2()
     {
         int target = 0;
-        
-            bool flg = false;
+        SkillStorage.comparText = "–½ë‚è‚Ì˜AŒ‚‚ğŒJ‚èo‚µ‚Ä‚«‚½\nƒ_ƒ[ƒW‚ğ“ñ‰ñó‚¯‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        bool flg = false;
             if (!flg)
             {
                 target = EnemyAttackTarget();
@@ -242,6 +252,7 @@ public class EnemyMove : MonoBehaviour
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+                CharaMoveGage.alpha = 0;
                 enemyMoveGageImage.fillAmount = 0;
             }
         
@@ -250,7 +261,9 @@ public class EnemyMove : MonoBehaviour
 
     void ReaperSkill3()
     {
-        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
+        SkillStorage.comparText = "€ŠúŒÄ‚Ñ‚ğŒJ‚èo‚µ‚Ä‚«‚½\n–¡•û‘S‘Ì‚ªÅ‘åHP‚É‰‚¶‚Ä\nƒ_ƒ[ƒW‚ğó‚¯‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
             
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
@@ -262,13 +275,17 @@ public class EnemyMove : MonoBehaviour
                 CharaMoveGage.ActTime[0] = 25 * moveUpcorrection;
             }
         }
+        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
 
     void ReaperSkill4()
     {
+        SkillStorage.comparText = "Š™Œ¤‚¬‚ğŒJ‚èo‚µ‚Ä‚«‚½\n“G‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         EnemyManager.EnemyInfo.Enemy_ATK[0]*=1.1f;
         CharaMoveGage.ActTime[0] = 13 * moveUpcorrection;
+        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
     void EnemyBuff()

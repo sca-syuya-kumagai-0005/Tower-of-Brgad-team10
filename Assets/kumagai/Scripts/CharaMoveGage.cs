@@ -18,6 +18,8 @@ public class CharaMoveGage : MonoBehaviour
     public static float[] ActTime=new float[5];//キャラクターの行動速度　一時的にインスペクターから決定しているが、本来はCSVファイルからとってくる
     public static bool characterAct;
     public static string enemyName;
+    [SerializeField]
+    private GameObject needle;
     float[] elapsedTime=new float[5];//Time.deltaTimeを加算したときに1を超過した場合、fillAmountでは切り捨てられてしまい、他のキャラとの間にずれが生じてしまうので、それを解決するための変数
     // Start is called before the first frame update
 
@@ -38,7 +40,7 @@ public class CharaMoveGage : MonoBehaviour
         Player_MoveGageImage=new Image[this.transform.childCount+1];//同様にイメージを定義
         
         Char_MoveGage[0]=GameObject.Find("Enemy").transform.GetChild(0).gameObject;//エネミーについている行動ゲージを取得
-        Player_MoveGageImage[0]=Char_MoveGage[0].GetComponent<Image>();
+        Player_MoveGageImage[0]=Char_MoveGage[0].transform.Find("MoveGageBackGround").GetComponent<Image>();
 
         for(int i=1;i<this.transform.childCount+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
         {
@@ -97,6 +99,7 @@ public class CharaMoveGage : MonoBehaviour
         }
     }
     public static bool orderFlag;
+    public static float alpha;
     void AddGage()
     {
         if (GameManager.state == GameManager.BattleState.moveWait||GameManager.state==GameManager.BattleState.effect)
@@ -108,13 +111,19 @@ public class CharaMoveGage : MonoBehaviour
                     if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {
                         elapsedTime[i]+=Time.deltaTime * SkillStorage.DeBuffSpeed;
+                        needle.transform.Rotate(0,0,-360*Time.deltaTime/ActTime[0]);
+                        alpha+=Time.deltaTime/ActTime[0];
                     }
                     else { 
                     elapsedTime[i] += Time.deltaTime;
                     }
-                    if(GameManager.aliveFlag[i])
+                    if(GameManager.aliveFlag[i]&&!Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {
                         Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];
+                    }
+                    else
+                    {
+                        Player_MoveGageImage[i].color=new Color(0+alpha,1-alpha,1-alpha,1);
                     }
                    //fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
                     

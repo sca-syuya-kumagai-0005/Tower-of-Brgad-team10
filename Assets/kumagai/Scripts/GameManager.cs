@@ -52,6 +52,10 @@ public class GameManager : MonoBehaviour
         Debug.Log(state);
         Debug.Log(SkillStorage.gordonHateCorrection);
         tmpmoveEnd=moveEnd;
+        if(Input.GetKeyDown(KeyCode.Escape))
+        { 
+            SceneManager.LoadScene("TitleScene");
+        }
     }
 
     void BattleStateManager()
@@ -253,7 +257,7 @@ public class GameManager : MonoBehaviour
     }
 
     public static int aliveCount=4;
-    void GameSetController()
+    IEnumerator GameSetController()
     {
         aliveCount=4;
         for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
@@ -267,6 +271,8 @@ public class GameManager : MonoBehaviour
         {
             GameOver=true;
             gameSetText.text="GameOver";
+            yield return new WaitForSeconds(0.5f);
+            SceneManager.LoadScene("TitleScene");
         }
 
         if(EnemyManager.debugHPBer.fillAmount==0)
