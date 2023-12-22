@@ -88,7 +88,10 @@ public class BreakerEditor : MonoBehaviour
     void Update()
     {
         BreakerGageImage.fillAmount = BreakerGageCount / 70f;
-        
+        if(!breakerGageMax)
+        {
+            readyFlag=false;
+        }
         if(BreakerGageImage.fillAmount>=1)
         {
             ready.SetActive(true);
@@ -301,7 +304,7 @@ public class BreakerEditor : MonoBehaviour
         circle.transform.Rotate(new Vector3(0,0,60*Time.deltaTime));
     }
 
-    private bool readyFlag=false;
+    public static bool readyFlag=false;
     private IEnumerator ReadyEffect()
     {
        

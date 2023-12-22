@@ -86,7 +86,7 @@ public class SkillStorage : MonoBehaviour
     private float p2AtkUpTime;
     private void PlayerSkill()
     {
-        moveMember.text =  "レオンは\nどうする？";
+       // moveMember.text =  "レオンは\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -204,7 +204,7 @@ public class SkillStorage : MonoBehaviour
     public static float annBreakerTime;
     void AnnaSkill()
     {
-        moveMember.text="アンナリーナは\nどうする？";
+        //moveMember.text="アンナリーナは\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -373,7 +373,7 @@ public class SkillStorage : MonoBehaviour
     public static float gordonBreakerTime;
     void GorDonSkill()
     {
-        moveMember.text = "ゴードンは\nどうする？";
+        //moveMember.text = "ゴードンは\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -491,7 +491,7 @@ public class SkillStorage : MonoBehaviour
     private int recoveryTarget;
     void RinSkill()
     {
-        moveMember.text = "平櫛凛は\nどうする？";
+        //moveMember.text = "平櫛凛は\nどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
