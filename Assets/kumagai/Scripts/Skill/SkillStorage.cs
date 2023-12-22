@@ -104,7 +104,7 @@ public class SkillStorage : MonoBehaviour
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
-                        DamageText=(pAtk*rate).ToString()+"のダメージ";
+                        DamageText=((int)(pAtk*rate)).ToString()+"のダメージ";
                         targetText=EnemyNameGet.enemyNameText.ToString()+"に";
                         comparText="スラッシュを繰り出した"+"\n"+targetText+DamageText;
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -181,7 +181,7 @@ public class SkillStorage : MonoBehaviour
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         targetText=EnemyNameGet.enemyNameText;
-                        comparText="勇気の斬跡を繰り出した\n" + pAtk * (breakerRate * 100) * GameManager.aliveCount+targetText+"のダメージ";
+                        comparText="勇気の斬跡を繰り出した\n" + (int)(pAtk * (breakerRate * 100) * GameManager.aliveCount)+targetText+"のダメージ";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         BreakerEditor.BreakerGageCount = 0;
@@ -324,7 +324,7 @@ public class SkillStorage : MonoBehaviour
                         Debug.Log("ehpは"+ehp);
                         EnemyManager.EnemyInfo.Enemy_HP[0]=ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / (float)EnemyManager.maxEnemyHP[0];
-                        DamageText=(ehp * (rate * 100 * 0.01f) * 0.1f).ToString();
+                        DamageText=((int)(ehp * (rate * 100 * 0.01f) * 0.1f)).ToString();
                         targetText=EnemyNameGet.enemyNameText+"に";
                         comparText ="結末への調整を繰り出した\n"+targetText+DamageText+"のダメージを与えた";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -447,7 +447,7 @@ public class SkillStorage : MonoBehaviour
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         targetText=EnemyNameGet.enemyNameText;
                         DamageText=
-                        comparText="刺突を繰り出した\n"+targetText+"に"+ addDamage.ToString() ;
+                        comparText="刺突を繰り出した\n"+targetText+"に"+ ((int)addDamage).ToString() ;
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd = true;
