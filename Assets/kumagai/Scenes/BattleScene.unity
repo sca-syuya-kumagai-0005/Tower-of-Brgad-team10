@@ -1691,6 +1691,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3330012452635261418, guid: 9e153c9833874ea4a95279296bfaf8e5, type: 3}
   m_PrefabInstance: {fileID: 1852622265}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &600471177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1977242613720514445, guid: d7e74961544b80742885cdeb43b70981, type: 3}
+  m_PrefabInstance: {fileID: 433019531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &606726475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3041,6 +3046,7 @@ MonoBehaviour:
   Judge: {fileID: 700919379}
   circle: {fileID: 681819708}
   scaleSize: 1
+  light: {fileID: 600471177}
 --- !u!114 &1024378178
 MonoBehaviour:
   m_ObjectHideFlags: 0

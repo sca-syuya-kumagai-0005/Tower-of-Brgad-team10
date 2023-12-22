@@ -225,6 +225,7 @@ public class GameManager : MonoBehaviour
                     SkillSelection.breakerFlag=false;
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
+                    BreakerEditor.circleSet=false;
                     GameSetController();
                     if(GameOver||GameClear)
                     {
