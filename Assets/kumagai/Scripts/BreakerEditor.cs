@@ -147,7 +147,10 @@ public class BreakerEditor : MonoBehaviour
             line.Stop();
             circle.GetComponent<RectTransform>().localScale=new Vector3(0.3f,0.3f,0.3f);
             light.SetActive(false);
-            Chara[SkillStorage.charaNumber].SetActive(false);
+            if(CharaMoveGage.MoveChar[0].CompareTag("Player"))
+            {
+                Chara[SkillStorage.charaNumber].SetActive(false);
+            }
             Judge.SetActive(false);
             breakerBackGorund.SetActive(false);
             breakerChara.SetActive(false);

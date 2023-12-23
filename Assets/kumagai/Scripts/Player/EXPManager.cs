@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class EXPManager : MonoBehaviour
 {
     [SerializeField]
@@ -16,15 +16,16 @@ public class EXPManager : MonoBehaviour
     private int[] tmpOver=new int[4];
     private bool flag;
     public static int a=5;
+    private Text[] playerLv;
     // Start is called before the first frame update
     void Start()
     {
-        for(int i=0;i<4;i++)
+        playerLv=new Text[PlayerEditor.PlayerName.Length];
+        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
-           //OverEXP[i]=0;
+            playerLv[i].text=PlayerEditorManager.Lv[i].ToString();
         }
         flag=false;
-        
         GetEXPFlag = false;
     }
 
