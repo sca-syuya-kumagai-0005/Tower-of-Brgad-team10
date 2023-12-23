@@ -9,8 +9,9 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]private Text EMT;
     [SerializeField]
     int[] WolfSkill;
+    private int[] EnemySkill;
     [SerializeField]
-    int[] reaper;
+    int[] ReaperSkill;
     public static bool enemyMove;
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
@@ -35,16 +36,19 @@ public class EnemyMove : MonoBehaviour
         { 
             case "í«Ç¢ÇÕÇ¨òT":
                 {
-                   Å@CharaMoveGage.ActTime[0]=8;
+                   Å@CharaMoveGage.ActTime[0]=1;
+                    EnemySkill=WolfSkill;
                 }
                 break;
             case "éÄê_":
                 {
-                    CharaMoveGage.ActTime[0]=15;
+                    CharaMoveGage.ActTime[0]=1;
+                    EnemySkill=ReaperSkill;
                 }
                 break;
         }
         charaAlive =new Image[partyChara.transform.childCount];
+
     }
 
     // Update is called once per frame
@@ -74,12 +78,13 @@ public class EnemyMove : MonoBehaviour
             int MaxSkill = 0;
             for (int i = 0; i < 4; i++)
             {
-                MaxSkill += WolfSkill[i];
+                MaxSkill += EnemySkill[i];
             }
-            int move=Random.Range(0,MaxSkill+1);
+            int move=Random.Range(1,MaxSkill+1);
+            Debug.Log("moveÇÕ"+move);
             for(int i=0;i<5;i++)
             {
-                move-=WolfSkill[i];
+                move-=EnemySkill[i];
                 if(move<=0)
                 {
                     if(!skillSet)
@@ -125,7 +130,6 @@ public class EnemyMove : MonoBehaviour
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0]= 8* moveUpcorrection;
-            enemyMoveGageImage.fillAmount=0;
             CharaMoveGage.ActTime[0] =8* atkUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             CharaMoveGage.alpha=0;
@@ -137,6 +141,7 @@ public class EnemyMove : MonoBehaviour
     {
         
         int target=0;
+        Debug.Log("äöÇ›Ç¬Ç´");
         SkillStorage.comparText = "ìÒìxäöÇ›ÇåJÇËèoÇµÇƒÇ´ÇΩ\nìÒâÒÇÃÉ_ÉÅÅ[ÉWÇéÛÇØÇΩ";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         for (int i=0;i<2;i++)
@@ -162,13 +167,13 @@ public class EnemyMove : MonoBehaviour
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
                 CharaMoveGage.alpha = 0;
-                enemyMoveGageImage.fillAmount = 0;
             }
         }
         GameManager.moveEnd = true;
     }
     void WolfSkill3()
     {
+        Debug.Log("äöÇ›Ç¬Ç´");
         SkillStorage.comparText = "èrë´ÇåJÇËèoÇµÇƒÇ´ÇΩ\nìGÇÃçsìÆë¨ìxÇ™è„è∏ÇµÇΩ";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         moveUpTurn =5;
@@ -176,18 +181,17 @@ public class EnemyMove : MonoBehaviour
         Debug.Log(moveUpcorrection);
         CharaMoveGage.ActTime[0] = 10*moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        enemyMoveGageImage.fillAmount = 0;
         CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
     void WolfSkill4()
     {
-        Debug.Log("ôÙöK");atkUpTurn=2;
+        Debug.Log("ôÙöK");
+        atkUpTurn=2;
         SkillStorage.comparText = "ôÙöKÇåJÇËèoÇµÇƒÇ´ÇΩ\nìGÇÃçUåÇóÕÇ™è„è∏ÇµÇΩ";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         CharaMoveGage.ActTime[0] = 8  * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        enemyMoveGageImage.fillAmount = 0;
         CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
@@ -217,7 +221,6 @@ public class EnemyMove : MonoBehaviour
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
-            enemyMoveGageImage.fillAmount = 0;
             CharaMoveGage.ActTime[0] = 8 * atkUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             atkUpcorrection=1.15f;
@@ -253,7 +256,6 @@ public class EnemyMove : MonoBehaviour
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
                 CharaMoveGage.alpha = 0;
-                enemyMoveGageImage.fillAmount = 0;
             }
         
         GameManager.moveEnd = true;
@@ -269,6 +271,7 @@ public class EnemyMove : MonoBehaviour
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
             if(hp>0)
             {
+                Debug.Log("BBBB");
                 PlayerEditorManager.PlayerInfo.Player_HP[i] -= (int)(PlayerEditorManager.MaxHP[i] / 10f*atkUpcorrection);
                 hp=PlayerEditorManager.PlayerInfo.Player_HP[i];
                 PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
@@ -356,8 +359,30 @@ public class EnemyMove : MonoBehaviour
         }
         if(eN=="éÄê_")
         {
-            CharaMoveGage.ActTime[0]=10;
-            GameManager.moveEnd = true;
+                switch (skillNumber)
+                {
+                    case 0:
+                        {
+                            ReaperSkill1();
+
+                        }
+                        break;
+                    case 1:
+                        {
+                            ReaperSkill2();
+                        }
+                        break;
+                    case 2:
+                        {
+                            ReaperSkill3();
+                        }
+                        break;
+                    case 3:
+                        {
+                            ReaperSkill4();
+                        }
+                        break;
+                }
         }
     }
     void DamageCutController(int target)

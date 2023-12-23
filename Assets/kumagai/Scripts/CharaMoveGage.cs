@@ -74,13 +74,13 @@ public class CharaMoveGage : MonoBehaviour
             {
                 order -= 1;
                 GameObject MG;
-                if(MoveChar[0].name!="Enemy")
+                if(MoveChar[0].name!="EnemyMoveGage")
                 {
                 MG = MoveChar[0].transform.Find("MoveGage").gameObject.transform.Find("MoveGage").gameObject;
                 }
                 else
                 {
-                  MG = MoveChar[0].transform.Find("EnemyMoveGage").gameObject;
+                  MG = MoveChar[0].transform.Find("MoveGageBackGround").gameObject;
                 }
                 Image IM = MG.GetComponent<Image>();
                 IM.fillAmount = 0;
@@ -135,7 +135,7 @@ public class CharaMoveGage : MonoBehaviour
                         order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
                         elapsedTime[i] -= ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
                     }
-                    else if(Player_MoveGageImage[i].fillAmount >= 1 && Player_MoveGageImage[i].name == "EnemyMoveGage")
+                    else if(alpha>=1 && Player_MoveGageImage[i].name == "MoveGageBackGround"&&!GameManager.moveEnd)
                     {
                         Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                         MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入

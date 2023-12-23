@@ -132,7 +132,7 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillPosReset()
     {
-        if(GameManager.state==GameManager.BattleState.move)
+        if(GameManager.state==GameManager.BattleState.move&&CharaMoveGage.MoveChar[0].CompareTag("Player"))
         {
             for(int i=0;i < skillCount; i++)
             {
