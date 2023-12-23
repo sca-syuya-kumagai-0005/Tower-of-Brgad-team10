@@ -59,7 +59,7 @@ public class EnemyManager : MonoBehaviour
         Enemy_Lv=new int[1];
         Enemy_HP=new float[1];
         Enemy_ATK=new float[1];
-        Enemy_Lv[0]=FloarManager.nowFloar*3;
+        Enemy_Lv[0]=Enemy_Lv[0];
     }
 
     // Update is called once per frame

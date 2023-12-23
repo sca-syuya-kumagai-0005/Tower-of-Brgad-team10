@@ -95,7 +95,7 @@ public class EXPManager : MonoBehaviour
                     {
                         PlayerEditorManager.Lv[i] += 1;
                         LvUpCount[i]++;
-                        PlayerEditorManager.PlayerInfo.Player_EXP[i]=EnemyManager.EnemyInfo.Enemy_EXP[0];
+                       PlayerEditorManager. PlayerStatas(PlayerEditor.playerDatas[i], i);
                         Debug.Log("EXP‚Í"+EXP);
                     }
                     else

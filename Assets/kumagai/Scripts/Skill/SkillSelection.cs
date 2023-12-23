@@ -143,6 +143,7 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillPosEffect()
     {
+        
         for(int i=0;i<skillCount;i++)
         {
             skillsNumber = skills[SkillNumber];
@@ -152,6 +153,13 @@ public class SkillSelection : MonoBehaviour
             }
             else
             { 
+                skills[i].transform.position = pos[i];
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            for(int i=0;i<skillCount;i++)
+            {
                 skills[i].transform.position = pos[i];
             }
         }
