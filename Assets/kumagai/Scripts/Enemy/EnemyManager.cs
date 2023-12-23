@@ -89,12 +89,12 @@ public class EnemyManager : MonoBehaviour
             //enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
             EnemyStataus(EnemyEditor.EnemyData);
             float HPScope = Random.Range(Enemy_minHP[0] * 10, (Enemy_maxHP[0] * 10)) / 10;//*10はintとfloat間の変換
-            float tmpEnemy_HP = (Enemy_standardHP[0] + ((Enemy_Lv[0] - 1) * Enemy_risingHP[0])) * HPScope;//式の関係上一度floatで作る
+            float tmpEnemy_HP = (Enemy_standardHP[0] + ((Enemy_Lv[0]) * Enemy_risingHP[0])) * HPScope;//式の関係上一度floatで作る
             Enemy_HP[0] = (int)tmpEnemy_HP;//上のfloatをintに変換
             maxEnemyHP[0] = Enemy_HP[0];
-            // HP.text=Enemy_HP.ToString();
+             Debug.Log(Enemy_HP);
             float ATKScope = Random.Range(Enemy_minATK[0] * 10, (Enemy_maxATK[0] * 10)) / 10;
-            float tmpEnemy_ATK = (Enemy_standardATK[0] + ((Enemy_Lv[0] - 1) * Enemy_risingATK[0])) * ATKScope;//式の関係上一度floatで作る
+            float tmpEnemy_ATK = (Enemy_standardATK[0] + ((Enemy_Lv[0] ) * Enemy_risingATK[0])) * ATKScope;//式の関係上一度floatで作る
             Enemy_ATK[0] = (int)tmpEnemy_ATK;//上のfloatをintに変換
             enemyStatusSet = true;
             Enemy_EXP[0]*=FloarManager.nowFloar;
