@@ -36,13 +36,13 @@ public class EnemyMove : MonoBehaviour
         { 
             case "í«Ç¢ÇÕÇ¨òT":
                 {
-                   Å@CharaMoveGage.ActTime[0]=1;
+                   Å@CharaMoveGage.ActTime[0]=8;
                     EnemySkill=WolfSkill;
                 }
                 break;
             case "éÄê_":
                 {
-                    CharaMoveGage.ActTime[0]=1;
+                    CharaMoveGage.ActTime[0]=15;
                     EnemySkill=ReaperSkill;
                 }
                 break;
