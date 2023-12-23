@@ -99,7 +99,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state==GameManager.BattleState.move)
                     {
                         
-                        float pAtk= PlayerInfo.Player_ATK[charaNumber]*atkBuff*2*100;
+                        float pAtk= PlayerInfo.Player_ATK[charaNumber]*atkBuff*2;
                         addDamage=(pAtk*rate)*playerSkill3Buff;
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
