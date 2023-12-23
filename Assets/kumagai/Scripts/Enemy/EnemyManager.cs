@@ -68,7 +68,7 @@ public class EnemyManager : MonoBehaviour
        EnemyStatausSet();
     }
 
-    void EnemyStataus(List<string[]> EData)
+    public static void EnemyStataus(List<string[]> EData)
     {
         Enemy_Name[0] = EData[enemyNumber][0];//エネミーの名前を取得
         Enemy_standardHP[0] = int.Parse(EData[enemyNumber][1]);//エネミーの基礎HPを取得
@@ -82,9 +82,9 @@ public class EnemyManager : MonoBehaviour
         Enemy_EXP[0] = int.Parse(EData[enemyNumber][9]);//エネミーの経験値
     }
 
-    void EnemyStatausSet()
+    public static void EnemyStatausSet()
     {
-        if (GameManager.state == GameManager.BattleState.enemyStatausSet)
+        if (GameManager.state == GameManager.BattleState.enemyStatausSet||GameManager.state==GameManager.BattleState.reSult)
         {
             //enemyNumber = Random.Range(1, Enemys.transform.childCount+1);
             EnemyStataus(EnemyEditor.EnemyData);

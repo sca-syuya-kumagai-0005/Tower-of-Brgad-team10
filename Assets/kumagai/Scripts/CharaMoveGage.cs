@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CharaMoveGage : MonoBehaviour
 {
 
-    private GameObject Char;//配列への代入に使用　あまり気にしなくてよし
+    public static GameObject Char;//配列への代入に使用　あまり気にしなくてよし
     public static GameObject[] Char_MoveGage;//キャラクターについているムーブゲージを取得するのに使用　イメージを取るために一度ゲームオブジェクトを経由
     [SerializeField]
     private Image[] Player_MoveGageImage;//ムーブゲージのfillAmountを変更するイメージ
@@ -26,7 +26,9 @@ public class CharaMoveGage : MonoBehaviour
     private void OnEnable()
     {
         enemyName = EnemySponer.sponeEnemy[0].name;
+        alpha=0;
         Debug.Log(enemyName);
+        needle.transform.rotation=new Quaternion(0,0,0,1);
     }
     void Start()
     {
@@ -46,6 +48,7 @@ public class CharaMoveGage : MonoBehaviour
         {
             Char=this.transform.GetChild(i-1).gameObject;
             Char_MoveGage[i]=Char.transform.Find("MoveGage").gameObject.transform.Find("MoveGage").gameObject;
+          
             Player_MoveGageImage[i] = Char_MoveGage[i].GetComponent<Image>();
 
         }

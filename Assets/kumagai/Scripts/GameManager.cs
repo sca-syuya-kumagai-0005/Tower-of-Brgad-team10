@@ -275,11 +275,12 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("TitleScene");
         }
 
-        if(EnemyManager.debugHPBer.fillAmount==0)
+        if(EnemyManager.EnemyInfo.Enemy_HP[0]<=0)
         {
             Debug.Log("“G‚ð“|‚µ‚Ü‚µ‚½");
             GameClear=true;
             gameSetText.text="GameClear";
+            SceneManager.LoadScene("BattleScene");
         }
     }
     IEnumerator enemyDamage()
@@ -293,6 +294,7 @@ public class GameManager : MonoBehaviour
         else
         {
             n=5;
+            GameClear = true;
         }
         for(int i=0;i<n;i++)
         {
@@ -310,7 +312,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator BattleEndWait()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("BattleScene");
     }
 
