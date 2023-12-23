@@ -8,13 +8,13 @@ public class ChangeScene : MonoBehaviour
     //キャラ選択へ
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene("CharaSelectScene");
+        SceneManager.LoadScene("BattleScene");
     }
 
     //キャラ選択へ戻る
     public void OnClickCSBackButton()
     {
-        SceneManager.LoadScene("CharaSelectScene");
+        SceneManager.LoadScene("BattleScene");
     }
 
     //ランキングへ

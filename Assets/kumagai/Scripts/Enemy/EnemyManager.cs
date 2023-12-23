@@ -94,7 +94,7 @@ public class EnemyManager : MonoBehaviour
             maxEnemyHP[0] = Enemy_HP[0];
              Debug.Log(Enemy_HP);
             float ATKScope = Random.Range(Enemy_minATK[0] * 10, (Enemy_maxATK[0] * 10)) / 10;
-            float tmpEnemy_ATK = (Enemy_standardATK[0] + ((Enemy_Lv[0] ) * Enemy_risingATK[0])) * ATKScope;//式の関係上一度floatで作る
+            float tmpEnemy_ATK = (Enemy_standardATK[0] + ((Enemy_Lv[0]) * Enemy_risingATK[0])) * ATKScope;//式の関係上一度floatで作る
             Enemy_ATK[0] = (int)tmpEnemy_ATK;//上のfloatをintに変換
             enemyStatusSet = true;
             Enemy_EXP[0]*=FloarManager.nowFloar;

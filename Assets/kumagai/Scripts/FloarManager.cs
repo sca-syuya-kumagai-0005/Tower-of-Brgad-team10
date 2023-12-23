@@ -21,6 +21,7 @@ public class FloarManager : MonoBehaviour
         {
             nowFloar++;
             FloorText.text=nowFloar.ToString();
+            EnemyManager.EnemyInfo.Enemy_Lv[0]=1+nowFloar*3;
         }
     }
 }

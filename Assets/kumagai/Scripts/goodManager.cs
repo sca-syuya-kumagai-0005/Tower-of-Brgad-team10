@@ -23,7 +23,7 @@ public class goodManager : MonoBehaviour
     float sizeY;
     void Update()
     {
-        if(flag)
+        if(flag&&GameManager.state!=GameManager.BattleState.breakerCommand)
         {
             a+=0.8f;
             if(sizeX-0.03f>=0)

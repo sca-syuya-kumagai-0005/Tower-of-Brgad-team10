@@ -18,6 +18,10 @@ public class EnemySponer : MonoBehaviour
         sponeEnemy[0]=enemy;
     }
 
+    void Start()
+    {
+       
+    }
     // Update is called once per frame
     void Update()
     {
