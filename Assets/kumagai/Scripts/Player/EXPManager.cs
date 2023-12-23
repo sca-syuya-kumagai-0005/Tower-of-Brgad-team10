@@ -16,17 +16,19 @@ public class EXPManager : MonoBehaviour
     private int[] tmpOver=new int[4];
     private bool flag;
     public static int a=5;
-    private Text[] playerLv;
+    [SerializeField]
+    private  Text[] playerLv;
+    [SerializeField]
+    private GameObject obj;
+    private bool EXPGetFlag;
     // Start is called before the first frame update
     void Start()
     {
         playerLv=new Text[PlayerEditor.PlayerName.Length];
-        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
-        {
-            playerLv[i].text=PlayerEditorManager.Lv[i].ToString();
-        }
+        
         flag=false;
         GetEXPFlag = false;
+        EXPGetFlag=false;
     }
 
     // Update is called once per frame
@@ -39,7 +41,11 @@ public class EXPManager : MonoBehaviour
                 a=(int)OverEXP[i];
                 float b=a;
                 OverEXP[i]=Mathf.Abs(OverEXP[i]);
-                if(OverEXP[i]!=0)
+                obj= GameObject.Find("MainCanvas").gameObject.transform.Find("PlayerManager").gameObject;
+                playerLv[i] =GameObject.Find("MainCanvas").gameObject.transform.Find("PlayerManager").gameObject.transform.Find("partyChar").GetChild(i).gameObject.
+                    transform.Find("HP").gameObject.transform.Find("Lv").GetComponent<Text>();
+                playerLv[i].text = "Lv"+PlayerEditorManager.Lv[i].ToString();
+                if (OverEXP[i]!=0)
                 {
                     PlayerEditorManager.PlayerInfo.Player_EXP[i] = OverEXP[i];
                 }
@@ -47,7 +53,11 @@ public class EXPManager : MonoBehaviour
             }
             flag=true;
         }
-        StartCoroutine(LvJudge());
+        if(!EXPGetFlag)
+        { 
+            StartCoroutine(LvJudge()); 
+        }
+      
     }
 
     IEnumerator  LvJudge()
@@ -85,6 +95,7 @@ public class EXPManager : MonoBehaviour
                     {
                         PlayerEditorManager.Lv[i] += 1;
                         LvUpCount[i]++;
+                       PlayerEditorManager. PlayerStatas(PlayerEditor.playerDatas[i], i);
                         Debug.Log("EXPÇÕ"+EXP);
                     }
                     else
@@ -98,7 +109,7 @@ public class EXPManager : MonoBehaviour
                 }
                 Debug.Log(LvUpCount[i] + "Lvè„è∏ÇµÇ‹ÇµÇΩ");
             }
-
+            EXPGetFlag=true;
         }
     }
 
