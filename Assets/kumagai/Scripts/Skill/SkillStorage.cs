@@ -24,11 +24,11 @@ public class SkillStorage : MonoBehaviour
     [SerializeField]
     private float playerSkill3Buff;
     public static int CommandCount;
-    private float addDamage;
+    public static float addDamage;
     [SerializeField]
     private int hate;
     public static float enemyActTime=4;
-    private float atkBuff;
+    public static float atkBuff;
     public static IEnumerator croutine;
     [SerializeField]
     private Text moveMember;
@@ -53,8 +53,6 @@ public class SkillStorage : MonoBehaviour
         
         if(BreakerEditor.commandEnd)
         {
-            Debug.Log("BreakerEditor.NotesOKCountは"+ BreakerEditor.NotesOKCount);
-            Debug.Log(" CommandCountは" + CommandCount);
             breakerRate = BreakerEditor.NotesOKCount / CommandCount;
             CharaSet();
         }
@@ -708,6 +706,64 @@ public class SkillStorage : MonoBehaviour
                 break;
         }
     }
+
+    public static bool poisonFlag;
+    public static int DoctorNumber;
+    public static float DoctorAtkBuff;
+    public static float DoctorAtkBuffTime;
+    void DoctorSkill() 
+    {
+        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
+        switch(SkillSelection.SkillNumber)
+        {
+            case 1: 
+            {
+                    if(GameManager.state == GameManager.BattleState.skillSelect) {
+                        NotesEditor.skillName = "薬品投擲";
+                        moveTextFlag = true;
+                    }
+                    if(GameManager.state == GameManager.BattleState.move) 
+                    {
+                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                        DoctorNumber=charaNumber;
+                        addDamage = (pAtk * rate) * atkBuff;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        targetText = EnemyNameGet.enemyNameText;
+                        DamageText =
+                        comparText = "薬品投擲を繰り出した\n" + targetText + "に" + ((int)addDamage).ToString() + "のダメージ";
+                        if(rate>=1) {
+                            int rand=Random.Range(0,2);//成功率が100%の時のみ50%の確率で毒状態を付与
+                            if(rand==1) {
+                                poisonFlag=true;
+                            }
+                        }
+                        StartCoroutine(moveTextCoroutine(comparText));
+                        comparText = "";
+                        GameManager.moveEnd = true;
+                    }
+            }
+            break;
+            case 2: 
+            {
+                if(GameManager.state == GameManager.BattleState.skillSelect) 
+                {
+                    NotesEditor.skillName = "アドレ注射";
+                    moveTextFlag = true;
+                }
+                if(GameManager.state == GameManager.BattleState.move) 
+                {
+                    float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                    DoctorAtkBuff=(int)(pAtk*rate);
+                    DoctorAtkBuffTime=60;
+                    comparText="味方全体の攻撃力が上昇した";
+                    StartCoroutine(moveTextCoroutine(comparText));
+                }
+            }
+            break;
+        }
+    }
     void CharaSet()
     {
         string mChar=CharaMoveGage.MoveChar[0].name;
@@ -738,9 +794,12 @@ public class SkillStorage : MonoBehaviour
                     LetitiaSkill();
                 }
                 break;
+            case "フェレスト": 
+                {
+                    DoctorSkill();
+                }
+                break;
         }
-
-
     }
     public static int nextCharaNumber=-1;
     [SerializeField]
@@ -819,6 +878,8 @@ public class SkillStorage : MonoBehaviour
         DeInvalidTime=BuffTime(DeInvalidTime,DeInvalidMaxTime);
         MagicBarrelTime=BuffTime(MagicBarrelTime,maxMagicBarrelTime);
         annBreakerTime=BuffTime(annBreakerTime,annBreakerMaxTime);
+        DoctorAtkBuffTime=BuffTime(DoctorAtkBuffTime,60f);
+        DoctorAtkBuff=Buff(DoctorAtkBuffTime,DoctorAtkBuff,0);
     }
     public static int BuffTurn(int turn)
     {
@@ -856,11 +917,14 @@ public class SkillStorage : MonoBehaviour
         }
         return target;
     }
-    void ATKBuff()
+    void ATKBuff()//割合バフ関係はこっち
     {
         atkBuff=((pATKCorrect)+1)*((playerSkill3Buff)+1);//これをキャラクターの基礎攻撃力に×
     }
-
+    public static int atkStatusBuff;
+    void AddStatus() {
+        atkStatusBuff=(int)DoctorAtkBuff;
+    }
     public static void MagicBarrelDamage()
     {
         if(MagicBarrelTime>=0)

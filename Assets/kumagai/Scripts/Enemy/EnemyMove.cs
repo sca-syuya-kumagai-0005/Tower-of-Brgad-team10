@@ -65,6 +65,16 @@ public class EnemyMove : MonoBehaviour
                     if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                     {
                         enemyMove = true;
+                        if(SkillStorage.poisonFlag) 
+                        {
+                            int charaNumber=SkillStorage.DoctorNumber;
+                            float pAtk = PlayerEditorManager.PlayerInfo.Player_ATK[charaNumber];
+                            SkillStorage.addDamage = (pAtk * SkillStorage.rate) *SkillStorage. atkBuff;
+                            float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - SkillStorage.addDamage;
+                            EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                            EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                            SkillStorage.poisonFlag=false;
+                        }
                     }
             }
         }
@@ -434,5 +444,6 @@ public class EnemyMove : MonoBehaviour
             SkillStorage.RefrectCount--;
         }
     }
+
 }
    
