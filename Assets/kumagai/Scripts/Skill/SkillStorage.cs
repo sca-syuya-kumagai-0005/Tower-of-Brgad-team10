@@ -99,8 +99,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state==GameManager.BattleState.move)
                     {
                         
-                        float pAtk= PlayerInfo.Player_ATK[charaNumber]*atkBuff*2;
-                        addDamage=(pAtk*rate)*playerSkill3Buff + atkStatusBuff;
+                        float pAtk= PlayerInfo.Player_ATK[charaNumber];
+                        addDamage=(pAtk*rate)*2+2*atkStatusBuff;
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
@@ -626,7 +626,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         int rand=Random.Range(1,6);
-                        addDamage =(PlayerInfo.Player_ATK[charaNumber]*rate*atkBuff + atkStatusBuff )* rand;
+                        addDamage =(PlayerInfo.Player_ATK[charaNumber]*rate*atkBuff + atkStatusBuff )* rand+(rand*atkStatusBuff);
                         Debug.Log("ダメージは"+addDamage);
                         comparText =　"サンバレットを繰り出した\n"+CharaMoveGage.enemyName+"は"+((int)addDamage).ToString()+"のダメージを受けた";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -650,11 +650,11 @@ public class SkillStorage : MonoBehaviour
                         int rand = Random.Range(0, 2);
                         if(rand==1)
                         {
-                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * 1;
+                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * 1+atkStatusBuff;
                         }
                         if(rand==0)
                         {
-                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) *10 ;
+                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) *10+atkStatusBuff;
                         }
                         comparText = "アイスランスを繰り出した\n" + CharaMoveGage.enemyName + "は" + ((int)addDamage).ToString() + "のダメージを受けた";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -704,7 +704,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         NextBarret=true;
-                        comparText="肉体に魔力を集中する・・・・・・\n次のマジックバレルの威力が上昇した";
+                        comparText="肉体に魔力を集中する\n次のマジックバレルの威力が上昇した";
                         StartCoroutine(moveTextCoroutine(comparText));
                         MagicBarrelBuff = 1 + (rate) / 2;
                         GameManager.moveEnd=true;
