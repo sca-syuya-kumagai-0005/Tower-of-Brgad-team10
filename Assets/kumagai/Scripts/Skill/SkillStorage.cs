@@ -860,9 +860,14 @@ public class SkillStorage : MonoBehaviour
                 break;
         }
     }
-    int melodyBuff;
-    float imnTime;
+    float melodyBuff;
+    float melodyBuffTime;
+    float melodyBuffMaxTime;
+    public static float imnTime;
     float imnMaxTime;
+    float gabMaxTime;
+    float gabTime;
+    public static float gabBuff;
     void StiataSkill()
     {
         switch(SkillSelection.SkillNumber)
@@ -885,6 +890,7 @@ public class SkillStorage : MonoBehaviour
                         targetText = EnemyNameGet.enemyNameText;
                         comparText = "音撃波を繰り出した\n"+targetText+"に"+((int)addDamage).ToString()+"ダメージ与えた";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -899,11 +905,14 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber = charaNumber;
+                        melodyBuffTime=30;
+                        melodyBuffMaxTime=melodyBuffTime;
                         melodyBuff= (int)((pAtk * rate) * atkBuff + (atkStatusBuff-melodyBuff) * rate);
                         Debug.Log("melodyBuff"+melodyBuff);
                         targetText = EnemyNameGet.enemyNameText;
                         comparText = "闘いの旋律を繰り出した\n味方全体の攻撃力が上昇した";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -918,8 +927,34 @@ public class SkillStorage : MonoBehaviour
                     {
                         imnTime=30+(rate*100);
                         imnMaxTime=imnTime;
-                        comparText = "闘いの旋律を繰り出した\n味方全体の攻撃力が上昇した";
+                        comparText = "祈りのイムンを繰り出した\n行動するたびに癒しの力が降りかかる";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+            case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "ガブ・サンク";
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
+                        {
+                            float php = PlayerInfo.Player_HP[charaNumber];
+                            php += 0.2f * PlayerEditorManager.MaxHP[charaNumber];
+                            PlayerInfo.Player_HP[charaNumber] = (int)php;
+                            PlayerManager.playerHPBer[charaNumber].fillAmount = PlayerInfo.Player_HP[charaNumber] / PlayerEditorManager.MaxHP[charaNumber];
+                        }
+                        gabTime=1;
+                        gabMaxTime=gabTime;
+                        gabBuff=1+rate;
+                        comparText = "ガブサンクを繰り出した\n味方のHPが回復した\n味方の行動速度が上昇する";
+                        StartCoroutine(moveTextCoroutine(comparText));
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -958,6 +993,11 @@ public class SkillStorage : MonoBehaviour
             case "フェレスト": 
                 {
                     DoctorSkill();
+                }
+                break;
+            case "スティアータ":
+                {
+                    StiataSkill();
                 }
                 break;
         }
@@ -1027,6 +1067,8 @@ public class SkillStorage : MonoBehaviour
         DameCutTime=BuffTime(DameCutTime,DameCutMaxTime);
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
         hateUpTime=BuffTime(hateUpTime,hateUpMaxTime);
+        melodyBuffTime=BuffTime(melodyBuffTime,melodyBuffMaxTime);
+        melodyBuff=Buff(melodyBuffTime,melodyBuff,0f);
         if(gordonHateCorrection>0)
         { 
             gordonHateCorrection= (int)Buff(hateUpTime,gordonHateCorrection,gordonHateCorrection-50);
@@ -1041,6 +1083,9 @@ public class SkillStorage : MonoBehaviour
         annBreakerTime=BuffTime(annBreakerTime,annBreakerMaxTime);
         DoctorAtkBuffTime=BuffTime(DoctorAtkBuffTime,60f);
         DoctorAtkBuff=Buff(DoctorAtkBuffTime,DoctorAtkBuff,0);
+        imnTime=BuffTime(imnTime,imnMaxTime);
+        gabTime=BuffTime(gabTime,gabMaxTime);
+        gabBuff=Buff(gabTime,gabBuff,1);
     }
     public static int BuffTurn(int turn)
     {
@@ -1088,7 +1133,7 @@ public class SkillStorage : MonoBehaviour
     }
     public static int atkStatusBuff;
     void AddStatus() {
-        atkStatusBuff=(int)DoctorAtkBuff+melodyBuff;
+        atkStatusBuff=(int)(DoctorAtkBuff+melodyBuff);
     }
     public static void MagicBarrelDamage()
     {
@@ -1106,6 +1151,18 @@ public class SkillStorage : MonoBehaviour
             EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel*baseDeBuff*MagicBarrelBuff;
             EnemyManager.debugHPBer.fillAmount=EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0];
         }
-        
+    }
+
+    public static void ImnRecovery()
+    {
+        if(imnTime>=0)
+        { 
+            Debug.Log("祈りのイムンの効果が発動しました");
+            float php = PlayerInfo.Player_HP[charaNumber];
+            php += 0.1f * PlayerEditorManager.MaxHP[charaNumber];
+            Debug.Log("回復量は"+0.1f*PlayerEditorManager.MaxHP[charaNumber]);
+            PlayerInfo.Player_HP[charaNumber] = (int)php;
+            PlayerManager.playerHPBer[charaNumber].fillAmount = PlayerInfo.Player_HP[charaNumber] / PlayerEditorManager.MaxHP[charaNumber];
+        }
     }
 }

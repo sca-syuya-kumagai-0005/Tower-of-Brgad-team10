@@ -119,7 +119,7 @@ public class CharaMoveGage : MonoBehaviour
                         alpha+=Time.deltaTime/ActTime[0];
                     }
                     else { 
-                    elapsedTime[i] += Time.deltaTime;
+                    elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff;
                     }
                     if(GameManager.aliveFlag[i]&&!Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {
