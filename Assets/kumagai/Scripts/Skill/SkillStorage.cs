@@ -98,17 +98,15 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state==GameManager.BattleState.move)
                     {
-                        
                         float pAtk= PlayerInfo.Player_ATK[charaNumber];
                         addDamage=(pAtk*rate)*2+2*atkStatusBuff;
-                        float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
+                        float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
-                        DamageText=((int)(pAtk*rate)).ToString()+"のダメージ";
+                        DamageText=((int)(addDamage)).ToString()+"のダメージ";
                         targetText=EnemyNameGet.enemyNameText.ToString()+"に";
                         comparText="スラッシュを繰り出した"+"\n"+targetText+DamageText;
                         StartCoroutine(moveTextCoroutine(comparText));
-                        comparText = "";
                         GameManager.moveEnd=true;
                     }
                 }
@@ -676,8 +674,7 @@ public class SkillStorage : MonoBehaviour
                     {
                         if(NextBarret)
                         {
-                            NextBarret=false;
-                            MagicBarrelBuff=1.5f;                       
+                            NextBarret=false;                    
                         }
                         else
                         {
@@ -686,7 +683,7 @@ public class SkillStorage : MonoBehaviour
                         nowTurnExclusion=true;
                         comparText="マジックバレルを繰り出した\n味方が行動するたびに魔力が解き放たれる!";
                         StartCoroutine(moveTextCoroutine(comparText));
-                        MagicBarrel =(int)((PlayerInfo.Player_ATK[charaNumber]*atkBuff + atkStatusBuff )* MagicBarrelBuff);
+                        MagicBarrel =(int)((PlayerInfo.Player_ATK[charaNumber]*baseATKBuff + atkStatusBuff )* MagicBarrelBuff);
                         maxMagicBarrelTime=20+(rate*10);
                         MagicBarrelTime=maxMagicBarrelTime;
                         GameManager.moveEnd=true;
@@ -749,7 +746,7 @@ public class SkillStorage : MonoBehaviour
     private List<int> debuffStrage;
     void DoctorSkill() 
     {
-        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
+        
         switch(SkillSelection.SkillNumber)
         {
             case 0: 
@@ -832,8 +829,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move)
                     {
-
-                           Debug.Log("rateは"+rate);
+                        Debug.Log("rateは"+rate);
                         if(rate<1&&!debuffDelate)
                         {
                             debuffStrage.RemoveAt(0);
@@ -866,6 +862,55 @@ public class SkillStorage : MonoBehaviour
                         comparText = "マッドワールド\n一定時間弱体化攻撃を無効化する";
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
+                    }
+                }
+                break;
+        }
+    }
+    int melodyBuff;
+    void StiataSkill()
+    {
+        switch(SkillSelection.SkillNumber)
+        {
+            case 1:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "音撃波";
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                        DoctorNumber = charaNumber;
+                        addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff)*rate;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - (int)addDamage;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        targetText = EnemyNameGet.enemyNameText;
+                        comparText = "音撃波を繰り出した\n"+targetText+"に"+((int)addDamage).ToString()+"ダメージ与えた";
+                        StartCoroutine(moveTextCoroutine(comparText));
+                    }
+                }
+                break;
+            case 2:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "闘いの旋律";
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                        DoctorNumber = charaNumber;
+                        addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff) * rate;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - (int)addDamage;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        targetText = EnemyNameGet.enemyNameText;
+                        comparText = "音撃波を繰り出した\n" + targetText + "に" + ((int)addDamage).ToString() + "ダメージ与えた";
+                        StartCoroutine(moveTextCoroutine(comparText));
                     }
                 }
                 break;
@@ -1024,9 +1069,13 @@ public class SkillStorage : MonoBehaviour
         }
         return target;
     }
+    int baseATKBuff;
+    public static float baseDeBuff;
     void ATKBuff()//割合バフ関係はこっち
-    {
-        atkBuff=((pATKCorrect)+1)*((playerSkill3Buff)+1);//これをキャラクターの基礎攻撃力に×
+    {   
+        baseATKBuff= (int)pATKCorrect+1;
+        baseDeBuff= playerSkill3Buff+1;
+        atkBuff =baseATKBuff*baseDeBuff;//これをキャラクターの基礎攻撃力に×
     }
     public static int atkStatusBuff;
     void AddStatus() {
@@ -1037,7 +1086,7 @@ public class SkillStorage : MonoBehaviour
         Debug.Log("MAGICBARREL");
         if(MagicBarrelTime>=0)
         {
-            EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel;
+            EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel*baseDeBuff;
             EnemyManager.debugHPBer.fillAmount=EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0];
         }
         

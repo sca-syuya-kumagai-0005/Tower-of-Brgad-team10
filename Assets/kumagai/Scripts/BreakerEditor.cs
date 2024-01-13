@@ -321,7 +321,6 @@ public class BreakerEditor : MonoBehaviour
             {
             float alpha = 1;
             Vector3 size = ready.GetComponent<RectTransform>().localScale;
-            Debug.Log("BBBBAAA");
                 while (alpha>0)
                 {
                     size = new Vector3(size.x + scaleSize * Time.deltaTime , size.y + scaleSize * Time.deltaTime , 0);
