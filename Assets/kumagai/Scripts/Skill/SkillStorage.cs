@@ -35,12 +35,14 @@ public class SkillStorage : MonoBehaviour
 
     private void Start()
     {
+        sleep=true;
     }
     private void Update()
     {
-        tmpRate=breakerRate;
-      
-        if(CharaMoveGage.MoveChar[0]==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
+        tmpRate=rate;
+        tmpSleep=sleep;
+        rate = NotesEditor.NotesOKCount / CommandCount;
+        if (CharaMoveGage.MoveChar[0]==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
             charaNumber=-1;
         }
        hate=PlayerEditorManager.PlayerInfo.Player_Hate[2]+gordonHateCorrection;
@@ -98,7 +100,7 @@ public class SkillStorage : MonoBehaviour
                     {
                         
                         float pAtk= PlayerInfo.Player_ATK[charaNumber]*atkBuff*2;
-                        addDamage=(pAtk*rate)*playerSkill3Buff;
+                        addDamage=(pAtk*rate)*playerSkill3Buff + atkStatusBuff;
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- pAtk * rate;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
@@ -175,12 +177,12 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber]*atkBuff;
-                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate)*GameManager.aliveCount;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate)*GameManager.aliveCount + atkStatusBuff;
                         Debug.Log("ダメージは"+pAtk * breakerRate * GameManager.aliveCount);
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         targetText=EnemyNameGet.enemyNameText+"に";
-                        comparText="勇気の斬跡を繰り出した\n" + targetText+ (int)(pAtk * (breakerRate) * GameManager.aliveCount)+"のダメージ";
+                        comparText="勇気の軌跡を繰り出した\n" + targetText+ (int)(pAtk * (breakerRate) * GameManager.aliveCount)+"のダメージ";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         BreakerEditor.BreakerGageCount = 0;
@@ -440,7 +442,7 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state == GameManager.BattleState.move)
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                        addDamage = (pAtk * rate) *atkBuff;
+                        addDamage = (pAtk * rate);
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] -addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -627,7 +629,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         int rand=Random.Range(1,6);
-                        addDamage=PlayerInfo.Player_ATK[charaNumber]*rand*rate*atkBuff;
+                        addDamage=(PlayerInfo.Player_ATK[charaNumber]*rate*atkBuff + atkStatusBuff )* rand;
                         Debug.Log("ダメージは"+addDamage);
                         int ehp=(int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
                         ehp-=(int)addDamage;
@@ -650,7 +652,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         int rand = Random.Range(1, 4);
-                        addDamage = PlayerInfo.Player_ATK[charaNumber] * rand * rate * atkBuff;
+                        addDamage = (PlayerInfo.Player_ATK[charaNumber]  * rate * atkBuff+ atkStatusBuff) * rand;
                         int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
                         ehp -= (int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -679,7 +681,7 @@ public class SkillStorage : MonoBehaviour
                             MagicBarrelBuff=0.5f;
                         }
                         nowTurnExclusion=true;
-                        MagicBarrel=(int)(PlayerInfo.Player_ATK[charaNumber]*atkBuff*MagicBarrelBuff);
+                        MagicBarrel=(int)((PlayerInfo.Player_ATK[charaNumber]*atkBuff + atkStatusBuff )* MagicBarrelBuff);
                         maxMagicBarrelTime=20+(rate*10);
                         MagicBarrelTime=maxMagicBarrelTime;
                         GameManager.moveEnd=true;
@@ -711,12 +713,18 @@ public class SkillStorage : MonoBehaviour
     public static int DoctorNumber;
     public static float DoctorAtkBuff;
     public static float DoctorAtkBuffTime;
+    public static bool sleep;
+    public static bool debuffDelate;
+    [SerializeField]
+    private bool tmpSleep;
+    [SerializeField]
+    private List<int> debuffStrage;
     void DoctorSkill() 
     {
         moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
         switch(SkillSelection.SkillNumber)
         {
-            case 1: 
+            case 0: 
             {
                     if(GameManager.state == GameManager.BattleState.skillSelect) {
                         NotesEditor.skillName = "薬品投擲";
@@ -726,12 +734,11 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber=charaNumber;
-                        addDamage = (pAtk * rate) * atkBuff;
+                        addDamage = (pAtk * rate) * atkBuff + atkStatusBuff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         targetText = EnemyNameGet.enemyNameText;
-                        DamageText =
                         comparText = "薬品投擲を繰り出した\n" + targetText + "に" + ((int)addDamage).ToString() + "のダメージ";
                         if(rate>=1) {
                             int rand=Random.Range(0,2);//成功率が100%の時のみ50%の確率で毒状態を付与
@@ -745,7 +752,7 @@ public class SkillStorage : MonoBehaviour
                     }
             }
             break;
-            case 2: 
+            case 1: 
             {
                 if(GameManager.state == GameManager.BattleState.skillSelect) 
                 {
@@ -759,9 +766,70 @@ public class SkillStorage : MonoBehaviour
                     DoctorAtkBuffTime=60;
                     comparText="味方全体の攻撃力が上昇した";
                     StartCoroutine(moveTextCoroutine(comparText));
+                    GameManager.moveEnd = true;
                 }
             }
             break;
+            case 2:
+            { 
+                if (GameManager.state == GameManager.BattleState.skillSelect)
+                {
+                    NotesEditor.skillName = "睡眠薬射出";
+                    moveTextFlag = true;
+                }
+                if (GameManager.state == GameManager.BattleState.move)
+                {
+                     int rand=Random.Range(0,101);
+                        sleep=true;
+                     if(rand<=100*rate*0.2f)
+                     {
+                         sleep=true;
+                         comparText = "睡眠薬射出を繰り出した\n敵は深い眠りについた";
+                     }
+                     else
+                     {
+                         comparText="睡眠薬射出を繰り出した\nしかし外してしまった";
+                     }
+                     StartCoroutine(moveTextCoroutine(comparText));
+                     GameManager.moveEnd = true;
+                }
+            }
+            break;
+            case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "簡易オペ";
+                        moveTextFlag = true;
+                    }
+                    if(GameManager.state == GameManager.BattleState.move)
+                    {
+
+                           Debug.Log("rateは"+rate);
+                        if(rate<1&&!debuffDelate)
+                        {
+                            debuffStrage.RemoveAt(0);
+                            debuffDelate=true;
+                            GameManager.moveEnd = true;
+                        }
+                        if(rate==1 &&!debuffDelate)
+                        {
+                            Debug.Log("簡易オぺ");
+                            debuffStrage.RemoveAt(0);
+                            debuffStrage.RemoveAt(0);
+                            debuffDelate=true;
+                            GameManager.moveEnd = true;
+                        }
+                        
+                        comparText = "簡易オペを繰り出した\nデバフを解除した";
+                        StartCoroutine(moveTextCoroutine(comparText));
+                            
+                        
+                       
+                       
+                    }
+                }
+                break;
         }
     }
     void CharaSet()
