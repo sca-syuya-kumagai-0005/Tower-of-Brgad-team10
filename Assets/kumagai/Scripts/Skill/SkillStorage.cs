@@ -606,8 +606,8 @@ public class SkillStorage : MonoBehaviour
     public static int MagicBarrel;
     public static float MagicBarrelTime=0;
     private float maxMagicBarrelTime;
-    float MagicBarrelBuff=0.5f;
-    bool NextBarret;
+    public static float MagicBarrelBuff=0.5f;
+    public static bool NextBarret;
     public static bool nowTurnExclusion;
 
     void LetitiaSkill()
@@ -672,18 +672,11 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        if(NextBarret)
-                        {
-                            NextBarret=false;                    
-                        }
-                        else
-                        {
-                            MagicBarrelBuff=0.5f;
-                        }
+                        
                         nowTurnExclusion=true;
                         comparText="ƒ}ƒWƒbƒNƒoƒŒƒ‹‚ðŒJ‚èo‚µ‚½\n–¡•û‚ªs“®‚·‚é‚½‚Ñ‚É–‚—Í‚ª‰ð‚«•ú‚½‚ê‚é!";
                         StartCoroutine(moveTextCoroutine(comparText));
-                        MagicBarrel =(int)((PlayerInfo.Player_ATK[charaNumber]*baseATKBuff + atkStatusBuff )* MagicBarrelBuff);
+                        MagicBarrel =(int)((PlayerInfo.Player_ATK[charaNumber]*baseATKBuff + atkStatusBuff ));
                         maxMagicBarrelTime=20+(rate*10);
                         MagicBarrelTime=maxMagicBarrelTime;
                         GameManager.moveEnd=true;
@@ -868,11 +861,13 @@ public class SkillStorage : MonoBehaviour
         }
     }
     int melodyBuff;
+    float imnTime;
+    float imnMaxTime;
     void StiataSkill()
     {
         switch(SkillSelection.SkillNumber)
         {
-            case 1:
+            case 0:
                 {
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
@@ -893,7 +888,7 @@ public class SkillStorage : MonoBehaviour
                     }
                 }
                 break;
-            case 2:
+            case 1:
                 {
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
@@ -904,12 +899,26 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber = charaNumber;
-                        addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff) * rate;
-                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - (int)addDamage;
-                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
-                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        melodyBuff= (int)((pAtk * rate) * atkBuff + (atkStatusBuff-melodyBuff) * rate);
+                        Debug.Log("melodyBuff"+melodyBuff);
                         targetText = EnemyNameGet.enemyNameText;
-                        comparText = "‰¹Œ‚”g‚ðŒJ‚èo‚µ‚½\n" + targetText + "‚É" + ((int)addDamage).ToString() + "ƒ_ƒ[ƒW—^‚¦‚½";
+                        comparText = "“¬‚¢‚Ìù—¥‚ðŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
+                        StartCoroutine(moveTextCoroutine(comparText));
+                    }
+                }
+                break;
+            case 2:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "‹F‚è‚ÌƒCƒ€ƒ“";
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        imnTime=30+(rate*100);
+                        imnMaxTime=imnTime;
+                        comparText = "“¬‚¢‚Ìù—¥‚ðŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
                     }
                 }
@@ -1079,14 +1088,22 @@ public class SkillStorage : MonoBehaviour
     }
     public static int atkStatusBuff;
     void AddStatus() {
-        atkStatusBuff=(int)DoctorAtkBuff;
+        atkStatusBuff=(int)DoctorAtkBuff+melodyBuff;
     }
     public static void MagicBarrelDamage()
     {
         Debug.Log("MAGICBARREL");
-        if(MagicBarrelTime>=0)
+        if (NextBarret)
         {
-            EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel*baseDeBuff;
+            NextBarret = false;
+        }
+        else
+        {
+            MagicBarrelBuff = 0.5f;
+        }
+        if (MagicBarrelTime>=0)
+        {
+            EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel*baseDeBuff*MagicBarrelBuff;
             EnemyManager.debugHPBer.fillAmount=EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0];
         }
         
