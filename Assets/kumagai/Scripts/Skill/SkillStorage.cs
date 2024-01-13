@@ -465,7 +465,7 @@ public class SkillStorage : MonoBehaviour
                      if(GameManager.state==GameManager.BattleState.move)
                     {
                         gordonHateCorrection += 50;
-                        gordonBreakerMaxTime=rate*130+130;
+                        gordonBreakerMaxTime = breakerRate * 130+130;
                         gordonBreakerTime=gordonBreakerMaxTime;
                         comparText="絶対防衛陣を繰り出した\nどんな攻撃も防いで見せましょう！";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -591,7 +591,7 @@ public class SkillStorage : MonoBehaviour
                     {
                        
                         rinBreakerTime =130;
-                        rinBreaker=90*rate;
+                        rinBreaker=90 * breakerRate;
                         comparText="禁符:御法の障壁を繰り出した\n味方全体がダメージの一部を防げるようになった";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
@@ -622,8 +622,6 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "サンバレット";
-                        croutine =(moveTextCoroutine("敵単体にランダムな倍率でダメージ"));
-                        StartCoroutine(croutine);
                         moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
@@ -645,14 +643,19 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "アイスランス";
-                        croutine =(moveTextCoroutine("敵全体にランダムな倍率でダメージ"));
-                        StartCoroutine(croutine);
                         moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        int rand = Random.Range(1, 4);
-                        addDamage = (PlayerInfo.Player_ATK[charaNumber]  * rate * atkBuff+ atkStatusBuff) * rand;
+                        int rand = Random.Range(0, 2);
+                        if(rand==1)
+                        {
+                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * 1;
+                        }
+                        if(rand==0)
+                        {
+                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) *10 ;
+                        }
                         int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
                         ehp -= (int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -666,16 +669,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "マジックバレル";
-                        croutine =(moveTextCoroutine("味方が行動するたびに敵単体に追加ダメージを与える"));
-                        StartCoroutine(croutine);
-                        moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         if(NextBarret)
                         {
                             NextBarret=false;
-                        }
+                            MagicBarrelBuff=1.5f;                        }
                         else
                         {
                             MagicBarrelBuff=0.5f;
@@ -694,8 +694,6 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "魔力次弾装填";
-                        croutine =(moveTextCoroutine("次に使うマジックバレルの効果が上昇"));
-                        StartCoroutine(croutine);
                         moveTextFlag = true;
                     }
                     if (GameManager.state == GameManager.BattleState.move)
@@ -703,6 +701,29 @@ public class SkillStorage : MonoBehaviour
                         NextBarret=true;
                         MagicBarrelBuff = 1 + (rate) / 2;
                         GameManager.moveEnd=true;
+                    }
+                }
+                break;
+            case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        BreakerEditor.skillName = "デクテットブロウ";
+                        BreakerEditor.allTime = 50 * (2f - addSpeed);
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        comparText="デクテットブロウを繰り出した\n敵に"+addDamage.ToString()+"与えた";
+                        int atkCount=(int)BreakerEditor.NotesOKCount+1;                       
+                        addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * atkCount;
+                        int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
+                        ehp -= (int)addDamage;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        StartCoroutine(moveTextCoroutine(comparText));
+                        BreakerEditor.BreakerGageCount = 0;
+                        BreakerEditor.breakerGageMax = false;
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -827,6 +848,22 @@ public class SkillStorage : MonoBehaviour
                         
                        
                        
+                    }
+                }
+                break;
+            case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "マッドワールド";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        DeInvalidMaxTime = (rate * 100) + 80;
+                        DeInvalidTime = DeInvalidMaxTime;
+                        comparText = "マッドワールド\n一定時間弱体化攻撃を無効化する";
+                        StartCoroutine(moveTextCoroutine(comparText));
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -995,6 +1032,7 @@ public class SkillStorage : MonoBehaviour
     }
     public static void MagicBarrelDamage()
     {
+        Debug.Log("MAGICBARREL");
         if(MagicBarrelTime>=0)
         {
             EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel;
