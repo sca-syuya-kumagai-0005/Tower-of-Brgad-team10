@@ -35,7 +35,7 @@ public class SkillStorage : MonoBehaviour
 
     private void Start()
     {
-        sleep=true;
+        
     }
     private void Update()
     {
@@ -614,7 +614,6 @@ public class SkillStorage : MonoBehaviour
 
     void LetitiaSkill()
     {
-        moveText.text = CharaMoveGage.MoveChar[0].name + "はどうする？";
         switch (SkillSelection.SkillNumber)
         {
             case 0:
@@ -627,14 +626,15 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         int rand=Random.Range(1,6);
-                        addDamage=(PlayerInfo.Player_ATK[charaNumber]*rate*atkBuff + atkStatusBuff )* rand;
+                        addDamage =(PlayerInfo.Player_ATK[charaNumber]*rate*atkBuff + atkStatusBuff )* rand;
                         Debug.Log("ダメージは"+addDamage);
+                        comparText =　"サンバレットを繰り出した\n"+CharaMoveGage.enemyName+"は"+((int)addDamage).ToString()+"のダメージを受けた";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         int ehp=(int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
                         ehp-=(int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         GameManager.moveEnd = true;
-
                     }
                 }
                 break;
@@ -656,6 +656,8 @@ public class SkillStorage : MonoBehaviour
                         {
                             addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) *10 ;
                         }
+                        comparText = "アイスランスを繰り出した\n" + CharaMoveGage.enemyName + "は" + ((int)addDamage).ToString() + "のダメージを受けた";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
                         ehp -= (int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -675,13 +677,16 @@ public class SkillStorage : MonoBehaviour
                         if(NextBarret)
                         {
                             NextBarret=false;
-                            MagicBarrelBuff=1.5f;                        }
+                            MagicBarrelBuff=1.5f;                       
+                        }
                         else
                         {
                             MagicBarrelBuff=0.5f;
                         }
                         nowTurnExclusion=true;
-                        MagicBarrel=(int)((PlayerInfo.Player_ATK[charaNumber]*atkBuff + atkStatusBuff )* MagicBarrelBuff);
+                        comparText="マジックバレルを繰り出した\n味方が行動するたびに魔力が解き放たれる!";
+                        StartCoroutine(moveTextCoroutine(comparText));
+                        MagicBarrel =(int)((PlayerInfo.Player_ATK[charaNumber]*atkBuff + atkStatusBuff )* MagicBarrelBuff);
                         maxMagicBarrelTime=20+(rate*10);
                         MagicBarrelTime=maxMagicBarrelTime;
                         GameManager.moveEnd=true;
@@ -699,6 +704,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         NextBarret=true;
+                        comparText="肉体に魔力を集中する・・・・・・\n次のマジックバレルの威力が上昇した";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         MagicBarrelBuff = 1 + (rate) / 2;
                         GameManager.moveEnd=true;
                     }
@@ -713,7 +720,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        comparText="デクテットブロウを繰り出した\n敵に"+addDamage.ToString()+"与えた";
+                        comparText="デクテットブロウを繰り出した\n敵に"+((int)(addDamage)).ToString()+"ダメージ\n与えた";
                         int atkCount=(int)BreakerEditor.NotesOKCount+1;                       
                         addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * atkCount;
                         int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
@@ -841,13 +848,8 @@ public class SkillStorage : MonoBehaviour
                             debuffDelate=true;
                             GameManager.moveEnd = true;
                         }
-                        
                         comparText = "簡易オペを繰り出した\nデバフを解除した";
                         StartCoroutine(moveTextCoroutine(comparText));
-                            
-                        
-                       
-                       
                     }
                 }
                 break;

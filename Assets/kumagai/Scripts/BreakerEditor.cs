@@ -77,6 +77,7 @@ public class BreakerEditor : MonoBehaviour
 
     void Start()
     {
+        BreakerGageCount=70;
         NotesOKCount =0;
         tmpSize = circle.GetComponent<RectTransform>().localScale;
         BreakerGageImage.fillAmount=70f/70f;
