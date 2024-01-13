@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
                         if (CharaMoveGage.MoveChar[0].CompareTag("Player")&&!SkillStorage.nowTurnExclusion)
                         {
                             SkillStorage.MagicBarrelDamage();
-                           
+                           SkillStorage.nowTurnExclusion=true;
                         }
                         if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                         {
