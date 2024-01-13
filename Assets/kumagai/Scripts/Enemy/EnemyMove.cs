@@ -82,7 +82,7 @@ public class EnemyMove : MonoBehaviour
     void protEnemyMove()//プロト版でのエネミーの行動 どのスキルを使用するかの抽選
     {
         
-        if (GameManager.state == GameManager.BattleState.enemyStay&&CharaMoveGage.MoveChar[0].name!=null)
+        if (GameManager.state == GameManager.BattleState.enemyStay&&CharaMoveGage.MoveChar[0].name!=null&&!SkillStorage.sleep)
         {
            // EnemyBuff();
             int MaxSkill = 0;
@@ -102,14 +102,29 @@ public class EnemyMove : MonoBehaviour
                         skillNumber = i;
                         SkillSet();
                         if(GameManager.moveEnd)
-                        { 
-                        skillOK=true;
-                        skillSet =true;
+                        {
+                            skillOK = true;
+                            skillSet = true;
                         }
                     }
                     break;
                 }
             }
+        }
+        else if(GameManager.state == GameManager.BattleState.enemyStay && CharaMoveGage.MoveChar[0].name != null && SkillStorage.sleep)
+        {
+            Debug.Log("眠って動けない");
+            GameManager.moveEnd = true;
+            CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            CharaMoveGage.alpha = 0;
+            skillOK = true;
+            skillSet = true;
+            SkillStorage.comparText=CharaMoveGage.enemyName+"は眠りから覚めた";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            SkillStorage.sleep = false;
+
+            
         }
     }
 
@@ -140,7 +155,6 @@ public class EnemyMove : MonoBehaviour
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0]= 8* moveUpcorrection;
-            CharaMoveGage.ActTime[0] =8* atkUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             CharaMoveGage.alpha=0;
             GameManager.moveEnd=true;

@@ -64,7 +64,8 @@ public class CharaMoveGage : MonoBehaviour
         {
             characterAct=true;
         }
-       AddGage();
+        Player_MoveGageImage[0].color = new Color(0 + alpha, 1 - alpha, 1 - alpha, 1);
+        AddGage();
        MoveCharaSort();
 
     }

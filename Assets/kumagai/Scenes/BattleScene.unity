@@ -821,6 +821,8 @@ MonoBehaviour:
   moveMember: {fileID: 401057975}
   partyChara: {fileID: 1243792711}
   rateCorrection: 0
+  tmpSleep: 0
+  debuffStrage: 000000000b000000bc040000
   tmpnextCharaNumber: 0
 --- !u!4 &285012945
 Transform:
