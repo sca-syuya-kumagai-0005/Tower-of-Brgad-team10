@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30B5\u30F3\u30D0\u30EC\u30C3\u30C8"
+  m_Text: "\u97F3\u6483\u6CE2"
 --- !u!1 &1439316804219923237
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 63c9b34b422fb4d44bd4edadde043215, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 30d3f36a9b67fbc4a86b2bacb0e52ae4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9bc19233c70976341acb64e4c7edf185, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63c9b34b422fb4d44bd4edadde043215, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -688,7 +688,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30DE\u30B8\u30C3\u30AF\u30D0\u30EC\u30EB"
+  m_Text: "\u7948\u308A\u306E\u30A4\u30E0\u30F3"
 --- !u!1 &4644380770904185406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1182,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30A2\u30A4\u30B9\u30E9\u30F3\u30B9"
+  m_Text: "\u95D8\u3044\u306E\u65CB\u5F8B"
 --- !u!1 &7676629562375282027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9bc19233c70976341acb64e4c7edf185, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 30d3f36a9b67fbc4a86b2bacb0e52ae4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1560,7 +1560,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30C7\u30AF\u30C6\u30C3\u30C8\u30D6\u30ED\u30A6"
+  m_Text: "\u4E16\u754C\u6A39\u306E\u5504"
 --- !u!1 &8808790998830014737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,4 +1714,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u9B54\u529B\u6B21\u5F3E\u88C5\u586B"
+  m_Text: "\u30AC\u30D6\u30FB\u30B5\u30F3\u30AF"
