@@ -115,38 +115,42 @@ public class CharaMoveGage : MonoBehaviour
                     if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {
                         elapsedTime[i]+=Time.deltaTime * SkillStorage.DeBuffSpeed;
-                        needle.transform.Rotate(0,0,-360*Time.deltaTime/ActTime[0]);
-                        alpha+=Time.deltaTime/ActTime[0];
+                        needle.transform.Rotate(0,0,-360*Time.deltaTime*SkillStorage.DeBuffSpeed/ActTime[0]);
+                        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        alpha +=Time.deltaTime/ActTime[0];
                     }
                     else { 
                     elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff;
                     }
-                    if(GameManager.aliveFlag[i]&&!Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
+                    if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
+                    {
+                        Player_MoveGageImage[i].color = new Color(0 + alpha, 1 - alpha, 1 - alpha, 1);
+                    }
+                    else if(GameManager.aliveFlag[i])
                     {
                         Player_MoveGageImage[i].fillAmount = elapsedTime[i] / ActTime[i];
                     }
-                    else
-                    {
-                        Player_MoveGageImage[i].color=new Color(0+alpha,1-alpha,1-alpha,1);
-                    }
+                    
                    //fillAmountを加算　ActTimeで割ることでActTime秒でfillAmountが1になる
                     
-                    if (Player_MoveGageImage[i].fillAmount >= 1&&Player_MoveGageImage[i].name=="MoveGage")//fillAmountが１になったキャラを行動するキャラの配列に格納
+                   
+                    if(alpha>=1 && Player_MoveGageImage[i].name == "MoveGageBackGround"&&!GameManager.moveEnd)
+                    {
+                        
+                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
+                        //MoveCharName[i] = MoveChar[order].name;
+                        //Debug.Log(MoveCharName[i]);
+                        order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
+                        elapsedTime[i] -= ActTime[i];
+                        alpha-=1;
+                    }
+                    else if (Player_MoveGageImage[i].fillAmount >= 1 && Player_MoveGageImage[i].name == "MoveGage")//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {
                         MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject.transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
                         //MoveCharName[i] = MoveChar[order].name;
                         //Debug.Log(MoveCharName[i]);
                         order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
                         elapsedTime[i] -= ActTime[i];//elapsedTimeからActTimeをマイナス　1を超えた分は次に持ち越すことで切り捨てによるズレをなくす。
-                    }
-                    else if(alpha>=1 && Player_MoveGageImage[i].name == "MoveGageBackGround"&&!GameManager.moveEnd)
-                    {
-                        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                        MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
-                        //MoveCharName[i] = MoveChar[order].name;
-                        //Debug.Log(MoveCharName[i]);
-                        order += 1;//このキャラの次に行動するキャラをこれの次の配列に代入する為に加算する 複数キャラが同時にたまったときの為に必要
-                        elapsedTime[i] -= ActTime[i];
                     }
                 }
             }

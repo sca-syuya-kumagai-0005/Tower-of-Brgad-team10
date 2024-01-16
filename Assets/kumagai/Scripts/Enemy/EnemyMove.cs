@@ -36,7 +36,7 @@ public class EnemyMove : MonoBehaviour
         { 
             case "í«Ç¢ÇÕÇ¨òT":
                 {
-                   Å@CharaMoveGage.ActTime[0]=8;
+                   Å@CharaMoveGage.ActTime[0]=1;
                     EnemySkill=WolfSkill;
                 }
                 break;
@@ -117,7 +117,7 @@ public class EnemyMove : MonoBehaviour
             GameManager.moveEnd = true;
             CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            CharaMoveGage.alpha = 0;
+            CharaMoveGage.alpha -= 1;
             skillOK = true;
             skillSet = true;
             SkillStorage.comparText=CharaMoveGage.enemyName+"ÇÕñ∞ÇËÇ©ÇÁäoÇﬂÇΩ";
@@ -156,7 +156,6 @@ public class EnemyMove : MonoBehaviour
             PlayerManager.playerHPBer[target].fillAmount=hp/PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0]= 8* moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            CharaMoveGage.alpha=0;
             GameManager.moveEnd=true;
         }
     }
@@ -181,7 +180,7 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             { 
-                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
+                CharaMoveGage.ActTime[0] = 3*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
                 Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
@@ -190,7 +189,6 @@ public class EnemyMove : MonoBehaviour
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
-                CharaMoveGage.alpha = 0;
             }
         }
         GameManager.moveEnd = true;
@@ -205,7 +203,6 @@ public class EnemyMove : MonoBehaviour
         Debug.Log(moveUpcorrection);
         CharaMoveGage.ActTime[0] = 10*moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
     void WolfSkill4()
@@ -216,7 +213,6 @@ public class EnemyMove : MonoBehaviour
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         CharaMoveGage.ActTime[0] = 8  * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
 
@@ -249,7 +245,6 @@ public class EnemyMove : MonoBehaviour
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             atkUpcorrection=1.15f;
             atkUpTurn=2;
-            CharaMoveGage.alpha = 0;
             GameManager.moveEnd = true;
         }
     }
@@ -279,8 +274,7 @@ public class EnemyMove : MonoBehaviour
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
-                CharaMoveGage.alpha = 0;
-            }
+        }
         
         GameManager.moveEnd = true;
     }
@@ -302,7 +296,6 @@ public class EnemyMove : MonoBehaviour
                 CharaMoveGage.ActTime[0] = 25 * moveUpcorrection;
             }
         }
-        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
 
@@ -312,7 +305,6 @@ public class EnemyMove : MonoBehaviour
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         EnemyManager.EnemyInfo.Enemy_ATK[0]*=1.1f;
         CharaMoveGage.ActTime[0] = 13 * moveUpcorrection;
-        CharaMoveGage.alpha = 0;
         GameManager.moveEnd = true;
     }
     void EnemyBuff()

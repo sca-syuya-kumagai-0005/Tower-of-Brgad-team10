@@ -650,6 +650,7 @@ MonoBehaviour:
   GameOver: 0
   tmpmoveEnd: 0
   gameSetText: {fileID: 1054705960}
+  tmpAlliveFlag: 
   enemyImage: {fileID: 0}
   playerDamageImage: {fileID: 1672775308}
 --- !u!1 &285012943
@@ -2120,7 +2121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EMT: {fileID: 1383771616}
-  WolfSkill: 280000000a000000280000000a000000
+  WolfSkill: 000000000a0000000000000000000000
   ReaperSkill: 32000000230000000f0000001e000000
   tmpEM: 0
   enemyMoveGageImage: {fileID: 0}
