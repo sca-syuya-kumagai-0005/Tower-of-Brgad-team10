@@ -974,11 +974,14 @@ public class SkillStorage : MonoBehaviour
                             {
                                 Debug.Log("‘h¶‚µ‚Ü‚µ‚½");
                                 PlayerInfo.Player_HP[i]=1;
+                                GameManager.aliveFlag[i+1]=true;
+                                Debug.Log("‘h¶‚³‚ê‚½‚Ì‚Í"+i+"ƒLƒƒƒ‰–Ú‚Å‚·");
                                 Debug.Log(PlayerInfo.Player_HP[i]);
                             }
                             float php = PlayerInfo.Player_HP[i];
                             php += breakerRate * PlayerEditorManager.MaxHP[i];
-                            PlayerManager.playerHPBer[charaNumber].fillAmount = PlayerInfo.Player_HP[i] / PlayerEditorManager.MaxHP[i];
+                            PlayerInfo.Player_HP[i]=(int)php;
+                            PlayerManager.playerHPBer[i].fillAmount = php/ PlayerEditorManager.MaxHP[i];
                         }
                         comparText = "¢ŠE÷‚Ì‰S‚ğŒJ‚èo‚µ‚½\n¢ŠE÷‚Ì‰S‚ªA—D‚µ‚­‹óŠÔ‚ğ•ï‚İ‚Ş";
                         StartCoroutine(moveTextCoroutine(comparText));
