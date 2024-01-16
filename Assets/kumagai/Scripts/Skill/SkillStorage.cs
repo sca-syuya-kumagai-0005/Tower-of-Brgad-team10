@@ -528,12 +528,12 @@ public class SkillStorage : MonoBehaviour
                         Debug.Log(recoveryTarget);
                         float php=PlayerInfo.Player_HP[recoveryTarget];
                         Debug.Log(PlayerInfo.Player_HP);
-                        php+=(php*0.3f)+PlayerInfo.Player_ATK[charaNumber];
+                        php+=(int)((php*0.3f)+PlayerInfo.Player_ATK[charaNumber]);
                         Debug.Log(php);
                         PlayerInfo.Player_HP[recoveryTarget] =(int)php;
                         PlayerManager.playerHPBer[recoveryTarget].fillAmount=php/PlayerEditorManager.MaxHP[recoveryTarget];
                         comparText="Œä_…‚Å‚·!‚ğŒJ‚èo‚µ‚½\n"+partyChara.transform.GetChild(recoveryTarget).gameObject.name+"‚ÌHP‚ª"+
-                        (php / PlayerEditorManager.MaxHP[recoveryTarget]).ToString()+"‰ñ•œ‚µ‚½";
+                        ((int)(php / PlayerEditorManager.MaxHP[recoveryTarget])).ToString()+"‰ñ•œ‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd=true;
@@ -953,6 +953,31 @@ public class SkillStorage : MonoBehaviour
                         gabMaxTime=gabTime;
                         gabBuff=1+rate;
                         comparText = "ƒKƒuƒTƒ“ƒN‚ğŒJ‚èo‚µ‚½\n–¡•û‚ÌHP‚ª‰ñ•œ‚µ‚½\n–¡•û‚Ìs“®‘¬“x‚ªã¸‚·‚é";
+                        StartCoroutine(moveTextCoroutine(comparText));
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+            case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "¢ŠE÷‚Ì‰S";
+                        moveTextFlag = true;
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
+                        {
+                            if(!GameManager.aliveFlag[i])
+                            {
+                                PlayerInfo.Player_HP[i]=1;
+                            }
+                            float php = PlayerInfo.Player_HP[i];
+                            php += breakerRate * PlayerEditorManager.MaxHP[i];
+                            PlayerManager.playerHPBer[charaNumber].fillAmount = PlayerInfo.Player_HP[i] / PlayerEditorManager.MaxHP[i];
+                        }
+                        comparText = "¢ŠE÷‚Ì‰S‚ğŒJ‚èo‚µ‚½\n¢ŠE÷‚Ì‰S‚ªA—D‚µ‚­‹óŠÔ‚ğ•ï‚İ‚Ş";
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
