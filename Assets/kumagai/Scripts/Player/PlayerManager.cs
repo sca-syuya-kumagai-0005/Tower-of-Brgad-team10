@@ -31,6 +31,9 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+      for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
+        {
+            playerDeadBackGround[i].SetActive(!GameManager.aliveFlag[i+1]);
+        }
     }
 }

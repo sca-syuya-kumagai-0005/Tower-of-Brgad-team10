@@ -847,6 +847,7 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "マッドワールド";
+                        BreakerEditor.allTime = 50 * (2f - addSpeed);
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
@@ -944,10 +945,10 @@ public class SkillStorage : MonoBehaviour
                     {
                         for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
                         {
-                            float php = PlayerInfo.Player_HP[charaNumber];
-                            php += 0.2f * PlayerEditorManager.MaxHP[charaNumber];
-                            PlayerInfo.Player_HP[charaNumber] = (int)php;
-                            PlayerManager.playerHPBer[charaNumber].fillAmount = PlayerInfo.Player_HP[charaNumber] / PlayerEditorManager.MaxHP[charaNumber];
+                            float php = PlayerInfo.Player_HP[i];
+                            php += 0.2f * PlayerEditorManager.MaxHP[i];
+                            PlayerInfo.Player_HP[i] = (int)php;
+                            PlayerManager.playerHPBer[i].fillAmount = PlayerInfo.Player_HP[i] / PlayerEditorManager.MaxHP[i];
                         }
                         gabTime=1;
                         gabMaxTime=gabTime;
@@ -963,13 +964,13 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "世界樹の唄";
-                        moveTextFlag = true;
+                        BreakerEditor.allTime = 50 * (2f - addSpeed);
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
                         {
-                            if(!GameManager.aliveFlag[i])
+                            if(!GameManager.aliveFlag[i+1])
                             {
                                 PlayerInfo.Player_HP[i]=1;
                             }

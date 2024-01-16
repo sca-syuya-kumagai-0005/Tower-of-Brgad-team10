@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public static int enemyTmpHP;
     public static int[] CharaHP=new int[4];
     public static bool[] aliveFlag=new bool[5];
+    [SerializeField] private bool[] tmpAlliveFlag;
     [SerializeField]private GameObject enemyImage;
     [SerializeField]private GameObject playerDamageImage;
     void Start()
@@ -41,12 +42,14 @@ public class GameManager : MonoBehaviour
         for(int i=0;i<aliveFlag.Length;i++)
         {
             aliveFlag[i]=true;
+            tmpAlliveFlag=aliveFlag;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        tmpAlliveFlag=aliveFlag;
         BattleStateManager();
         CharaAliveJudge();
         Debug.Log(state);
