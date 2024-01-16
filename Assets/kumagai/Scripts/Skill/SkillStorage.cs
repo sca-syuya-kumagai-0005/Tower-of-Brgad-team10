@@ -846,7 +846,7 @@ public class SkillStorage : MonoBehaviour
                 {
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
-                        NotesEditor.skillName = "マッドワールド";
+                        BreakerEditor.skillName = "マッドワールド";
                         BreakerEditor.allTime = 50 * (2f - addSpeed);
                     }
                     if (GameManager.state == GameManager.BattleState.move)
@@ -963,7 +963,7 @@ public class SkillStorage : MonoBehaviour
                 {
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
-                        NotesEditor.skillName = "世界樹の唄";
+                        BreakerEditor.skillName = "世界樹の唄";
                         BreakerEditor.allTime = 50 * (2f - addSpeed);
                     }
                     if (GameManager.state == GameManager.BattleState.move)
@@ -972,7 +972,9 @@ public class SkillStorage : MonoBehaviour
                         {
                             if(!GameManager.aliveFlag[i+1])
                             {
+                                Debug.Log("蘇生しました");
                                 PlayerInfo.Player_HP[i]=1;
+                                Debug.Log(PlayerInfo.Player_HP[i]);
                             }
                             float php = PlayerInfo.Player_HP[i];
                             php += breakerRate * PlayerEditorManager.MaxHP[i];
@@ -1181,7 +1183,7 @@ public class SkillStorage : MonoBehaviour
 
     public static void ImnRecovery()
     {
-        if(imnTime>=0)
+        if(imnTime>0)
         { 
             Debug.Log("祈りのイムンの効果が発動しました");
             float php = PlayerInfo.Player_HP[charaNumber];

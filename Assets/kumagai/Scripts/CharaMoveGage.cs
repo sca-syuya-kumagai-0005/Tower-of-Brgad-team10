@@ -60,6 +60,11 @@ public class CharaMoveGage : MonoBehaviour
     void Update()
     {
         tmpMoveChara = MoveChar;
+        if(MoveChar[0]==null&&MoveChar[1]!=null)
+        {
+            MoveChar[0]=MoveChar[1];
+            MoveChar[1]=null;
+        }
         if (MoveChar[0]!=null&&GameManager.state==GameManager.BattleState.moveWait&&!MoveChar[0].CompareTag("Enemy"))
         {
             characterAct=true;
