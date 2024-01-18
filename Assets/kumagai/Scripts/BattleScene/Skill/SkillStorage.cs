@@ -211,37 +211,17 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.skillSelect)
                     {
                         NotesEditor.skillName = "加速する未来";
+                       
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         addSpeed=1.3f;
-                        switch(rate)
+                        addSpeedTurn = 0;
+                        for(float i=0.2f;i<5;i+=0.2f) 
                         {
-                            case 0.2f:
-                                {
-                                    addSpeedTurn=1;
-                                }
-                                break;
-                            case 0.4f:
-                                {
-                                    addSpeedTurn=2;
-                                }
-                                break;
-                            case 0.6f:
-                                {
-                                    addSpeedTurn=3;
-                                }
-                                break;
-                            case 0.8f:
-                                {
-                                    addSpeedTurn=4;
-                                }
-                                break;
-                            case 1f:
-                                {
-                                    addSpeedTurn=5;
-                                }
-                                break;
+                            if(rate>=i) {
+                                addSpeedTurn++;
+                            }
                         }
                         comparText="加速する未来を繰り出した\n"+"コマンドの流れる速度が変化した";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -260,41 +240,21 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         addSpeed =0.7f;
-                        switch (rate)
+                        for(float i = 0.2f; i < 5; i += 0.2f) 
                         {
-                            case 0.2f:
-                                {
-                                    addSpeedTurn = 1;
-                                }
-                                break;
-                            case 0.4f:
-                                {
-                                    addSpeedTurn = 2;
-                                }
-                                break;
-                            case 0.6f:
-                                {
-                                    addSpeedTurn = 3;
-                                }
-                                break;
-                            case 0.8f:
-                                {
-                                    addSpeedTurn = 4;
-                                }
-                                break;
-                            case 1f:
-                                {
-                                    addSpeedTurn = 5;
-                                }
-                                break;
+                            if(rate >= i) 
+                            {
+                                addSpeedTurn++;
+                            }
                         }
+                    }
                         comparText = "減速する過去を繰り出した\nコマンドの流れる速度が変化した";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd = true;
-                    } 
-                }
+                    }
                 break;
+               
                 case 2:
                 {
                     if (GameManager.state == GameManager.BattleState.skillSelect)
