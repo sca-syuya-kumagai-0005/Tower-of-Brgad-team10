@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class CharaSelectManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CharaSelectManager : MonoBehaviour
     private bool charaSelectScreen;
     [SerializeField]
     private GameObject charaSelectBackGround;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -108,7 +110,40 @@ public class CharaSelectManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Return) && !charaSelectScreen&&slot) 
         {
-            charaSelectScreen = true; ;
+            charaSelectScreen = true; 
         }
+    }
+
+    public void Slot1ButtonSystem() {
+        slot=true;
+        selectSlot=0;
+        charaSelectScreen = true;
+        Debug.Log("ŒÄ‚Î‚ê‚Ä‚é‚æ");
+    }
+
+    public void Slot2ButtonSystem() {
+        slot = true;
+        selectSlot = 1;
+        charaSelectScreen = true;
+        Debug.Log("ŒÄ‚Î‚ê‚Ä‚é‚æ");
+    }
+
+    public void Slot3ButtonSystem() {
+        slot = true;
+        selectSlot = 2;
+        charaSelectScreen = true;
+        Debug.Log("ŒÄ‚Î‚ê‚Ä‚é‚æ");
+    }
+
+    public void Slot4ButtonSystem() {
+        slot = true;
+        selectSlot = 3;
+        charaSelectScreen = true;
+        Debug.Log("ŒÄ‚Î‚ê‚Ä‚é‚æ");
+    }
+
+    public void NextButtonSystem() {
+        slot=false;
+       // SetCursorPos(400, 400);
     }
 }
