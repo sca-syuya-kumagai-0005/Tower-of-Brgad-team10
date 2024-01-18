@@ -951,6 +951,36 @@ public class SkillStorage : MonoBehaviour
                 break;
         }
     }
+
+    void RichardSkill() 
+    {
+        switch(SkillSelection.SkillNumber) 
+        {
+            case 1: 
+                {
+                    if(GameManager.state == GameManager.BattleState.skillSelect) 
+                    {
+                        NotesEditor.skillName = "éUç˜";
+                    }
+                    if(GameManager.state == GameManager.BattleState.move) 
+                    {
+                        RichardSkill1();
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+            case 2: 
+                {
+                    if(GameManager.state == GameManager.BattleState.skillSelect) {
+                        NotesEditor.skillName = "ååên";
+                    }
+                    if(GameManager.state == GameManager.BattleState.move) {
+
+                    }
+                }
+                break;
+        }
+    }
     void CharaSet()
     {
         string mChar=CharaMoveGage.MoveChar[0].name;
@@ -1155,5 +1185,27 @@ public class SkillStorage : MonoBehaviour
             PlayerInfo.Player_HP[charaNumber] = (int)php;
             PlayerManager.playerHPBer[charaNumber].fillAmount = PlayerInfo.Player_HP[charaNumber] / PlayerEditorManager.MaxHP[charaNumber];
         }
+    }
+
+    private IEnumerator RichardSkill1() 
+    {
+        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+        addDamage = pAtk;
+        int atkLoop=0;
+        for(int i=1;i<4;i++) {
+            if(rate>=i*0.2f) {
+                atkLoop=i;
+            }
+        }
+        for(int i=0;i<atkLoop;i++) { 
+            float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
+            EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+            EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+        }
+        DamageText = ((int)(addDamage*atkLoop)).ToString() + "ÇÃÉ_ÉÅÅ[ÉW";
+        targetText = EnemyNameGet.enemyNameText.ToString() + "Ç…";
+        comparText = "éUç˜ÇåJÇËèoÇµÇΩ" + "\n" + targetText + DamageText;
+        StartCoroutine(moveTextCoroutine(comparText));
+        yield return new WaitForSeconds(0.2f);
     }
 }
