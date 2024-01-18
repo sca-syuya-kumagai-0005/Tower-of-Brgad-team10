@@ -12,6 +12,8 @@ public class CharaSelectManager : MonoBehaviour
     private bool slot;
     private int sceneSelect;
     private bool charaSelectScreen;
+    [SerializeField]
+    private GameObject charaSelectBackGround;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class CharaSelectManager : MonoBehaviour
     void Update()
     {
         CorsolManager();
-
+        charaSelectBackGround.SetActive(charaSelectScreen);
         
     }
 
@@ -104,7 +106,7 @@ public class CharaSelectManager : MonoBehaviour
             slot=!slot;
         }
 
-        if(Input.GetKeyDown(KeyCode.Return) && !charaSelectScreen) 
+        if(Input.GetKeyDown(KeyCode.Return) && !charaSelectScreen&&slot) 
         {
             charaSelectScreen = true; ;
         }
