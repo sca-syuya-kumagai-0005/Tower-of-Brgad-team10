@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviour
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
                     BreakerEditor.circleSet=false;
-                    GameSetController();
+                    StartCoroutine(GameSetController());
                     if(GameOver||GameClear)
                     {
                         state=BattleState.reSult;
@@ -277,7 +277,7 @@ public class GameManager : MonoBehaviour
         {
             GameOver=true;
             gameSetText.text="GameOver";
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
             SceneManager.LoadScene("TitleScene");
         }
 

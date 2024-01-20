@@ -91,7 +91,6 @@ public class EnemyMove : MonoBehaviour
                 MaxSkill += EnemySkill[i];
             }
             int move=Random.Range(1,MaxSkill+1);
-            Debug.Log("moveは"+move);
             for(int i=0;i<5;i++)
             {
                 move-=EnemySkill[i];
@@ -427,14 +426,27 @@ public class EnemyMove : MonoBehaviour
 
     int EnemyAttackTarget()
     {
-        int MaxHate=PlayerEditorManager.PlayerInfo.Player_Hate.Sum();
+        int MaxHate=0;
+        
+        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
+        {
+            if (GameManager.aliveFlag[i + 1])
+            {
+                MaxHate += PlayerEditorManager.PlayerInfo.Player_Hate[i];
+            }
+        }
         Debug.Log(MaxHate);
         int target=Random.Range(0,MaxHate+1);
         for(int i=0;i<partyChara.transform.childCount;i++)
         {
-           target-=PlayerEditorManager.PlayerInfo.Player_Hate[i];
-            if(target<0)
+            if (GameManager.aliveFlag[i + 1])
             {
+                target -= PlayerEditorManager.PlayerInfo.Player_Hate[i];
+            }
+           
+            if(target<=0)
+            {
+                Debug.Log("ターゲットは"+i);
                 return i;
             }
         }
