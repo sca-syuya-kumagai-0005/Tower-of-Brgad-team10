@@ -632,11 +632,18 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        
-                        nowTurnExclusion=true;
+                        if (NextBarret)
+                        {
+                            NextBarret = false;
+                        }
+                        else
+                        {
+                            MagicBarrelBuff = 0.5f;
+                        }
+                        nowTurnExclusion =true;
                         comparText="マジックバレルを繰り出した\n味方が行動するたびに魔力が解き放たれる!";
                         StartCoroutine(moveTextCoroutine(comparText));
-                        MagicBarrel =(int)((PlayerInfo.Player_ATK[charaNumber]*baseATKBuff + atkStatusBuff ));
+                        MagicBarrel =(int)((PlayerInfo.Player_ATK[charaNumber]*baseATKBuff*MagicBarrelBuff) + atkStatusBuff );
                         maxMagicBarrelTime=20+(rate*10);
                         MagicBarrelTime=maxMagicBarrelTime;
                         GameManager.moveEnd=true;
@@ -1169,14 +1176,7 @@ public class SkillStorage : MonoBehaviour
     public static void MagicBarrelDamage()
     {
         Debug.Log("MAGICBARREL");
-        if (NextBarret)
-        {
-            NextBarret = false;
-        }
-        else
-        {
-            MagicBarrelBuff = 0.5f;
-        }
+        
         if (MagicBarrelTime>=0)
         {
             EnemyManager.EnemyInfo.Enemy_HP[0] -= MagicBarrel*baseDeBuff*MagicBarrelBuff;
@@ -1191,6 +1191,10 @@ public class SkillStorage : MonoBehaviour
             Debug.Log("祈りのイムンの効果が発動しました");
             float php = PlayerInfo.Player_HP[charaNumber];
             php += 0.1f * PlayerEditorManager.MaxHP[charaNumber];
+            if(0.1f*PlayerEditorManager.MaxHP[charaNumber]<=0)
+            {
+                php+=1;
+            }
             Debug.Log("回復量は"+0.1f*PlayerEditorManager.MaxHP[charaNumber]);
             PlayerInfo.Player_HP[charaNumber] = (int)php;
             PlayerManager.playerHPBer[charaNumber].fillAmount = PlayerInfo.Player_HP[charaNumber] / PlayerEditorManager.MaxHP[charaNumber];

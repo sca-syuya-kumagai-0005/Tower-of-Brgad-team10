@@ -22,6 +22,13 @@ public class EXPManager : MonoBehaviour
     private GameObject obj;
     private bool EXPGetFlag;
     // Start is called before the first frame update
+    void Awake()
+    {
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    PlayerEditorManager.Lv[i] = 99;
+        //}
+    }
     void Start()
     {
         playerLv=new Text[PlayerEditor.PlayerName.Length];
@@ -34,6 +41,7 @@ public class EXPManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         if(!flag)
         {
             for (int i = 0; i < 4; i++)
