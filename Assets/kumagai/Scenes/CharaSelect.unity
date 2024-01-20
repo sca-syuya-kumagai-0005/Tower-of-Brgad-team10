@@ -383,6 +383,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot1ButtonEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &187724725
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +410,7 @@ GameObject:
   - component: {fileID: 187724726}
   - component: {fileID: 187724728}
   - component: {fileID: 187724727}
+  - component: {fileID: 187724729}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Untagged
@@ -459,6 +476,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187724725}
   m_CullTransparentMesh: 1
+--- !u!114 &187724729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187724725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot2ButtonSystem
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot2ButtonEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &260139644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1063,7 @@ GameObject:
   - component: {fileID: 583426062}
   - component: {fileID: 583426064}
   - component: {fileID: 583426063}
+  - component: {fileID: 583426065}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1066,6 +1129,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583426061}
   m_CullTransparentMesh: 1
+--- !u!114 &583426065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583426061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: BackButtonEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &601501870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,6 +1402,7 @@ GameObject:
   - component: {fileID: 738153148}
   - component: {fileID: 738153150}
   - component: {fileID: 738153149}
+  - component: {fileID: 738153151}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -1375,6 +1468,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738153147}
   m_CullTransparentMesh: 1
+--- !u!114 &738153151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738153147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: NextButtonEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &740022497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1587,7 @@ GameObject:
   - component: {fileID: 761926484}
   - component: {fileID: 761926486}
   - component: {fileID: 761926485}
+  - component: {fileID: 761926487}
   m_Layer: 5
   m_Name: Slot3
   m_TagString: Untagged
@@ -1530,6 +1653,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761926483}
   m_CullTransparentMesh: 1
+--- !u!114 &761926487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761926483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot3ButtonSystem
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot3ButtonEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &810517675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,6 +1988,7 @@ GameObject:
   - component: {fileID: 949273256}
   - component: {fileID: 949273258}
   - component: {fileID: 949273257}
+  - component: {fileID: 949273259}
   m_Layer: 5
   m_Name: Slot4 Select
   m_TagString: Untagged
@@ -1885,6 +2054,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949273255}
   m_CullTransparentMesh: 1
+--- !u!114 &949273259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949273255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot4ButtonSystem
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &973076789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,6 +2522,7 @@ GameObject:
   - component: {fileID: 1107477823}
   - component: {fileID: 1107477825}
   - component: {fileID: 1107477824}
+  - component: {fileID: 1107477826}
   m_Layer: 5
   m_Name: Slot4
   m_TagString: Untagged
@@ -2389,6 +2588,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107477822}
   m_CullTransparentMesh: 1
+--- !u!114 &1107477826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107477822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot4ButtonSystem
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot4ButtonEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1132189538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3125,6 +3369,7 @@ GameObject:
   - component: {fileID: 1828889638}
   - component: {fileID: 1828889640}
   - component: {fileID: 1828889639}
+  - component: {fileID: 1828889641}
   m_Layer: 5
   m_Name: Slot2 Select
   m_TagString: Untagged
@@ -3190,6 +3435,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828889637}
   m_CullTransparentMesh: 1
+--- !u!114 &1828889641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828889637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot2ButtonSystem
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1952082047
 GameObject:
   m_ObjectHideFlags: 0
@@ -3523,6 +3797,7 @@ GameObject:
   - component: {fileID: 2095242282}
   - component: {fileID: 2095242284}
   - component: {fileID: 2095242283}
+  - component: {fileID: 2095242285}
   m_Layer: 5
   m_Name: Slot3 Select
   m_TagString: Untagged
@@ -3588,6 +3863,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095242281}
   m_CullTransparentMesh: 1
+--- !u!114 &2095242285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095242281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 810517676}
+          m_TargetAssemblyTypeName: CharaSelectManager, Assembly-CSharp
+          m_MethodName: Slot3ButtonSystem
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
