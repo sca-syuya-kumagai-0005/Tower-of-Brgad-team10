@@ -7,12 +7,12 @@ public class CharaSelectManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] slotSelect;
-    public int selectSlot;//デバッグ用にパブリックにしている
+    public static int selectSlot;//デバッグ用にパブリックにしている
     [SerializeField]
     private GameObject[] sceneButtonSelect;
     private bool slot;
     private int sceneSelect;
-    private bool charaSelectScreen;
+    public static bool charaSelectScreen;
     [SerializeField]
     private GameObject charaSelectBackGround;
 
@@ -33,87 +33,101 @@ public class CharaSelectManager : MonoBehaviour
 
     void CorsolManager()
     {
-        if(slot)
+        if(!charaSelectScreen)
         { 
-            sceneSelect=1;//キャラ編成が終わった後に下もしくは上を押すとすぐに次へボタンにカーソルが移動するようにするための処理
-            if(Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                if(selectSlot<3) 
+            if(slot)
+            { 
+                sceneSelect=1;//キャラ編成が終わった後に下もしくは上を押すとすぐに次へボタンにカーソルが移動するようにするための処理
+                if(Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    selectSlot++;
+                    if(selectSlot<3) 
+                    {
+                        selectSlot++;
+                    }
+
+                    else if(selectSlot==3)
+                    {
+                        selectSlot=0;
+                    }
                 }
 
-                else if(selectSlot==3)
+                if(Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)) 
                 {
-                    selectSlot=0;
-                }
-            }
+                    if(selectSlot>0) 
+                    {
+                        selectSlot--;
+                    }
 
-            if(Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)) 
-            {
-                if(selectSlot>0) 
-                {
-                    selectSlot--;
+                    else if(selectSlot==0) 
+                    {
+                        selectSlot=3;
+                    }
                 }
-
-                else if(selectSlot==0) 
-                {
-                    selectSlot=3;
+                for(int i = 0; i < 4; i++) {
+                    if(i == selectSlot) {
+                        slotSelect[i].SetActive(true);
+                    } else {
+                        slotSelect[i].SetActive(false);
+                    }
                 }
-            }
-            for(int i = 0; i < 4; i++) {
-                if(i == selectSlot) {
-                    slotSelect[i].SetActive(true);
-                } else {
-                    slotSelect[i].SetActive(false);
-                }
-            }
-            for(int i=0;i<2;i++) {
-                sceneButtonSelect[i].SetActive(false);
-            }
-        } 
-        else 
-        {
-            selectSlot=0;
-            if(Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) 
-            {
-                if(sceneSelect==0) 
-                {
-                    sceneSelect++;
-                }
-                else 
-                {
-                    sceneSelect--;
-                }
-                
-            }
-            for(int i=0;i<4;i++) 
-            {
-                slotSelect[i].SetActive(false);
-            }
-            for(int i=0;i<2;i++)
-            {
-                if(i == sceneSelect) 
-                { 
-                    sceneButtonSelect[i].SetActive(true);
-                }
-                else 
-                {
+                for(int i=0;i<2;i++) {
                     sceneButtonSelect[i].SetActive(false);
                 }
+            } 
+            else 
+            {
+                selectSlot=0;
+                if(Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) 
+                {
+                    if(sceneSelect==0) 
+                    {
+                        sceneSelect++;
+                    }
+                    else 
+                    {
+                        sceneSelect--;
+                    }
+                
+                }
+                for(int i=0;i<4;i++) 
+                {
+                    slotSelect[i].SetActive(false);
+                }
+                for(int i=0;i<2;i++)
+                {
+                    if(i == sceneSelect) 
+                    { 
+                        sceneButtonSelect[i].SetActive(true);
+                    }
+                    else 
+                    {
+                        sceneButtonSelect[i].SetActive(false);
+                    }
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (slot)
+                {
+                    if(selectSlot<2)
+                    {
+                        sceneSelect=0;
+                    }
+                    else
+                    {
+                        sceneSelect=1;
+                    }
+                }
+                slot =!slot;
+
+            }
+
+            if(Input.GetKeyDown(KeyCode.Return) && !charaSelectScreen&&slot) 
+            {
+                charaSelectScreen = true;
             }
         }
-        if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            slot=!slot;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Return) && !charaSelectScreen&&slot) 
-        {
-            charaSelectScreen = true; 
-        }
     }
-
     public void Slot1ButtonSystem() {
         slot=true;
         selectSlot=0;
