@@ -959,7 +959,7 @@ public class SkillStorage : MonoBehaviour
     {
         switch(SkillSelection.SkillNumber) 
         {
-            case 1: 
+            case 0: 
                 {
                     if(GameManager.state == GameManager.BattleState.skillSelect) 
                     {
@@ -972,7 +972,7 @@ public class SkillStorage : MonoBehaviour
                     }
                 }
                 break;
-            case 2: 
+            case 1: 
                 {
                     if(GameManager.state == GameManager.BattleState.skillSelect) 
                     {

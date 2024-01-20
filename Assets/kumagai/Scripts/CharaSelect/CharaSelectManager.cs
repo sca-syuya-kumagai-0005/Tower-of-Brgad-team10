@@ -142,8 +142,49 @@ public class CharaSelectManager : MonoBehaviour
         Debug.Log("ŒÄ‚Î‚ê‚Ä‚é‚æ");
     }
 
-    public void NextButtonSystem() {
+    public void Slot1ButtonEnter()
+    {
+        slot = true;
+        selectSlot =0;
+    }
+
+    public void Slot2ButtonEnter()
+    {
+        slot = true;
+        selectSlot =1;
+    }
+
+    public void Slot3ButtonEnter()
+    {
+        slot = true;
+        selectSlot =2;
+    }
+
+    public void Slot4ButtonEnter()
+    {
+        slot = true;
+        selectSlot =3;
+    }
+    public void NextButtonSystem() 
+    {
         slot=false;
        // SetCursorPos(400, 400);
+    }
+
+    public void NextButtonEnter()
+    {
+        slot=false;
+        sceneSelect=1;
+    }
+
+    public void BackButoonSystem()
+    { 
+        slot=false;
+    }
+
+    public void BackButtonEnter()
+    {
+        slot=false;
+        sceneSelect=0;
     }
 }
