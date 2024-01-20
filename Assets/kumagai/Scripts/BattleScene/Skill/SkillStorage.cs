@@ -952,6 +952,9 @@ public class SkillStorage : MonoBehaviour
         }
     }
 
+    private float richardSkill2Time;
+    private float richardSkill2MaxTime;
+    private float richardSkill2Buff;
     void RichardSkill() 
     {
         switch(SkillSelection.SkillNumber) 
@@ -971,11 +974,16 @@ public class SkillStorage : MonoBehaviour
                 break;
             case 2: 
                 {
-                    if(GameManager.state == GameManager.BattleState.skillSelect) {
+                    if(GameManager.state == GameManager.BattleState.skillSelect) 
+                    {
                         NotesEditor.skillName = "ŒŒn";
                     }
-                    if(GameManager.state == GameManager.BattleState.move) {
-
+                    if(GameManager.state == GameManager.BattleState.move) 
+                    {
+                        richardSkill2Time=60*rate;
+                        richardSkill2MaxTime=richardSkill2Time;
+                        richardSkill2Buff=0.1f;
+                        GameManager.moveEnd=true;
                     }
                 }
                 break;
@@ -1107,6 +1115,8 @@ public class SkillStorage : MonoBehaviour
         imnTime=BuffTime(imnTime,imnMaxTime);
         gabTime=BuffTime(gabTime,gabMaxTime);
         gabBuff=Buff(gabTime,gabBuff,1);
+        richardSkill2Time=BuffTime(richardSkill2Time,richardSkill2MaxTime);
+        richardSkill2Buff=Buff(richardSkill2Time,richardSkill2Buff,0);
     }
     public static int BuffTurn(int turn)
     {
@@ -1201,11 +1211,20 @@ public class SkillStorage : MonoBehaviour
             float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
             EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
             EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+            if(richardSkill2Time>=0)
+            {
+                float php=PlayerEditorManager.PlayerInfo.Player_HP[charaNumber];
+                php+=php*richardSkill2Buff;
+                richardSkill2Buff+=0.01f;
+
+            }
+            yield return new WaitForSeconds(0.2f);
         }
+        richardSkill2Buff=0.1f;
         DamageText = ((int)(addDamage*atkLoop)).ToString() + "‚Ìƒ_ƒ[ƒW";
         targetText = EnemyNameGet.enemyNameText.ToString() + "‚É";
         comparText = "U÷‚ğŒJ‚èo‚µ‚½" + "\n" + targetText + DamageText;
         StartCoroutine(moveTextCoroutine(comparText));
-        yield return new WaitForSeconds(0.2f);
+       
     }
 }
