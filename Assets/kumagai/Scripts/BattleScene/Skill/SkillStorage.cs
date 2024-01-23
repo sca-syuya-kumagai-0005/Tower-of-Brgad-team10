@@ -1067,6 +1067,25 @@ public class SkillStorage : MonoBehaviour
                     }
                 }
                 break;
+                case 4:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        BreakerEditor.skillName = "Ž‡“dˆê‘M";
+                        BreakerEditor.allTime = 50 * (2f - addSpeed);
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        int pAtk=PlayerInfo.Player_ATK[charaNumber];
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        richardSkill2Time=60;
+                        richardSkill2MaxTime=richardSkill2Time;
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
         }
     }
     void CharaSet()
