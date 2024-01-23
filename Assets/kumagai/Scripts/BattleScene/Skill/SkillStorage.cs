@@ -26,7 +26,7 @@ public class SkillStorage : MonoBehaviour
     public static int CommandCount;
     public static float addDamage;
     [SerializeField]
-    private int hate;
+    private int gordonHate;
     public static float enemyActTime=4;
     public static float atkBuff;
     public static IEnumerator croutine;
@@ -45,7 +45,6 @@ public class SkillStorage : MonoBehaviour
         if (CharaMoveGage.MoveChar[0]==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
             charaNumber=-1;
         }
-       hate=PlayerEditorManager.PlayerInfo.Player_Hate[2]+gordonHateCorrection;
        ATKBuff();
         if (CharaMoveGage.MoveChar[0]!=null)
         { 
@@ -329,6 +328,8 @@ public class SkillStorage : MonoBehaviour
     public static float atkDownMaxTime;
     public static float gordonBreakerMaxTime;
     public static float gordonBreakerTime;
+    public static int gordonHateUp=0;
+    public static int gordonCharaNumber;
     void GorDonSkill()
     {
         //moveMember.text = "ÉSÅ[ÉhÉìÇÕ\nÇ«Ç§Ç∑ÇÈÅH";
@@ -360,10 +361,18 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
+                        if(gordonHateCorrection>=50)
+                        {
+                            PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] -= 50;
+                            gordonHateCorrection -=50;
+                        }
                         gordonHateCorrection += 50;
+                        PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] += gordonHateCorrection;
+                        gordonCharaNumber =charaNumber;
                         hateUpMaxTime=rate*100;
                         hateUpTime=hateUpMaxTime;
-                        comparText="íßî≠ÇåJÇËèoÇµÇΩ\nìGÇ©ÇÁë_ÇÌÇÍÇ‚Ç∑Ç≠Ç»Ç¡ÇΩ";
+                       
+                        comparText ="íßî≠ÇåJÇËèoÇµÇΩ\nìGÇ©ÇÁë_ÇÌÇÍÇ‚Ç∑Ç≠Ç»Ç¡ÇΩ";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd = true;
@@ -422,7 +431,13 @@ public class SkillStorage : MonoBehaviour
                     }
                      if(GameManager.state==GameManager.BattleState.move)
                     {
+                        if (gordonHateCorrection >= 50)
+                        {
+                            PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] -= 50;
+                            gordonHateCorrection -= 50;
+                        }
                         gordonHateCorrection += 50;
+                        PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] += gordonHateCorrection;
                         gordonBreakerMaxTime = breakerRate * 130+130;
                         gordonBreakerTime=gordonBreakerMaxTime;
                         comparText="ê‚ëŒñhâqêwÇåJÇËèoÇµÇΩ\nÇ«ÇÒÇ»çUåÇÇ‡ñhÇ¢Ç≈å©ÇπÇ‹ÇµÇÂÇ§ÅI";
@@ -959,9 +974,15 @@ public class SkillStorage : MonoBehaviour
         }
     }
 
-    private float richardSkill2Time;
-    private float richardSkill2MaxTime;
-    private float richardSkill2Buff;
+    public static float richardSkill2Time;
+    public static float richardSkill2MaxTime;
+    public static float richardSkill2Buff;
+    public static bool richardSkill3Avoidance;
+    public static float richardSkill3MaxTime;
+    public static float richardSkill3Time;
+    public static float richardSkill3HateUp;
+    public static int richardNumber;
+
     void RichardSkill() 
     {
         switch(SkillSelection.SkillNumber) 
@@ -991,6 +1012,58 @@ public class SkillStorage : MonoBehaviour
                         richardSkill2MaxTime=richardSkill2Time;
                         richardSkill2Buff=0.1f;
                         GameManager.moveEnd=true;
+                    }
+                }
+                break;
+            case 2:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "à–ïóì∞ÅX";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        richardNumber=charaNumber;
+                        richardSkill3HateUp=30;
+                        if(richardSkill3Time>0)
+                        {
+                            PlayerInfo.Player_Hate[charaNumber]-=30;
+                        }
+                        richardSkill3Time=30;
+                        richardSkill3MaxTime = richardSkill3Time;
+                        PlayerInfo.Player_Hate[charaNumber]+=30;
+                       
+                        if (Random.Range(0, 101)<100-rate*100)
+                        {
+                            richardSkill3Avoidance=true;
+                        }
+                        else
+                        {
+                            richardSkill3Avoidance=false;
+                        }
+                        GameManager.moveEnd = true;
+                    }
+                }
+                break;
+                case 3:
+                {
+                    if (GameManager.state == GameManager.BattleState.skillSelect)
+                    {
+                        NotesEditor.skillName = "äïäÑ";
+                    }
+                    if (GameManager.state == GameManager.BattleState.move)
+                    {
+                        int pAtk=(int)(PlayerInfo.Player_ATK[charaNumber]*rate);
+                        int pAtk5=0;
+                        if(playerSkill3Buff==1||atkDownTime>0||DeSpeedTime>0||sleep||poisonFlag)
+                        {
+                            pAtk5=pAtk*5;
+                        }
+                        addDamage=pAtk+pAtk5;
+                        float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
+                        EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                        EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        GameManager.moveEnd = true;
                     }
                 }
                 break;
@@ -1034,6 +1107,11 @@ public class SkillStorage : MonoBehaviour
             case "ÉXÉeÉBÉAÅ[É^":
                 {
                     StiataSkill();
+                }
+                break;
+            case "ÉäÉ`ÉÉÅ[Éh":
+                {
+                    RichardSkill();
                 }
                 break;
         }
