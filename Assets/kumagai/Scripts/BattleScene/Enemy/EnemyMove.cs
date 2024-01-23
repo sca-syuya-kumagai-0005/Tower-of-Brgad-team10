@@ -146,8 +146,8 @@ public class EnemyMove : MonoBehaviour
         }
         if(flg)
         { 
-            EnemyManager.EnemyInfo.Enemy_ATK[0]*=atkUpcorrection;
-            Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+            int eAtk=(int)(EnemyManager.EnemyInfo.Enemy_ATK[0]*atkUpcorrection*richardSkill3Buff);
+            Damage = eAtk;
             DamageCutController(target);
             DamageReflection(Damage);
             PlayerEditorManager.PlayerInfo.Player_HP[target]-=(int)Damage;
@@ -181,8 +181,8 @@ public class EnemyMove : MonoBehaviour
             { 
                 CharaMoveGage.ActTime[0] = 3*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-                EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
-                Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+                int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+                Damage = eAtk;
                 DamageCutController(target);
                 DamageReflection(Damage);
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
@@ -194,7 +194,6 @@ public class EnemyMove : MonoBehaviour
     }
     void WolfSkill3()
     {
-        Debug.Log("Šš‚İ‚Â‚«");
         SkillStorage.comparText = "r‘«‚ğŒJ‚èo‚µ‚Ä‚«‚½\n“G‚Ìs“®‘¬“x‚ªã¸‚µ‚½";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         moveUpTurn =5;
@@ -206,7 +205,6 @@ public class EnemyMove : MonoBehaviour
     }
     void WolfSkill4()
     {
-        Debug.Log("™ôšK");
         atkUpTurn=2;
         SkillStorage.comparText = "™ôšK‚ğŒJ‚èo‚µ‚Ä‚«‚½\n“G‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
@@ -232,8 +230,8 @@ public class EnemyMove : MonoBehaviour
         }
         if (flg)
         {
-            EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
-            Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+            Damage = eAtk;
             DamageCutController(target);
             DamageReflection(Damage);
             PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
@@ -266,8 +264,8 @@ public class EnemyMove : MonoBehaviour
             {
                 CharaMoveGage.ActTime[0] = 20 * moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-                EnemyManager.EnemyInfo.Enemy_ATK[0] *= atkUpcorrection;
-                Damage = (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+                int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+                Damage = eAtk;
                 DamageCutController(target);
                 DamageReflection(Damage);
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
@@ -423,6 +421,9 @@ public class EnemyMove : MonoBehaviour
             Damage=0;
         }
     }
+    
+
+    private int richardSkill3Buff;
 
     int EnemyAttackTarget()
     {
@@ -446,6 +447,14 @@ public class EnemyMove : MonoBehaviour
            
             if(target<=0)
             {
+                if(partyChara.transform.GetChild(target).gameObject.name =="ƒŠƒ`ƒƒ[ƒh"&&SkillStorage.richardSkill3Avoidance)
+                {
+                    richardSkill3Buff=0;
+                }
+                else
+                {
+                    richardSkill3Buff=1;
+                }
                 Debug.Log("ƒ^[ƒQƒbƒg‚Í"+i);
                 return i;
             }

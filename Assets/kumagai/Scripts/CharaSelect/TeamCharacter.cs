@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class TeamCharacter : MonoBehaviour
 {
     [SerializeField]
@@ -29,7 +29,7 @@ public class TeamCharacter : MonoBehaviour
     {
             
         SelectCharaJudge();
-        
+
     }
     [SerializeField]
     private int selectCharaNumberCorrection;
@@ -89,6 +89,8 @@ public class TeamCharacter : MonoBehaviour
     }
     [SerializeField]
     private int count;
+    [SerializeField]
+    GameObject objects;
     private void CharaInstantiate()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -96,20 +98,48 @@ public class TeamCharacter : MonoBehaviour
             count++;
             if(count%2==0)
             {
-                GameObject selectChara = characters.transform.GetChild(selectCharaNumber).gameObject;
-                charaName[CharaSelectManager.selectSlot] = selectChara.name;
-                GameObject obj = Resources.Load<GameObject>("PartyCharacter/" + charaName[CharaSelectManager.selectSlot]);
-                charaNumbars[CharaSelectManager.selectSlot]=selectCharaNumber;
-                Instantiate(obj, sponePos[CharaSelectManager.selectSlot].transform.position, Quaternion.identity, Character.transform);
+                objects= characters.transform.GetChild(selectCharaNumber).gameObject;
+                //Debug.Log(selectChara);
+                for (int i=0;i<4;i++)
+                {
+                    if(objects.name==charaName[i])
+                    {
+                        charaName[i]="";
+                    }
+                }
+                charaName[CharaSelectManager.selectSlot]=objects.name;
+                //Debug.Log(selectChara);
                 CharaSelectManager.charaSelectScreen = false;
+                 CharaNameManager();
             }
             else
             {
                 CharaSelectManager.charaSelectScreen=true;
             }
-            
-        }
            
-        
+        }
+    }
+
+    private void CharaNameManager()
+    {
+        for(int i=0;i<Character.transform.childCount;i++)
+        {
+            Destroy(Character.transform.GetChild(i).gameObject);
+        }
+        for(int i=0;i<4;i++)
+        {
+            if(charaName[i]!="")
+            {
+                //Debug.Log("’Ê‚Á‚Ä‚¢‚é‚æ");
+                GameObject obj = Resources.Load<GameObject>("PartyCharacter/" + charaName[i]);
+                charaNumbars[CharaSelectManager.selectSlot] = selectCharaNumber;
+                GameObject insObj = Instantiate(obj, sponePos[i].transform.position, Quaternion.identity, Character.transform);
+                insObj.name = insObj.name.Replace("(Clone)", "");
+            }
+
+        }
+     
+
+
     }
 }
