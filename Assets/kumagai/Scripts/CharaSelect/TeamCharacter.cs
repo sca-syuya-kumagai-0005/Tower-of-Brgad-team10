@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class TeamCharacter : MonoBehaviour
 {
     [SerializeField]
@@ -100,7 +100,19 @@ public class TeamCharacter : MonoBehaviour
                 charaName[CharaSelectManager.selectSlot] = selectChara.name;
                 GameObject obj = Resources.Load<GameObject>("PartyCharacter/" + charaName[CharaSelectManager.selectSlot]);
                 charaNumbars[CharaSelectManager.selectSlot]=selectCharaNumber;
-                Instantiate(obj, sponePos[CharaSelectManager.selectSlot].transform.position, Quaternion.identity, Character.transform);
+                if(Character.transform.childCount>0)
+                { 
+                    for(int i=0;i<characters.transform.childCount;i++)
+                    {
+                        if(Character.transform.GetChild(i).gameObject.name==obj.name)
+                        {
+                            Destroy(Character.transform.GetChild(i).gameObject);
+                            break;
+                        }
+                    }
+                }
+                GameObject insObj=Instantiate(obj, sponePos[CharaSelectManager.selectSlot].transform.position, Quaternion.identity, Character.transform);
+                insObj.name= insObj.name.Replace("(Clone)", "");
                 CharaSelectManager.charaSelectScreen = false;
             }
             else
