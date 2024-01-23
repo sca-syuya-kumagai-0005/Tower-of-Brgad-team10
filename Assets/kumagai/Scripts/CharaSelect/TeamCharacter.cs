@@ -14,11 +14,14 @@ public class TeamCharacter : MonoBehaviour
     private GameObject Character;
     [SerializeField]
     private GameObject notSelectIcon;
-    [SerializeField]
-    private int selectCharaNumber;
+    public static int selectCharaNumber;
     private string[] chara;
     [SerializeField]
     private GameObject characters;
+    [SerializeField] private GameObject[] changeChara;
+    [SerializeField] private GameObject[] oldChara;
+    private GameObject oldCharaParent;
+    private GameObject changeCharaParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +44,7 @@ public class TeamCharacter : MonoBehaviour
         if(CharaSelectManager.charaSelectScreen)
         {
             selectCharaNumber=selectCharaNumberCorrection+num;
+            ChangeCharaSpone();
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 if (num < 3)
@@ -89,7 +93,6 @@ public class TeamCharacter : MonoBehaviour
     }
     [SerializeField]
     private int count;
-    [SerializeField]
     GameObject objects;
     private void CharaInstantiate()
     {
@@ -114,6 +117,7 @@ public class TeamCharacter : MonoBehaviour
             }
             else
             {
+                
                 CharaSelectManager.charaSelectScreen=true;
             }
            
@@ -138,8 +142,38 @@ public class TeamCharacter : MonoBehaviour
             }
 
         }
-     
+    }
 
-
+    void ChangeCharaSpone()
+    {
+            if (charaName[CharaSelectManager.selectSlot] != "")
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (charaName[CharaSelectManager.selectSlot] == oldChara[i].name)
+                    {
+                       oldChara[i].SetActive(true);
+                    }
+                    else
+                    {
+                       oldChara[i].SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                oldChara[8].SetActive(true);
+            }
+            for(int i=0;i<8;i++)
+            {
+                if(i==selectCharaNumber)
+                {
+                   changeChara[i].SetActive(true);
+                }
+                else
+                {
+                    changeChara[i].SetActive(false);
+                }
+            }
     }
 }
