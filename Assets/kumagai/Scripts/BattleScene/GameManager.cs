@@ -268,9 +268,11 @@ public class GameManager : MonoBehaviour
         aliveCount=4;
         for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
-            if(PlayerManager.playerHPBer[i].fillAmount==0)
-            {
-                aliveCount-=1;
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                if(PlayerManager.playerHPBer[i].fillAmount==0)
+                {
+                    aliveCount-=1;
+                }
             }
         }
         if(aliveCount==0)
@@ -326,6 +328,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i=0;i<PlayerManager.playerHPBer.Length;i++)
         {
+            if(PlayerEditor.PlayerName[i]!=""&&PlayerEditor.PlayerName[i]!=null) { 
             if(PlayerManager.playerHPBer[i].fillAmount==0)
             {
                 PlayerManager.playerDeadBackGround[i].SetActive(true);
@@ -354,6 +357,7 @@ public class GameManager : MonoBehaviour
                 
                 CharaMoveGage.Char_MoveGage[i+1].transform.GetComponent<Image>().fillAmount=0;
                 aliveFlag[i+1]=false;
+            }
             }
         }
     }

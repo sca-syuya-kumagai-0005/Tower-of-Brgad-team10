@@ -1142,9 +1142,11 @@ public class SkillStorage : MonoBehaviour
     {
          for(int i=0;i<4;i++)
         {
-            if(partyChara.transform.GetChild(i).gameObject==CharaMoveGage.MoveChar[0])
-            {
-                charaNumber=i;
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                if(partyChara.transform.GetChild(i).gameObject==CharaMoveGage.MoveChar[0])
+                {
+                    charaNumber=i;
+                }
             }
             if(CharaMoveGage.MoveChar[1]!=null)
             {

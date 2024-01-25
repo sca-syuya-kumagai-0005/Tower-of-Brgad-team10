@@ -82,7 +82,9 @@ public class BreakerEditor : MonoBehaviour
         tmpSize = circle.GetComponent<RectTransform>().localScale;
         BreakerGageImage.fillAmount=70f/70f;
         for(int i = 0; i < PlayerEditor.PlayerName.Length; i++) {
-            Chara.Add(breakerChara.transform.GetChild(i).gameObject);
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                Chara.Add(breakerChara.transform.GetChild(i).gameObject);
+            }
         }
         light.SetActive(false);
         

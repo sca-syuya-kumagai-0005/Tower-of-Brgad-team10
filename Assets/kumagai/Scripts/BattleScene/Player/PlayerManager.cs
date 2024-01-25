@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     {
         for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
+            if(PlayerEditor.PlayerName[i]!=""&&PlayerEditor.PlayerName[i]!=null) { 
             GameObject p=partyChara.transform.GetChild(i).gameObject;
             GameObject mg=p.transform.Find("HP").gameObject;
             Debug.Log(mg.name);
@@ -24,6 +25,7 @@ public class PlayerManager : MonoBehaviour
             GameObject obj=p.transform.Find("BackGround").gameObject;
             playerDeadBackGround[i]=obj.transform.Find("DeadBackGround").gameObject;
             playerDeadBackGround[i].SetActive(false);
+            }
         }
         phtm=playerHPBer;
     }
@@ -33,7 +35,9 @@ public class PlayerManager : MonoBehaviour
     {
       for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
-            playerDeadBackGround[i].SetActive(!GameManager.aliveFlag[i+1]);
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                playerDeadBackGround[i].SetActive(!GameManager.aliveFlag[i+1]);
+            }
         }
     }
 }

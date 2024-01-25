@@ -16,21 +16,29 @@ public class NowCharaSet : MonoBehaviour
     private GameObject nextCharaSponePos;
     public static GameObject nextChara;
     public static GameObject nowChara;
+    [SerializeField]
+    private GameObject NullPrefab;
     // Start is called before the first frame update
     void Start()
     {
         for(int i=0;i<PlayerEditor.PlayerName.Length;i++) {
+            if(PlayerEditor.PlayerName[i]!=null&&PlayerEditor.PlayerName[i]!="") { 
             GameObject now=Resources.Load<GameObject>("NowChara/"+PlayerEditor.PlayerName[i]);
             GameObject next=Resources.Load<GameObject>("NextChara/"+PlayerEditor.PlayerName[i]);
-            Debug.Log(next.name);
             nowCharacter.Add(Instantiate(now,nowCharaSponePos.transform.position,Quaternion.identity,MoveChara.transform));
             nextCharacter.Add(Instantiate(next,nextCharaSponePos.transform.position,Quaternion.identity,MoveChara.transform));
-          
+            }
+            else {
+                nowCharacter.Add(Instantiate(NullPrefab, nowCharaSponePos.transform.position, Quaternion.identity, MoveChara.transform));
+                nextCharacter.Add(Instantiate(NullPrefab, nextCharaSponePos.transform.position, Quaternion.identity, MoveChara.transform));
+            }
         }
         for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
-            nowCharacter[i].SetActive(false);
-            nextCharacter[i].SetActive(false);
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                nowCharacter[i].SetActive(false);
+                nextCharacter[i].SetActive(false);
+            }
         }
     }
 
@@ -41,21 +49,23 @@ public class NowCharaSet : MonoBehaviour
         { 
             for(int i=0;i<PlayerEditor.PlayerName.Length;i++) 
             {
-                if(SkillStorage.charaNumber==i) 
-                {
-                    nowCharacter[i].SetActive(true);
-                    nowChara =nowCharacter[i];
-                } 
-                if(CharaMoveGage.MoveChar[0]==null)
-                {
-                    nowCharacter[i].SetActive(false);
-                }
+                if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                    if(SkillStorage.charaNumber==i) 
+                    {
+                        nowCharacter[i].SetActive(true);
+                        nowChara =nowCharacter[i];
+                    } 
+                    if(CharaMoveGage.MoveChar[0]==null)
+                    {
+                        nowCharacter[i].SetActive(false);
+                    }
 
-                if(SkillStorage.nextCharaNumber==i)
-                {
-                    nextCharacter[i].SetActive(true);
-                    nextChara=nextCharacter[i];
-                    Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚é‚æ");
+                    if(SkillStorage.nextCharaNumber==i)
+                    {
+                        nextCharacter[i].SetActive(true);
+                        nextChara=nextCharacter[i];
+                        Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚é‚æ");
+                    }
                 }
             }
         }

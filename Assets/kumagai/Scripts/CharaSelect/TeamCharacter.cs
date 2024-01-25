@@ -4,8 +4,7 @@ using UnityEngine;
 using System.Linq;
 public class TeamCharacter : MonoBehaviour
 {
-    [SerializeField]
-    private string[] charaName=new string[4];
+    public static string[] charaName=new string[4];
     [SerializeField]
     private int[] charaNumbars;
     [SerializeField]
@@ -22,6 +21,16 @@ public class TeamCharacter : MonoBehaviour
     [SerializeField] private GameObject[] oldChara;
     private GameObject oldCharaParent;
     private GameObject changeCharaParent;
+    [SerializeField]
+    private GameObject nowSlot;
+    [SerializeField]
+    private GameObject Out;
+    [SerializeField]
+    private GameObject Back;
+    [SerializeField]
+    private bool OutBack;
+    [SerializeField]
+    private bool OutorBack;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,9 +52,24 @@ public class TeamCharacter : MonoBehaviour
     {
         if(CharaSelectManager.charaSelectScreen)
         {
-            selectCharaNumber=selectCharaNumberCorrection+num;
+            if(!OutBack) {
+                Out.SetActive(false);
+                Back.SetActive(false);
+            }
+            if(Input.GetKeyDown(KeyCode.Return)) {
+                if(OutorBack && OutBack) {
+                    for(int i = 0; i < Character.transform.childCount; i++) {
+                        if(charaName[CharaSelectManager.selectSlot] == Character.transform.GetChild(i).gameObject.name) {
+                            Debug.Log(Character.transform.GetChild(i).gameObject.name);
+                            Destroy(Character.transform.GetChild(i).gameObject);
+                        }
+                    }
+                }
+            }
+            
+            selectCharaNumber =selectCharaNumberCorrection+num;
             ChangeCharaSpone();
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.D) && !OutBack || Input.GetKeyDown(KeyCode.RightArrow)&&!OutBack)
             {
                 if (num < 3)
                 {
@@ -53,7 +77,7 @@ public class TeamCharacter : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.A)&&!OutBack || Input.GetKeyDown(KeyCode.LeftArrow)&&!OutBack)
             {
                 if (num > 0)
                 {
@@ -67,6 +91,12 @@ public class TeamCharacter : MonoBehaviour
                 {
                     selectCharaNumberCorrection=0;
                 }
+                else if(selectCharaNumberCorrection==-5) {
+                    OutBack = false;
+                    changeChara[8].SetActive(false);
+                    selectCharaNumberCorrection =4;
+                    
+                }
             }
             if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -74,22 +104,64 @@ public class TeamCharacter : MonoBehaviour
                 {
                     selectCharaNumberCorrection=4;
                 }
+                else if(selectCharaNumberCorrection==4) 
+                {
+                    OutBack=true;
+                    OutorBack=false;
+                    selectCharaNumberCorrection=-5;
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.D)&&OutBack||Input.GetKeyDown(KeyCode.RightArrow)&&OutBack) {
+                OutorBack=true;
+            }
+            if(Input.GetKeyDown(KeyCode.A)&&OutBack||Input.GetKeyDown(KeyCode.LeftArrow)&&OutBack) {
+                OutorBack=false;
+            }
+            if(OutBack) {
+                for(int i = 0; i < 8; i++) {
+                    changeChara[i].SetActive(false);
+                }
+                changeChara[8].SetActive(true);
+                if(OutorBack) {
+                    Out.SetActive(true);
+                    Back.SetActive(false);
+                }
+                else {
+                    for(int i=0;i<8;i++) {
+                        if(changeChara[i].name==charaName[CharaSelectManager.selectSlot]) {
+                            changeChara[i].SetActive(true);
+                            changeChara[8].SetActive(false);
+                        }
+                        else {
+                            changeChara[i].SetActive(false);
+                        }
+                    }
+                    if(charaName[CharaSelectManager.selectSlot]=="") {
+                        oldChara[8].SetActive(true);
+                    }
+                    Back.SetActive(true);
+                    Out.SetActive(false);
+                }
+                for(int i=0;i<8;i++) {
+                    notSelectIcon.transform.GetChild(i).gameObject.SetActive(true);
+                }
+
+            }
+            else {
+                for(int i = 0; i < notSelectIcon.transform.childCount; i++) {
+                    GameObject obj = notSelectIcon.transform.GetChild(i).gameObject;
+                    if(i == selectCharaNumber) {
+                        obj.SetActive(false);
+                    } else {
+                        obj.SetActive(true);
+                    }
+                    
+                }
             }
            CharaInstantiate();
         }
 
-        for(int i=0;i<notSelectIcon.transform.childCount;i++)
-        {
-            GameObject obj = notSelectIcon.transform.GetChild(i).gameObject;
-            if (i==selectCharaNumber)
-            {
-                obj.SetActive(false);
-            }
-            else
-            {
-               obj.SetActive(true);
-            }
-        }
+        
     }
     [SerializeField]
     private int count;
@@ -99,28 +171,69 @@ public class TeamCharacter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             count++;
+            
             if(count%2==0)
             {
-                objects= characters.transform.GetChild(selectCharaNumber).gameObject;
-                //Debug.Log(selectChara);
-                for (int i=0;i<4;i++)
-                {
-                    if(objects.name==charaName[i])
-                    {
-                        charaName[i]="";
+                if(selectCharaNumber>-1) {
+                    objects = characters.transform.GetChild(selectCharaNumber).gameObject;
+                    //Debug.Log(selectChara);
+                    for(int i = 0; i < 4; i++) {
+                        if(objects.name == charaName[i]) {
+                            charaName[i] = "";
+                        }
+                    }
+                    charaName[CharaSelectManager.selectSlot] = objects.name;
+                    //Debug.Log(selectChara);
+                    CharaSelectManager.charaSelectScreen = false;
+                    CharaNameManager();
+                }
+                else {
+                    if(OutorBack) {
+                       if(Input.GetKeyDown(KeyCode.Return)) {
+                            OutBack = false;
+                            CharaSelectManager.charaSelectScreen=false;
+                        }
+                    }
+                    else {
+                        for(int i=0;i<8;i++) {
+                            if(changeChara[i].name==charaName[CharaSelectManager.selectSlot]) {
+                                changeChara[i].SetActive(true);
+                            }
+                            else {
+                                changeChara[i].SetActive(false);
+                            }
+                        }
+                        CharaSelectManager.charaSelectScreen = false;
                     }
                 }
-                charaName[CharaSelectManager.selectSlot]=objects.name;
-                //Debug.Log(selectChara);
-                CharaSelectManager.charaSelectScreen = false;
-                 CharaNameManager();
+                
             }
             else
             {
-                
+                OutBack=false;
+                changeChara[8].SetActive(false);
+                selectCharaNumber =0;
+                selectCharaNumberCorrection=0;
+                num=0;
+                for(int i=0;i<8;i++) {
+                    oldChara[i].SetActive(false);
+                }
+                if(charaName[CharaSelectManager.selectSlot]!=null&&charaName[CharaSelectManager.selectSlot]!="") {
+                    oldChara[8].SetActive(false);
+                }
+                else if(charaName[CharaSelectManager.selectSlot] == ""||charaName[CharaSelectManager.selectSlot]==null) {
+                   oldChara[8].SetActive(true);
+                }
+
                 CharaSelectManager.charaSelectScreen=true;
+                for(int i=0;i<4;i++) {
+                    if(i == CharaSelectManager.selectSlot) {
+                        nowSlot.transform.GetChild(i).gameObject.SetActive(true);
+                    } else {
+                        nowSlot.transform.GetChild(i).gameObject.SetActive(false);
+                    }
+                }
             }
-           
         }
     }
 
@@ -132,13 +245,13 @@ public class TeamCharacter : MonoBehaviour
         }
         for(int i=0;i<4;i++)
         {
-            if(charaName[i]!="")
+            if(charaName[i]!=""&&charaName[i]!=null)
             {
                 //Debug.Log("’Ê‚Á‚Ä‚¢‚é‚æ");
-                GameObject obj = Resources.Load<GameObject>("PartyCharacter/" + charaName[i]);
+                
                 charaNumbars[CharaSelectManager.selectSlot] = selectCharaNumber;
-                GameObject insObj = Instantiate(obj, sponePos[i].transform.position, Quaternion.identity, Character.transform);
-                insObj.name = insObj.name.Replace("(Clone)", "");
+                GameObject obj=Instantiate(Resources.Load<GameObject>("PartyCharacter/" + charaName[i]), sponePos[i].transform.position, Quaternion.identity, Character.transform);
+                obj.name=obj.name.Replace("(Clone)","");
             }
 
         }
@@ -148,7 +261,7 @@ public class TeamCharacter : MonoBehaviour
     {
             if (charaName[CharaSelectManager.selectSlot] != "")
             {
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     if (charaName[CharaSelectManager.selectSlot] == oldChara[i].name)
                     {
@@ -163,6 +276,7 @@ public class TeamCharacter : MonoBehaviour
             else
             {
                 oldChara[8].SetActive(true);
+            Debug.Log("  ");
             }
             for(int i=0;i<8;i++)
             {

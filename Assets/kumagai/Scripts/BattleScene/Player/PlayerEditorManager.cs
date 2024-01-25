@@ -37,7 +37,10 @@ public class PlayerEditorManager : MonoBehaviour
         Player_ActTime = new float[partyTheNumberOf];
         for (int i = 0; i < partyTheNumberOf; i++)
         {
-            PlayerStatas(PlayerEditor.playerDatas[i], i);
+            if(PlayerEditor.PlayerName[i]!=""&&PlayerEditor.PlayerName[i]!=null) {
+                PlayerStatas(PlayerEditor.playerDatas[i], i);
+            }
+           
         }
         EXPGET = true;
         SetCharStatus = true;
