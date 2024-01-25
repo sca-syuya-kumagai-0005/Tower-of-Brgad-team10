@@ -431,32 +431,36 @@ public class EnemyMove : MonoBehaviour
         
         for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
-            if (GameManager.aliveFlag[i + 1])
-            {
-                MaxHate += PlayerEditorManager.PlayerInfo.Player_Hate[i];
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                if (GameManager.aliveFlag[i + 1])
+                {
+                    MaxHate += PlayerEditorManager.PlayerInfo.Player_Hate[i];
+                }
             }
         }
         Debug.Log(MaxHate);
         int target=Random.Range(0,MaxHate+1);
-        for(int i=0;i<partyChara.transform.childCount;i++)
+        for(int i=0;i<4;i++)
         {
-            if (GameManager.aliveFlag[i + 1])
-            {
-                target -= PlayerEditorManager.PlayerInfo.Player_Hate[i];
-            }
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                if (GameManager.aliveFlag[i + 1])
+                {
+                    target -= PlayerEditorManager.PlayerInfo.Player_Hate[i];
+                }
            
-            if(target<=0)
-            {
-                if(partyChara.transform.GetChild(target).gameObject.name =="リチャード"&&SkillStorage.richardSkill3Avoidance)
+                if(target<=0)
                 {
-                    richardSkill3Buff=0;
+                    if(partyChara.transform.GetChild(target).gameObject.name =="リチャード"&&SkillStorage.richardSkill3Avoidance)
+                    {
+                        richardSkill3Buff=0;
+                    }
+                    else
+                    {
+                        richardSkill3Buff=1;
+                    }
+                    Debug.Log("ターゲットは"+i);
+                    return i;
                 }
-                else
-                {
-                    richardSkill3Buff=1;
-                }
-                Debug.Log("ターゲットは"+i);
-                return i;
             }
         }
         return 0;

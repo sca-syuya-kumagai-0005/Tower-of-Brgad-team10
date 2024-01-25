@@ -46,18 +46,19 @@ public class EXPManager : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                a=(int)OverEXP[i];
-                float b=a;
-                OverEXP[i]=Mathf.Abs(OverEXP[i]);
-                obj= GameObject.Find("MainCanvas").gameObject.transform.Find("PlayerManager").gameObject;
-                playerLv[i] =GameObject.Find("MainCanvas").gameObject.transform.Find("PlayerManager").gameObject.transform.Find("partyChar").GetChild(i).gameObject.
-                    transform.Find("HP").gameObject.transform.Find("Lv").GetComponent<Text>();
-                playerLv[i].text = "Lv"+PlayerEditorManager.Lv[i].ToString();
-                if (OverEXP[i]!=0)
-                {
-                    PlayerEditorManager.PlayerInfo.Player_EXP[i] = OverEXP[i];
+                if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                    a =(int)OverEXP[i];
+                    float b=a;
+                    OverEXP[i]=Mathf.Abs(OverEXP[i]);
+                    obj= GameObject.Find("MainCanvas").gameObject.transform.Find("PlayerManager").gameObject;
+                    playerLv[i] =GameObject.Find("MainCanvas").gameObject.transform.Find("PlayerManager").gameObject.transform.Find("partyChar").GetChild(i).gameObject.
+                        transform.Find("HP").gameObject.transform.Find("Lv").GetComponent<Text>();
+                    playerLv[i].text = "Lv"+PlayerEditorManager.Lv[i].ToString();
+                    if (OverEXP[i]!=0)
+                    {
+                        PlayerEditorManager.PlayerInfo.Player_EXP[i] = OverEXP[i];
+                    }
                 }
-               
             }
             flag=true;
         }

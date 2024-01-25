@@ -52,7 +52,22 @@ public class TeamCharacter : MonoBehaviour
     {
         if(CharaSelectManager.charaSelectScreen)
         {
-            selectCharaNumber=selectCharaNumberCorrection+num;
+            if(!OutBack) {
+                Out.SetActive(false);
+                Back.SetActive(false);
+            }
+            if(Input.GetKeyDown(KeyCode.Return)) {
+                if(OutorBack && OutBack) {
+                    for(int i = 0; i < Character.transform.childCount; i++) {
+                        if(charaName[CharaSelectManager.selectSlot] == Character.transform.GetChild(i).gameObject.name) {
+                            Debug.Log(Character.transform.GetChild(i).gameObject.name);
+                            Destroy(Character.transform.GetChild(i).gameObject);
+                        }
+                    }
+                }
+            }
+            
+            selectCharaNumber =selectCharaNumberCorrection+num;
             ChangeCharaSpone();
             if (Input.GetKeyDown(KeyCode.D) && !OutBack || Input.GetKeyDown(KeyCode.RightArrow)&&!OutBack)
             {
@@ -110,7 +125,6 @@ public class TeamCharacter : MonoBehaviour
                 if(OutorBack) {
                     Out.SetActive(true);
                     Back.SetActive(false);
-                  
                 }
                 else {
                     for(int i=0;i<8;i++) {
@@ -167,7 +181,6 @@ public class TeamCharacter : MonoBehaviour
                         if(objects.name == charaName[i]) {
                             charaName[i] = "";
                         }
-
                     }
                     charaName[CharaSelectManager.selectSlot] = objects.name;
                     //Debug.Log(selectChara);
@@ -198,13 +211,20 @@ public class TeamCharacter : MonoBehaviour
             else
             {
                 OutBack=false;
-                selectCharaNumber=0;
+                changeChara[8].SetActive(false);
+                selectCharaNumber =0;
+                selectCharaNumberCorrection=0;
+                num=0;
                 for(int i=0;i<8;i++) {
                     oldChara[i].SetActive(false);
                 }
-                if(charaName[CharaSelectManager.selectSlot] == ""||charaName[CharaSelectManager.selectSlot]==null) {
-                    oldChara[8].SetActive(true);
+                if(charaName[CharaSelectManager.selectSlot]!=null&&charaName[CharaSelectManager.selectSlot]!="") {
+                    oldChara[8].SetActive(false);
                 }
+                else if(charaName[CharaSelectManager.selectSlot] == ""||charaName[CharaSelectManager.selectSlot]==null) {
+                   oldChara[8].SetActive(true);
+                }
+
                 CharaSelectManager.charaSelectScreen=true;
                 for(int i=0;i<4;i++) {
                     if(i == CharaSelectManager.selectSlot) {
@@ -225,13 +245,13 @@ public class TeamCharacter : MonoBehaviour
         }
         for(int i=0;i<4;i++)
         {
-            if(charaName[i]!="")
+            if(charaName[i]!=""&&charaName[i]!=null)
             {
                 //Debug.Log("’Ê‚Á‚Ä‚¢‚é‚æ");
-                GameObject obj = Resources.Load<GameObject>("PartyCharacter/" + charaName[i]);
+                
                 charaNumbars[CharaSelectManager.selectSlot] = selectCharaNumber;
-                GameObject insObj = Instantiate(obj, sponePos[i].transform.position, Quaternion.identity, Character.transform);
-                insObj.name = insObj.name.Replace("(Clone)", "");
+                GameObject obj=Instantiate(Resources.Load<GameObject>("PartyCharacter/" + charaName[i]), sponePos[i].transform.position, Quaternion.identity, Character.transform);
+                obj.name=obj.name.Replace("(Clone)","");
             }
 
         }

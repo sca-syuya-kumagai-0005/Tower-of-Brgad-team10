@@ -22,12 +22,14 @@ public class PlayerSponer : MonoBehaviour
     {
         for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
-            sponeChar = Resources.Load<GameObject>("Prefabs/" + PlayerEditor.PlayerName[i]);
-            SponeChara=Instantiate(sponeChar,SponePos[i].transform.position,Quaternion.identity,partyChar.transform);
-            SponeChara.transform.GetChild(3).position=SkillSponer.transform.position;
-            SponeChara.gameObject.name = SponeChara.gameObject.name.Replace("(Clone)", "");
-            breakerChara=Resources.Load<GameObject>("Breaker/"+PlayerEditor.PlayerName[i]);
-            Instantiate(breakerChara,breakerSponePos.transform.position,Quaternion.identity,breakerBackGround.transform);
+            if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
+                sponeChar = Resources.Load<GameObject>("Prefabs/" + PlayerEditor.PlayerName[i]);
+                SponeChara=Instantiate(sponeChar,SponePos[i].transform.position,Quaternion.identity,partyChar.transform);
+                SponeChara.transform.GetChild(3).position=SkillSponer.transform.position;
+                SponeChara.gameObject.name = SponeChara.gameObject.name.Replace("(Clone)", "");
+                breakerChara=Resources.Load<GameObject>("Breaker/"+PlayerEditor.PlayerName[i]);
+                Instantiate(breakerChara,breakerSponePos.transform.position,Quaternion.identity,breakerBackGround.transform);
+            }
         }
        
     }
