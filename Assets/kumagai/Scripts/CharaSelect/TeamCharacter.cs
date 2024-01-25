@@ -157,6 +157,7 @@ public class TeamCharacter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             count++;
+            
             if(count%2==0)
             {
                 if(selectCharaNumber>-1) {
@@ -196,8 +197,13 @@ public class TeamCharacter : MonoBehaviour
             }
             else
             {
+                OutBack=false;
+                selectCharaNumber=0;
                 for(int i=0;i<8;i++) {
                     oldChara[i].SetActive(false);
+                }
+                if(charaName[CharaSelectManager.selectSlot] == ""||charaName[CharaSelectManager.selectSlot]==null) {
+                    oldChara[8].SetActive(true);
                 }
                 CharaSelectManager.charaSelectScreen=true;
                 for(int i=0;i<4;i++) {
@@ -208,7 +214,6 @@ public class TeamCharacter : MonoBehaviour
                     }
                 }
             }
-           
         }
     }
 
@@ -236,7 +241,7 @@ public class TeamCharacter : MonoBehaviour
     {
             if (charaName[CharaSelectManager.selectSlot] != "")
             {
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     if (charaName[CharaSelectManager.selectSlot] == oldChara[i].name)
                     {
@@ -251,6 +256,7 @@ public class TeamCharacter : MonoBehaviour
             else
             {
                 oldChara[8].SetActive(true);
+            Debug.Log("  ");
             }
             for(int i=0;i<8;i++)
             {

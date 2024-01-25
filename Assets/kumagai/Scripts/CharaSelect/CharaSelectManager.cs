@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.InteropServices;
+using UnityEngine.SceneManagement;
 
 public class CharaSelectManager : MonoBehaviour
 {
@@ -119,12 +120,16 @@ public class CharaSelectManager : MonoBehaviour
                     }
                 }
                 slot =!slot;
-
             }
 
             if(Input.GetKeyDown(KeyCode.Return) && !charaSelectScreen&&slot) 
             {
                 charaSelectScreen = true;
+            }
+            if(Input.GetKeyDown(KeyCode.Return)&&!slot) {
+                if(sceneSelect==1) {
+                    SceneManager.LoadScene("BattleScene");
+                }
             }
         }
     }
