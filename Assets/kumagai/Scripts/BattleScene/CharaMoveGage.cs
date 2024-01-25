@@ -39,18 +39,23 @@ public class CharaMoveGage : MonoBehaviour
              MoveCharName[i]="";
         }
         Char_MoveGage=new GameObject[this.transform.childCount+1];//キャラクターの数だけゲームオブジェクト配列を定義+1はenemy
-        Player_MoveGageImage=new Image[this.transform.childCount+1];//同様にイメージを定義
+        Player_MoveGageImage=new Image[4+1];//同様にイメージを定義
         
         Char_MoveGage[0]=GameObject.Find("Enemy").transform.GetChild(0).gameObject;//エネミーについている行動ゲージを取得
         Player_MoveGageImage[0]=Char_MoveGage[0].transform.Find("MoveGageBackGround").GetComponent<Image>();
-
-        for(int i=1;i<this.transform.childCount+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
+        int count=1;
+        for(int i=1;i<4+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
         {
+            
             Char=this.transform.GetChild(i-1).gameObject;
-            Char_MoveGage[i]=Char.transform.Find("MoveGage").gameObject.transform.Find("MoveGage").gameObject;
-          
-            Player_MoveGageImage[i] = Char_MoveGage[i].GetComponent<Image>();
-
+            if(Char.name!="NullPrefab(Clone)")
+            {
+                Char_MoveGage[count] = Char.transform.Find("MoveGage").gameObject.transform.Find("MoveGage").gameObject;
+                Player_MoveGageImage[count] = Char_MoveGage[i].GetComponent<Image>();
+                count++;
+            }
+            else { 
+                }
         }
         
     }
@@ -115,7 +120,7 @@ public class CharaMoveGage : MonoBehaviour
         {
             if (MoveChar[0] == null&&order<=MoveChar.Length-1)//行動しているキャラがいなければ
             {
-                for (int i = 0; i < Player_MoveGageImage.Length; i++) //
+                for (int i = 0; i < 5; i++) //
                 {
                     if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {

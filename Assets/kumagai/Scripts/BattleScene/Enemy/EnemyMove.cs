@@ -334,9 +334,11 @@ public class EnemyMove : MonoBehaviour
             for(int i=0;i<partyChara.transform.childCount;i++)
             {
                GameObject obj= partyChara.transform.GetChild(i).gameObject;
+                if(obj.name != "NullPrefab(Clone)") { 
                GameObject mobj=obj.transform.Find("HP").gameObject;
                 GameObject hpobj=mobj.transform.Find("HPGreen").gameObject;
                charaAlive[i]=hpobj.GetComponent<Image>();
+                }
             }
         }
     }

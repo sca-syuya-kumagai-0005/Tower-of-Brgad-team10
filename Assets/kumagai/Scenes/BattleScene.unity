@@ -686,7 +686,7 @@ MonoBehaviour:
   tmpRate: 0
   pATKCorrect: 1
   playerSkill3Buff: 0
-  hate: 0
+  gordonHate: 0
   moveMember: {fileID: 401057975}
   partyChara: {fileID: 1243792711}
   rateCorrection: 0
@@ -1803,6 +1803,7 @@ MonoBehaviour:
   nowCharaSponePos: {fileID: 139761758}
   MoveChara: {fileID: 678047525}
   nextCharaSponePos: {fileID: 352962644}
+  NullPrefab: {fileID: 3286217336226065983, guid: 0ef286eccd135bf4a8ea1d6e44ec1e9f, type: 3}
 --- !u!1 &681819708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,6 +2356,7 @@ MonoBehaviour:
   partyChar: {fileID: 1243792711}
   SkillSponer: {fileID: 606726475}
   breakerBackGround: {fileID: 2098460074}
+  NullPrefab: {fileID: 3286217336226065983, guid: 0ef286eccd135bf4a8ea1d6e44ec1e9f, type: 3}
 --- !u!1 &786270577
 GameObject:
   m_ObjectHideFlags: 0

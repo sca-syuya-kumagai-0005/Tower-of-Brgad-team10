@@ -16,6 +16,7 @@ public class CharaSelectManager : MonoBehaviour
     public static bool charaSelectScreen;
     [SerializeField]
     private GameObject charaSelectBackGround;
+    public static int charaCount;
 
     // Start is called before the first frame update
     void Start()
@@ -128,6 +129,11 @@ public class CharaSelectManager : MonoBehaviour
             }
             if(Input.GetKeyDown(KeyCode.Return)&&!slot) {
                 if(sceneSelect==1) {
+                    for(int i=0;i<4;i++) {
+                        if(TeamCharacter.charaName[i]!=null&&TeamCharacter.charaName[i]!="") {
+                            charaCount++;
+                        }
+                    }
                     SceneManager.LoadScene("BattleScene");
                 }
             }

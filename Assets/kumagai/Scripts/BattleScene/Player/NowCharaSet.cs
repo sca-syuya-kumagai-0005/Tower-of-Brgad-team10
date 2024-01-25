@@ -16,6 +16,8 @@ public class NowCharaSet : MonoBehaviour
     private GameObject nextCharaSponePos;
     public static GameObject nextChara;
     public static GameObject nowChara;
+    [SerializeField]
+    private GameObject NullPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,10 @@ public class NowCharaSet : MonoBehaviour
             GameObject next=Resources.Load<GameObject>("NextChara/"+PlayerEditor.PlayerName[i]);
             nowCharacter.Add(Instantiate(now,nowCharaSponePos.transform.position,Quaternion.identity,MoveChara.transform));
             nextCharacter.Add(Instantiate(next,nextCharaSponePos.transform.position,Quaternion.identity,MoveChara.transform));
+            }
+            else {
+                nowCharacter.Add(Instantiate(NullPrefab, nowCharaSponePos.transform.position, Quaternion.identity, MoveChara.transform));
+                nextCharacter.Add(Instantiate(NullPrefab, nextCharaSponePos.transform.position, Quaternion.identity, MoveChara.transform));
             }
         }
         for(int i=0;i<PlayerEditor.PlayerName.Length;i++)

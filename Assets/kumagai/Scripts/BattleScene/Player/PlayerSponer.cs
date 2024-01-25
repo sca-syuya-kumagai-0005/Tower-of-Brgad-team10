@@ -17,6 +17,8 @@ public class PlayerSponer : MonoBehaviour
     private GameObject breakerChara;
     [SerializeField]
     private GameObject breakerBackGround;
+    [SerializeField]
+    private GameObject NullPrefab;
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,6 +31,9 @@ public class PlayerSponer : MonoBehaviour
                 SponeChara.gameObject.name = SponeChara.gameObject.name.Replace("(Clone)", "");
                 breakerChara=Resources.Load<GameObject>("Breaker/"+PlayerEditor.PlayerName[i]);
                 Instantiate(breakerChara,breakerSponePos.transform.position,Quaternion.identity,breakerBackGround.transform);
+            }
+            else {
+                Instantiate(NullPrefab, SponePos[i].transform.position, Quaternion.identity, partyChar.transform);
             }
         }
        
