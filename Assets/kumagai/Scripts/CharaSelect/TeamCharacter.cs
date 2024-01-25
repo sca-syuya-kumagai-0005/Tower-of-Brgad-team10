@@ -4,8 +4,7 @@ using UnityEngine;
 using System.Linq;
 public class TeamCharacter : MonoBehaviour
 {
-    [SerializeField]
-    private string[] charaName=new string[4];
+    public static string[] charaName=new string[4];
     [SerializeField]
     private int[] charaNumbars;
     [SerializeField]
