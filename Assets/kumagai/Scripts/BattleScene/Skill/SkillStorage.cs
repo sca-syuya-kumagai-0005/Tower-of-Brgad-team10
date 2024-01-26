@@ -19,7 +19,7 @@ public class SkillStorage : MonoBehaviour
     [SerializeField]
     private float tmpRate;
     [SerializeField]
-    private float pATKCorrect=1;
+    private float pATKCorrect;
     public static int playerSkill3;
     [SerializeField]
     private float playerSkill3Buff;
@@ -41,6 +41,7 @@ public class SkillStorage : MonoBehaviour
     {
         tmpRate=rate;
         tmpSleep=sleep;
+        AddStatus();
         rate = NotesEditor.NotesOKCount / CommandCount;
         if (CharaMoveGage.MoveChar[0]==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
             charaNumber=-1;
@@ -97,8 +98,9 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state==GameManager.BattleState.move)
                     {
-                        float pAtk= PlayerInfo.Player_ATK[charaNumber];
-                        addDamage=(pAtk*rate)*2+2*atkStatusBuff;
+                        float pAtk= PlayerInfo.Player_ATK[charaNumber] * atkBuff + atkStatusBuff;
+                        addDamage=(pAtk*rate)*2;
+                        Debug.Log(melodyBuff);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount=ehp/EnemyManager.maxEnemyHP[0];
@@ -843,8 +845,9 @@ public class SkillStorage : MonoBehaviour
                 break;
         }
     }
-    float melodyBuff;
-    float melodyBuffTime;
+
+    public float melodyBuff;
+   public  float melodyBuffTime;
     float melodyBuffMaxTime;
     public static float imnTime;
     float imnMaxTime;
@@ -886,16 +889,18 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                        DoctorNumber = charaNumber;
-                        melodyBuffTime=30;
-                        melodyBuffMaxTime=melodyBuffTime;
-                        melodyBuff= (int)((pAtk * rate) * atkBuff + (atkStatusBuff-melodyBuff) * rate);
-                        Debug.Log("melodyBuff"+melodyBuff);
-                        targetText = EnemyNameGet.enemyNameText;
-                        comparText = "“¬‚¢‚Ìù—¥‚ðŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
-                        StartCoroutine(moveTextCoroutine(comparText));
-                        GameManager.moveEnd = true;
+                            float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                            DoctorNumber = charaNumber;
+                            melodyBuffTime=30;
+                            melodyBuffMaxTime=melodyBuffTime;
+                            melodyBuff=(pAtk * rate) * atkBuff + (atkStatusBuff - melodyBuff);
+                            Debug.Log((pAtk * rate) * atkBuff + (atkStatusBuff - melodyBuff));
+                            Debug.Log("melodyBuff"+melodyBuff);
+                            targetText = EnemyNameGet.enemyNameText;
+                            comparText = "“¬‚¢‚Ìù—¥‚ðŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
+                            StartCoroutine(moveTextCoroutine(comparText));
+                            GameManager.moveEnd=true;
+                            GameManager.state=GameManager.BattleState.effect;
                     }
                 }
                 break;
@@ -1091,8 +1096,10 @@ public class SkillStorage : MonoBehaviour
     void CharaSet()
     {
         string mChar=CharaMoveGage.MoveChar[0].name;
-        switch(mChar)
+        EnemyMove.stoneSpeedTurn -= 1;
+        switch (mChar)
         {
+            
             case "ŽålŒö":
                 {
                     PlayerSkill();
@@ -1197,13 +1204,13 @@ public class SkillStorage : MonoBehaviour
     void BuffTimeStorage()//ƒoƒt‚ÌŽžŠÔ‚ðŒ¸‚ç‚·ŠÖ”‚ðˆêŠ‡‚ÅŠÇ—‚·‚é‚½‚ß‚ÌŠÖ”
     {
         p2AtkUpTime=BuffTime(p2AtkUpTime,p2AtkUpMaxTime);
-        pATKCorrect=Buff(p2AtkUpTime,pATKCorrect,1);
+        pATKCorrect=Buff(p2AtkUpTime,pATKCorrect,0);
         addSpeed=Buff(addSpeedTurn,addSpeed,1);
         DameCutTime=BuffTime(DameCutTime,DameCutMaxTime);
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
         hateUpTime=BuffTime(hateUpTime,hateUpMaxTime);
         melodyBuffTime=BuffTime(melodyBuffTime,melodyBuffMaxTime);
-        melodyBuff=Buff(melodyBuffTime,melodyBuff,0f);
+        //melodyBuff=Buff(melodyBuffTime,melodyBuff,0f);
         if(gordonHateCorrection>0)
         { 
             gordonHateCorrection= (int)Buff(hateUpTime,gordonHateCorrection,gordonHateCorrection-50);

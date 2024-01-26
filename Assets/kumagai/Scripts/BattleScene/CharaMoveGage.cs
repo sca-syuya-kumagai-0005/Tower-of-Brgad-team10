@@ -130,7 +130,7 @@ public class CharaMoveGage : MonoBehaviour
                         alpha +=Time.deltaTime/ActTime[0];
                     }
                     else { 
-                    elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff;
+                    elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff*EnemyMove.stoneSpeedDebuff;
                     }
                     if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {
