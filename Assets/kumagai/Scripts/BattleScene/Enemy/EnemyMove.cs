@@ -271,7 +271,7 @@ public class EnemyMove : MonoBehaviour
                 PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
-        }
+            }
         
         GameManager.moveEnd = true;
     }
@@ -452,7 +452,7 @@ public class EnemyMove : MonoBehaviour
            
                 if(target<=0)
                 {
-                    if(partyChara.transform.GetChild(target).gameObject.name =="リチャード"&&SkillStorage.richardSkill3Avoidance)
+                    if(partyChara.transform.GetChild(i).gameObject.name =="リチャード"&&SkillStorage.richardSkill3Avoidance)
                     {
                         richardSkill3Buff=0;
                     }

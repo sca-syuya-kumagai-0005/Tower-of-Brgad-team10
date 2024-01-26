@@ -92,7 +92,7 @@ public class EXPManager : MonoBehaviour
                 GetEXPFlag=true;
             }
 
-            for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
+            for (int i = 0; i < 4; i++)
             {
                 int EXP = GetEXP;
                 while (EXP != 0)
@@ -114,10 +114,10 @@ public class EXPManager : MonoBehaviour
                         EXP = 0;
                         break;
                     }
-                    yield return null;
                 }
                 Debug.Log(LvUpCount[i] + "Lvã¸‚µ‚Ü‚µ‚½");
             }
+            yield return null;
             EXPGetFlag=true;
         }
     }
