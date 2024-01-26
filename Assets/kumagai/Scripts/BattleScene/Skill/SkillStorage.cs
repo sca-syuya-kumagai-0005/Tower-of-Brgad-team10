@@ -1096,8 +1096,10 @@ public class SkillStorage : MonoBehaviour
     void CharaSet()
     {
         string mChar=CharaMoveGage.MoveChar[0].name;
-        switch(mChar)
+        EnemyMove.stoneSpeedTurn -= 1;
+        switch (mChar)
         {
+            
             case "éÂêlåˆ":
                 {
                     PlayerSkill();

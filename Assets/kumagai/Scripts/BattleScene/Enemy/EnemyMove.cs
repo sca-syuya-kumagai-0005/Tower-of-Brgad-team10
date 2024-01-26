@@ -58,6 +58,10 @@ public class EnemyMove : MonoBehaviour
        PartyCharaAlive();
        tmpEM=enemyMove;
        protEnemyMove();
+        if(stoneSpeedTurn==0)
+        {
+            stoneSpeedDebuff=1;
+        }
         if (CharaMoveGage.MoveChar[0]!=null)
         { 
             if(GameManager.state==GameManager.BattleState.moveWait&&CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
@@ -304,6 +308,65 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 13 * moveUpcorrection;
         GameManager.moveEnd = true;
     }
+
+
+    void StoneSkill1()
+    {
+        SkillStorage.comparText = "魂吸いを繰り出してきた\nダメージを受けた";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        bool flg = false;
+        int target = 0;
+
+
+        if (!flg)
+        {
+            target = EnemyAttackTarget();//対象の抽選
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
+        }
+        if (flg)
+        {
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+            Damage = eAtk;
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+            CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            GameManager.moveEnd = true;
+        }
+
+    }
+
+    void StoneSkill2()
+    {
+        SkillStorage.comparText = "気力吸いを繰り出してきた\nブレイカーゲージが減少した";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        BreakerEditor.BreakerGageCount-=20;
+        GameManager.moveEnd=true;
+    }
+
+    public static bool StonePoison;
+    public static int spTurn=0;
+    void StoneSkill3()
+    {
+        SkillStorage.comparText="毒霧を繰り出してきた\n味方全体が毒状態になった";
+        StonePoison=true;
+        spTurn=5;
+    }
+
+
+    public static float stoneSpeedDebuff=1;
+    public static int stoneSpeedTurn=0;
+    void  StoneSkill4()
+    {
+        stoneSpeedDebuff=0.7f;
+        stoneSpeedTurn=8;
+    }
     void EnemyBuff()
     {
         //行動速度もしくは攻撃バフがある場合、行動速度上昇のバフは使わない
@@ -399,6 +462,34 @@ public class EnemyMove : MonoBehaviour
                         break;
                 }
         }
+        if (eN == "口だけの像")
+        {
+            switch (skillNumber)
+            {
+                case 0:
+                    {
+                        StoneSkill1();
+
+                    }
+                    break;
+                case 1:
+                    {
+                        StoneSkill2();
+                    }
+                    break;
+                case 2:
+                    {
+                        StoneSkill3();
+                    }
+                    break;
+                case 3:
+                    {
+                        StoneSkill4();
+                    }
+                    break;
+            }
+        }
+
     }
     void DamageCutController(int target)
     {
@@ -476,6 +567,11 @@ public class EnemyMove : MonoBehaviour
             EnemyManager.EnemyInfo.Enemy_HP[0]-=Damage;
             SkillStorage.RefrectCount--;
         }
+    }
+
+   void poisonDamage()
+    {
+        
     }
 
 }
