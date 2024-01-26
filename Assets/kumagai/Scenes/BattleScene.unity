@@ -692,6 +692,8 @@ MonoBehaviour:
   rateCorrection: 0
   tmpSleep: 0
   debuffStrage: 000000000b000000bc040000
+  melodyBuff: 0
+  melodyBuffTime: 0
   tmpnextCharaNumber: 0
 --- !u!4 &285012945
 Transform:
@@ -2122,7 +2124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EMT: {fileID: 1383771616}
-  WolfSkill: 000000000a0000000000000000000000
+  WolfSkill: 280000000a0000000000000000000000
   ReaperSkill: 32000000230000000f0000001e000000
   tmpEM: 0
   enemyMoveGageImage: {fileID: 0}
