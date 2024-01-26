@@ -39,8 +39,10 @@ public class TeamCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            
-        SelectCharaJudge();
+        if(!Skill.skillFlag)
+        { 
+            SelectCharaJudge();
+        }
 
     }
     [SerializeField]
