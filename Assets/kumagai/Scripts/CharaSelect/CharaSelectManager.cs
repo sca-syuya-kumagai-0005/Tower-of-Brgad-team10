@@ -134,7 +134,14 @@ public class CharaSelectManager : MonoBehaviour
                             charaCount++;
                         }
                     }
-                    SceneManager.LoadScene("BattleScene");
+                    if(charaCount==4)
+                    {
+                        SceneManager.LoadScene("BattleScene");
+                    }
+                   else
+                    {
+                        charaCount=0;
+                    }
                 }
             }
         }
