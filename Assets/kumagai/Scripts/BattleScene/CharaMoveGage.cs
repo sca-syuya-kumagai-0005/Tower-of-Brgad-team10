@@ -127,7 +127,7 @@ public class CharaMoveGage : MonoBehaviour
                         elapsedTime[i]+=Time.deltaTime * SkillStorage.DeBuffSpeed;
                         needle.transform.Rotate(0,0,-360*Time.deltaTime*SkillStorage.DeBuffSpeed/ActTime[0]);
                         Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                        alpha +=Time.deltaTime/ActTime[0];
+                        alpha +=Time.deltaTime/ActTime[0]*SkillStorage.DeBuffSpeed;
                     }
                     else { 
                     elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff*EnemyMove.stoneSpeedDebuff;
