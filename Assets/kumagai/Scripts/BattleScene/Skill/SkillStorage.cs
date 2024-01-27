@@ -35,7 +35,23 @@ public class SkillStorage : MonoBehaviour
 
     private void Start()
     {
-        
+        p2AtkUpTime=0;
+        annSkill3Time=0;
+        annBreakerTime=0;
+        DameCutTime=0;
+        atkDownTime=0;
+        gordonBreakerTime=0;
+       DeSpeedTime=0;DeInvalidTime=0;
+        reCoveryTargetFlg=false;
+        rinBreakerTime=0;
+        MagicBarrelTime=0;
+        DoctorAtkBuffTime=0;
+        sleep=false;
+        melodyBuffTime=0;
+        imnTime=0;
+        gabTime=0;
+        richardSkill2Time=0;
+        richardSkill3Time=0;
     }
     private void Update()
     {
@@ -626,12 +642,12 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        int rand = Random.Range(0, 2);
-                        if(rand==1)
+                        int rand = Random.Range(0, 4);
+                        if(rand<=2)
                         {
                             addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * 1+atkStatusBuff;
                         }
-                        if(rand==0)
+                        if(rand==3)
                         {
                             addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) *10+atkStatusBuff;
                         }
