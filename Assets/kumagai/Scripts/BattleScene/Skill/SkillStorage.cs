@@ -43,15 +43,19 @@ public class SkillStorage : MonoBehaviour
         tmpSleep=sleep;
         AddStatus();
         rate = NotesEditor.NotesOKCount / CommandCount;
-        if (CharaMoveGage.MoveChar[0]==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
-            charaNumber=-1;
-        }
+        //if (CharaMoveGage.MoveChar==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
+        //    charaNumber=-1;
+        //}
        ATKBuff();
-        if (CharaMoveGage.MoveChar[0]!=null)
+        if (CharaMoveGage.MoveChar.Count!=0)
         { 
             CharaSet();
         } 
+        if(CharaMoveGage.MoveChar.Count!=0)
+        {
             CharNumberGet();
+        }
+            
         
         if(BreakerEditor.commandEnd)
         {
@@ -1143,6 +1147,7 @@ public class SkillStorage : MonoBehaviour
     }
     void CharaSet()
     {
+        if(CharaMoveGage.MoveChar.Count==0)return;
         string mChar=CharaMoveGage.MoveChar[0].name;
         EnemyMove.stoneSpeedTurn -= 1;
         switch (mChar)
@@ -1203,26 +1208,26 @@ public class SkillStorage : MonoBehaviour
                     charaNumber=i;
                 }
             }
-            if(CharaMoveGage.MoveChar[1]!=null)
+            if (CharaMoveGage.MoveChar.Count>=2)
             {
-                if(!CharaMoveGage.MoveChar[1].CompareTag("Enemy"))
+                if (!CharaMoveGage.MoveChar[1].CompareTag("Enemy"))
                 {
-                    if(partyChara.transform.GetChild(i).gameObject==CharaMoveGage.MoveChar[1])
+                    if (partyChara.transform.GetChild(i).gameObject == CharaMoveGage.MoveChar[1])
                     {
-                        nextCharaNumber=i;
+                        nextCharaNumber = i;
                     }
                 }
-               
+
             }
-            else if (CharaMoveGage.MoveChar[2] != null)
+            else if (CharaMoveGage.MoveChar.Count >=3)
             {
                 nextCharaNumber = i;
             }
         }
-         if(CharaMoveGage.MoveChar[1]==null)
-        {
-            nextCharaNumber=-1;
-        }
+        // if(CharaMoveGage.MoveChar[1]==null)
+        //{
+        //    nextCharaNumber=-1;
+        //}
          tmpnextCharaNumber=nextCharaNumber;
     }
 
