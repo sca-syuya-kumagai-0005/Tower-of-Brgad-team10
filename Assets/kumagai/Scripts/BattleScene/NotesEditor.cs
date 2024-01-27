@@ -82,7 +82,7 @@ public class NotesEditor : MonoBehaviour
             notesBackGround.SetActive(false);
             Judge.SetActive(false);
         }
-        if (CharaMoveGage.MoveChar[0] != null&&GameManager.state==GameManager.BattleState.command)
+        if (CharaMoveGage.MoveChar!= null&&GameManager.state==GameManager.BattleState.command)
         {
             notesDatas = Resources.Load<TextAsset>("Skill/" + skillName);
             List<string[]> data = CsvReader(notesDatas);
