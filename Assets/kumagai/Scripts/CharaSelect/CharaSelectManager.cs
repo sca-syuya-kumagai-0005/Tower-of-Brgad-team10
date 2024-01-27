@@ -136,7 +136,7 @@ public class CharaSelectManager : MonoBehaviour
                     }
                     if(charaCount==4)
                     {
-                        SceneManager.LoadScene("BattleScene");
+                        SceneManager.LoadScene("FakeLoad");
                     }
                    else
                     {

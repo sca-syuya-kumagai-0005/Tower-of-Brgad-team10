@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/kumagai/Scenes/CharaSelect.unity
     guid: 2e9f51e8ecc8dcd4d986b08c14b871c6
+  - enabled: 1
+    path: Assets/kumagai/Scenes/FakeLoad.unity
+    guid: 097b45ef12ec55f4c935d0832cf0fcc9
   m_configObjects: {}

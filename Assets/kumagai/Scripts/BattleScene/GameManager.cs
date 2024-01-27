@@ -34,8 +34,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool[] tmpAlliveFlag;
     [SerializeField]private GameObject enemyImage;
     [SerializeField]private GameObject playerDamageImage;
+    [SerializeField]private GameObject BackGround;
+    //private void Awake()
+    //{
+    //    StartCoroutine(Walk());
+    //}
     void Start()
     {
+       
         aliveCount=PlayerEditor.PlayerName.Length;
         state=BattleState.start;
         enemyImage=GameObject.Find(EnemySponer.enemy.name);
@@ -44,6 +50,7 @@ public class GameManager : MonoBehaviour
             aliveFlag[i]=true;
             tmpAlliveFlag=aliveFlag;
         }
+
     }
 
     // Update is called once per frame
@@ -55,10 +62,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(state);
         Debug.Log(SkillStorage.gordonHateCorrection);
         tmpmoveEnd=moveEnd;
-        if(Input.GetKeyDown(KeyCode.Escape))
-        { 
-            SceneManager.LoadScene("TitleScene");
-        }
+
     }
 
     void BattleStateManager()
@@ -362,5 +366,17 @@ public class GameManager : MonoBehaviour
             }
             }
         }
+    }
+    float f=0;
+    private IEnumerator Walk()
+    {
+        float y;
+        while(f>=2)
+        { 
+            f+=Time.deltaTime;
+            y=Mathf.Sin(f);
+            BackGround.transform.position=new Vector3(0,y,0);
+        }
+        yield return null;
     }
 }

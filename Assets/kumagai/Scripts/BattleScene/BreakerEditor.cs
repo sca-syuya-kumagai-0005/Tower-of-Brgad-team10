@@ -27,7 +27,7 @@ public class BreakerEditor : MonoBehaviour
     private GameObject SpeedObject;
     public static float NotesOKCount;
     public static bool NotesCreate=false;
-    public static int BreakerGageCount;
+    public static int BreakerGageCount=0;
     public static bool breakerGageMax;
     [SerializeField]
     private Image BreakerGageImage;
@@ -77,7 +77,6 @@ public class BreakerEditor : MonoBehaviour
 
     void Start()
     {
-        BreakerGageCount=0;
         NotesOKCount =0;
         tmpSize = circle.GetComponent<RectTransform>().localScale;
         BreakerGageImage.fillAmount=70f/70f;

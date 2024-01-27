@@ -239,7 +239,7 @@ public class Skill : MonoBehaviour
                                 break;
                             case 7:
                                 {
-                                    skillText.text = "ガブ・サンク\n立ち上がる気力が湧き上がるような旋律を奏でる。味方全体のHPが少し回復し\nわずかな時間行動速度が速くなる。";
+                                    skillText.text = "ガブ・サンク\n立ち上がる気力が湧き上がるような旋律を奏でる。\n味方全体のHPが少し回復し\n僅かに行動速度が速くなる。";
                                 }
                                 break;
                         }

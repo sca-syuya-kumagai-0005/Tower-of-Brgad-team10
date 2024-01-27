@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameEnd : MonoBehaviour
 {
     //ゲーム終了:ボタンから呼び出す
-    public void EndGame()
+    public static void EndGame()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
