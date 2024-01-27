@@ -12,6 +12,8 @@ public class EnemyMove : MonoBehaviour
     private int[] EnemySkill;
     [SerializeField]
     int[] ReaperSkill;
+    [SerializeField]
+    int[] StoneSkill;
     public static bool enemyMove;
     [SerializeField]private bool tmpEM;
     [SerializeField] private Image enemyMoveGageImage;
@@ -36,7 +38,7 @@ public class EnemyMove : MonoBehaviour
         { 
             case "追いはぎ狼":
                 {
-                   　CharaMoveGage.ActTime[0]=1;
+                   　CharaMoveGage.ActTime[0]=8;
                     EnemySkill=WolfSkill;
                 }
                 break;
@@ -44,6 +46,12 @@ public class EnemyMove : MonoBehaviour
                 {
                     CharaMoveGage.ActTime[0]=15;
                     EnemySkill=ReaperSkill;
+                }
+                break;
+            case "口だけの像":
+                {
+                    CharaMoveGage.ActTime[0]=10;
+                    EnemySkill=StoneSkill;
                 }
                 break;
         }
@@ -183,7 +191,7 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             { 
-                CharaMoveGage.ActTime[0] = 3*moveUpcorrection;
+                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
                 Damage = eAtk;
@@ -242,7 +250,6 @@ public class EnemyMove : MonoBehaviour
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
-            CharaMoveGage.ActTime[0] = 8 * atkUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             atkUpcorrection=1.15f;
             atkUpTurn=2;
@@ -335,7 +342,7 @@ public class EnemyMove : MonoBehaviour
             PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
-            CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
+            CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             GameManager.moveEnd = true;
         }
@@ -347,6 +354,7 @@ public class EnemyMove : MonoBehaviour
         SkillStorage.comparText = "気力吸いを繰り出してきた\nブレイカーゲージが減少した";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         BreakerEditor.BreakerGageCount-=20;
+        CharaMoveGage.ActTime[0] = 15 * moveUpcorrection;
         GameManager.moveEnd=true;
     }
 
@@ -357,6 +365,8 @@ public class EnemyMove : MonoBehaviour
         SkillStorage.comparText="毒霧を繰り出してきた\n味方全体が毒状態になった";
         StonePoison=true;
         spTurn=5;
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+        GameManager.moveEnd = true;
     }
 
 
@@ -366,6 +376,8 @@ public class EnemyMove : MonoBehaviour
     {
         stoneSpeedDebuff=0.7f;
         stoneSpeedTurn=8;
+        CharaMoveGage.ActTime[0] = 15 * moveUpcorrection;
+        GameManager.moveEnd = true;
     }
     void EnemyBuff()
     {

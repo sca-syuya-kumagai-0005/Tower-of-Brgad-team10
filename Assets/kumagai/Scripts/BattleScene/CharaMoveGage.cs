@@ -127,7 +127,7 @@ public class CharaMoveGage : MonoBehaviour
                         elapsedTime[i]+=Time.deltaTime * SkillStorage.DeBuffSpeed;
                         needle.transform.Rotate(0,0,-360*Time.deltaTime*SkillStorage.DeBuffSpeed/ActTime[0]);
                         Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                        alpha +=Time.deltaTime/ActTime[0];
+                        alpha +=Time.deltaTime/ActTime[0]*SkillStorage.DeBuffSpeed;
                     }
                     else { 
                     elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff*EnemyMove.stoneSpeedDebuff;
@@ -154,7 +154,7 @@ public class CharaMoveGage : MonoBehaviour
                         elapsedTime[i] -= ActTime[i];
                         alpha-=1;
                     }
-                    else if (Player_MoveGageImage[i].fillAmount >= 1 && Player_MoveGageImage[i].name == "MoveGage")//fillAmountが１になったキャラを行動するキャラの配列に格納
+                    if (Player_MoveGageImage[i].fillAmount >= 1 && Player_MoveGageImage[i].name == "MoveGage")//fillAmountが１になったキャラを行動するキャラの配列に格納
                     {
                         MoveChar[order] = Player_MoveGageImage[i].transform.parent.gameObject.transform.parent.gameObject;//fillAmoutが1になったキャラを行動するキャラに代入
                         //MoveCharName[i] = MoveChar[order].name;
