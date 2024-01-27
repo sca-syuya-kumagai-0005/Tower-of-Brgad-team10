@@ -237,7 +237,7 @@ public class GameManager : MonoBehaviour
                     SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
                     BreakerEditor.circleSet=false;
                     StartCoroutine(GameSetController());
-                    if(GameOver||GameClear)
+                    if (GameOver||GameClear)
                     {
                         state=BattleState.reSult;
                     }
@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
             case BattleState.reSult:
                 {
                     state=BattleState.DebugStay;
-                    StartCoroutine(BattleEndWait());
+                   
                 }
                 break;
             //case BattleState.DebugStay:
@@ -279,7 +279,7 @@ public class GameManager : MonoBehaviour
         {
             GameOver=true;
             gameSetText.text="GameOver";
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("TitleScene");
         }
 
@@ -288,6 +288,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("“G‚ð“|‚µ‚Ü‚µ‚½");
             GameClear=true;
             gameSetText.text="GameClear";
+            yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("BattleScene");
         }
     }
@@ -328,6 +329,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i=0;i<PlayerManager.playerHPBer.Length;i++)
         {
+            Debug.Log(PlayerManager.playerHPBer.Length);
             if(PlayerEditor.PlayerName[i]!=""&&PlayerEditor.PlayerName[i]!=null) { 
             if(PlayerManager.playerHPBer[i].fillAmount==0)
             {
@@ -340,22 +342,20 @@ public class GameManager : MonoBehaviour
                         CharaMoveGage.MoveChar[0] = null;
                         if(CharaMoveGage.MoveChar[1]!=null)
                         {
-                                for (int j = 1; i < 5; i++)
-                                {
-                                    if (CharaMoveGage.MoveChar[j - 1] == null)
-                                    {
-                                        CharaMoveGage.order--;
-                                        CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
-                                        CharaMoveGage. MoveChar[j] = null;
+                                //for (int j = 1; j < 5; j++)
+                                //{
+                                //    if (CharaMoveGage.MoveChar[j - 1] == null)
+                                //    {
+                                //        CharaMoveGage.order--;
+                                //        CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
+                                //        CharaMoveGage. MoveChar[j] = null;
                                     
-                                    }
-                                }
+                                //    }
+                                //}
                             
                         }
                     }
                 }
-                
-                CharaMoveGage.Char_MoveGage[i+1].transform.GetComponent<Image>().fillAmount=0;
                 aliveFlag[i+1]=false;
             }
             }

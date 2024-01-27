@@ -839,6 +839,7 @@ public class SkillStorage : MonoBehaviour
                         DeInvalidTime = DeInvalidMaxTime;
                         comparText = "ƒ}ƒbƒhƒ[ƒ‹ƒh\nˆê’èŠÔã‘Ì‰»UŒ‚‚ğ–³Œø‰»‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        BreakerEditor.BreakerGageCount = 0;
                         GameManager.moveEnd = true;
                     }
                 }
@@ -970,6 +971,7 @@ public class SkillStorage : MonoBehaviour
                             PlayerInfo.Player_HP[i]=(int)php;
                             PlayerManager.playerHPBer[i].fillAmount = php/ PlayerEditorManager.MaxHP[i];
                         }
+                        BreakerEditor.BreakerGageCount = 0;
                         comparText = "¢ŠE÷‚Ì‰S‚ğŒJ‚èo‚µ‚½\n¢ŠE÷‚Ì‰S‚ªA—D‚µ‚­‹óŠÔ‚ğ•ï‚İ‚Ş";
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
@@ -1087,6 +1089,7 @@ public class SkillStorage : MonoBehaviour
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
                         richardSkill2Time=60;
                         richardSkill2MaxTime=richardSkill2Time;
+                        BreakerEditor.BreakerGageCount = 0;
                         GameManager.moveEnd = true;
                     }
                 }

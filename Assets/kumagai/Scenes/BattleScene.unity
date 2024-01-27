@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 316.99994, y: -265}
+  m_AnchoredPosition: {x: 316.99994, y: -255}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &114809174
@@ -1541,7 +1541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 316.99994, y: -189.99998}
+  m_AnchoredPosition: {x: 316.99994, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &519420028
@@ -1668,7 +1668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -116, y: -189.99998}
+  m_AnchoredPosition: {x: -131.78, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &600471177 stripped
@@ -1743,7 +1743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -116, y: -265}
+  m_AnchoredPosition: {x: -131.78, y: -255}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &678047525
@@ -2124,9 +2124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EMT: {fileID: 1383771616}
-  WolfSkill: 280000000a0000000000000000000000
+  WolfSkill: 000000000a0000000000000000000000
   ReaperSkill: 32000000230000000f0000001e000000
-  StoneSkill: 
+  StoneSkill: 00000000000000000000000000000000
   tmpEM: 0
   enemyMoveGageImage: {fileID: 0}
   partyChara: {fileID: 1243792711}
@@ -2145,6 +2145,7 @@ MonoBehaviour:
   Enemies:
   - {fileID: 313452933668080879, guid: 698697a7d2119bd49a5be8fc7751d54b, type: 3}
   - {fileID: 313452933668080879, guid: db817c2ef8607fc4ca33390093a72c67, type: 3}
+  - {fileID: 313452933668080879, guid: 1cbfaacf299ad5c40a966bcac54a7bf3, type: 3}
   SponePos: {fileID: 1269257130}
   Enemy: {fileID: 757574326}
 --- !u!1 &769314312
@@ -2290,10 +2291,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name:
-  - "\u30EC\u30C6\u30A3\u30B7\u30A2"
+  - "\u5E73\u6ADB\u51DB"
   - "\u30D5\u30A7\u30EC\u30B9\u30C8"
-  - "\u4E3B\u4EBA\u516C"
-  - "\u30B9\u30C6\u30A3\u30A2\u30FC\u30BF"
+  - "\u30A2\u30F3\u30CA\u30EA\u30FC\u30CA"
+  - "\u30EC\u30C6\u30A3\u30B7\u30A2"
   DebugDatas:
   - {fileID: 0}
   - {fileID: 0}
