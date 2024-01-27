@@ -1002,7 +1002,42 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move) 
                     {
-                        RichardSkill1();
+                        float pAtk = PlayerInfo.Player_ATK[charaNumber];
+                        addDamage = pAtk;
+                        int atkLoop = 0;
+                        for (int i = 1; i < 6; i++)
+                        {
+                            if (rate >= i * 0.2f)
+                            {
+                                atkLoop = i;
+                            }
+                            else
+                            {
+                                atkLoop = i;
+                                Debug.Log(i);
+                                Debug.Log(addDamage);
+                                break;
+                            }
+                        }
+                        for (int i = 0; i < atkLoop; i++)
+                        {
+                            float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
+                            EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
+                            EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                            if (richardSkill2Time >= 0)
+                            {
+                                float php = PlayerEditorManager.PlayerInfo.Player_HP[charaNumber];
+                                php += php * richardSkill2Buff;
+                                richardSkill2Buff += 0.01f;
+                                richardSkill2Buff = 0.1f;
+
+                            }
+                        }
+                        DamageText = ((int)(addDamage * atkLoop)).ToString() + "‚Ìƒ_ƒ[ƒW";
+                        targetText = EnemyNameGet.enemyNameText.ToString() + "‚É";
+                        comparText = "U÷‚ğŒJ‚èo‚µ‚½" + "\n" + targetText + DamageText;
+                        StartCoroutine(moveTextCoroutine(comparText));
+                        GameManager.state=GameManager.BattleState.effect;
                         GameManager.moveEnd = true;
                     }
                 }
@@ -1018,6 +1053,8 @@ public class SkillStorage : MonoBehaviour
                         richardSkill2Time=60*rate;
                         richardSkill2MaxTime=richardSkill2Time;
                         richardSkill2Buff=0.1f;
+                        comparText="ŒŒn‚ğŒJ‚èo‚µ‚½\n‚µ‚Î‚ç‚­‚ÌŠÔUŒ‚‚ğ‚·‚é‚Æ\nHP‚ğ‚í‚¸‚©‚É‰ñ•œ‚·‚é";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd=true;
                     }
                 }
@@ -1048,6 +1085,8 @@ public class SkillStorage : MonoBehaviour
                         {
                             richardSkill3Avoidance=false;
                         }
+                        comparText="ˆĞ•—“°X‚ğŒJ‚èo‚µ‚½\n­‚µ‚ÌŠÔ‘_‚í‚ê‚â‚·‚­‚È‚é\n‚³‚ç‚ÉŸ‚ÌUŒ‚‚ğŠm—¦‚Å‰ñ”ğ‚·‚é";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -1070,6 +1109,9 @@ public class SkillStorage : MonoBehaviour
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
+                        targetText = EnemyNameGet.enemyNameText;
+                        comparText ="Š•Š„‚ğŒJ‚èo‚µ‚½\n"+targetText+"‚É"+addDamage.ToString()+"ƒ_ƒ[ƒW\n—^‚¦‚½";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -1090,6 +1132,9 @@ public class SkillStorage : MonoBehaviour
                         richardSkill2Time=60;
                         richardSkill2MaxTime=richardSkill2Time;
                         BreakerEditor.BreakerGageCount = 0;
+                        targetText = EnemyNameGet.enemyNameText;
+                        comparText ="‡“dˆê‘M‚ğŒJ‚èo‚µ‚½\n"+targetText+"‚É"+pAtk.ToString()+"‚Ìƒ_ƒ[ƒW‚ğ—^‚¦‚½\n‚³‚ç‚ÉŒŒn‚ÌŒø‰Ê‚ª•t—^‚³‚ê‚½";
+                        StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
                 }
@@ -1310,34 +1355,5 @@ public class SkillStorage : MonoBehaviour
         }
     }
 
-    private IEnumerator RichardSkill1() 
-    {
-        float pAtk = PlayerInfo.Player_ATK[charaNumber];
-        addDamage = pAtk;
-        int atkLoop=0;
-        for(int i=1;i<4;i++) {
-            if(rate>=i*0.2f) {
-                atkLoop=i;
-            }
-        }
-        for(int i=0;i<atkLoop;i++) { 
-            float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
-            EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
-            EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
-            if(richardSkill2Time>=0)
-            {
-                float php=PlayerEditorManager.PlayerInfo.Player_HP[charaNumber];
-                php+=php*richardSkill2Buff;
-                richardSkill2Buff+=0.01f;
-
-            }
-            yield return new WaitForSeconds(0.2f);
-        }
-        richardSkill2Buff=0.1f;
-        DamageText = ((int)(addDamage*atkLoop)).ToString() + "‚Ìƒ_ƒ[ƒW";
-        targetText = EnemyNameGet.enemyNameText.ToString() + "‚É";
-        comparText = "U÷‚ğŒJ‚èo‚µ‚½" + "\n" + targetText + DamageText;
-        StartCoroutine(moveTextCoroutine(comparText));
-       
-    }
+    
 }

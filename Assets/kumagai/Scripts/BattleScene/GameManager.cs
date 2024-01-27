@@ -278,7 +278,8 @@ public class GameManager : MonoBehaviour
         if(aliveCount==0)
         {
             GameOver=true;
-            gameSetText.text="GameOver";
+            gameSetText.text="LOSE";
+            StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
             yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("TitleScene");
         }
@@ -287,7 +288,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("“G‚ð“|‚µ‚Ü‚µ‚½");
             GameClear=true;
-            gameSetText.text="GameClear";
+            gameSetText.text="WIN";
+            StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
             yield return new WaitForSeconds(3f);
             SceneManager.LoadScene("BattleScene");
         }

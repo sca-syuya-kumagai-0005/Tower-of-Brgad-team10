@@ -2124,9 +2124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EMT: {fileID: 1383771616}
-  WolfSkill: 000000000a0000000000000000000000
+  WolfSkill: 280000000a000000280000000a000000
   ReaperSkill: 32000000230000000f0000001e000000
-  StoneSkill: 00000000000000000000000000000000
+  StoneSkill: 280000000a0000000000000019000000
   tmpEM: 0
   enemyMoveGageImage: {fileID: 0}
   partyChara: {fileID: 1243792711}
@@ -2291,7 +2291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name:
-  - "\u5E73\u6ADB\u51DB"
+  - "\u30EA\u30C1\u30E3\u30FC\u30C9"
   - "\u30D5\u30A7\u30EC\u30B9\u30C8"
   - "\u30A2\u30F3\u30CA\u30EA\u30FC\u30CA"
   - "\u30EC\u30C6\u30A3\u30B7\u30A2"

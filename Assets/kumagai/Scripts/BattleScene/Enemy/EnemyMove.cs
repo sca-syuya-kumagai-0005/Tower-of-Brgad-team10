@@ -38,7 +38,7 @@ public class EnemyMove : MonoBehaviour
         { 
             case "í«Ç¢ÇÕÇ¨òT":
                 {
-                   Å@CharaMoveGage.ActTime[0]=1;
+                   Å@CharaMoveGage.ActTime[0]=8;
                     EnemySkill=WolfSkill;
                 }
                 break;
@@ -191,7 +191,7 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             { 
-                CharaMoveGage.ActTime[0] = 3*moveUpcorrection;
+                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
                 Damage = eAtk;
