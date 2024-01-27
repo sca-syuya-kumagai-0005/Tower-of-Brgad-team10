@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,5 +11,8 @@ public class Button : MonoBehaviour
         SceneManager.LoadScene("Serect");
     }
 
-    
+    internal void Select()
+    {
+        throw new NotImplementedException();
+    }
 }
