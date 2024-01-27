@@ -70,7 +70,7 @@ public class EnemyMove : MonoBehaviour
         {
             stoneSpeedDebuff=1;
         }
-        if (CharaMoveGage.MoveChar[0]!=null)
+        if (CharaMoveGage.MoveChar.Count!=0)
         { 
             if(GameManager.state==GameManager.BattleState.moveWait&&CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
             {

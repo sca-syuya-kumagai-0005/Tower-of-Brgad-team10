@@ -55,7 +55,7 @@ public class NowCharaSet : MonoBehaviour
                         nowCharacter[i].SetActive(true);
                         nowChara =nowCharacter[i];
                     } 
-                    if(CharaMoveGage.MoveChar[0]==null)
+                    if(CharaMoveGage.MoveChar.Count==0)
                     {
                         nowCharacter[i].SetActive(false);
                     }
@@ -65,6 +65,10 @@ public class NowCharaSet : MonoBehaviour
                         nextCharacter[i].SetActive(true);
                         nextChara=nextCharacter[i];
                         Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚é‚æ");
+                    }
+                    if(CharaMoveGage.MoveChar.Count<=1&&nextChara!=null)
+                    {
+                        nextChara.SetActive(false);
                     }
                 }
             }
