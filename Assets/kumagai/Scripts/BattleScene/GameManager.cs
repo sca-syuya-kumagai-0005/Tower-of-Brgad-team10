@@ -175,7 +175,6 @@ public class GameManager : MonoBehaviour
                         }
                         if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                         {
-                            Debug.Log("’Ê‚Á‚½‚æ");
                             for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
                             {
                                 if (CharaHP[i] != PlayerEditorManager.PlayerInfo.Player_HP[i])
@@ -298,7 +297,6 @@ public class GameManager : MonoBehaviour
 
         if(EnemyManager.EnemyInfo.Enemy_HP[0]<=0)
         {
-            Debug.Log("“G‚ð“|‚µ‚Ü‚µ‚½");
             gameSetText.text="WIN";
             StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
             yield return new WaitForSeconds(3f);
@@ -353,7 +351,6 @@ public class GameManager : MonoBehaviour
                 {
                     if (CharaMoveGage.MoveChar[0].name == PlayerEditor.PlayerName[i])
                     {
-                        Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚Ü‚·");
                         CharaMoveGage.MoveChar[0] = null;
                         if(CharaMoveGage.MoveChar[1]!=null)
                         {
