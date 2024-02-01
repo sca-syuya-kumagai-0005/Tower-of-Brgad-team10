@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
             case BattleState.moveWait:
                 {
                     CharaMoveGage.SetFlag=false;
-                    if(CharaMoveGage.characterAct)
+                    if(CharaMoveGage.characterAct&&!GameClear)
                     {
                         state=BattleState.skillSelect;
                     }
@@ -291,7 +291,7 @@ public class GameManager : MonoBehaviour
             GameOver=true;
             gameSetText.text="LOSE";
             StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3);
             SceneManager.LoadScene("TitleScene");
         }
 
@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviour
         {
             gameSetText.text="WIN";
             StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3);
             SceneManager.LoadScene("BattleScene");
         }
     }
@@ -322,8 +322,9 @@ public class GameManager : MonoBehaviour
             flg=!flg;
         }
         if(n==5) {
-            yield return new WaitForSeconds(3);
             GameClear = true;
+            yield return new WaitForSeconds(3);
+            
         }
     }
     IEnumerator PlayerDamage()
