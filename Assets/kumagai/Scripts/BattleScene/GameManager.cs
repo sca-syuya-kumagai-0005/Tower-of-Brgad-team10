@@ -35,13 +35,20 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject enemyImage;
     [SerializeField]private GameObject playerDamageImage;
     [SerializeField]private GameObject BackGround;
+    [SerializeField]private GameObject Enemy;
+    [SerializeField]private GameObject Player;
+    [SerializeField]private GameObject Floor;
+    private bool backGroundWalk;
+    
     //private void Awake()
     //{
     //    StartCoroutine(Walk());
     //}
     void Start()
     {
-       
+        Enemy.SetActive(true);
+        Floor.SetActive(true);
+        Player.SetActive(true);
         aliveCount=PlayerEditor.PlayerName.Length;
         state=BattleState.start;
         enemyImage=GameObject.Find(EnemySponer.enemy.name);
@@ -50,17 +57,18 @@ public class GameManager : MonoBehaviour
             aliveFlag[i]=true;
             tmpAlliveFlag=aliveFlag;
         }
-
+        backGroundWalk=false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!GameClear)StartMoveCharacter();
+        else EndMoveCharacter();
+        if(backGroundWalk)Walk();
         tmpAlliveFlag=aliveFlag;
         BattleStateManager();
         CharaAliveJudge();
-        Debug.Log(state);
-        Debug.Log(SkillStorage.gordonHateCorrection);
         tmpmoveEnd=moveEnd;
 
     }
@@ -291,7 +299,6 @@ public class GameManager : MonoBehaviour
         if(EnemyManager.EnemyInfo.Enemy_HP[0]<=0)
         {
             Debug.Log("“G‚ð“|‚µ‚Ü‚µ‚½");
-            GameClear=true;
             gameSetText.text="WIN";
             StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
             yield return new WaitForSeconds(3f);
@@ -309,13 +316,16 @@ public class GameManager : MonoBehaviour
         else
         {
             n=5;
-            GameClear = true;
         }
         for(int i=0;i<n;i++)
         {
             enemyImage.SetActive(flg);
             yield return new WaitForSeconds(0.1f);
             flg=!flg;
+        }
+        if(n==5) {
+            yield return new WaitForSeconds(3);
+            GameClear = true;
         }
     }
     IEnumerator PlayerDamage()
@@ -335,7 +345,6 @@ public class GameManager : MonoBehaviour
     {
         for(int i=0;i<PlayerManager.playerHPBer.Length;i++)
         {
-            Debug.Log(PlayerManager.playerHPBer.Length);
             if(PlayerEditor.PlayerName[i]!=""&&PlayerEditor.PlayerName[i]!=null) { 
             if(PlayerManager.playerHPBer[i].fillAmount==0)
             {
@@ -368,15 +377,45 @@ public class GameManager : MonoBehaviour
         }
     }
     float f=0;
-    private IEnumerator Walk()
+    private void  Walk()
     {
         float y;
-        while(f>=2)
+        if(f<=10)
         { 
-            f+=Time.deltaTime;
-            y=Mathf.Sin(f);
+            f+=Time.deltaTime*5;
+            y=Mathf.Sin(f)/2;
             BackGround.transform.position=new Vector3(0,y,0);
         }
-        yield return null;
+    }
+
+    [SerializeField] private GameObject MoveChara;
+    float x;
+    private void  StartMoveCharacter() {
+        x = MoveChara.transform.position.x;
+        Debug.Log(MoveChara.transform.position);
+            Debug.Log(x);
+            if(x<-4.4f) 
+            {
+                x += Time.deltaTime*10;
+                MoveChara.transform.position = new Vector3(x, MoveChara.transform.position.y, MoveChara.transform.position.z);
+            }
+            else {
+                x=-4.4f;
+                MoveChara.transform.position = new Vector3(x, MoveChara.transform.position.y, MoveChara.transform.position.z);
+            }
+    }
+
+    private void EndMoveCharacter() {
+        x = MoveChara.transform.position.x;
+        if(x>=-10) {
+            x -= Time.deltaTime * 10;
+            MoveChara.transform.position = new Vector3(x, MoveChara.transform.position.y, MoveChara.transform.position.z);
+        }
+        else {
+            backGroundWalk=true;
+            Enemy.SetActive(false);
+            Player.SetActive(false);
+            Floor.SetActive(false);
+        }
     }
 }
