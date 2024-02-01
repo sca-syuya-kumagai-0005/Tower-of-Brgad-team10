@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
             case BattleState.moveWait:
                 {
                     CharaMoveGage.SetFlag=false;
-                    if(CharaMoveGage.characterAct)
+                    if(CharaMoveGage.characterAct&&!GameClear)
                     {
                         state=BattleState.skillSelect;
                     }
@@ -175,7 +175,6 @@ public class GameManager : MonoBehaviour
                         }
                         if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                         {
-                            Debug.Log("’Ê‚Á‚½‚æ");
                             for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
                             {
                                 if (CharaHP[i] != PlayerEditorManager.PlayerInfo.Player_HP[i])
@@ -292,16 +291,15 @@ public class GameManager : MonoBehaviour
             GameOver=true;
             gameSetText.text="LOSE";
             StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3);
             SceneManager.LoadScene("TitleScene");
         }
 
         if(EnemyManager.EnemyInfo.Enemy_HP[0]<=0)
         {
-            Debug.Log("“G‚ð“|‚µ‚Ü‚µ‚½");
             gameSetText.text="WIN";
             StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3);
             SceneManager.LoadScene("BattleScene");
         }
     }
@@ -324,8 +322,9 @@ public class GameManager : MonoBehaviour
             flg=!flg;
         }
         if(n==5) {
-            yield return new WaitForSeconds(3);
             GameClear = true;
+            yield return new WaitForSeconds(3);
+            
         }
     }
     IEnumerator PlayerDamage()
@@ -353,7 +352,6 @@ public class GameManager : MonoBehaviour
                 {
                     if (CharaMoveGage.MoveChar[0].name == PlayerEditor.PlayerName[i])
                     {
-                        Debug.Log("’Ê‰ß‚µ‚Ä‚¢‚Ü‚·");
                         CharaMoveGage.MoveChar[0] = null;
                         if(CharaMoveGage.MoveChar[1]!=null)
                         {
