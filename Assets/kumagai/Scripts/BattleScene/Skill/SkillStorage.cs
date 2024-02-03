@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static PlayerEditorManager;
 using static MoveTextController;
+using static BuffManager;
 
 public class SkillStorage : MonoBehaviour
 {
@@ -144,6 +145,7 @@ public class SkillStorage : MonoBehaviour
                     pATKCorrect = (NotesEditor.NotesOKCount / CommandCount);
                     p2AtkUpTime=p2AtkUpMaxTime;
                     comparText="“¬u“ü°‚ğŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
+                       publicPBuffStorage.Add(0);
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd=true;
                     }
@@ -160,6 +162,7 @@ public class SkillStorage : MonoBehaviour
                     { 
                         playerSkill3Buff =(rate*100/20f)/100;
                         playerSkill3=1;
+                        publicEDeBuffStorage.Add(0);
                         comparText="–WŠQHì‚ğŒJ‚èo‚µ‚½\n“G‚Ì”íƒ_ƒ[ƒW‚ªã¸‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
@@ -286,6 +289,7 @@ public class SkillStorage : MonoBehaviour
                     {
                         rateCorrection=(rate*100*0.3f)/100;
                         comparText="‚ ‚è‚¦‚½‘I‘ğ‚ğŒJ‚èo‚µ‚½\nƒRƒ}ƒ“ƒh‚Ì¬Œ÷—¦‚ªã¸‚µ‚½";
+                        publicPBuffStorage.Add(1);
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
                     }
@@ -325,6 +329,7 @@ public class SkillStorage : MonoBehaviour
                         annBreakerMaxTime =breakerRate*100+25;
                         annBreakerTime=annBreakerMaxTime;
                         comparText= "’è‚ß‚ç‚ê‚µ‰^–½‚ğŒJ‚èo‚µ‚½\n¡‚±‚»‰^–½‚ğAA‚Ìˆê•¶š‚ÉI";
+                        publicPBuffStorage.Add(2);
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         BreakerEditor.BreakerGageCount=0;
@@ -368,7 +373,8 @@ public class SkillStorage : MonoBehaviour
                     {
                         DameCutPar=(rate*100)-40f;
                         DameCutTime=DameCutMaxTime;
-                        comparText="çŒì‚Ì\‚¦‚ğŒJ‚èo‚µ‚½\nƒS[ƒhƒ“‚ªƒ_ƒ[ƒW‚ğˆê•”–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
+                        publicPBuffStorage.Add(3);
+                        comparText ="çŒì‚Ì\‚¦‚ğŒJ‚èo‚µ‚½\nƒS[ƒhƒ“‚ªƒ_ƒ[ƒW‚ğˆê•”–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd = true;
@@ -393,7 +399,7 @@ public class SkillStorage : MonoBehaviour
                         gordonCharaNumber =charaNumber;
                         hateUpMaxTime=rate*100;
                         hateUpTime=hateUpMaxTime;
-                       
+                        publicPBuffStorage.Add(4);
                         comparText ="’§”­‚ğŒJ‚èo‚µ‚½\n“G‚©‚ç‘_‚í‚ê‚â‚·‚­‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
@@ -415,6 +421,7 @@ public class SkillStorage : MonoBehaviour
                         atkDownMaxTime= rate * 100 * 0.6f;
                         Debug.Log(atkDownMaxTime);
                         atkDownTime =atkDownMaxTime;
+                        publicEDeBuffStorage.Add(1);
                         comparText="ˆĞˆ³‚ğŒJ‚èo‚µ‚½\n“G‚ÌUŒ‚—Í‚ªŒ¸­‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
@@ -464,6 +471,7 @@ public class SkillStorage : MonoBehaviour
                         gordonBreakerTime=gordonBreakerMaxTime;
                         comparText="â‘Î–h‰qw‚ğŒJ‚èo‚µ‚½\n‚Ç‚ñ‚ÈUŒ‚‚à–h‚¢‚ÅŒ©‚¹‚Ü‚µ‚å‚¤I";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        publicPBuffStorage.Add(5);
                         comparText = "";
                         BreakerEditor.BreakerGageCount = 0;
 
@@ -502,6 +510,7 @@ public class SkillStorage : MonoBehaviour
                         DeBuffSpeed=((2-rate)/2);
                         DeSpeedTime=DeSpeedMaxTime;
                         comparText="ô•„:“İ‘«‚ğŒJ‚èo‚µ‚½\n“G‚Ìs“®‘¬“x‚ªŒ¸­‚µ‚½";
+                        publicEDeBuffStorage.Add(2);
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd=true;
@@ -549,6 +558,7 @@ public class SkillStorage : MonoBehaviour
                         DeInvalidTime=DeInvalidMaxTime;
                         comparText="Œì•„:–ï•¥‚ğŒJ‚èo‚µ‚½\nˆê’èŠÔã‘Ì‰»UŒ‚‚ğ–³Œø‰»‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        publicPBuffStorage.Add(6);
                         comparText = "";
                         GameManager.moveEnd=true;
                     }
@@ -570,6 +580,7 @@ public class SkillStorage : MonoBehaviour
                         }
                         comparText="—ì•„:•—Š™‚ğŒJ‚èo‚µ‚½\nƒ_ƒ[ƒW‚Ìˆê•”‚ğ”½Ë‚·‚é‚æ‚¤‚É‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        publicPBuffStorage.Add(7);
                         comparText = "";
                         GameManager.moveEnd = true;
                     }
@@ -589,6 +600,7 @@ public class SkillStorage : MonoBehaviour
                         rinBreaker=90 * breakerRate;
                         comparText="‹Ö•„:Œä–@‚Ìá•Ç‚ğŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ªƒ_ƒ[ƒW‚Ìˆê•”‚ğ–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
+                        publicPBuffStorage.Add(8);
                         comparText = "";
                         BreakerEditor.BreakerGageCount = 0;
 
