@@ -80,7 +80,11 @@ public class CharaMoveGage : MonoBehaviour
         
         Player_MoveGageImage[0].color = new Color(0 + alpha, 1 - alpha, 1 - alpha, 1);
         AddGage();
-       MoveCharaSort();
+        if(!GameManager.GameClear)
+        {
+            MoveCharaSort();
+        }
+
 
     }
 

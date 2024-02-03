@@ -24,14 +24,14 @@ public class GameManager : MonoBehaviour
     public static BattleState state;
     // Start is called before the first frame update
     public static bool moveEnd;
-    [SerializeField]private bool GameClear;
+    public static bool GameClear;
     [SerializeField]private bool GameOver;
     [SerializeField]private bool tmpmoveEnd;
     [SerializeField]private Text gameSetText;
     public static int enemyTmpHP;
     public static int[] CharaHP=new int[4];
     public static bool[] aliveFlag=new bool[5];
-    [SerializeField] private bool[] tmpAlliveFlag;
+    [SerializeField]private bool[] tmpAlliveFlag;
     [SerializeField]private GameObject enemyImage;
     [SerializeField]private GameObject playerDamageImage;
     [SerializeField]private GameObject BackGround;
@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     //}
     void Start()
     {
+        GameClear=false;
         Enemy.SetActive(true);
         Floor.SetActive(true);
         Player.SetActive(true);
@@ -380,10 +381,10 @@ public class GameManager : MonoBehaviour
     private void  Walk()
     {
         float y;
-        if(f<=10)
+        if(f<=4)
         { 
             f+=Time.deltaTime*5;
-            y=Mathf.Sin(f)/2;
+            y=-Mathf.Abs(Mathf.Sin(f));
             BackGround.transform.position=new Vector3(0,y,0);
         }
     }
