@@ -1024,8 +1024,8 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         addDamage = pAtk;
-                        int atkLoop = 0;
-                        for (int i = 1; i < 6; i++)
+                        int atkLoop = 1;
+                        for (int i = 1; i < 5; i++)
                         {
                             if (rate >= i * 0.2f)
                             {
