@@ -41,20 +41,28 @@ public class CommandKeyManager : MonoBehaviour
                      hit = Physics2D.Raycast(Judge.transform.position, new Vector3(100, 0, 0), 100f);
                         KeyFlag[CommandController.tmpi] = false;
                         if (hit.collider.gameObject.name != "judge")
-                    {
-                        Debug.Log(hit.collider);
-                        obj = hit.collider.gameObject;
-                         CommandController CC=obj.GetComponent<CommandController>();
-                         CC.OkFlag=true;
-                         //obj.SetActive(false);
-                        Destroy(obj);
-                        NotesEditor.commandDestroy+=1;
-                    }
+                        {
+                            Debug.Log(hit.collider);
+                            obj = hit.collider.gameObject;
+                             CommandController CC=obj.GetComponent<CommandController>();
+                             CC.OkFlag=true;
+                             StartCoroutine(JudgeElse());
+                             //obj.SetActive(false);
+                            Destroy(obj);
+                            NotesEditor.commandDestroy+=1;
+                        }
 
 
                 }
             }
         }
         }
+    }
+    [SerializeField] private GameObject redJudge;
+    private IEnumerator JudgeElse()
+    {
+        redJudge.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        redJudge.SetActive(false);
     }
 }

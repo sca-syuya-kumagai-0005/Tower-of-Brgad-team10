@@ -16,7 +16,7 @@ public class CommandController : MonoBehaviour
     private GameObject commandManager;
     [SerializeField]private GameObject mainCanvas;
     [SerializeField]Vector3 pos;
-    private GameObject good;
+    private GameObject okEff;
     public float judgeDistance;
     [SerializeField]
     private GameObject judgeObject;
@@ -33,7 +33,7 @@ public class CommandController : MonoBehaviour
         mainCanvas=GameObject.Find("MainCanvas").gameObject;
         sponePos=GameObject.Find("goodSponePos");
         pos=sponePos.transform.position;
-        good=Resources.Load<GameObject>("Prefabs/Good");
+        okEff=Resources.Load<GameObject>("Prefabs/OKEff");
        judgeFlag=false;
        OkFlag=false;
        //gameObject.tag=(NotesEditor.direction.ToString());//NotesEditorÇ©ÇÁï˚å¸ÇéÊìæÇµÇƒëŒâûÉ^ÉOÇ…ïœçX
@@ -93,7 +93,7 @@ public class CommandController : MonoBehaviour
                     Debug.Log("lastNotesÇÕTrue");
                 }
                 //StartCoroutine(NotesEditor.good(this.gameObject));
-                Instantiate(good,pos,Quaternion.identity,mainCanvas.transform);
+                Instantiate(okEff,pos,Quaternion.identity,mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
                 BreakerEditor.commandDestroy+=1;
                 // this.tag = "EndCommand";
@@ -107,7 +107,7 @@ public class CommandController : MonoBehaviour
                 OkFlag =true;
                 
                 //  this.tag = "EndCommand";
-                Instantiate(good, pos, Quaternion.identity, mainCanvas.transform);
+                Instantiate(okEff, pos, Quaternion.identity, mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
                 BreakerEditor.commandDestroy += 1;
                 Destroy(this.gameObject);
