@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject Enemy;
     [SerializeField]private GameObject Player;
     [SerializeField]private GameObject Floor;
+    [SerializeField]private GameObject redJudge;
     private bool backGroundWalk;
     
     //private void Awake()
@@ -222,6 +223,7 @@ public class GameManager : MonoBehaviour
                     {
                         SkillSelection.skillCount = 4;
                     }
+                    redJudge.SetActive(false);
                     SkillStorage.comparText="";
                     MoveTextController.moveTextFlag=false;
                     NotesEditor.commandDestroy=0;
@@ -390,8 +392,6 @@ public class GameManager : MonoBehaviour
     float x;
     private void  StartMoveCharacter() {
         x = MoveChara.transform.position.x;
-        Debug.Log(MoveChara.transform.position);
-            Debug.Log(x);
             if(x<-4.4f) 
             {
                 x += Time.deltaTime*10;
