@@ -60,30 +60,35 @@ public class SkillSelection : MonoBehaviour
     }
     void SkillSet()//現在行動しているキャラのスキルを画面左側に設定
     {
-        if (GameManager.state == GameManager.BattleState.skillSelect&&CharaMoveGage.MoveChar[0].name!= "Enemy")
+        if(!GameManager.GameClear)
         {
-            skill = CharaMoveGage.MoveChar[0].transform.Find("Skill").gameObject;
-            skill.SetActive(true);
-            if (skills[0] == null)
+            if (GameManager.state == GameManager.BattleState.skillSelect && CharaMoveGage.MoveChar[0].name != "Enemy")
+            {
+                skill = CharaMoveGage.MoveChar[0].transform.Find("Skill").gameObject;
+                skill.SetActive(true);
+                if (skills[0] == null)
+                {
+                    for (int i = 0; i < skillCount; i++)
+                    {
+                        skills[i] = skill.transform.GetChild(i).gameObject;
+                        pos[i] = skills[i].transform.position;
+                    }
+                }
+            }
+            else if (GameManager.state == GameManager.BattleState.flagReSet && !EnemyMove.enemyMove)
+            {
+                skill.SetActive(false);
+            }
+            if (GameManager.state == GameManager.BattleState.flagReSet && !EnemyMove.enemyMove)
             {
                 for (int i = 0; i < skillCount; i++)
                 {
-                    skills[i] = skill.transform.GetChild(i).gameObject;
-                    pos[i]=skills[i].transform.position;
+                    skills[i] = null;
                 }
             }
         }
-        else if(GameManager.state==GameManager.BattleState.flagReSet&&!EnemyMove.enemyMove)
-        {
-            skill.SetActive(false);
-        }
-        if (GameManager.state == GameManager.BattleState.flagReSet&&!EnemyMove.enemyMove)
-        {
-            for (int i = 0; i < skillCount; i++)
-            {
-                skills[i] = null;
-            }
-        }
+        
+        
     }
 
     public static int SkillNumber;
