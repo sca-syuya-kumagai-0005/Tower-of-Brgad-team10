@@ -381,7 +381,7 @@ public class GameManager : MonoBehaviour
     private void  Walk()
     {
         float y;
-        if(f<=4)
+        if(f<=8.5)
         { 
             f+=Time.deltaTime*5;
             y=-Mathf.Abs(Mathf.Sin(f));
