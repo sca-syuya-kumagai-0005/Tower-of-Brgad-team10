@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 public class TeamCharacter : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class TeamCharacter : MonoBehaviour
     private bool OutBack;
     [SerializeField]
     private bool OutorBack;
-    [SerializeField]GameObject[] slotName;
+    [SerializeField]Text[] slotName;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,13 +45,18 @@ public class TeamCharacter : MonoBehaviour
         { 
             SelectCharaJudge();
         }
-
+        CharaNameSet();
     }
 
     private void CharaNameSet()
     {
         for (int i = 0; i < 4; i++)
         {
+            if(charaName[i]!=null&&charaName[i]!="")
+            {
+                slotName[i].text = charaName[i];
+                slotName[i + 4].text = charaName[i];
+            }
             
         }
 
