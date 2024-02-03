@@ -4730,8 +4730,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sponePos: {fileID: 1455890982}
   storageObject: {fileID: 2070024605}
-  storage: 
-  buffIcon: []
+  pBuffStorage: 
+  pDeBuffStorage: 
+  eBuffStorage: 
+  eDeBuffStorage: 
+  buffIcon:
+  - {fileID: 3228594439386682334, guid: 707842016f08e9b4d904d2fe95677438, type: 3}
+  - {fileID: 7197491483591550434, guid: 6c16fcf199068f846aaeeccf9bb6f15e, type: 3}
+  - {fileID: 3400180587637165660, guid: e31d28285ba1d9249a8bd7d009e63358, type: 3}
+  - {fileID: 1746697814091907771, guid: 2e244bf9c1f89ab479ae4f3b8154aff9, type: 3}
+  deBuffIcon:
+  - {fileID: 3441173978886107316, guid: 1b3837fee22b5d84b9681c1002fa1c90, type: 3}
 --- !u!1 &1396450723
 GameObject:
   m_ObjectHideFlags: 0
