@@ -31,6 +31,7 @@ public class TeamCharacter : MonoBehaviour
     private bool OutBack;
     [SerializeField]
     private bool OutorBack;
+    [SerializeField]GameObject[] slotName;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +43,15 @@ public class TeamCharacter : MonoBehaviour
         if(!Skill.skillFlag)
         { 
             SelectCharaJudge();
+        }
+
+    }
+
+    private void CharaNameSet()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            
         }
 
     }
