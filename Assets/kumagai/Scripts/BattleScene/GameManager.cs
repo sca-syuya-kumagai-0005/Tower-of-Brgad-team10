@@ -381,17 +381,17 @@ public class GameManager : MonoBehaviour
     private void  Walk()
     {
         float y;
-        if(f<=8.5)
+        if(f<=10)
         { 
             f+=Time.deltaTime*5;
-            y=-Mathf.Abs(Mathf.Sin(f));
+            y=-Mathf.Abs(Mathf.Sin(f)/2);
             BackGround.transform.position=new Vector3(0,y,0);
         }
     }
 
     [SerializeField] private GameObject MoveChara;
     float x;
-    private void  StartMoveCharacter() {
+    private void StartMoveCharacter() {
         x = MoveChara.transform.position.x;
             if(x<-4.4f) 
             {
