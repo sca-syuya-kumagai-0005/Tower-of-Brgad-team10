@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using static MoveTextController;
 
 public class EnemyMove : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class EnemyMove : MonoBehaviour
     }
     void Start()
     {
+        flag=false;
         switch (CharaMoveGage.enemyName)
         { 
             case "í«Ç¢ÇÕÇ¨òT":
@@ -56,13 +58,17 @@ public class EnemyMove : MonoBehaviour
                 break;
         }
         charaAlive =new Image[partyChara.transform.childCount];
-
     }
 
+    bool flag=false;
     // Update is called once per frame
     void Update()
     {
-       
+       if(!flag)
+        {
+            StartCoroutine(moveTextCoroutine(CharaMoveGage.enemyName + "Ç™åªÇÍÇΩÅI"));
+            flag =true;
+        }
        PartyCharaAlive();
        tmpEM=enemyMove;
        protEnemyMove();
