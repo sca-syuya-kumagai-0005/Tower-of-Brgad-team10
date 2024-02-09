@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9045132914999673441}
   - component: {fileID: 8257024600113501908}
   - component: {fileID: 325259984073517056}
+  - component: {fileID: 1807722745072026155}
   m_Layer: 5
   m_Name: MoveUp
   m_TagString: Untagged
@@ -75,3 +76,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1807722745072026155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5158777229101057760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e0824e6ed6d954197bb733e96a42fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
