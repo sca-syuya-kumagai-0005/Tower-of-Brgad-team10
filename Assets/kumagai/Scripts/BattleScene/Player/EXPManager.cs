@@ -40,9 +40,17 @@ public class EXPManager : MonoBehaviour
     {
         playerLv=new Text[PlayerEditor.PlayerName.Length];
         LvUpCharaName=new List<string>();
+        LvUpCharaNumber=new List<int>();
         flag=false;
         GetEXPFlag = false;
         EXPGetFlag=false;
+        coroutineFlag=false;
+        for(int i=0;i<4;i++)
+        {
+            tmpHp[i] = (int)PlayerEditorManager.MaxHP[i];
+            tmpAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
+            tmpAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
+        }
     }
 
     // Update is called once per frame
@@ -87,6 +95,7 @@ public class EXPManager : MonoBehaviour
     public int[] newAtk = new int[4];
     public float[] newAct = new float[4];
     private int LvUpChara;
+    public List<int> LvUpCharaNumber;
     IEnumerator  LvJudge()
     {
 
@@ -113,9 +122,7 @@ public class EXPManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 int EXP = GetEXP;
-                tmpHp[i]=PlayerEditorManager.PlayerInfo.Player_HP[i];
-                tmpAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
-                tmpAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
+                
                 while (EXP != 0)
                 {
                     EXP -= PlayerEditorManager.PlayerInfo.Player_EXP[i];
@@ -126,20 +133,21 @@ public class EXPManager : MonoBehaviour
                         if(!flag)
                         {
                             LvUpCharaName.Add(PlayerEditor.PlayerName[i]);
+                            LvUpCharaNumber.Add(i);
                             LvUpChara++;
                             flag=true;
                         }
                         PlayerEditorManager.Lv[i] += 1;
                         LvUpCount[i]++;
-                        newHp[i] = PlayerEditorManager.PlayerInfo.Player_HP[PlayerEditorManager.Lv[i]];
-                        newAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[PlayerEditorManager.Lv[i]];
-                        newAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[PlayerEditorManager.Lv[i]];
                         PlayerEditorManager. PlayerStatas(PlayerEditor.playerDatas[i], i);
+                        newHp[i] = (int)PlayerEditorManager.MaxHP[i];
+                        newAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
+                        newAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
                         Debug.Log("EXPは"+EXP);
                     }
                     else
                     {
-                      
+                        
                         Debug.Log("EXPは"+EXP);
                         OverEXP[i] =EXP;
                         EXP = 0;
@@ -156,11 +164,12 @@ public class EXPManager : MonoBehaviour
         }
         
     }
-
+    bool coroutineFlag;
      private IEnumerator LvUpSheetManager()
     {
-        if(GameManager.state==GameManager.BattleState.reSult)
+        if(GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag)
         {
+            coroutineFlag=true;
             while (LvUpSheet.transform.position.y > 540)
             {
                 Vector3 pos = LvUpSheet.transform.position;
@@ -170,11 +179,10 @@ public class EXPManager : MonoBehaviour
             }
             for (int i = 0; i < LvUpChara; i++)
             {
-
                 CharaName.text = LvUpCharaName[i];
-                hpText.text = "HP " + tmpHp[i].ToString() + " →　" + newHp[i].ToString();
-                atkText.text = "ATK " + tmpAtk[i].ToString() + " →　" + newAtk[i].ToString();
-                actText.text = "速度 " + tmpAct[i].ToString() + " →　" + newAct[i].ToString();
+                hpText.text = "HP " + tmpHp[LvUpCharaNumber[i]].ToString() + " →　" + newHp[LvUpCharaNumber[i]].ToString();
+                atkText.text = "ATK " + tmpAtk[LvUpCharaNumber[i]].ToString() + " →　" + newAtk[LvUpCharaNumber[i]].ToString();
+                actText.text = "速度 " + tmpAct[LvUpCharaNumber[i]].ToString() + " →　" + newAct[LvUpCharaNumber[i]].ToString();
                 yield return new WaitForSeconds(2f);
             }
             GameManager.loopScene = true;
