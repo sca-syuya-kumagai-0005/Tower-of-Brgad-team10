@@ -56,6 +56,6 @@ public class Twinkle : MonoBehaviour
             yield return null;
         }
         //  this.gameObject.GetComponent<RectTransform>().localScale=size;
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 }

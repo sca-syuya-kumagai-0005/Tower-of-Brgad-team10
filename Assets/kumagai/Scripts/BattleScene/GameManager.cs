@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameClear=false;
+        loopScene=false;
         Enemy.SetActive(true);
         Floor.SetActive(true);
         Player.SetActive(true);
@@ -72,7 +73,10 @@ public class GameManager : MonoBehaviour
         BattleStateManager();
         CharaAliveJudge();
         tmpmoveEnd=moveEnd;
-
+        if (GameOver || GameClear)
+        {
+            state = BattleState.reSult;
+        }
     }
 
     void BattleStateManager()
@@ -275,7 +279,7 @@ public class GameManager : MonoBehaviour
             //    break;
         }
     }
-
+    public static bool loopScene;
     public static int aliveCount=4;
     IEnumerator GameSetController()
     {
@@ -298,7 +302,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("TitleScene");
         }
 
-        if(EnemyManager.EnemyInfo.Enemy_HP[0]<=0)
+        if(loopScene)
         {
             gameSetText.text="WIN";
             StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
