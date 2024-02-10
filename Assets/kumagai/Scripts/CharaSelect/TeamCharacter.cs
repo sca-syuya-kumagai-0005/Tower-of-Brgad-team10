@@ -52,10 +52,23 @@ public class TeamCharacter : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
+            if(charaName[i]=="")
+            {
+                slotName[i].text="スロット"+(i+1).ToString();
+                slotName[i+4].text="スロット"+(i+1).ToString();
+            }
             if(charaName[i]!=null&&charaName[i]!="")
             {
-                slotName[i].text = charaName[i];
-                slotName[i + 4].text = charaName[i];
+                if(charaName[i]=="主人公")
+                {
+                    slotName[i].text="レオン";
+                    slotName[i + 4].text = "レオン";
+                }
+                else
+                {
+                    slotName[i].text = charaName[i];
+                    slotName[i + 4].text = charaName[i];
+                }
             }
             
         }
@@ -78,13 +91,13 @@ public class TeamCharacter : MonoBehaviour
                 if(OutorBack && OutBack) {
                     for(int i = 0; i < Character.transform.childCount; i++) {
                         if(charaName[CharaSelectManager.selectSlot] == Character.transform.GetChild(i).gameObject.name) {
-                            Debug.Log(Character.transform.GetChild(i).gameObject.name);
+                            
                             Destroy(Character.transform.GetChild(i).gameObject);
                         }
                     }
                 }
             }
-            
+           
             selectCharaNumber =selectCharaNumberCorrection+num;
             ChangeCharaSpone();
             if (Input.GetKeyDown(KeyCode.D) && !OutBack || Input.GetKeyDown(KeyCode.RightArrow)&&!OutBack)
