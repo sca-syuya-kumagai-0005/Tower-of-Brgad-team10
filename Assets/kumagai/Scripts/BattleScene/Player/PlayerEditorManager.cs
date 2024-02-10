@@ -12,6 +12,7 @@ public class PlayerEditorManager : MonoBehaviour
     //private GameObject Players;
     public static int[] Lv = { 1, 1, 1, 1 };
     private int nowATK;
+    public int[] tmpLv;
     public static bool EXPGET = false;
     public static bool SetCharStatus = false;
     public static int[] tmpExp = new int[4];
@@ -51,7 +52,7 @@ public class PlayerEditorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        tmpLv=Lv;
     }
 
     public static void PlayerStatas(List<string[]> EData, int Integer)
