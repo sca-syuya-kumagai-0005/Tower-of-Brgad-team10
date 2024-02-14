@@ -150,6 +150,8 @@ public class CommandController : MonoBehaviour
             }
             judgeFlag =true;
         }
+        var sr=this.gameObject.GetComponent<SpriteRenderer>();
+        sr.color=new Color(1,1,1,0.75f);
     }
 
     private void OnTriggerExit2D(Collider2D other)

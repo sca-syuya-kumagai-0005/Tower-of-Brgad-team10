@@ -77,6 +77,10 @@ public class GameManager : MonoBehaviour
         {
             state = BattleState.reSult;
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
     }
 
     void BattleStateManager()
