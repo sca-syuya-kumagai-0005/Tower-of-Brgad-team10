@@ -187,7 +187,16 @@ public class EXPManager : MonoBehaviour
             }
             GameManager.loopScene = true;
         }
-        
+        if(GameManager.loopScene)
+        {
+            while (LvUpSheet.transform.position.y < 540+1200)
+            {
+                Vector3 pos = LvUpSheet.transform.position;
+                LvUpSheet.transform.position = new Vector3(pos.x, LvUpSheet.transform.position.y + 1200 * Time.deltaTime, pos.z);
+                Debug.Log("     ");
+                yield return null;
+            }
+        }
        
         yield break;
     }
