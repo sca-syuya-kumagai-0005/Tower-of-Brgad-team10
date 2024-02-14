@@ -151,6 +151,7 @@ MonoBehaviour:
   pos: {x: 0, y: 0, z: 0}
   judgeDistance: 0
   judgeObject: {fileID: 0}
+  SE: {fileID: 0}
 --- !u!1 &4646765993057152053
 GameObject:
   m_ObjectHideFlags: 0
