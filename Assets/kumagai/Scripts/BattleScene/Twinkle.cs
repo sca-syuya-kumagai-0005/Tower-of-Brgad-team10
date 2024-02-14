@@ -7,10 +7,14 @@ public class Twinkle : MonoBehaviour
 {
     private const float addSize=30;
     private float alpha;
+    public AudioSource SE;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Effect());
+        SE = GetComponent<AudioSource>();
+        SE.clip = Resources.Load<AudioClip>("SE/“ü—Í¬Œ÷");
+        SE.PlayOneShot(SE.clip);
     }
 
     // Update is called once per frame

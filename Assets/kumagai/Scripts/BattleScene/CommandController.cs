@@ -21,6 +21,7 @@ public class CommandController : MonoBehaviour
     [SerializeField]
     private GameObject judgeObject;
 
+
     // Start is called before the first frame update
 
     private void OnEnable()
@@ -29,6 +30,7 @@ public class CommandController : MonoBehaviour
         {
             this.transform.localScale = new Vector3(90, 90, 0);
         }
+
         judgeObject=GameObject.Find("judge").gameObject;
         mainCanvas=GameObject.Find("MainCanvas").gameObject;
         sponePos=GameObject.Find("goodSponePos");
@@ -47,6 +49,7 @@ public class CommandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         speed = int.Parse(this.gameObject.transform.GetChild(0).gameObject.name)*SkillStorage.addSpeed;//*SkillStorage.addSpeed;
         if (Input.GetKeyDown(KeyCode.Return))//後で変更　仕様待ち
         {
@@ -76,6 +79,7 @@ public class CommandController : MonoBehaviour
         }
         if (Input.GetKeyDown(myName)&&judgeFlag)
         {
+
             NotesEditor.NotesOKCount +=1;
             BreakerEditor.NotesOKCount+=1;
             BreakerEditor.BreakerGageCount++;
@@ -89,9 +93,8 @@ public class CommandController : MonoBehaviour
                 if (NotesEditor.commandEnd)
                 { 
                     GameManager.moveEnd=true;
-                    Debug.Log(NotesEditor.commandEnd);
-                    Debug.Log("lastNotesはTrue");
                 }
+                
                 //StartCoroutine(NotesEditor.good(this.gameObject));
                 Instantiate(okEff,pos,Quaternion.identity,mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
