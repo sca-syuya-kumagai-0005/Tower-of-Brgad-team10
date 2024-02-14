@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BuffManager : MonoBehaviour
 {
     [SerializeField]private GameObject sponePos;
@@ -22,16 +23,18 @@ public class BuffManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        publicPBuffStorage=new List<int>();
         pos=sponePos.GetComponent<RectTransform>().position;
         DerivaryRot=storageObject;
-        IconSponeManager(pBuffStorage, pDeBuffStorage);
         StartCoroutine(ChangePlayerEnemyIcon());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //pBuffStorage=publicPBuffStorage;
+        publicPBuffStorage=IconDestory(publicPBuffStorage);
+        pBuffStorage=publicPBuffStorage;
+
         //pDeBuffStorage=publicPDeBuffStorage;
     }
     //バフ、もしくはデバフが掛けられたときに行う処理
@@ -45,16 +48,23 @@ public class BuffManager : MonoBehaviour
         //現在かかっているバフに応じてアイコンを生成する
         for(int i=0;i<BuffStorage.Count;i++)
         {
+            Debug.Log(BuffStorage.Count);
             //バフデバフのアイコンは最大12個までしか表示しないため12個生成した時点で処理を停止する
-            if(i>=12)
+            if (i>=12)
             {
                 break;
             }
-            Instantiate(buffIcon[BuffStorage[i]],pos+new Vector3 (i,0,0),Quaternion.identity,storageObject.transform);
+            bool flag=false;
+            if(!flag)
+            {
+                Instantiate(buffIcon[BuffStorage[i]], pos + new Vector3(i, 0, 0), Quaternion.identity, storageObject.transform);
+                flag=true;
+            }
         }
         //バフを生成し終えたらデバフアイコンを生成(バフの後にデバフを表示するため)
         for(int i = BuffStorage.Count;i<DeBuffStorage.Count+BuffStorage.Count;i++)
         {
+           
             //こちらも上記と同様に停止の処理を行う
             if (i >= 12)
             {
@@ -133,5 +143,24 @@ public class BuffManager : MonoBehaviour
     public static Quaternion storageRot()
     {
         return DerivaryRot.transform.rotation;
+    }
+
+    private List<int> IconDestory(List<int> BuffStorage)
+    {
+        for(int i=0;i<BuffStorage.Count;i++)
+        {
+            for (int j = 0; j < BuffStorage.Count; j++)
+            {
+                if (BuffStorage[i] == BuffStorage[j])
+                {
+                    if (i != j)
+                    {
+                        BuffStorage.RemoveAt(j);
+                    }
+                }
+            }
+        }
+       
+        return BuffStorage;
     }
 }
