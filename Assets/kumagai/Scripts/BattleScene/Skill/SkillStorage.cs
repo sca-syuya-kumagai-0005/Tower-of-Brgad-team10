@@ -1282,6 +1282,29 @@ public class SkillStorage : MonoBehaviour
         return 0;
     }
 
+    float BuffTime(float time, float maxTime,int IconNumber)//バフの時間を減らす関数
+    {
+        if (time > 0)
+        {
+            time -= Time.deltaTime;
+            return time;
+            if (false)//協力ブレイカー用　現在は到達できない
+            {
+                time = maxTime;
+            }
+        }
+        else
+        {
+            for(int i=0;i<publicPBuffStorage.Count;i++)
+            {
+                if(publicPBuffStorage[i]==IconNumber)
+                {
+                    publicPBuffStorage.RemoveAt(IconNumber);
+                }
+            }
+        }
+        return 0;
+    }
     public static float Buff(float time,float buff,float normal)//バフの時間が切れたら初期値に戻す関数
     {
         if(time<=0)
@@ -1292,7 +1315,7 @@ public class SkillStorage : MonoBehaviour
     }
     void BuffTimeStorage()//バフの時間を減らす関数を一括で管理するための関数
     {
-        p2AtkUpTime=BuffTime(p2AtkUpTime,p2AtkUpMaxTime);
+        p2AtkUpTime=BuffTime(p2AtkUpTime,p2AtkUpMaxTime,0);
         pATKCorrect=Buff(p2AtkUpTime,pATKCorrect,0);
         addSpeed=Buff(addSpeedTurn,addSpeed,1);
         DameCutTime=BuffTime(DameCutTime,DameCutMaxTime);
