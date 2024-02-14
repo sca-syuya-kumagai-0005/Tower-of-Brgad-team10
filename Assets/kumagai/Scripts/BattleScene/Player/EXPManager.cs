@@ -53,6 +53,8 @@ public class EXPManager : MonoBehaviour
         }
     }
 
+    Coroutine coroutine;
+
     // Update is called once per frame
     void Update()
     {
@@ -82,7 +84,7 @@ public class EXPManager : MonoBehaviour
             StartCoroutine(LvJudge()); 
         }
       
-        StartCoroutine(LvUpSheetManager());
+        coroutine= StartCoroutine(LvUpSheetManager());
 
     }
     [SerializeField]
@@ -143,18 +145,14 @@ public class EXPManager : MonoBehaviour
                         newHp[i] = (int)PlayerEditorManager.MaxHP[i];
                         newAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
                         newAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
-                        Debug.Log("EXP‚Í"+EXP);
                     }
                     else
                     {
-                        
-                        Debug.Log("EXP‚Í"+EXP);
                         OverEXP[i] =EXP;
                         EXP = 0;
                         break;
                     }
                 }
-                Debug.Log(LvUpCount[i] + "Lvã¸‚µ‚Ü‚µ‚½");
             }
             
            
@@ -167,14 +165,13 @@ public class EXPManager : MonoBehaviour
     bool coroutineFlag;
      private IEnumerator LvUpSheetManager()
     {
-        if(GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag)
+        if (GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag)
         {
             coroutineFlag=true;
             while (LvUpSheet.transform.position.y > 540)
             {
                 Vector3 pos = LvUpSheet.transform.position;
                 LvUpSheet.transform.position = new Vector3(pos.x, LvUpSheet.transform.position.y - 1200 * Time.deltaTime, pos.z);
-                Debug.Log("     ");
                 yield return null;
             }
             for (int i = 0; i < LvUpChara; i++)
@@ -193,7 +190,6 @@ public class EXPManager : MonoBehaviour
             {
                 Vector3 pos = LvUpSheet.transform.position;
                 LvUpSheet.transform.position = new Vector3(pos.x, LvUpSheet.transform.position.y + 1200 * Time.deltaTime, pos.z);
-                Debug.Log("     ");
                 yield return null;
             }
         }

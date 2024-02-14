@@ -21,8 +21,8 @@ public class FloarManager : MonoBehaviour
         if(GameManager.state==GameManager.BattleState.reSult)
         {
             FloorText.text=nowFloar.ToString();
-            EnemyManager.EnemyInfo.Enemy_Lv[0]=30;
-            //EnemyManager.EnemyInfo.Enemy_Lv[0]=1+(nowFloar-1)*3;
+            //EnemyManager.EnemyInfo.Enemy_Lv[0]=30;
+            EnemyManager.EnemyInfo.Enemy_Lv[0]=1+(nowFloar-1)*3;
         }
     }
 }
