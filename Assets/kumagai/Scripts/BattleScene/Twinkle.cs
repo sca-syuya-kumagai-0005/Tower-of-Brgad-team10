@@ -38,9 +38,6 @@ public class Twinkle : MonoBehaviour
         Vector3 size = this.gameObject.GetComponent<RectTransform>().localScale;
         while (alpha<1&&!alphaFlag)
         {
-            
-            
-            Debug.Log(size);
             alpha+=Time.deltaTime*10;
             this.gameObject.GetComponent<RectTransform>().localScale+=new Vector3(Time.deltaTime,Time.deltaTime,0)*addSize;
             this.gameObject.GetComponent<Image>().color=new Color(1,1,1,alpha);
@@ -49,7 +46,6 @@ public class Twinkle : MonoBehaviour
        alphaFlag=true;
         while(alphaFlag&&alpha>0)
         {
-            Debug.Log(size);
             alpha -= Time.deltaTime*10;
             this.gameObject.GetComponent<RectTransform>().localScale += new Vector3(Time.deltaTime, Time.deltaTime, 0)*addSize;
             this.gameObject.GetComponent<Image>().color = new Color(1, 1, 1, alpha);
