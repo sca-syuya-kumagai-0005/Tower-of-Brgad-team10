@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         if(!GameClear)StartMoveCharacter();
         else EndMoveCharacter();
-        if(backGroundWalk)Walk();
+        if(backGroundWalk&&loopScene)Walk();
         tmpAlliveFlag=aliveFlag;
         BattleStateManager();
         CharaAliveJudge();
@@ -258,7 +258,7 @@ public class GameManager : MonoBehaviour
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
                     BreakerEditor.circleSet=false;
-                    StartCoroutine(GameSetController());
+                   
                     if (GameOver||GameClear)
                     {
                         state=BattleState.reSult;
@@ -272,7 +272,8 @@ public class GameManager : MonoBehaviour
                 break;
             case BattleState.reSult:
                 {
-                    state=BattleState.DebugStay;
+                    StartCoroutine(GameSetController());
+                    state =BattleState.DebugStay;
                    
                 }
                 break;
@@ -285,7 +286,7 @@ public class GameManager : MonoBehaviour
     }
     public static bool loopScene;
     public static int aliveCount=4;
-    IEnumerator GameSetController()
+     IEnumerator GameSetController()
     {
         aliveCount=4;
         for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
