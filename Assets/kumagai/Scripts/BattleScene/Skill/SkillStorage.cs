@@ -1318,10 +1318,10 @@ public class SkillStorage : MonoBehaviour
         p2AtkUpTime=BuffTime(p2AtkUpTime,p2AtkUpMaxTime,0);
         pATKCorrect=Buff(p2AtkUpTime,pATKCorrect,0);
         addSpeed=Buff(addSpeedTurn,addSpeed,1);
-        DameCutTime=BuffTime(DameCutTime,DameCutMaxTime);
+        DameCutTime=BuffTime(DameCutTime,DameCutMaxTime,3);
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
         hateUpTime=BuffTime(hateUpTime,hateUpMaxTime);
-        melodyBuffTime=BuffTime(melodyBuffTime,melodyBuffMaxTime);
+        melodyBuffTime=BuffTime(melodyBuffTime,melodyBuffMaxTime,8);
         //melodyBuff=Buff(melodyBuffTime,melodyBuff,0f);
         if(gordonHateCorrection>0)
         { 
@@ -1332,15 +1332,15 @@ public class SkillStorage : MonoBehaviour
         atkDownDeBuff=Buff(atkDownTime,atkDownDeBuff,0);
         DeSpeedTime=BuffTime(DeSpeedTime,DeSpeedMaxTime);
         DeBuffSpeed=Buff(DeSpeedTime,DeBuffSpeed,1);
-        DeInvalidTime=BuffTime(DeInvalidTime,DeInvalidMaxTime);
+        DeInvalidTime=BuffTime(DeInvalidTime,DeInvalidMaxTime,5);
         MagicBarrelTime=BuffTime(MagicBarrelTime,maxMagicBarrelTime);
-        annBreakerTime=BuffTime(annBreakerTime,annBreakerMaxTime);
-        DoctorAtkBuffTime=BuffTime(DoctorAtkBuffTime,60f);
+        annBreakerTime=BuffTime(annBreakerTime,annBreakerMaxTime,2);
+        DoctorAtkBuffTime=BuffTime(DoctorAtkBuffTime,60f,7);
         DoctorAtkBuff=Buff(DoctorAtkBuffTime,DoctorAtkBuff,0);
-        imnTime=BuffTime(imnTime,imnMaxTime);
-        gabTime=BuffTime(gabTime,gabMaxTime);
+        imnTime=BuffTime(imnTime,imnMaxTime,9);
+        gabTime=BuffTime(gabTime,gabMaxTime,10);
         gabBuff=Buff(gabTime,gabBuff,1);
-        richardSkill2Time=BuffTime(richardSkill2Time,richardSkill2MaxTime);
+        richardSkill2Time=BuffTime(richardSkill2Time,richardSkill2MaxTime,11);
         richardSkill2Buff=Buff(richardSkill2Time,richardSkill2Buff,0);
     }
     public static int BuffTurn(int turn)
