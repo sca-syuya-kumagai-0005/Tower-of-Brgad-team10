@@ -47,7 +47,6 @@ public class CharaMoveGage : MonoBehaviour
         int count=1;
         for(int i=1;i<4+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
         {
-            
             Char=this.transform.GetChild(i-1).gameObject;
             if(Char.name!="NullPrefab(Clone)")
             {
