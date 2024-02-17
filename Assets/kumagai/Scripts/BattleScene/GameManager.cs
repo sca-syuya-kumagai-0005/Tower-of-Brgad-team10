@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public enum BattleState
@@ -40,13 +41,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject Floor;
     [SerializeField]private GameObject redJudge;
     private bool backGroundWalk;
-    
+    void Awake()
+    {
+        state = BattleState.start;
+    }
     //private void Awake()
     //{
     //    StartCoroutine(Walk());
     //}
     void Start()
     {
+        
         GameClear=false;
         loopScene=false;
         Enemy.SetActive(true);
@@ -93,7 +98,7 @@ public class GameManager : MonoBehaviour
                     {
                         state=BattleState.enemyStatausSet;
                     }
-                    if (BreakerEditor.breakerGageMax)
+                    if(BreakerEditor.breakerGageMax)
                     {
                         SkillSelection.skillCount = 5;
                     }
@@ -258,10 +263,27 @@ public class GameManager : MonoBehaviour
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
                     BreakerEditor.circleSet=false;
-                   
+
+                    for(int i=0;i<4;i++)
+                    {
+                        if(PlayerEditorManager.PlayerInfo.Player_HP[i]!=0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            if (i == 4)
+                            {
+                                GameOver=true;
+                            }
+                        }
+                    }
+
+
                     if (GameOver||GameClear)
                     {
-                        state=BattleState.reSult;
+                     
+                       state =BattleState.reSult;
                     }
                     else 
                     {
@@ -301,16 +323,12 @@ public class GameManager : MonoBehaviour
         if(aliveCount==0)
         {
             GameOver=true;
-            gameSetText.text="LOSE";
-            StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
             yield return new WaitForSeconds(3);
             SceneManager.LoadScene("TitleScene");
         }
 
         if(loopScene)
         {
-            gameSetText.text="WIN";
-            StartCoroutine(MoveTextController.moveTextCoroutine(gameSetText.text));
             yield return new WaitForSeconds(3);
             SceneManager.LoadScene("BattleScene");
         }

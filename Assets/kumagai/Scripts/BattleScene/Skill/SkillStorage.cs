@@ -1295,13 +1295,18 @@ public class SkillStorage : MonoBehaviour
         }
         else
         {
-            for(int i=0;i<publicPBuffStorage.Count;i++)
+            bool flag=false;
+            if(!flag)
             {
-                if(publicPBuffStorage[i]==IconNumber)
+                for (int i = 0; i < publicPBuffStorage.Count; i++)
                 {
-                    publicPBuffStorage.RemoveAt(IconNumber);
+                    if (publicPBuffStorage[i] == IconNumber)
+                    {
+                        publicPBuffStorage.RemoveAt(IconNumber);
+                    }
                 }
             }
+            
         }
         return 0;
     }

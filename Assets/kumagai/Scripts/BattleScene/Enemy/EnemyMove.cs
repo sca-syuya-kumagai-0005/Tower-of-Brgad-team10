@@ -197,8 +197,8 @@ public class EnemyMove : MonoBehaviour
                 }
             }
             if(flg)
-            { 
-                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
+            {
+                CharaMoveGage.ActTime[0] = 1*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
                 Damage = eAtk;
@@ -428,6 +428,37 @@ public class EnemyMove : MonoBehaviour
        
         GameManager.moveEnd = true;
     }
+
+    void SuccubusSkill1()
+    {
+        bool flg = false;
+        int target = 0;
+
+
+        if (!flg)
+        {
+            target = EnemyAttackTarget();//対象の抽選
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
+        }
+        if (flg)
+        {
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+            Damage = eAtk;
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+            CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            SkillStorage.comparText = "口だけの像は魂を吸出してきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            GameManager.moveEnd = true;
+        }
+    }
     void EnemyBuff()
     {
         //行動速度もしくは攻撃バフがある場合、行動速度上昇のバフは使わない
@@ -551,10 +582,21 @@ public class EnemyMove : MonoBehaviour
             }
         }
 
+        if(eN=="サキュバス")
+        {
+                switch (skillNumber)
+                {
+                    case 0:
+                        {
+
+                        }
+                        break;
+                }
+            }
+
     }
     void DamageCutController(int target)
     {
-        
         if(partyChara.transform.GetChild(target).gameObject.name=="ゴードン"&&SkillStorage.gordonBreakerTime>0) {
             Damage=0;
         }

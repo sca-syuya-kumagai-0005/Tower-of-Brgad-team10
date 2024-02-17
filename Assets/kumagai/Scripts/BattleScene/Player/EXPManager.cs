@@ -167,7 +167,8 @@ public class EXPManager : MonoBehaviour
     {
         if (GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag)
         {
-            coroutineFlag=true;
+            coroutineFlag = true;
+            yield return new WaitForSeconds(3f);
             while (LvUpSheet.transform.position.y > 540)
             {
                 Vector3 pos = LvUpSheet.transform.position;

@@ -24,6 +24,7 @@ public class CharaMoveGage : MonoBehaviour
 
     private void OnEnable()
     {
+        characterAct=false;
         MoveChar = new List<GameObject>();
         enemyName = EnemySponer.sponeEnemy[0].name;
         alpha=0;
@@ -33,7 +34,7 @@ public class CharaMoveGage : MonoBehaviour
     void Start()
     {
         order=0;//初期化
-        MoveCharName=new string[PlayerEditor.partyTheNumberOf];
+        MoveCharName =new string[PlayerEditor.partyTheNumberOf];
         for(int i=0;i<PlayerEditor.partyTheNumberOf;i++)
         { 
              MoveCharName[i]="";
@@ -46,7 +47,6 @@ public class CharaMoveGage : MonoBehaviour
         int count=1;
         for(int i=1;i<4+1;i++)//キャラクターの数だけ回して、キャラクターの再行動までのゲージ（Image）を取得
         {
-            
             Char=this.transform.GetChild(i-1).gameObject;
             if(Char.name!="NullPrefab(Clone)")
             {

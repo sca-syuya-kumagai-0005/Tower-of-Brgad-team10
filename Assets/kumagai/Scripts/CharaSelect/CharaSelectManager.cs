@@ -22,6 +22,7 @@ public class CharaSelectManager : MonoBehaviour
     void Start()
     {
         slot=true;
+        FloarManager.nowFloar=0;
         sceneSelect=1;
     }
 
