@@ -198,7 +198,7 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             { 
-                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
+                CharaMoveGage.ActTime[0] = 1*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
                 Damage = eAtk;

@@ -24,6 +24,7 @@ public class CharaMoveGage : MonoBehaviour
 
     private void OnEnable()
     {
+        characterAct=false;
         MoveChar = new List<GameObject>();
         enemyName = EnemySponer.sponeEnemy[0].name;
         alpha=0;
@@ -33,7 +34,7 @@ public class CharaMoveGage : MonoBehaviour
     void Start()
     {
         order=0;//èâä˙âª
-        MoveCharName=new string[PlayerEditor.partyTheNumberOf];
+        MoveCharName =new string[PlayerEditor.partyTheNumberOf];
         for(int i=0;i<PlayerEditor.partyTheNumberOf;i++)
         { 
              MoveCharName[i]="";

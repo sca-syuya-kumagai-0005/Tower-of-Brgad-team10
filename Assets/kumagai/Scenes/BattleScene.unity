@@ -2327,7 +2327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830d9a6df95254e4ab8485d52c575a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: "\u9B54\u7269\u30B9\u30C6\u30FC\u30BF\u30B9\u8A73\u7D30"
+  enemyData: "\u9B54\u7269\u30B9\u30C6\u30FC\u30BF\u30B92\u670816\u65E5"
 --- !u!114 &757574331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2341,7 +2341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EMT: {fileID: 1383771616}
-  WolfSkill: 280000000a000000280000000a000000
+  WolfSkill: 000000000a0000000000000000000000
   ReaperSkill: 32000000230000000f0000001e000000
   StoneSkill: 280000000a0000000000000019000000
   tmpEM: 0
@@ -4056,7 +4056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -312.81, y: -464.2}
+  m_AnchoredPosition: {x: -157.9, y: -464.2}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1130591935
@@ -5263,8 +5263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 735, y: -443.3}
-  m_SizeDelta: {x: 2428, y: 152.62}
+  m_AnchoredPosition: {x: 613.4, y: -443.3}
+  m_SizeDelta: {x: 2428, y: 235.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1404859090
 MonoBehaviour:
@@ -5279,14 +5279,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9811321, g: 0.68366617, b: 0.45724455, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e5d233df0a8d02a41bb40bad5d3f584f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
