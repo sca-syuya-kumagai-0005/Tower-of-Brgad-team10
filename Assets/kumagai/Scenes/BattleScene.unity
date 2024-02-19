@@ -2342,6 +2342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EMT: {fileID: 1383771616}
   WolfSkill: 000000000a0000000000000000000000
+  SuccubsSkill: 32000000140000001400000028000000
+  GoblinSkill: 
   ReaperSkill: 32000000230000000f0000001e000000
   StoneSkill: 280000000a0000000000000019000000
   tmpEM: 0
@@ -2363,6 +2365,7 @@ MonoBehaviour:
   - {fileID: 313452933668080879, guid: 698697a7d2119bd49a5be8fc7751d54b, type: 3}
   - {fileID: 313452933668080879, guid: db817c2ef8607fc4ca33390093a72c67, type: 3}
   - {fileID: 313452933668080879, guid: 1cbfaacf299ad5c40a966bcac54a7bf3, type: 3}
+  - {fileID: 313452933668080879, guid: abff5fe409c573549821bb2560564cff, type: 3}
   SponePos: {fileID: 1269257130}
   Enemy: {fileID: 757574326}
 --- !u!1 &769314312
