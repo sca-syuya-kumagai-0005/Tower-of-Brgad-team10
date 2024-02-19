@@ -1189,7 +1189,7 @@ public class SkillStorage : MonoBehaviour
         switch (mChar)
         {
             
-            case "ålŒö":
+            case "ƒŒƒIƒ“":
                 {
                     PlayerSkill();
                 }

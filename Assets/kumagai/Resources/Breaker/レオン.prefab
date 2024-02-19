@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3093934915671221154}
   - component: {fileID: 1068358250049237613}
   m_Layer: 2
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u30EC\u30AA\u30F3"
   m_TagString: judge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

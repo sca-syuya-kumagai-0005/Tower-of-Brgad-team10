@@ -485,7 +485,7 @@ public class EnemyMove : MonoBehaviour
         float judge=0;
         for(int i=0;i<4;i++)
         {
-            if(TeamCharacter.charaName[i]=="主人公"|| TeamCharacter.charaName[i] == "ゴードン"|| TeamCharacter.charaName[i] == "リチャード"|| TeamCharacter.charaName[i] == "スティアータ")
+            if(TeamCharacter.charaName[i]=="レオン"|| TeamCharacter.charaName[i] == "ゴードン"|| TeamCharacter.charaName[i] == "リチャード"|| TeamCharacter.charaName[i] == "スティアータ")
             {
                 judge+=65;
             }
@@ -615,29 +615,50 @@ public class EnemyMove : MonoBehaviour
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
         }
     }
-    void EnemyBuff()
+    public static float octopusPotSkill1Buff;
+    public static float octopusPostSkill1Turn;
+    void OctopusPotSkill1()
     {
-        //行動速度もしくは攻撃バフがある場合、行動速度上昇のバフは使わない
-        if(moveUpTurn>=1||atkUpTurn!=0)
+        octopusPostSkill1Turn=6;
+        octopusPotSkill1Buff=0.75f;
+        CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText = "タコ壺戦士は壺を取り替えた\n新しいの壺により防御力が上昇する";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void OctopusPotSkill2()
+    {
+        bool flg = false;
+        int target = 0;
+        if (!flg)
         {
-            WolfSkill[2]=0;
-            
+            target = EnemyAttackTarget();//対象の抽選
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
         }
-        else
+        if (flg)
         {
-            WolfSkill[2]=40;
-            moveUpcorrection=1f;
-        }
-        //攻撃バフを重ね掛けしない
-        if(atkUpTurn!=0)
-        {
-            WolfSkill[3]=0;
-        }
-        else
-        {
-            WolfSkill[3]=10;
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+            Damage = eAtk * succubusSkill2Buff;
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+            GoblinBuffDamage();
+            CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            SkillStorage.comparText = "タコ壺戦士は斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            GameManager.moveEnd = true;
         }
     }
+
+
     void PartyCharaAlive()
     {
         if(GameManager.state==GameManager.BattleState.start)
