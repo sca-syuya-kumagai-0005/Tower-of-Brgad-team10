@@ -454,7 +454,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214230273}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2344,6 +2344,7 @@ MonoBehaviour:
   WolfSkill: 000000000a0000000000000000000000
   SuccubsSkill: 32000000140000001400000028000000
   GoblinSkill: 
+  OctopusPotSkill: 
   ReaperSkill: 32000000230000000f0000001e000000
   StoneSkill: 280000000a0000000000000019000000
   tmpEM: 0
@@ -2367,6 +2368,7 @@ MonoBehaviour:
   - {fileID: 313452933668080879, guid: 1cbfaacf299ad5c40a966bcac54a7bf3, type: 3}
   - {fileID: 313452933668080879, guid: abff5fe409c573549821bb2560564cff, type: 3}
   - {fileID: 313452933668080879, guid: 4113522783b8f984096fbbfaba09e73e, type: 3}
+  - {fileID: 313452933668080879, guid: 80c720247fa9c0a4aa583710c50d60a5, type: 3}
   SponePos: {fileID: 1269257130}
   Enemy: {fileID: 757574326}
 --- !u!1 &769314312
@@ -7677,9 +7679,6 @@ PrefabInstance:
     - {fileID: 9186806369688180564, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 56152608082382577, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 214230274}
-    - targetCorrespondingSourceObject: {fileID: 56152608082382577, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 797227269}
     - targetCorrespondingSourceObject: {fileID: 56152608082382577, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
@@ -7694,6 +7693,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 56152608082382577, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1406379567}
+    - targetCorrespondingSourceObject: {fileID: 56152608082382577, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 214230274}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5004736010003668121, guid: a9bee31673118ca4cb2bfa3f5bb6e4b3, type: 3}
       insertIndex: -1

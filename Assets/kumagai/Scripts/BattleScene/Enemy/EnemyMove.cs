@@ -628,7 +628,7 @@ public class EnemyMove : MonoBehaviour
     {
         octopusPostSkill1Turn=6;
         octopusPotSkill1Buff=0.75f;
-        CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText = "タコ壺戦士は壺を取り替えた\n新しいの壺により防御力が上昇する";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
@@ -656,7 +656,7 @@ public class EnemyMove : MonoBehaviour
             PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
-            CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+            CharaMoveGage.ActTime[0] = 9 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             SkillStorage.comparText = "タコ壺戦士は斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
@@ -692,7 +692,7 @@ public class EnemyMove : MonoBehaviour
                 PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
             }
 
-            CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+            CharaMoveGage.ActTime[0] = 15 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             SkillStorage.comparText = "タコ壺戦士は剣を振り回した\n合計" +allDamage.ToString()+  "のダメージ";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
@@ -707,7 +707,7 @@ public class EnemyMove : MonoBehaviour
 
         octopusPotSkill4Turn = 1;
         octopusPotSkill4Buff = 0;
-        CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+        CharaMoveGage.ActTime[0] = 20 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText = "タコ壺戦士は守りの体制を取った\nどんな攻撃も受け流しそうだ";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
