@@ -2343,8 +2343,8 @@ MonoBehaviour:
   EMT: {fileID: 1383771616}
   WolfSkill: 000000000a0000000000000000000000
   SuccubsSkill: 32000000140000001400000028000000
-  GoblinSkill: 
-  OctopusPotSkill: 
+  GoblinSkill: 4100000032000000
+  OctopusPotSkill: 2800000032000000190000001e000000
   ReaperSkill: 32000000230000000f0000001e000000
   StoneSkill: 280000000a0000000000000019000000
   tmpEM: 0
@@ -3133,7 +3133,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -266.2, y: -17.1}
+  m_AnchoredPosition: {x: -160, y: 50}
   m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &964597214
@@ -4956,7 +4956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 159.9, y: -95.17}
+  m_AnchoredPosition: {x: 160, y: 50}
   m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1356091364
@@ -6348,7 +6348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -44.4, y: -54.6}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1714929032

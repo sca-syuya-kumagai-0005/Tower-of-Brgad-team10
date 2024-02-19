@@ -1390,7 +1390,7 @@ public class SkillStorage : MonoBehaviour
     {   
         baseATKBuff= (int)pATKCorrect+1;
         baseDeBuff= playerSkill3Buff+1;
-        atkBuff =baseATKBuff*baseDeBuff*EnemyMove.octopusPotSkill1Buff;//これをキャラクターの基礎攻撃力に×
+        atkBuff =baseATKBuff*baseDeBuff*EnemyMove.octopusPotSkill1Buff*EnemyMove.octopusPotSkill4Buff;//これをキャラクターの基礎攻撃力に×
     }
     public static int atkStatusBuff;
     void AddStatus() {

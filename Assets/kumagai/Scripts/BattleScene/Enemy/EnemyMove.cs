@@ -34,6 +34,8 @@ public class EnemyMove : MonoBehaviour
     private void Awake()
     {
         CharaMoveGage.ActTime[0]=1;
+        octopusPotSkill1Buff=1;
+        octopusPotSkill4Buff=1;
     }
     void Start()
     {
@@ -222,7 +224,7 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             {
-                CharaMoveGage.ActTime[0] = 1*moveUpcorrection;
+                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
                 Damage = eAtk;

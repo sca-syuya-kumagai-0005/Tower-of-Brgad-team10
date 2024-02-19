@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
             case BattleState.effect:
                 {
                     
-                    if ((int)EnemyManager.EnemyInfo.Enemy_HP[0]<enemyTmpHP)
+                    if ((int)EnemyManager.EnemyInfo.Enemy_HP[0]!=enemyTmpHP)
                     {
                         StartCoroutine(enemyDamage());
                         EnemyMove.goblinBuff--;
