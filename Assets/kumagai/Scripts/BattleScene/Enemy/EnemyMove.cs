@@ -11,6 +11,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]int[] WolfSkill;
     [SerializeField]int[] SuccubsSkill;
     [SerializeField]int[] GoblinSkill;
+    [SerializeField]int[] OctopusPotSkill;
     private int[] EnemySkill;
     [SerializeField]
     int[] ReaperSkill;
@@ -33,6 +34,20 @@ public class EnemyMove : MonoBehaviour
     private void Awake()
     {
         CharaMoveGage.ActTime[0]=1;
+        octopusPotSkill1Buff=1;
+        octopusPotSkill4Buff=1;
+        octopusPostSkill1Turn=0;
+        octopusPotSkill4Turn=0;
+        moveUpTurn = 0;
+        moveUpcorrection = 1f;
+        atkUpTurn=0;
+        StonePoison = false;
+        spTurn = 0;
+        stoneSpeedDebuff = 1f;
+        stoneSpeedTurn = 0;
+        succubusSkill2Buff = 1.3f;
+        succubusSkill2Turn = 5;
+        goblinBuff=0;
     }
     void Start()
     {
@@ -67,6 +82,12 @@ public class EnemyMove : MonoBehaviour
                 {
                     CharaMoveGage.ActTime[0]=6;
                     EnemySkill=GoblinSkill;
+                }
+                break;
+            case"タコ壺戦士":
+                {
+                    CharaMoveGage.ActTime[0]=12;
+                    EnemySkill=OctopusPotSkill;
                 }
                 break;
         }
@@ -121,7 +142,7 @@ public class EnemyMove : MonoBehaviour
         {
            // EnemyBuff();
             int MaxSkill = 0;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < EnemySkill.Length; i++)
             {
                 MaxSkill += EnemySkill[i];
             }
@@ -215,7 +236,7 @@ public class EnemyMove : MonoBehaviour
             }
             if(flg)
             {
-                CharaMoveGage.ActTime[0] = 1*moveUpcorrection;
+                CharaMoveGage.ActTime[0] = 11*moveUpcorrection;
                 SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
                 int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
                 Damage = eAtk;
@@ -325,7 +346,6 @@ public class EnemyMove : MonoBehaviour
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
             if(hp>0)
             {
-                Debug.Log("BBBB");
                 PlayerEditorManager.PlayerInfo.Player_HP[i] -= (int)(PlayerEditorManager.MaxHP[i] / 10f*atkUpcorrection);
                 hp=PlayerEditorManager.PlayerInfo.Player_HP[i];
                 PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
@@ -485,7 +505,7 @@ public class EnemyMove : MonoBehaviour
         float judge=0;
         for(int i=0;i<4;i++)
         {
-            if(TeamCharacter.charaName[i]=="主人公"|| TeamCharacter.charaName[i] == "ゴードン"|| TeamCharacter.charaName[i] == "リチャード"|| TeamCharacter.charaName[i] == "スティアータ")
+            if(TeamCharacter.charaName[i]=="レオン"|| TeamCharacter.charaName[i] == "ゴードン"|| TeamCharacter.charaName[i] == "リチャード"|| TeamCharacter.charaName[i] == "スティアータ")
             {
                 judge+=65;
             }
@@ -615,29 +635,98 @@ public class EnemyMove : MonoBehaviour
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
         }
     }
-    void EnemyBuff()
+    public static float octopusPotSkill1Buff;
+    public static float octopusPostSkill1Turn;
+    void OctopusPotSkill1()
     {
-        //行動速度もしくは攻撃バフがある場合、行動速度上昇のバフは使わない
-        if(moveUpTurn>=1||atkUpTurn!=0)
+        octopusPostSkill1Turn=6;
+        octopusPotSkill1Buff=0.75f;
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText = "タコ壺戦士は壺を取り替えた\n新しい壺により防御力が上昇する";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void OctopusPotSkill2()
+    {
+        bool flg = false;
+        int target = 0;
+        if (!flg)
         {
-            WolfSkill[2]=0;
-            
+            target = EnemyAttackTarget();//対象の抽選
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
         }
-        else
+        if (flg)
         {
-            WolfSkill[2]=40;
-            moveUpcorrection=1f;
-        }
-        //攻撃バフを重ね掛けしない
-        if(atkUpTurn!=0)
-        {
-            WolfSkill[3]=0;
-        }
-        else
-        {
-            WolfSkill[3]=10;
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+            Damage = eAtk * succubusSkill2Buff;
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+            CharaMoveGage.ActTime[0] = 9 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            SkillStorage.comparText = "タコ壺戦士は斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            GameManager.moveEnd = true;
         }
     }
+
+    void OctopusPotSkill3()
+    {
+        int rand=Random.Range(1,4);
+        int allDamage=0;
+        for(int i=0;i<rand;i++)
+        {
+            bool flg = false;
+            int target = 0;
+            if (!flg)
+            {
+                target = EnemyAttackTarget();//対象の抽選
+                if (charaAlive[target].fillAmount > 0)
+                {
+                    flg = true;
+                }
+            }
+            if (flg)
+            {
+                int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+                Damage = eAtk * succubusSkill2Buff;
+                allDamage+=(int)Damage;
+                DamageCutController(target);
+                DamageReflection(Damage);
+                PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+                float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+                PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+            }
+
+            CharaMoveGage.ActTime[0] = 15 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            SkillStorage.comparText = "タコ壺戦士は剣を振り回した\n合計" +allDamage.ToString()+  "のダメージ";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            GameManager.moveEnd = true;
+        }
+    }
+
+    public static int octopusPotSkill4Turn;
+    public static int octopusPotSkill4Buff;
+    void OctopusPotSkill4()
+    {
+
+        octopusPotSkill4Turn = 1;
+        octopusPotSkill4Buff = 0;
+        CharaMoveGage.ActTime[0] = 20 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText = "タコ壺戦士は守りの体制を取った\nどんな攻撃も受け流しそうだ";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
     void PartyCharaAlive()
     {
         if(GameManager.state==GameManager.BattleState.start)
@@ -656,6 +745,7 @@ public class EnemyMove : MonoBehaviour
     void SkillSet()
     {
         string eN=CharaMoveGage.enemyName;
+
         if(eN=="追いはぎ狼")
         { 
            switch(skillNumber)
@@ -781,6 +871,33 @@ public class EnemyMove : MonoBehaviour
                     break;
             }
 
+        }
+        if (eN == "タコ壺戦士")
+        {
+            switch (skillNumber)
+            {
+                case 0:
+                    {
+                        OctopusPotSkill1();
+
+                    }
+                    break;
+                case 1:
+                    {
+                        OctopusPotSkill2();
+                    }
+                    break;
+                case 2:
+                    {
+                        OctopusPotSkill3();
+                    }
+                    break;
+                case 3:
+                    {
+                        OctopusPotSkill4();
+                    }
+                    break;
+            }
         }
     }
     void DamageCutController(int target)

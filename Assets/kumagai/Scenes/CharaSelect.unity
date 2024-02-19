@@ -1745,7 +1745,7 @@ GameObject:
   - component: {fileID: 520994802}
   - component: {fileID: 520994801}
   m_Layer: 5
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u30EC\u30AA\u30F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4114,7 +4114,7 @@ MonoBehaviour:
   - {fileID: 560547582}
   - {fileID: 74593484}
   firstChara:
-  - "\u4E3B\u4EBA\u516C"
+  - "\u30EC\u30AA\u30F3"
   - "\u30B4\u30FC\u30C9\u30F3"
   - "\u30A2\u30F3\u30CA\u30EA\u30FC\u30CA"
   - "\u5E73\u6ADB\u51DB"
@@ -8824,7 +8824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5536820484866755866, guid: cc6001ecda851284daceee8c7290189f, type: 3}
       propertyPath: m_Name
-      value: "\u4E3B\u4EBA\u516C"
+      value: "\u30EC\u30AA\u30F3"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

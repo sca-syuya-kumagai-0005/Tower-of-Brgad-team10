@@ -162,10 +162,10 @@ public class SkillStorage : MonoBehaviour
                     { 
                         playerSkill3Buff =(rate*100/20f)/100;
                         playerSkill3=1;
-                        publicEDeBuffStorage.Add(0);
                         comparText="–WŠQHì‚ğŒJ‚èo‚µ‚½\n“G‚Ì”íƒ_ƒ[ƒW‚ªã¸‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
+                        publicEDeBuffStorage.Add(0);
                         GameManager.moveEnd = true;
                     }
                 }
@@ -271,11 +271,12 @@ public class SkillStorage : MonoBehaviour
                                 addSpeedTurn++;
                             }
                         }
-                    }
                         comparText = "Œ¸‘¬‚·‚é‰ß‹‚ğŒJ‚èo‚µ‚½\nƒRƒ}ƒ“ƒh‚Ì—¬‚ê‚é‘¬“x‚ª•Ï‰»‚µ‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd = true;
+                    }
+                       
                     }
                 break;
                
@@ -399,7 +400,7 @@ public class SkillStorage : MonoBehaviour
                         gordonCharaNumber =charaNumber;
                         hateUpMaxTime=rate*100;
                         hateUpTime=hateUpMaxTime;
-                        //publicPBuffStorage.Add(4);
+                        publicPBuffStorage.Add(13);
                         comparText ="’§”­‚ğŒJ‚èo‚µ‚½\n“G‚©‚ç‘_‚í‚ê‚â‚·‚­‚È‚Á‚½";
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
@@ -423,6 +424,7 @@ public class SkillStorage : MonoBehaviour
                         atkDownTime =atkDownMaxTime;
                         publicEDeBuffStorage.Add(1);
                         comparText="ˆĞˆ³‚ğŒJ‚èo‚µ‚½\n“G‚ÌUŒ‚—Í‚ªŒ¸­‚µ‚½";
+                        publicEDeBuffStorage.Add(1);
                         StartCoroutine(moveTextCoroutine(comparText));
                         comparText = "";
                         GameManager.moveEnd = true;
@@ -472,6 +474,7 @@ public class SkillStorage : MonoBehaviour
                         comparText="â‘Î–h‰qw‚ğŒJ‚èo‚µ‚½\n‚Ç‚ñ‚ÈUŒ‚‚à–h‚¢‚ÅŒ©‚¹‚Ü‚µ‚å‚¤I";
                         StartCoroutine(moveTextCoroutine(comparText));
                         publicPBuffStorage.Add(4);
+                        publicPBuffStorage.Add(13);
                         comparText = "";
                         BreakerEditor.BreakerGageCount = 0;
 
@@ -819,6 +822,7 @@ public class SkillStorage : MonoBehaviour
                      if(rand<=100*rate*0.2f)
                      {
                          sleep=true;
+                         publicEDeBuffStorage.Add(3);
                          comparText = "‡–°–òËo‚ğŒJ‚èo‚µ‚½\n“G‚Í[‚¢–°‚è‚É‚Â‚¢‚½";
                      }
                      else
@@ -1124,6 +1128,7 @@ public class SkillStorage : MonoBehaviour
                             richardSkill3Avoidance=false;
                         }
                         publicPBuffStorage.Add(12);
+                        publicPBuffStorage.Add(14);
                         comparText ="ˆĞ•—“°X‚ğŒJ‚èo‚µ‚½\n­‚µ‚ÌŠÔ‘_‚í‚ê‚â‚·‚­‚È‚é\n‚³‚ç‚ÉŸ‚ÌUŒ‚‚ğŠm—¦‚Å‰ñ”ğ‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
@@ -1189,7 +1194,7 @@ public class SkillStorage : MonoBehaviour
         switch (mChar)
         {
             
-            case "ålŒö":
+            case "ƒŒƒIƒ“":
                 {
                     PlayerSkill();
                 }
@@ -1390,7 +1395,7 @@ public class SkillStorage : MonoBehaviour
     {   
         baseATKBuff= (int)pATKCorrect+1;
         baseDeBuff= playerSkill3Buff+1;
-        atkBuff =baseATKBuff*baseDeBuff;//‚±‚ê‚ğƒLƒƒƒ‰ƒNƒ^[‚ÌŠî‘bUŒ‚—Í‚É~
+        atkBuff =baseATKBuff*baseDeBuff*EnemyMove.octopusPotSkill1Buff*EnemyMove.octopusPotSkill4Buff;//‚±‚ê‚ğƒLƒƒƒ‰ƒNƒ^[‚ÌŠî‘bUŒ‚—Í‚É~
     }
     public static int atkStatusBuff;
     void AddStatus() {

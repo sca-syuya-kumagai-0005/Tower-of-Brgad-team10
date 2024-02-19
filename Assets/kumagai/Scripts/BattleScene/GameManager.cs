@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
             case BattleState.effect:
                 {
                     
-                    if ((int)EnemyManager.EnemyInfo.Enemy_HP[0]<enemyTmpHP)
+                    if ((int)EnemyManager.EnemyInfo.Enemy_HP[0]!=enemyTmpHP)
                     {
                         StartCoroutine(enemyDamage());
                         EnemyMove.goblinBuff--;
@@ -262,6 +262,8 @@ public class GameManager : MonoBehaviour
                     SkillStorage.rate=0;
                     SkillStorage.debuffDelate=false;
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
+                    SkillStorage.Buff(EnemyMove.octopusPotSkill1Buff,EnemyMove.octopusPostSkill1Turn,1);
+                    SkillStorage.Buff(EnemyMove.octopusPotSkill4Buff,EnemyMove.octopusPotSkill4Turn,1);
                     SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
                     BreakerEditor.circleSet=false;
 

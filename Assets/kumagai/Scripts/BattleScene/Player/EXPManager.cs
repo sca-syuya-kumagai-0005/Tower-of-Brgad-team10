@@ -168,7 +168,7 @@ public class EXPManager : MonoBehaviour
         if (GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag)
         {
             coroutineFlag = true;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
             while (LvUpSheet.transform.position.y > 540)
             {
                 Vector3 pos = LvUpSheet.transform.position;
@@ -178,10 +178,10 @@ public class EXPManager : MonoBehaviour
             for (int i = 0; i < LvUpChara; i++)
             {
                 CharaName.text = LvUpCharaName[i];
-                hpText.text = "HP " + tmpHp[LvUpCharaNumber[i]].ToString() + " →　" + newHp[LvUpCharaNumber[i]].ToString();
-                atkText.text = "ATK " + tmpAtk[LvUpCharaNumber[i]].ToString() + " →　" + newAtk[LvUpCharaNumber[i]].ToString();
-                actText.text = "速度 " + tmpAct[LvUpCharaNumber[i]].ToString() + " →　" + newAct[LvUpCharaNumber[i]].ToString();
-                yield return new WaitForSeconds(2f);
+                hpText.text  = "HP    " + tmpHp[LvUpCharaNumber[i]].ToString() + " →　" + newHp[LvUpCharaNumber[i]].ToString();
+                atkText.text = "ATK   " + tmpAtk[LvUpCharaNumber[i]].ToString() + " →　" + newAtk[LvUpCharaNumber[i]].ToString();
+                actText.text = "SPEED " + tmpAct[LvUpCharaNumber[i]].ToString() + " →　" + newAct[LvUpCharaNumber[i]].ToString();
+                yield return new WaitForSeconds(1.5f);
             }
             GameManager.loopScene = true;
         }

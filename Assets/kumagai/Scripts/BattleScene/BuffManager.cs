@@ -24,6 +24,7 @@ public class BuffManager : MonoBehaviour
     void Start()
     {
         publicPBuffStorage=new List<int>();
+        publicEDeBuffStorage =new List<int>();
         pos=sponePos.GetComponent<RectTransform>().position;
         DerivaryRot=storageObject;
         StartCoroutine(ChangePlayerEnemyIcon());
@@ -34,7 +35,8 @@ public class BuffManager : MonoBehaviour
     {
         publicPBuffStorage=IconDestory(publicPBuffStorage);
         pBuffStorage=publicPBuffStorage;
-
+        publicEDeBuffStorage=IconDestory(publicEDeBuffStorage);
+        eDeBuffStorage=publicEDeBuffStorage;
         //pDeBuffStorage=publicPDeBuffStorage;
     }
     //バフ、もしくはデバフが掛けられたときに行う処理
@@ -71,8 +73,7 @@ public class BuffManager : MonoBehaviour
                 break;
             }
                 GameObject obj=Instantiate(deBuffIcon[DeBuffStorage[i-BuffStorage.Count]], pos + new Vector3(i, 0, 0), Quaternion.Euler(0,0,0), storageObject.transform);
-                //GameObject obj=Instantiate(deBuffIcon[DeBuffStorage[i-BuffStorage.Count]], pos + new Vector3(i, 0, 0), Quaternion.identity, storageObject.transform);
-                obj.SetActive(false);        
+                //GameObject obj=Instantiate(deBuffIcon[DeBuffStorage[i-BuffStorage.Count]], pos + new Vector3(i, 0, 0), Quaternion.identity, storageObject.transform);    
             }
         
     }
@@ -125,20 +126,7 @@ public class BuffManager : MonoBehaviour
 
     }
 
-    private void ActiveTrue()
-    {
-        for (int i=0;i<storageObject.transform.childCount;i++)
-        {
-            storageObject.transform.GetChild(i).gameObject.SetActive(true);
-        }
-    }
-    private void ActiveFalse()
-    {
-        for (int i = 0; i < storageObject.transform.childCount; i++)
-        {
-            storageObject.transform.GetChild(i).gameObject.SetActive(false);
-        }
-    }
+ 
     
     public static Quaternion storageRot()
     {
