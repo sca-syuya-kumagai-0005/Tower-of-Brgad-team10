@@ -2366,6 +2366,7 @@ MonoBehaviour:
   - {fileID: 313452933668080879, guid: db817c2ef8607fc4ca33390093a72c67, type: 3}
   - {fileID: 313452933668080879, guid: 1cbfaacf299ad5c40a966bcac54a7bf3, type: 3}
   - {fileID: 313452933668080879, guid: abff5fe409c573549821bb2560564cff, type: 3}
+  - {fileID: 313452933668080879, guid: 4113522783b8f984096fbbfaba09e73e, type: 3}
   SponePos: {fileID: 1269257130}
   Enemy: {fileID: 757574326}
 --- !u!1 &769314312
