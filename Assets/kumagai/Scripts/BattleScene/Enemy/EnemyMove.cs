@@ -8,8 +8,9 @@ using static MoveTextController;
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField]private Text EMT;
-    [SerializeField]
-    int[] WolfSkill;
+    [SerializeField]int[] WolfSkill;
+    [SerializeField]int[] SuccubsSkill;
+    [SerializeField]int[] GoblinSkill;
     private int[] EnemySkill;
     [SerializeField]
     int[] ReaperSkill;
@@ -56,6 +57,18 @@ public class EnemyMove : MonoBehaviour
                     EnemySkill=StoneSkill;
                 }
                 break;
+            case "サキュバス":
+                {
+                    CharaMoveGage.ActTime[0]=9;
+                    EnemySkill=SuccubsSkill;
+                }
+                break;
+            case "ゴブリン":
+                {
+                    CharaMoveGage.ActTime[0]=6;
+                    EnemySkill=GoblinSkill;
+                }
+                break;
         }
         charaAlive =new Image[partyChara.transform.childCount];
     }
@@ -68,6 +81,10 @@ public class EnemyMove : MonoBehaviour
         {
             StartCoroutine(moveTextCoroutine(CharaMoveGage.enemyName + "が現れた！"));
             flag =true;
+        }
+       if(succubusSkill2Turn<=0)
+        {
+            succubusSkill2Buff=1;
         }
        PartyCharaAlive();
        tmpEM=enemyMove;
@@ -433,7 +450,7 @@ public class EnemyMove : MonoBehaviour
     {
         bool flg = false;
         int target = 0;
-
+      
 
         if (!flg)
         {
@@ -446,17 +463,156 @@ public class EnemyMove : MonoBehaviour
         if (flg)
         {
             int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
-            Damage = eAtk;
+            Damage = eAtk*succubusSkill2Buff;
             DamageCutController(target);
             DamageReflection(Damage);
             PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
-            CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+            CharaMoveGage.ActTime[0] = 7 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            SkillStorage.comparText = "口だけの像は魂を吸出してきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            SkillStorage.comparText = "サキュバスは魂を吸い出してきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            succubusSkill2Turn--;
+            GameManager.moveEnd = true;
+        }
+    }
+
+    private float succubusSkill2Buff;
+    private int succubusSkill2Turn;
+    void SuccubusSkill2()
+    {
+        float judge=0;
+        for(int i=0;i<4;i++)
+        {
+            if(TeamCharacter.charaName[i]=="主人公"|| TeamCharacter.charaName[i] == "ゴードン"|| TeamCharacter.charaName[i] == "リチャード"|| TeamCharacter.charaName[i] == "スティアータ")
+            {
+                judge+=65;
+            }
+            else
+            {
+                judge+=45;
+            }
+        }
+        int rand=Random.Range(0,101);
+        if(rand<=judge)
+        {
+            succubusSkill2Buff=1.3f;
+            succubusSkill2Turn=5;
+            SkillStorage.comparText="サキュバスはこちらを魅了してきた\nしばらくの間受けるダメージが増加する\n";
+        }
+        else
+        {
+            succubusSkill2Buff=1;
+            succubusSkill2Turn=0;
+            SkillStorage.comparText = "サキュバスはこちらを魅了してきた\nしかしうまくいかなかった\n";
+        }
+        CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void SuccubusSkill3()
+    {
+        float eAtk=EnemyManager.EnemyInfo.Enemy_ATK[0];
+        Damage=eAtk/2;
+        if(succubusSkill2Turn>0)
+        {
+            Damage=eAtk/2+eAtk*2;
+        }
+        for(int i=0;i<4;i++)
+        {
+            PlayerEditorManager.PlayerInfo.Player_HP[i]-=(int)Damage;
+            DamageReflection(Damage);
+        }
+        SkillStorage.comparText="味方全体の魂を吸い出してきた\n味方全体に平均"+Damage.ToString()+"のダメージ";
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void SuccubusSkill4()
+    {
+        EnemyManager.EnemyInfo.Enemy_HP[0]+=EnemyManager.EnemyInfo.Enemy_ATK[0]+EnemyManager.EnemyInfo.Enemy_HP[0]+0.7f;
+        SkillStorage.comparText = "サキュバスはお菓子をばらまいた\nサキュバスのHPが回復した";
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void GoblinSkill1()
+    {
+        bool flg = false;
+        int target = 0;
+        if (!flg)
+        {
+            target = EnemyAttackTarget();//対象の抽選
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
+        }
+        if (flg)
+        {
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+            Damage = eAtk * succubusSkill2Buff;
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+            GoblinBuffDamage();
+            CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            SkillStorage.comparText = "ゴブリンは斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            if(goblinBuff>0)
+            {
+                SkillStorage.comparText+="\nさらに仲間のゴブリンから追撃を受けた";
+            }
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
             GameManager.moveEnd = true;
+        }
+    }
+    
+    public static int goblinBuff;
+    void GoblinSkill2()
+    {
+        if(goblinBuff<10)
+        {
+            goblinBuff += 5;
+        }
+        CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText = "ゴブリンは仲間を呼んだ\nゴブリンの攻撃時に追撃が来るようになった";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+
+    void GoblinBuffDamage()
+    {
+        bool flg = false;
+        int target = 0;
+        if (!flg)
+        {
+            target = EnemyAttackTarget();//対象の抽選
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
+        }
+        if (flg)
+        {
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+            Damage = eAtk * succubusSkill2Buff;
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage*goblinBuff;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
         }
     }
     void EnemyBuff()
@@ -584,16 +740,48 @@ public class EnemyMove : MonoBehaviour
 
         if(eN=="サキュバス")
         {
-                switch (skillNumber)
-                {
-                    case 0:
-                        {
+            switch (skillNumber)
+            {
+                case 0:
+                    {
+                        SuccubusSkill1();
 
-                        }
-                        break;
-                }
+                    }
+                    break;
+                case 1:
+                    {
+                        SuccubusSkill2();
+                    }
+                    break;
+                case 2:
+                    {
+                        SuccubusSkill3();
+                    }
+                    break;
+                case 3:
+                    {
+                        SuccubusSkill4();
+                    }
+                    break;
+            }
+        }
+        if (eN == "ゴブリン")
+        {
+            switch (skillNumber)
+            {
+                case 0:
+                    {
+                        GoblinSkill1();
+                    }
+                    break;
+                case 1:
+                    {
+                        GoblinSkill2();
+                    }
+                    break;
             }
 
+        }
     }
     void DamageCutController(int target)
     {

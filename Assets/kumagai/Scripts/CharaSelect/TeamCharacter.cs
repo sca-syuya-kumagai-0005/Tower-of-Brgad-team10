@@ -33,9 +33,13 @@ public class TeamCharacter : MonoBehaviour
     [SerializeField]
     private bool OutorBack;
     [SerializeField]Text[] slotName;
+    [SerializeField] string[] firstChara;
     // Start is called before the first frame update
     void Start()
     {
+        charaName=firstChara;
+        CharaInstantiate();
+        CharaNameManager();
     }
 
     // Update is called once per frame
@@ -45,35 +49,8 @@ public class TeamCharacter : MonoBehaviour
         { 
             SelectCharaJudge();
         }
-        CharaNameSet();
     }
 
-    private void CharaNameSet()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            if(charaName[i]=="")
-            {
-                slotName[i].text="スロット"+(i+1).ToString();
-                slotName[i+4].text="スロット"+(i+1).ToString();
-            }
-            if(charaName[i]!=null&&charaName[i]!="")
-            {
-                if(charaName[i]=="主人公")
-                {
-                    slotName[i].text="レオン";
-                    slotName[i + 4].text = "レオン";
-                }
-                else
-                {
-                    slotName[i].text = charaName[i];
-                    slotName[i + 4].text = charaName[i];
-                }
-            }
-            
-        }
-
-    }
     [SerializeField]
     private int selectCharaNumberCorrection;
     [SerializeField]
