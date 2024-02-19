@@ -36,6 +36,18 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0]=1;
         octopusPotSkill1Buff=1;
         octopusPotSkill4Buff=1;
+        octopusPostSkill1Turn=0;
+        octopusPotSkill4Turn=0;
+        moveUpTurn = 0;
+        moveUpcorrection = 1f;
+        atkUpTurn=0;
+        StonePoison = false;
+        spTurn = 0;
+        stoneSpeedDebuff = 1f;
+        stoneSpeedTurn = 0;
+        succubusSkill2Buff = 1.3f;
+        succubusSkill2Turn = 5;
+        goblinBuff=0;
     }
     void Start()
     {
@@ -130,7 +142,7 @@ public class EnemyMove : MonoBehaviour
         {
            // EnemyBuff();
             int MaxSkill = 0;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < EnemySkill.Length; i++)
             {
                 MaxSkill += EnemySkill[i];
             }
@@ -334,7 +346,6 @@ public class EnemyMove : MonoBehaviour
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
             if(hp>0)
             {
-                Debug.Log("BBBB");
                 PlayerEditorManager.PlayerInfo.Player_HP[i] -= (int)(PlayerEditorManager.MaxHP[i] / 10f*atkUpcorrection);
                 hp=PlayerEditorManager.PlayerInfo.Player_HP[i];
                 PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
@@ -632,7 +643,7 @@ public class EnemyMove : MonoBehaviour
         octopusPotSkill1Buff=0.75f;
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        SkillStorage.comparText = "タコ壺戦士は壺を取り替えた\n新しいの壺により防御力が上昇する";
+        SkillStorage.comparText = "タコ壺戦士は壺を取り替えた\n新しい壺により防御力が上昇する";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
