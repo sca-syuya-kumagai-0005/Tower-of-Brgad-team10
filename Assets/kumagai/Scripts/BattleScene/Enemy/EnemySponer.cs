@@ -26,6 +26,7 @@ public class EnemySponer : MonoBehaviour
         {
             EnemyManager.enemyNumber=8;
         }
+        EnemyManager.enemyNumber=8;
         enemy=Instantiate(Enemies[EnemyManager.enemyNumber-1],SponePos.transform.position,Quaternion.identity,Enemy.transform.Find("Enemy").transform);
         enemy.gameObject.name = enemy.gameObject.name.Replace("(Clone)", "");
         sponeEnemy[0]=enemy;

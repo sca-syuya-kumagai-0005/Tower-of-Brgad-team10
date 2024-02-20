@@ -688,7 +688,7 @@ public class EnemyMove : MonoBehaviour
         if (flg)
         {
             int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
-            Damage = eAtk * succubusSkill2Buff;
+            Damage = (int)(eAtk * succubusSkill2Buff);
             DamageCutController(target);
             DamageReflection(Damage);
             PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
@@ -849,9 +849,11 @@ public class EnemyMove : MonoBehaviour
         int allDamage=0;
         for(int i=0;i<4;i++)
         {
-            allDamage=PlayerEditorManager.PlayerInfo.Player_HP[i]/2;
+            allDamage+=PlayerEditorManager.PlayerInfo.Player_HP[i]/2;
             float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
+            hp/=2;
             PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
+            PlayerEditorManager.PlayerInfo.Player_HP[i]=(int)hp;
         }
         CharaMoveGage.ActTime[0] =15 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
@@ -948,7 +950,7 @@ public class EnemyMove : MonoBehaviour
             {
                 EnemySkill[3]=10;
             }
-            if(EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0]>15)
+            if(EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0]>0.15)
             {
                 EnemySkill[1]=0;
             }
