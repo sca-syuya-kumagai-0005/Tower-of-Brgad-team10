@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using static BuffManager;
 using static MoveTextController;
 
 public class EnemyMove : MonoBehaviour
@@ -296,12 +297,14 @@ public class EnemyMove : MonoBehaviour
         Debug.Log(moveUpcorrection);
         CharaMoveGage.ActTime[0] = 10*moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        publicEBuffStorage.Add(10);
         GameManager.moveEnd = true;
     }
     void WolfSkill4()
     {
         atkUpTurn=2;
         SkillStorage.comparText = "追剥ぎ狼は甲高く遠吠えした\n攻撃力が少し上昇した";
+        publicEBuffStorage.Add(0);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         CharaMoveGage.ActTime[0] = 8  * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
@@ -393,6 +396,7 @@ public class EnemyMove : MonoBehaviour
     void ReaperSkill4()
     {
         SkillStorage.comparText = "死神はおもむろに鎌を研ぎ始めた\n鎌の鋭さとオーラが研ぎ澄まされていく";
+        publicEBuffStorage.Add(0);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         EnemyManager.EnemyInfo.Enemy_ATK[0]*=1.1f;
         CharaMoveGage.ActTime[0] = 13 * moveUpcorrection;
@@ -455,13 +459,10 @@ public class EnemyMove : MonoBehaviour
         {
             SkillStorage.comparText = "口だけの像は怪しげな霧を巻いた\n味方全体は毒に侵されてしまった";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            publicPDeBuffStorage.Add(4);
             StonePoison = true;
             spTurn = 5;
         }
-        SkillStorage.comparText= "口だけの像は怪しげな霧を巻いた\n味方全体は毒に侵されてしまった";
-        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
-        StonePoison =true;
-        spTurn=5;
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         GameManager.moveEnd = true;
     }
@@ -494,6 +495,7 @@ public class EnemyMove : MonoBehaviour
             stoneSpeedDebuff = 0.7f;
             stoneSpeedTurn = 8;
             SkillStorage.comparText = "口だけの像は不気味な領域を展開した\n行動速度が遅くなるのを感じる";
+            publicPDeBuffStorage.Add(2);
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         }
         
@@ -555,6 +557,7 @@ public class EnemyMove : MonoBehaviour
             succubusSkill2Buff=1.3f;
             succubusSkill2Turn=5;
             SkillStorage.comparText="サキュバスはこちらを魅了してきた\nしばらくの間受けるダメージが増加する\n";
+            publicPDeBuffStorage.Add(5);
         }
         else
         {
@@ -642,6 +645,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText = "ゴブリンは仲間を呼んだ\nゴブリンの攻撃時に追撃が来るようになった";
+        publicEBuffStorage.Add(15);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -678,6 +682,7 @@ public class EnemyMove : MonoBehaviour
         octopusPotSkill1Buff=0.75f;
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        publicEBuffStorage.Add(3);
         SkillStorage.comparText = "タコ壺戦士は壺を取り替えた\n新しい壺により防御力が上昇する";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
@@ -758,6 +763,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 20 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText = "タコ壺戦士は守りの体制を取った\nどんな攻撃も受け流しそうだ";
+        publicEBuffStorage.Add(4);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -770,6 +776,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 6 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText="ケルベロスは天に向かって遠吠えした\n攻撃力がかなり上昇した";
+        publicEBuffStorage.Add(kerberosBuff);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -815,6 +822,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 4 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText="ケルベロスは大きな舌で舐めまわしてきた\n冒険者たちは毒に侵されてしまった";
+        publicPDeBuffStorage.Add(4);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -845,8 +853,8 @@ public class EnemyMove : MonoBehaviour
         else
         {
             SkillStorage.comparText="ドラゴンは再度障壁を展開した\n次の行動まで攻撃は効かなそうだ";
-            
         }
+        publicEBuffStorage.Add(4);
         doragonSkill1Flag = true;
         doragonSkill1Buff = 0;
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
@@ -1057,12 +1065,14 @@ public class EnemyMove : MonoBehaviour
                     break;
                 case 1:
                     {
+                        publicPDeBuffStorage.Add(4);
                         StonePoison = true;
                         spTurn = 5;
                     }
                     break;
                 case 2:
                     {
+                        publicPDeBuffStorage.Add(2);
                         stoneSpeedDebuff = 0.7f;
                         stoneSpeedTurn = 8;
                     }
@@ -1084,6 +1094,7 @@ public class EnemyMove : MonoBehaviour
                         int random = Random.Range(0, 101);
                         if (random <= judge)
                         {
+                            publicPDeBuffStorage.Add(5);
                             succubusSkill2Buff = 1.3f;
                             succubusSkill2Turn = 5;
                         }
@@ -1096,6 +1107,7 @@ public class EnemyMove : MonoBehaviour
                     break;
                     case 4:
                     {
+                        publicPDeBuffStorage.Add(6);
                         kerberosPoisonTurn++;
                     }
                     break;

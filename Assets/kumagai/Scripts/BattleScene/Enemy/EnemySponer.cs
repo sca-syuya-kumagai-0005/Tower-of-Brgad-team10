@@ -14,7 +14,7 @@ public class EnemySponer : MonoBehaviour
     {
         //EnemyManager.enemyNumber=Random.Range(0,0)+1;
         EnemyManager.enemyNumber=Random.Range(0,Enemies.Length-2);
-        if(FloarManager.nowFloar/5==0)
+        if(FloarManager.nowFloar%5==0&&FloarManager.nowFloar!=0)
         {
             EnemyManager.enemyNumber=Random.Range(7,Enemies.Length)+1;
         }
@@ -30,6 +30,7 @@ public class EnemySponer : MonoBehaviour
         {
             EnemyManager.enemyNumber=9;
         }
+        EnemyManager.enemyNumber=9;
         enemy=Instantiate(Enemies[EnemyManager.enemyNumber-1],SponePos.transform.position,Quaternion.identity,Enemy.transform.Find("Enemy").transform);
         enemy.gameObject.name = enemy.gameObject.name.Replace("(Clone)", "");
         sponeEnemy[0]=enemy;

@@ -25,6 +25,8 @@ public class BuffManager : MonoBehaviour
     {
         publicPBuffStorage=new List<int>();
         publicEDeBuffStorage =new List<int>();
+        publicPDeBuffStorage=new List<int>();
+        publicEBuffStorage=new List<int>();
         pos=sponePos.GetComponent<RectTransform>().position;
         DerivaryRot=storageObject;
         StartCoroutine(ChangePlayerEnemyIcon());
@@ -37,6 +39,10 @@ public class BuffManager : MonoBehaviour
         pBuffStorage=publicPBuffStorage;
         publicEDeBuffStorage=IconDestory(publicEDeBuffStorage);
         eDeBuffStorage=publicEDeBuffStorage;
+        publicPDeBuffStorage=IconDestory(publicPDeBuffStorage);
+        pDeBuffStorage=publicPDeBuffStorage;
+        publicEBuffStorage=IconDestory(publicEBuffStorage);
+        eBuffStorage=publicEBuffStorage;
         //pDeBuffStorage=publicPDeBuffStorage;
     }
     //バフ、もしくはデバフが掛けられたときに行う処理
