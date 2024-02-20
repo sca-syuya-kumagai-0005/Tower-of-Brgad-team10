@@ -440,7 +440,7 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state == GameManager.BattleState.move)
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                        addDamage = (pAtk * rate);
+                        addDamage = (pAtk * rate)*EnemyMove.octopusPotSkill1Buff*EnemyMove.doragonSkill1Buff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] -addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -771,7 +771,7 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber=charaNumber;
-                        addDamage = (pAtk * rate) * atkBuff + atkStatusBuff;
+                        addDamage = (pAtk * rate) * atkBuff + atkStatusBuff * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -908,7 +908,7 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber = charaNumber;
-                        addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff)*rate;
+                        addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff)*rate * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - (int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -1044,7 +1044,7 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state == GameManager.BattleState.move) 
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                        addDamage = pAtk;
+                        addDamage = pAtk * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
                         int atkLoop = 1;
                         for (int i = 1; i < 6; i++)
                         {
@@ -1169,7 +1169,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        int pAtk=PlayerInfo.Player_ATK[charaNumber];
+                        int pAtk=(int)(PlayerInfo.Player_ATK[charaNumber] * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff);
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -1395,7 +1395,7 @@ public class SkillStorage : MonoBehaviour
     {   
         baseATKBuff= (int)pATKCorrect+1;
         baseDeBuff= playerSkill3Buff+1;
-        atkBuff =baseATKBuff*baseDeBuff*EnemyMove.octopusPotSkill1Buff*EnemyMove.octopusPotSkill4Buff;//‚±‚ê‚ðƒLƒƒƒ‰ƒNƒ^[‚ÌŠî‘bUŒ‚—Í‚É~
+        atkBuff =baseATKBuff*baseDeBuff*EnemyMove.octopusPotSkill1Buff*EnemyMove.octopusPotSkill4Buff*EnemyMove.doragonSkill1Buff;//‚±‚ê‚ðƒLƒƒƒ‰ƒNƒ^[‚ÌŠî‘bUŒ‚—Í‚É~
     }
     public static int atkStatusBuff;
     void AddStatus() {

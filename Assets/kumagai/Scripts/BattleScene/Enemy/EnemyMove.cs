@@ -12,6 +12,9 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]int[] SuccubsSkill;
     [SerializeField]int[] GoblinSkill;
     [SerializeField]int[] OctopusPotSkill;
+    [SerializeField]int[] KerberosSkill;
+    [SerializeField]int[] DoragonSkill;
+    [SerializeField]
     private int[] EnemySkill;
     [SerializeField]
     int[] ReaperSkill;
@@ -48,6 +51,11 @@ public class EnemyMove : MonoBehaviour
         succubusSkill2Buff = 1.3f;
         succubusSkill2Turn = 5;
         goblinBuff=0;
+        kerberosBuff=1;
+        kerberosBuffTurn=0;
+        doragonSkill1Buff=1;
+        doragonSkill1Flag=false;
+        
     }
     void Start()
     {
@@ -90,6 +98,18 @@ public class EnemyMove : MonoBehaviour
                     EnemySkill=OctopusPotSkill;
                 }
                 break;
+            case"ケルベロス":
+                {
+                    CharaMoveGage.ActTime[0]=7;
+                    EnemySkill=KerberosSkill;
+                }
+                break;
+            case"ドラゴン":
+                {
+                    CharaMoveGage.ActTime[0]=8;
+                    EnemySkill=DoragonSkill;
+                }
+                break;
         }
         charaAlive =new Image[partyChara.transform.childCount];
     }
@@ -107,6 +127,7 @@ public class EnemyMove : MonoBehaviour
         {
             succubusSkill2Buff=1;
         }
+       DoragonSkillPoint();
        PartyCharaAlive();
        tmpEM=enemyMove;
        protEnemyMove();
@@ -135,29 +156,33 @@ public class EnemyMove : MonoBehaviour
             }
         }
     }
-    void protEnemyMove()//プロト版でのエネミーの行動 どのスキルを使用するかの抽選
+    void protEnemyMove()//どのスキルを使用するかの抽選
     {
         
         if (GameManager.state == GameManager.BattleState.enemyStay&&CharaMoveGage.MoveChar[0].name!=null&&!SkillStorage.sleep)
         {
            // EnemyBuff();
+           Debug.Log("AAAAAAAAAAAAAAAAAaa");
             int MaxSkill = 0;
             for (int i = 0; i < EnemySkill.Length; i++)
             {
                 MaxSkill += EnemySkill[i];
+                Debug.Log("BBBBBBBBBBB");
             }
             int move=Random.Range(1,MaxSkill+1);
-            for(int i=0;i<5;i++)
+            for(int i=0;i<EnemySkill.Length;i++)
             {
                 move-=EnemySkill[i];
                 if(move<=0)
                 {
                     if(!skillSet)
                     {
+                        Debug.Log("CCCCCCCC");
                         skillNumber = i;
                         SkillSet();
                         if(GameManager.moveEnd)
                         {
+                            Debug.Log("DDDDDDD");
                             skillOK = true;
                             skillSet = true;
                         }
@@ -726,7 +751,214 @@ public class EnemyMove : MonoBehaviour
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
+    public static int kerberosBuff;
+    public static int kerberosBuffTurn;
+    void KerberosSkill1()
+    {
+        kerberosBuff=2;
+        kerberosBuffTurn=10;
+        CharaMoveGage.ActTime[0] = 6 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText="ケルベロスは天に向かって遠吠えした\n攻撃力がかなり上昇した";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+    
+    void KerberosSkill2()
+    {
+        bool flg = false;
+        int target = 0;
+        for(int i=0;i<3;i++)
+        {
+            if (!flg)
+            {
+                target = EnemyAttackTarget();//対象の抽選
+                if (charaAlive[target].fillAmount > 0)
+                {
+                    flg = true;
+                }
+            }
+            if (flg)
+            {
+                int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+                Damage = eAtk * kerberosBuff;
+                DamageCutController(target);
+                DamageReflection(Damage);
+                PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+                float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+                PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+                GoblinBuffDamage();
+                CharaMoveGage.ActTime[0] = 9 * moveUpcorrection;
+                SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+                
+            }
+            SkillStorage.comparText = "ケルベロスは三つの頭で噛みついてきた\n" + "平均" + Damage.ToString() + "のダメージ";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            GameManager.moveEnd = true;
+        }
+    }
 
+    public static int kerberosPoisonTurn;
+    void KerberosSkill3()
+    {
+        kerberosPoisonTurn++;
+        CharaMoveGage.ActTime[0] = 4 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText="ケルベロスは大きな舌で舐めまわしてきた\n冒険者たちは毒に侵されてしまった";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    public static void KerberosPoison()
+    {
+        if(kerberosPoisonTurn>0)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                PlayerEditorManager.PlayerInfo.Player_HP[i] -= (int)EnemyManager.EnemyInfo.Enemy_ATK[0];
+            }
+        }
+        kerberosPoisonTurn--;
+    }
+    
+    private bool doragonSkill1Flag;
+    public static float doragonSkill1Buff;
+    void DoragonSkill1()
+    {
+        Debug.Log("skill1");
+        CharaMoveGage.ActTime[0] = 4 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        if(!doragonSkill1Flag)
+        {
+            SkillStorage.comparText = "ドラゴンは障壁を展開した\n次の行動まで攻撃は効かなそうだ";
+        }
+        else
+        {
+            SkillStorage.comparText="ドラゴンは再度障壁を展開した\n次の行動まで攻撃は効かなそうだ";
+            
+        }
+        doragonSkill1Flag = true;
+        doragonSkill1Buff = 0;
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void DoragonSkill2()
+    {
+        Debug.Log("skill2");
+        int allDamage=0;
+        for(int i=0;i<4;i++)
+        {
+            allDamage=PlayerEditorManager.PlayerInfo.Player_HP[i]/2;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
+            PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
+        }
+        CharaMoveGage.ActTime[0] =15 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        if(doragonSkill1Flag)
+        {
+            SkillStorage.comparText = "ドラゴンは障壁を解除した\n";
+            doragonSkill1Buff = 1;
+            doragonSkill1Flag = false;
+        }
+
+        SkillStorage.comparText += "ドラゴンは口から業火を吐き出した\n味方全体に平均\n"+((int)allDamage/4).ToString()+"のダメージ";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void DoragonSkill3()
+    {
+        Debug.Log("skill3");
+        int Count=0;
+        bool flg=false;
+        int target=0;
+        for(int i=0;i<4;i++)
+        {
+            if(PlayerEditorManager.PlayerInfo.Player_HP[i]>0)
+            {
+                Count++;
+            }
+        }
+        if(Count>2)
+        {
+            Count=2;
+        }
+        for (int i = 0; i < Count; i++)
+        {
+            if (!flg)
+            {
+                target = EnemyAttackTarget();//対象の抽選
+                if (charaAlive[target].fillAmount > 0)
+                {
+                    flg = true;
+                }
+            }
+            if (flg)
+            {
+                int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
+                Damage = (int)eAtk ;
+                DamageCutController(target);
+                DamageReflection(Damage);
+                PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+                float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+                PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+
+            }
+            CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            if(doragonSkill1Flag)
+            {
+                SkillStorage.comparText="ドラゴンは障壁を解除した\n";
+                doragonSkill1Buff=1;
+                doragonSkill1Flag=false;
+            }
+        }
+        SkillStorage.comparText += "ドラゴンは巨体を揺らし暴れ始めた\n" + "平均" + Damage.ToString() + "のダメージ";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void DoragonSkill4()
+    {
+        Debug.Log("skill4");
+        EnemyManager.EnemyInfo.Enemy_HP[0]+=(int)EnemyManager.EnemyInfo.Enemy_HP[0]/10;
+        CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        if (doragonSkill1Flag)
+        {
+            SkillStorage.comparText = "ドラゴンは障壁を解除した\n";
+            doragonSkill1Buff = 1;
+            doragonSkill1Flag = false;
+        }
+        SkillStorage.comparText = "ドラゴンは羽休めを行った\nドラゴンのHPが少し回復した";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void DoragonSkillPoint()
+    {
+        if(CharaMoveGage.enemyName=="ドラゴン")
+        {
+            if (EnemyManager.EnemyInfo.Enemy_HP[0] / EnemyManager.maxEnemyHP[0] > 0.75f)
+            {
+                EnemySkill[3]=0;
+            }
+            else
+            {
+                EnemySkill[3]=10;
+            }
+            if(EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0]>15)
+            {
+                EnemySkill[1]=0;
+            }
+            else
+            {
+                EnemySkill[1]=45;
+            }
+        }
+        
+    }
     void PartyCharaAlive()
     {
         if(GameManager.state==GameManager.BattleState.start)
@@ -895,6 +1127,55 @@ public class EnemyMove : MonoBehaviour
                 case 3:
                     {
                         OctopusPotSkill4();
+                    }
+                    break;
+            }
+        }
+        if (eN == "ケルベロス")
+        {
+            switch (skillNumber)
+            {
+                case 0:
+                    {
+                        KerberosSkill1();
+
+                    }
+                    break;
+                case 1:
+                    {
+                        KerberosSkill2();
+                    }
+                    break;
+                case 2:
+                    {
+                        KerberosSkill3();
+                    }
+                    break;
+            }
+        }
+        if (eN == "ドラゴン")
+        {
+            switch (skillNumber)
+            {
+                case 0:
+                    {
+                        DoragonSkill1();
+
+                    }
+                    break;
+                case 1:
+                    {
+                        DoragonSkill2();
+                    }
+                    break;
+                case 2:
+                    {
+                        DoragonSkill3();
+                    }
+                    break;
+                case 3:
+                    {
+                        DoragonSkill4();
                     }
                     break;
             }

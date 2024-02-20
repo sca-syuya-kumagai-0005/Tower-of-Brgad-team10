@@ -58,7 +58,6 @@ public class EXPManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Debug.Log(GameManager.state);
         if (!flag)
         {
             for (int i = 0; i < 4; i++)

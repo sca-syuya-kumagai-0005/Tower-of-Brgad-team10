@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(state);
         if(!GameClear)StartMoveCharacter();
         else EndMoveCharacter();
         if(backGroundWalk&&loopScene)Walk();
@@ -141,7 +142,6 @@ public class GameManager : MonoBehaviour
                         
                         SkillStorage.DBuffTurnStorage();
                         state =BattleState.move;
-                     
                     }
                 }
                 break;
@@ -187,6 +187,7 @@ public class GameManager : MonoBehaviour
                             SkillStorage.MagicBarrelDamage();
                             SkillStorage.ImnRecovery();
                             SkillStorage.nowTurnExclusion=true;
+                            EnemyMove.KerberosPoison();
                         }
                         if (CharaMoveGage.MoveChar[0].CompareTag("Enemy"))
                         {
@@ -265,6 +266,7 @@ public class GameManager : MonoBehaviour
                     SkillStorage.Buff(EnemyMove.octopusPotSkill1Buff,EnemyMove.octopusPostSkill1Turn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill4Buff,EnemyMove.octopusPotSkill4Turn,1);
                     SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
+                    SkillStorage.Buff(EnemyMove.kerberosBuff,EnemyMove.kerberosBuffTurn,1);
                     BreakerEditor.circleSet=false;
 
                     for(int i=0;i<4;i++)
