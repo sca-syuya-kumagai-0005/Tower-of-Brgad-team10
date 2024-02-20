@@ -13,8 +13,8 @@ public class EnemySponer : MonoBehaviour
     void Awake()
     {
         //EnemyManager.enemyNumber=Random.Range(0,0)+1;
-        EnemyManager.enemyNumber=Random.Range(0,Enemies.Length-2);
-        if(FloarManager.nowFloar/5==0)
+        EnemyManager.enemyNumber=Random.Range(0,Enemies.Length-3)+1;
+        if(FloarManager.nowFloar%5==0&&FloarManager.nowFloar!=0)
         {
             EnemyManager.enemyNumber=Random.Range(7,Enemies.Length)+1;
         }

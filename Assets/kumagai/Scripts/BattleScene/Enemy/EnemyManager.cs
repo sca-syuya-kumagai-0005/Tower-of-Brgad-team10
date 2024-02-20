@@ -36,11 +36,15 @@ public class EnemyManager : MonoBehaviour
 
         public static int[] Enemy_EXP;//エネミーを倒したときに入手できる経験値量
         //ここまではCSVファイルからの取得
-        public static int[] Enemy_Lv;
+        public static int[] Enemy_Lv=new int [1];
         public static float[] Enemy_HP;
         public static float[] Enemy_ATK;
     }
     public static bool enemyStatusSet;
+    void Awake()
+    {
+        Enemy_Lv[0] = FloarManager.nowFloar + 1;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -56,10 +60,8 @@ public class EnemyManager : MonoBehaviour
         Enemy_minATK=new float[1];
         Enemy_maxATK=new float[1];
         Enemy_EXP=new int[1];
-        Enemy_Lv=new int[1];
         Enemy_HP=new float[1];
         Enemy_ATK=new float[1];
-        Enemy_Lv[0]=Enemy_Lv[0];
     }
 
     // Update is called once per frame

@@ -909,9 +909,34 @@ public class SkillStorage : MonoBehaviour
                         if(rate==1 &&!debuffDelate)
                         {
                             Debug.Log("簡易オぺ");
-                            debuffStrage.RemoveAt(0);
-                            debuffStrage.RemoveAt(0);
-                            debuffDelate=true;
+                            for(int i=0;i<2;i++)
+                            {
+                                switch (debuffStrage[i])
+                                {
+                                    case 2:
+                                        {
+                                            EnemyMove.stoneSpeedTurn=0;
+                                        }
+                                        break;
+                                    case 4:
+                                        {
+                                            EnemyMove.kerberosPoisonTurn=0;
+                                        }
+                                        break;
+                                    case 5:
+                                        {
+                                            EnemyMove.succubusSkill2Turn=0;
+                                        }
+                                        break;
+                                }
+                            }
+                            if(debuffStrage.Count>0)
+                            {
+                                debuffStrage.RemoveAt(0);
+                                debuffStrage.RemoveAt(0);
+                                debuffDelate = true;
+                            }
+                           
                             GameManager.moveEnd = true;
                         }
                         comparText = "簡易オペを繰り出した\nデバフを解除した";
@@ -1450,6 +1475,29 @@ public class SkillStorage : MonoBehaviour
             return turn;
         }
         return 0;
+    }
+    public static int BuffTurn(int turn,List<int> list, int number)
+    {
+        if (turn > 0)
+        {
+            turn -= 1;
+            return turn;
+        }
+        else
+        {
+            bool flag = false;
+            if (!flag)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] == number)
+                    {
+                        list.Remove(number);
+                    }
+                }
+            }
+            return 0;
+        }
     }
     public static void DBuffTurnStorage()
     {

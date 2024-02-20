@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using static BuffManager;
 using static MoveTextController;
 
 public class EnemyMove : MonoBehaviour
@@ -28,7 +29,7 @@ public class EnemyMove : MonoBehaviour
     private int skillNumber;
     public static bool skillSet;
     public static bool skillOK;
-    private int moveUpTurn;
+    public static int moveUpTurn;
     private float moveUpcorrection=1;
     public static int atkUpTurn;
     public static float atkUpcorrection=1;
@@ -38,6 +39,8 @@ public class EnemyMove : MonoBehaviour
     private void Awake()
     {
         CharaMoveGage.ActTime[0]=1;
+        moveUpTurn=0;
+        moveUpcorrection=1;
         octopusPotSkill1Buff=1;
         octopusPotSkill4Buff=1;
         octopusPostSkill1Turn=0;
@@ -127,6 +130,10 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(goblinBuff<=0)
+        {
+            publicEBuffStorage.Remove(0);
+        }
        if(!flag)
         {
             StartCoroutine(moveTextCoroutine(CharaMoveGage.enemyName + "が現れた！"));
@@ -296,12 +303,14 @@ public class EnemyMove : MonoBehaviour
         Debug.Log(moveUpcorrection);
         CharaMoveGage.ActTime[0] = 10*moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        publicEBuffStorage.Add(10);
         GameManager.moveEnd = true;
     }
     void WolfSkill4()
     {
         atkUpTurn=2;
         SkillStorage.comparText = "追剥ぎ狼は甲高く遠吠えした\n攻撃力が少し上昇した";
+        publicEBuffStorage.Add(0);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         CharaMoveGage.ActTime[0] = 8  * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
@@ -393,6 +402,7 @@ public class EnemyMove : MonoBehaviour
     void ReaperSkill4()
     {
         SkillStorage.comparText = "死神はおもむろに鎌を研ぎ始めた\n鎌の鋭さとオーラが研ぎ澄まされていく";
+        publicEBuffStorage.Add(0);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         EnemyManager.EnemyInfo.Enemy_ATK[0]*=1.1f;
         CharaMoveGage.ActTime[0] = 13 * moveUpcorrection;
@@ -455,13 +465,10 @@ public class EnemyMove : MonoBehaviour
         {
             SkillStorage.comparText = "口だけの像は怪しげな霧を巻いた\n味方全体は毒に侵されてしまった";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+            publicPDeBuffStorage.Add(4);
             StonePoison = true;
             spTurn = 5;
         }
-        SkillStorage.comparText= "口だけの像は怪しげな霧を巻いた\n味方全体は毒に侵されてしまった";
-        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
-        StonePoison =true;
-        spTurn=5;
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         GameManager.moveEnd = true;
     }
@@ -494,6 +501,7 @@ public class EnemyMove : MonoBehaviour
             stoneSpeedDebuff = 0.7f;
             stoneSpeedTurn = 8;
             SkillStorage.comparText = "口だけの像は不気味な領域を展開した\n行動速度が遅くなるのを感じる";
+            publicPDeBuffStorage.Add(2);
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         }
         
@@ -534,7 +542,7 @@ public class EnemyMove : MonoBehaviour
     }
 
     private float succubusSkill2Buff;
-    private int succubusSkill2Turn;
+    public static  int succubusSkill2Turn;
     void SuccubusSkill2()
     {
         float judge=0;
@@ -555,6 +563,7 @@ public class EnemyMove : MonoBehaviour
             succubusSkill2Buff=1.3f;
             succubusSkill2Turn=5;
             SkillStorage.comparText="サキュバスはこちらを魅了してきた\nしばらくの間受けるダメージが増加する\n";
+            publicPDeBuffStorage.Add(5);
         }
         else
         {
@@ -642,6 +651,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText = "ゴブリンは仲間を呼んだ\nゴブリンの攻撃時に追撃が来るようになった";
+        publicEBuffStorage.Add(15);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -671,13 +681,14 @@ public class EnemyMove : MonoBehaviour
         }
     }
     public static float octopusPotSkill1Buff;
-    public static float octopusPostSkill1Turn;
+    public static int octopusPostSkill1Turn;
     void OctopusPotSkill1()
     {
         octopusPostSkill1Turn=6;
         octopusPotSkill1Buff=0.75f;
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        publicEBuffStorage.Add(3);
         SkillStorage.comparText = "タコ壺戦士は壺を取り替えた\n新しい壺により防御力が上昇する";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
@@ -758,6 +769,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 20 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText = "タコ壺戦士は守りの体制を取った\nどんな攻撃も受け流しそうだ";
+        publicEBuffStorage.Add(4);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -770,6 +782,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 6 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText="ケルベロスは天に向かって遠吠えした\n攻撃力がかなり上昇した";
+        publicEBuffStorage.Add(kerberosBuff);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -815,6 +828,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 4 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText="ケルベロスは大きな舌で舐めまわしてきた\n冒険者たちは毒に侵されてしまった";
+        publicPDeBuffStorage.Add(4);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -845,8 +859,8 @@ public class EnemyMove : MonoBehaviour
         else
         {
             SkillStorage.comparText="ドラゴンは再度障壁を展開した\n次の行動まで攻撃は効かなそうだ";
-            
         }
+        publicEBuffStorage.Add(4);
         doragonSkill1Flag = true;
         doragonSkill1Buff = 0;
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
@@ -869,11 +883,11 @@ public class EnemyMove : MonoBehaviour
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         if(doragonSkill1Flag)
         {
+            publicEBuffStorage.Remove(4);
             SkillStorage.comparText = "ドラゴンは障壁を解除した\n";
             doragonSkill1Buff = 1;
             doragonSkill1Flag = false;
         }
-
         SkillStorage.comparText += "ドラゴンは口から業火を吐き出した\n味方全体に平均\n"+((int)allDamage/4).ToString()+"のダメージ";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
@@ -882,6 +896,7 @@ public class EnemyMove : MonoBehaviour
     void DoragonSkill3()
     {
         Debug.Log("skill3");
+       
         int Count=0;
         bool flg=false;
         int target=0;
@@ -921,6 +936,7 @@ public class EnemyMove : MonoBehaviour
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
             if(doragonSkill1Flag)
             {
+                publicEBuffStorage.Remove(4);
                 SkillStorage.comparText="ドラゴンは障壁を解除した\n";
                 doragonSkill1Buff=1;
                 doragonSkill1Flag=false;
@@ -934,12 +950,14 @@ public class EnemyMove : MonoBehaviour
     void DoragonSkill4()
     {
         Debug.Log("skill4");
+      
         EnemyManager.EnemyInfo.Enemy_HP[0]+=(int)EnemyManager.EnemyInfo.Enemy_HP[0]/10;
         CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         if (doragonSkill1Flag)
         {
             SkillStorage.comparText = "ドラゴンは障壁を解除した\n";
+            publicEBuffStorage.Remove(4);
             doragonSkill1Buff = 1;
             doragonSkill1Flag = false;
         }
@@ -997,7 +1015,7 @@ public class EnemyMove : MonoBehaviour
         }
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        SkillStorage.comparText += "「 我、今こそ万物を粛清せん 」\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+        SkillStorage.comparText += "「我、今こそ万物を粛清せん」\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -1018,7 +1036,7 @@ public class EnemyMove : MonoBehaviour
         }
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        SkillStorage.comparText += "「 聞こえるか、\n汝に下す雷鳴と審判の音が 」\n平均" +Damage.ToString() + "のダメージ";
+        SkillStorage.comparText += "「聞こえるか、\n汝に下す雷鳴と審判の音が」\n平均" +Damage.ToString() + "のダメージ";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -1057,12 +1075,14 @@ public class EnemyMove : MonoBehaviour
                     break;
                 case 1:
                     {
+                        publicPDeBuffStorage.Add(4);
                         StonePoison = true;
                         spTurn = 5;
                     }
                     break;
                 case 2:
                     {
+                        publicPDeBuffStorage.Add(2);
                         stoneSpeedDebuff = 0.7f;
                         stoneSpeedTurn = 8;
                     }
@@ -1084,6 +1104,7 @@ public class EnemyMove : MonoBehaviour
                         int random = Random.Range(0, 101);
                         if (random <= judge)
                         {
+                            publicPDeBuffStorage.Add(5);
                             succubusSkill2Buff = 1.3f;
                             succubusSkill2Turn = 5;
                         }
@@ -1096,13 +1117,15 @@ public class EnemyMove : MonoBehaviour
                     break;
                     case 4:
                     {
+                        publicPDeBuffStorage.Add(6);
                         kerberosPoisonTurn++;
                     }
                     break;
             }
+            PegasusFirstFlag = true;
             CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            SkillStorage.comparText= "「 天に昇りし者たちの\n憎悪を知れ 」\n倒した命の数々が\n背筋を伝う……";
+            SkillStorage.comparText= "「天に昇りし者たちの\n憎悪を知れ」\n倒した命の数々が\n背筋を伝う……";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         }
         GameManager.moveEnd = true;
@@ -1120,7 +1143,7 @@ public class EnemyMove : MonoBehaviour
         pegasusSkill4Flag = true;
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        SkillStorage.comparText = "「 全てを、終焉へと導かん……！ 」\n味方全体のHPが１になった\nペガサス は大きく体勢を崩した";
+        SkillStorage.comparText = "「全てを、終焉へと導かん……！」\n味方全体のHPが１になった\nペガサス は大きく体勢を崩した";
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }
@@ -1134,7 +1157,6 @@ public class EnemyMove : MonoBehaviour
             {
                 EnemySkill[0] = 0;
                 EnemySkill[1] = 0;
-                PegasusFirstFlag = true;
             }
             else
             {
