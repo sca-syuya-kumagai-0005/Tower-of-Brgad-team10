@@ -120,7 +120,15 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state==GameManager.BattleState.move)
                     {
                         float pAtk= PlayerInfo.Player_ATK[charaNumber] * atkBuff + atkStatusBuff;
-                        addDamage=(pAtk*rate)*2;
+                        if(!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = (pAtk * rate) * 2;
+                        }
+                        else
+                        {
+                            addDamage=9999;
+                        }
+                      
                         Debug.Log(melodyBuff);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -198,7 +206,16 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        float pAtk = PlayerInfo.Player_ATK[charaNumber]*atkBuff;
+
+                        float pAtk=0;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            pAtk = PlayerInfo.Player_ATK[charaNumber] * atkBuff;
+                        }
+                        else
+                        {
+                           pAtk = 9999;
+                        }
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate)*GameManager.aliveCount + atkStatusBuff;
                         Debug.Log("ダメージは"+pAtk * breakerRate * GameManager.aliveCount);
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -440,7 +457,14 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state == GameManager.BattleState.move)
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                        addDamage = (pAtk * rate)*EnemyMove.octopusPotSkill1Buff*EnemyMove.doragonSkill1Buff;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = (pAtk * rate) * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                        }
+                        else
+                        {
+                            addDamage = 9999;
+                        }
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] -addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -636,7 +660,15 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         int rand=Random.Range(1,6);
-                        addDamage =(PlayerInfo.Player_ATK[charaNumber]*rate*atkBuff + atkStatusBuff )* rand+(rand*atkStatusBuff);
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * rand + (rand * atkStatusBuff);
+                        }
+                        else
+                        {
+                            addDamage = 9999;
+                        }
+                     
                         Debug.Log("ダメージは"+addDamage);
                         comparText =　"サンバレットを繰り出した\n"+CharaMoveGage.enemyName+"は"+((int)addDamage).ToString()+"のダメージを受けた";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -658,14 +690,22 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         int rand = Random.Range(0, 4);
-                        if(rand<=2)
+                        if (!EnemyMove.pegasusSkill4Flag)
                         {
-                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * 1+atkStatusBuff;
+                            if (rand <= 2)
+                            {
+                                addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * 1 + atkStatusBuff;
+                            }
+                            if (rand == 3)
+                            {
+                                addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * 10 + atkStatusBuff;
+                            }
                         }
-                        if(rand==3)
+                        else
                         {
-                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) *10+atkStatusBuff;
+                            addDamage = 9999;
                         }
+
                         comparText = "アイスランスを繰り出した\n" + CharaMoveGage.enemyName + "は" + ((int)addDamage).ToString() + "のダメージを受けた";
                         StartCoroutine(moveTextCoroutine(comparText));
                         int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
@@ -730,8 +770,16 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         comparText="デクテットブロウを繰り出した\n敵に"+((int)(addDamage)).ToString()+"ダメージ\n与えた";
-                        int atkCount=(int)BreakerEditor.NotesOKCount+1;                       
-                        addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * atkCount;
+                        int atkCount=(int)BreakerEditor.NotesOKCount+1;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = (PlayerInfo.Player_ATK[charaNumber] * rate * atkBuff + atkStatusBuff) * atkCount;
+                        }
+                        else
+                        {
+                            addDamage = 9999;
+                        }
+                       
                         int ehp = (int)(EnemyManager.EnemyInfo.Enemy_HP[0]);
                         ehp -= (int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -771,7 +819,15 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber=charaNumber;
-                        addDamage = (pAtk * rate) * atkBuff + atkStatusBuff * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = (pAtk * rate) * atkBuff + atkStatusBuff * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                        }
+                        else
+                        {
+                            addDamage = 9999;
+                        }
+                       
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -908,6 +964,14 @@ public class SkillStorage : MonoBehaviour
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber = charaNumber;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff) * rate * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                        }
+                        else
+                        {
+                            addDamage = 9999;
+                        }
                         addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff)*rate * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - (int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -1044,7 +1108,15 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state == GameManager.BattleState.move) 
                     {
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                        addDamage = pAtk * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = pAtk * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                        }
+                        else
+                        {
+                            addDamage = 9999;
+                        }
+                        
                         int atkLoop = 1;
                         for (int i = 1; i < 6; i++)
                         {
@@ -1149,7 +1221,15 @@ public class SkillStorage : MonoBehaviour
                         {
                             pAtk5=pAtk*5;
                         }
-                        addDamage=pAtk+pAtk5;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            addDamage = pAtk + pAtk5;
+                        }
+                        else
+                        {
+                            addDamage = 9999;
+                        }
+                      
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];
@@ -1169,7 +1249,16 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        int pAtk=(int)(PlayerInfo.Player_ATK[charaNumber] * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff);
+
+                        int pAtk=0;
+                        if (!EnemyMove.pegasusSkill4Flag)
+                        {
+                            pAtk = (int)(PlayerInfo.Player_ATK[charaNumber] * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff);
+                        }
+                        else
+                        {
+                            pAtk= 9999;
+                        }
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
                         EnemyManager.debugHPBer.fillAmount = ehp / EnemyManager.maxEnemyHP[0];

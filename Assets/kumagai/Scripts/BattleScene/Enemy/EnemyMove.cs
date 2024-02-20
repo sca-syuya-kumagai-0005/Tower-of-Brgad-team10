@@ -14,6 +14,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]int[] OctopusPotSkill;
     [SerializeField]int[] KerberosSkill;
     [SerializeField]int[] DoragonSkill;
+    [SerializeField]int[] PegasusSkill;
     [SerializeField]
     private int[] EnemySkill;
     [SerializeField]
@@ -55,6 +56,7 @@ public class EnemyMove : MonoBehaviour
         kerberosBuffTurn=0;
         doragonSkill1Buff=1;
         doragonSkill1Flag=false;
+        PegasusFirstFlag=false;
         
     }
     void Start()
@@ -110,7 +112,14 @@ public class EnemyMove : MonoBehaviour
                     EnemySkill=DoragonSkill;
                 }
                 break;
+            case "ペガサス":
+                {
+                    CharaMoveGage.ActTime[0]=0.1f;
+                    EnemySkill=PegasusSkill;
+                }
+                break;
         }
+
         charaAlive =new Image[partyChara.transform.childCount];
     }
 
@@ -128,6 +137,7 @@ public class EnemyMove : MonoBehaviour
             succubusSkill2Buff=1;
         }
        DoragonSkillPoint();
+       PegasusSkillPoint();
        PartyCharaAlive();
        tmpEM=enemyMove;
        protEnemyMove();
@@ -571,7 +581,7 @@ public class EnemyMove : MonoBehaviour
             PlayerEditorManager.PlayerInfo.Player_HP[i]-=(int)Damage;
             DamageReflection(Damage);
         }
-        SkillStorage.comparText="味方全体の魂を吸い出してきた\n味方全体に平均"+Damage.ToString()+"のダメージ";
+        SkillStorage.comparText="冒険者たちの魂を吸い出してきた\n味方全体に平均"+Damage.ToString()+"のダメージ";
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
@@ -961,6 +971,183 @@ public class EnemyMove : MonoBehaviour
         }
         
     }
+
+    void PegasusSkill1()
+    {
+        bool flg=false;
+        int target=0;
+        if (!flg)
+        {
+            target = EnemyAttackTarget();//対象の抽選
+            if (charaAlive[target].fillAmount > 0)
+            {
+                flg = true;
+            }
+        }
+        if (flg)
+        {
+            int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * 2.5f* richardSkill3Buff);
+            Damage = (int)eAtk;
+            DamageCutController(target);
+            DamageReflection(Damage);
+            PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
+            float hp = PlayerEditorManager.PlayerInfo.Player_HP[target];
+            PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
+
+        }
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText += "「 我、今こそ万物を粛清せん 」\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void PegasusSkill2()
+    {
+        for(int i=0;i<4;i++)
+        {
+                int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0]  * richardSkill3Buff);
+                Damage = (int)eAtk;
+                DamageCutController(i);
+                DamageReflection(Damage);
+                PlayerEditorManager.PlayerInfo.Player_HP[i] -= (int)Damage;
+                float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
+                PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
+          
+          
+        }
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText += "「 聞こえるか、\n汝に下す雷鳴と審判の音が 」\n平均" +Damage.ToString() + "のダメージ";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    void PegasusSkill3()
+    {
+        int rand=0;
+        List<int> oldrand=new List<int>();
+        for(int i=0;i<3;i++)
+        {
+            bool flag=false;
+            while(!flag)
+            {
+                rand = Random.Range(0, 5);
+                for(int j=0;j<oldrand.Count;j++)
+                {
+                    if(oldrand[i]==rand)
+                    {
+                        flag=false;
+                        break;
+                    }
+                    else
+                    {
+                        flag=true;
+                    }
+                }
+                oldrand.Add(rand);
+            }
+            
+            switch(rand)
+            {
+                case 0://口だけの像　スキル2
+                    {
+                        BreakerEditor.BreakerGageCount -= 20;
+                    }
+                    break;
+                case 1:
+                    {
+                        StonePoison = true;
+                        spTurn = 5;
+                    }
+                    break;
+                case 2:
+                    {
+                        stoneSpeedDebuff = 0.7f;
+                        stoneSpeedTurn = 8;
+                    }
+                    break;
+                case 3:
+                    {
+                        float judge = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (TeamCharacter.charaName[j] == "レオン" || TeamCharacter.charaName[j] == "ゴードン" || TeamCharacter.charaName[j] == "リチャード" || TeamCharacter.charaName[j] == "スティアータ")
+                            {
+                                judge += 65;
+                            }
+                            else
+                            {
+                                judge += 45;
+                            }
+                        }
+                        int random = Random.Range(0, 101);
+                        if (random <= judge)
+                        {
+                            succubusSkill2Buff = 1.3f;
+                            succubusSkill2Turn = 5;
+                        }
+                        else
+                        {
+                            succubusSkill2Buff = 1;
+                            succubusSkill2Turn = 0;
+                        }
+                    }
+                    break;
+                    case 4:
+                    {
+                        kerberosPoisonTurn++;
+                    }
+                    break;
+            }
+            CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+            SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+            SkillStorage.comparText= "「 天に昇りし者たちの\n憎悪を知れ 」\n倒した命の数々が\n背筋を伝う……";
+            StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        }
+        GameManager.moveEnd = true;
+    }
+    public static bool pegasusSkill4Flag;
+    void PegasusSkill4()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if(PlayerEditorManager.PlayerInfo.Player_HP[i]!=0)
+            {
+                PlayerEditorManager.PlayerInfo.Player_HP[i]=1;
+            }
+        }
+        pegasusSkill4Flag = true;
+        CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
+        SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
+        SkillStorage.comparText = "「 全てを、終焉へと導かん……！ 」\n味方全体のHPが１になった\nペガサス は大きく体勢を崩した";
+        StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
+        GameManager.moveEnd = true;
+    }
+
+    bool PegasusFirstFlag;
+    void PegasusSkillPoint()
+    {
+        if(CharaMoveGage.enemyName=="ペガサス")
+        {
+            if (!PegasusFirstFlag)
+            {
+                EnemySkill[0] = 0;
+                EnemySkill[1] = 0;
+                PegasusFirstFlag = true;
+            }
+            else
+            {
+                EnemySkill[0]=35;
+                EnemySkill[1]=40;
+            }
+            if(EnemyManager.EnemyInfo.Enemy_HP[0]/EnemyManager.maxEnemyHP[0]<0.05f)
+            {
+                EnemySkill[3]=150;
+            }
+        }
+        
+    }
     void PartyCharaAlive()
     {
         if(GameManager.state==GameManager.BattleState.start)
@@ -1178,6 +1365,33 @@ public class EnemyMove : MonoBehaviour
                 case 3:
                     {
                         DoragonSkill4();
+                    }
+                    break;
+            }
+        }
+        if(eN=="ペガサス")
+        {
+            switch (skillNumber)
+            {
+                case 0:
+                    {
+                        PegasusSkill1();
+
+                    }
+                    break;
+                case 1:
+                    {
+                        PegasusSkill2();
+                    }
+                    break;
+                case 2:
+                    {
+                        PegasusSkill3();
+                    }
+                    break;
+                case 3:
+                    {
+                        PegasusSkill4();
                     }
                     break;
             }
