@@ -1451,6 +1451,29 @@ public class SkillStorage : MonoBehaviour
         }
         return 0;
     }
+    public static int BuffTurn(int turn,List<int> list, int number)
+    {
+        if (turn > 0)
+        {
+            turn -= 1;
+            return turn;
+        }
+        else
+        {
+            bool flag = false;
+            if (!flag)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] == number)
+                    {
+                        list.Remove(number);
+                    }
+                }
+            }
+            return 0;
+        }
+    }
     public static void DBuffTurnStorage()
     {
         BuffTurn(playerSkill3);

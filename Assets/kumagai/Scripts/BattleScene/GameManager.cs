@@ -265,7 +265,14 @@ public class GameManager : MonoBehaviour
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill1Buff,EnemyMove.octopusPostSkill1Turn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill4Buff,EnemyMove.octopusPotSkill4Turn,1);
-                    SkillStorage.BuffTurn(EnemyMove.atkUpTurn);
+                    EnemyMove.atkUpTurn=SkillStorage.BuffTurn(EnemyMove.atkUpTurn,BuffManager.publicEBuffStorage,0);
+                    EnemyMove.moveUpTurn=SkillStorage.BuffTurn(EnemyMove.moveUpTurn,BuffManager.publicEBuffStorage,10);
+                    EnemyMove.stoneSpeedTurn=SkillStorage.BuffTurn(EnemyMove.stoneSpeedTurn,BuffManager.publicPDeBuffStorage,2);
+                    EnemyMove.succubusSkill2Turn=SkillStorage.BuffTurn(EnemyMove.succubusSkill2Turn,BuffManager.publicPDeBuffStorage,5);
+                    EnemyMove.octopusPostSkill1Turn=SkillStorage.BuffTurn(EnemyMove.octopusPostSkill1Turn,BuffManager.publicEBuffStorage,3);
+                    EnemyMove.octopusPotSkill4Turn=SkillStorage.BuffTurn(EnemyMove.octopusPotSkill4Turn,BuffManager.publicEBuffStorage,4);
+                    EnemyMove.kerberosBuffTurn=SkillStorage.BuffTurn(EnemyMove.kerberosBuffTurn,BuffManager.publicEBuffStorage,0);
+                    EnemyMove.kerberosPoisonTurn = SkillStorage.BuffTurn(EnemyMove.kerberosPoisonTurn, BuffManager.publicPDeBuffStorage, 4);
                     SkillStorage.Buff(EnemyMove.kerberosBuff,EnemyMove.kerberosBuffTurn,1);
                     BreakerEditor.circleSet=false;
 
