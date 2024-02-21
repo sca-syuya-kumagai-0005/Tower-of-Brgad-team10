@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public static bool moveEnd;
     public static bool GameClear;
-    [SerializeField]private bool GameOver;
+    public static bool GameOver;
     [SerializeField]private bool tmpmoveEnd;
     [SerializeField]private Text gameSetText;
     public static int enemyTmpHP;
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         
         GameClear=false;
+        GameOver=false;
         loopScene=false;
         Enemy.SetActive(true);
         Floor.SetActive(true);
@@ -93,7 +94,8 @@ public class GameManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("TitleScene");
+            GameOver = true;
+            state =BattleState.reSult;
         }
     }
 
@@ -317,7 +319,6 @@ public class GameManager : MonoBehaviour
             //    break;
         }
     }
-
     IEnumerator wait()
     {
         yield return null;
@@ -358,7 +359,6 @@ public class GameManager : MonoBehaviour
         {
             GameOver=true;
             yield return new WaitForSeconds(3);
-            SceneManager.LoadScene("TitleScene");
         }
 
         if(loopScene)

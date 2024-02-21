@@ -160,7 +160,7 @@ public class EXPManager : MonoBehaviour
             {
                 coroutine = StartCoroutine(LvUpSheetManager());
             }
-            else
+            else if(!GameManager.GameOver)
             {
                 GameManager.loopScene = true;
             }
@@ -194,7 +194,7 @@ public class EXPManager : MonoBehaviour
         }
         if(GameManager.loopScene)
         {
-            while (LvUpSheet.transform.position.y < 540+1200)
+            while (LvUpSheet.transform.position.y < 540+1300)
             {
                 Vector3 pos = LvUpSheet.transform.position;
                 LvUpSheet.transform.position = new Vector3(pos.x, LvUpSheet.transform.position.y + 1200 * Time.deltaTime, pos.z);

@@ -46,7 +46,6 @@ public class SkillSelection : MonoBehaviour
         }
         if (GameManager.state==GameManager.BattleState.skillSelect)
         { 
-            ScoreManager.skillSelectTime+=Time.deltaTime;
             SkillSelect();
             SelectSkill();
             SkillPosEffect();

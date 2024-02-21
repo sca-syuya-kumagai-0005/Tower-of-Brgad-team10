@@ -27,7 +27,7 @@ public class EnemySponer : MonoBehaviour
         {
             EnemyManager.enemyNumber=9;
         }
-        else if (FloarManager.nowFloar % 1 == 0 )
+        else if (FloarManager.nowFloar % 14 == 0&&FloarManager.nowFloar!=0 )
         {
             EnemyManager.enemyNumber = Random.Range(7, Enemies.Length) + 1;
         }
