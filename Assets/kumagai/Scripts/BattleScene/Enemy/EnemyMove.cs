@@ -623,7 +623,7 @@ public class EnemyMove : MonoBehaviour
         if (flg)
         {
             int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
-            Damage = eAtk * succubusSkill2Buff;
+            Damage =(int)( eAtk * succubusSkill2Buff);
             DamageCutController(target);
             DamageReflection(Damage);
             PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
@@ -782,7 +782,7 @@ public class EnemyMove : MonoBehaviour
     void OctopusPotSkill4()
     {
 
-        octopusPotSkill4Turn = 1;
+        octopusPotSkill4Turn = 2;
         octopusPotSkill4Buff = 0;
         CharaMoveGage.ActTime[0] = 20 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
@@ -800,7 +800,7 @@ public class EnemyMove : MonoBehaviour
         CharaMoveGage.ActTime[0] = 6 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
         SkillStorage.comparText="ケルベロスは天に向かって遠吠えした\n攻撃力がかなり上昇した";
-        publicEBuffStorage.Add(kerberosBuff);
+        publicEBuffStorage.Add(0);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
     }

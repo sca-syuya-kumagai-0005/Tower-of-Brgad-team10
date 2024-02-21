@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject Player;
     [SerializeField]private GameObject Floor;
     [SerializeField]private GameObject redJudge;
+    [SerializeField]private GameObject backGround;
     private bool backGroundWalk;
     void Awake()
     {
@@ -276,6 +277,11 @@ public class GameManager : MonoBehaviour
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill1Buff,EnemyMove.octopusPostSkill1Turn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill4Buff,EnemyMove.octopusPotSkill4Turn,1);
+                    EnemyMove.octopusPotSkill4Turn--;
+                    if(EnemyMove.octopusPotSkill4Turn<=0)
+                    {
+                        EnemyMove.octopusPotSkill4Buff=1;
+                    }
                     EnemyMove.atkUpTurn=SkillStorage.BuffTurn(EnemyMove.atkUpTurn,BuffManager.publicEBuffStorage,0);
                     EnemyMove.moveUpTurn=SkillStorage.BuffTurn(EnemyMove.moveUpTurn,BuffManager.publicEBuffStorage,10);
                     EnemyMove.stoneSpeedTurn=SkillStorage.BuffTurn(EnemyMove.stoneSpeedTurn,BuffManager.publicPDeBuffStorage,2);
@@ -447,10 +453,13 @@ public class GameManager : MonoBehaviour
     private void  Walk()
     {
         float y;
+        Vector3 size=backGround.GetComponent<RectTransform>().localScale;
         if(f<=10)
         { 
             f+=Time.deltaTime*5;
             y=-Mathf.Abs(Mathf.Sin(f)/2);
+            size+=new Vector3(size.x,size.y,size.z)*Time.deltaTime/5;
+            backGround.GetComponent<RectTransform>().localScale=size;
             BackGround.transform.position=new Vector3(0,y,0);
         }
     }

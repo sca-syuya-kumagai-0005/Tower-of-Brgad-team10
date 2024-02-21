@@ -123,12 +123,12 @@ public class EXPManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 int EXP = GetEXP;
-                
+                bool flag = false;
                 while (EXP != 0)
                 {
                     EXP -= PlayerEditorManager.PlayerInfo.Player_EXP[i];
                     int exp = EXP;
-                    bool flag=false;
+                   
                     if (exp >= 0)
                     {
                         if(!flag)
@@ -138,12 +138,16 @@ public class EXPManager : MonoBehaviour
                             LvUpChara++;
                             flag=true;
                         }
-                        PlayerEditorManager.Lv[i] += 1;
-                        LvUpCount[i]++;
-                        PlayerEditorManager. PlayerStatas(PlayerEditor.playerDatas[i], i);
-                        newHp[i] = (int)PlayerEditorManager.MaxHP[i];
-                        newAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
-                        newAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
+                        if(PlayerEditorManager.Lv[i]<=99)
+                        {
+                            PlayerEditorManager.Lv[i] += 1;
+                            LvUpCount[i]++;
+                            PlayerEditorManager.PlayerStatas(PlayerEditor.playerDatas[i], i);
+                            newHp[i] = (int)PlayerEditorManager.MaxHP[i];
+                            newAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
+                            newAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
+                        }
+                        
                     }
                     else
                     {

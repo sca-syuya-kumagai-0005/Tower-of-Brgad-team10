@@ -43,7 +43,10 @@ public class EnemyManager : MonoBehaviour
     public static bool enemyStatusSet;
     void Awake()
     {
-        Enemy_Lv[0] = FloarManager.nowFloar + 1;
+        int n=FloarManager.nowFloar/10+1;
+        Debug.Log("nは"+n);
+        Enemy_Lv[0] += n;
+        Debug.Log(Enemy_Lv[0]);
     }
     // Start is called before the first frame update
     void Start()

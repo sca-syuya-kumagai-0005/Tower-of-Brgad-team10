@@ -1171,7 +1171,7 @@ public class SkillStorage : MonoBehaviour
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
-                            addDamage = pAtk * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                            addDamage = pAtk * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff*EnemyMove.octopusPotSkill4Buff;
                         }
                         else
                         {
