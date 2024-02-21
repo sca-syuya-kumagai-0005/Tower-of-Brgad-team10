@@ -1476,7 +1476,6 @@ public class EnemyMove : MonoBehaviour
     int EnemyAttackTarget()
     {
         int MaxHate=0;
-        
         for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
         {
             if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
@@ -1487,7 +1486,7 @@ public class EnemyMove : MonoBehaviour
             }
         }
         Debug.Log(MaxHate);
-        int target=Random.Range(0,MaxHate+1);
+        int target=Random.Range(0,MaxHate);
         for(int i=0;i<4;i++)
         {
             if(PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null) {
@@ -1495,8 +1494,9 @@ public class EnemyMove : MonoBehaviour
                 {
                     target -= PlayerEditorManager.PlayerInfo.Player_Hate[i];
                 }
+
            
-                if(target<=0)
+                if(target<0)
                 {
                     if(partyChara.transform.GetChild(i).gameObject.name =="リチャード"&&SkillStorage.richardSkill3Avoidance)
                     {

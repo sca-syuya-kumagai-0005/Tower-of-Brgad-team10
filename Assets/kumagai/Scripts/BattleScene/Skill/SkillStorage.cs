@@ -642,7 +642,7 @@ public class SkillStorage : MonoBehaviour
                     {
                         ScoreManager.PlayerScore(breakerRate, 200);
                         rinBreakerTime =130;
-                        rinBreaker=90 * breakerRate;
+                        rinBreaker=1-breakerRate*0.8f;
                         comparText="禁符:御法の障壁を繰り出した\n味方全体がダメージの一部を防げるようになった";
                         StartCoroutine(moveTextCoroutine(comparText));
                         publicPBuffStorage.Add(7);

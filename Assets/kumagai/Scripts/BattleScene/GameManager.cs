@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
                     EnemyMove.kerberosPoisonTurn = SkillStorage.BuffTurn(EnemyMove.kerberosPoisonTurn, BuffManager.publicPDeBuffStorage, 4);
                     SkillStorage.Buff(EnemyMove.kerberosBuff,EnemyMove.kerberosBuffTurn,1);
                     BreakerEditor.circleSet=false;
-
+                    AliveJudge();
                     for(int i=0;i<4;i++)
                     {
                         if(PlayerEditorManager.PlayerInfo.Player_HP[i]!=0)
@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviour
                             }
                         }
                     }
-                        state = BattleState.moveWait;
+                      StartCoroutine(wait());
                     
                 }
                 break;
@@ -315,6 +315,29 @@ public class GameManager : MonoBehaviour
 
             //    }
             //    break;
+        }
+    }
+
+    IEnumerator wait()
+    {
+        yield return null;
+        state = BattleState.moveWait;
+    }
+
+    void AliveJudge()
+    {
+        bool flag=false;
+        for(int i=0;i<4;i++)
+        {
+            if(PlayerEditorManager.PlayerInfo.Player_HP[i]>0)
+            {
+                flag=true;
+                break;
+            }
+        }
+        if(!flag)
+        {
+            GameOver=true;
         }
     }
     public static bool loopScene;
