@@ -71,6 +71,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (GameOver || GameClear)
+        {
+
+            state = BattleState.reSult;
+        }
         Debug.Log(state);
         if(!GameClear)StartMoveCharacter();
         else EndMoveCharacter();
@@ -78,6 +84,8 @@ public class GameManager : MonoBehaviour
         tmpAlliveFlag=aliveFlag;
         BattleStateManager();
         CharaAliveJudge();
+        
+        
         tmpmoveEnd=moveEnd;
         if (GameOver || GameClear)
         {
@@ -262,6 +270,7 @@ public class GameManager : MonoBehaviour
                     SkillSelection.breakerFlag=false;
                     SkillStorage.rate=0;
                     SkillStorage.debuffDelate=false;
+                    ScoreManager.addScoreFlag=false;
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill1Buff,EnemyMove.octopusPostSkill1Turn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill4Buff,EnemyMove.octopusPotSkill4Turn,1);
@@ -290,17 +299,7 @@ public class GameManager : MonoBehaviour
                             }
                         }
                     }
-
-
-                    if (GameOver||GameClear)
-                    {
-                     
-                       state =BattleState.reSult;
-                    }
-                    else 
-                    {
                         state = BattleState.moveWait;
-                    }
                     
                 }
                 break;
@@ -384,37 +383,42 @@ public class GameManager : MonoBehaviour
 
     void CharaAliveJudge()
     {
-        for(int i=0;i<PlayerManager.playerHPBer.Length;i++)
+        if(EnemyManager.EnemyInfo.Enemy_HP[0]>0)
         {
-            if(PlayerEditor.PlayerName[i]!=""&&PlayerEditor.PlayerName[i]!=null) { 
-            if(PlayerManager.playerHPBer[i].fillAmount==0)
+            for (int i = 0; i < PlayerManager.playerHPBer.Length; i++)
             {
-                PlayerManager.playerDeadBackGround[i].SetActive(true);
-                if(CharaMoveGage.MoveChar[0]!=null)
+                if (PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null)
                 {
-                    if (CharaMoveGage.MoveChar[0].name == PlayerEditor.PlayerName[i])
+                    if (PlayerManager.playerHPBer[i].fillAmount == 0)
                     {
-                        CharaMoveGage.MoveChar[0] = null;
-                        if(CharaMoveGage.MoveChar[1]!=null)
+                        PlayerManager.playerDeadBackGround[i].SetActive(true);
+                        if (CharaMoveGage.MoveChar[0] != null)
                         {
-                                //for (int j = 1; j < 5; j++)
-                                //{
-                                //    if (CharaMoveGage.MoveChar[j - 1] == null)
-                                //    {
-                                //        CharaMoveGage.order--;
-                                //        CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
-                                //        CharaMoveGage. MoveChar[j] = null;
-                                    
-                                //    }
-                                //}
-                            
+                            if (CharaMoveGage.MoveChar[0].name == PlayerEditor.PlayerName[i])
+                            {
+                                CharaMoveGage.MoveChar[0] = null;
+                                if (CharaMoveGage.MoveChar[1] != null)
+                                {
+                                    //for (int j = 1; j < 5; j++)
+                                    //{
+                                    //    if (CharaMoveGage.MoveChar[j - 1] == null)
+                                    //    {
+                                    //        CharaMoveGage.order--;
+                                    //        CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
+                                    //        CharaMoveGage. MoveChar[j] = null;
+
+                                    //    }
+                                    //}
+
+                                }
+                            }
                         }
+                        aliveFlag[i + 1] = false;
                     }
                 }
-                aliveFlag[i+1]=false;
-            }
             }
         }
+       
     }
     float f=0;
     private void  Walk()

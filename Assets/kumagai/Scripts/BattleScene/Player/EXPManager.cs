@@ -82,8 +82,8 @@ public class EXPManager : MonoBehaviour
         { 
             StartCoroutine(LvJudge()); 
         }
+     
       
-        coroutine= StartCoroutine(LvUpSheetManager());
 
     }
     [SerializeField]
@@ -156,6 +156,14 @@ public class EXPManager : MonoBehaviour
             
            
             EXPGetFlag = true;
+            if (LvUpChara >= 1)
+            {
+                coroutine = StartCoroutine(LvUpSheetManager());
+            }
+            else
+            {
+                GameManager.loopScene = true;
+            }
             yield break;
            
         }
@@ -164,7 +172,7 @@ public class EXPManager : MonoBehaviour
     bool coroutineFlag;
      private IEnumerator LvUpSheetManager()
     {
-        if (GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag)
+        if (GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag&&GameManager.GameClear)
         {
             coroutineFlag = true;
             yield return new WaitForSeconds(1.5f);
@@ -195,8 +203,5 @@ public class EXPManager : MonoBehaviour
         }
        
         yield break;
-    }
-    void PlayerAlilveJudge()
-    {
     }
 }

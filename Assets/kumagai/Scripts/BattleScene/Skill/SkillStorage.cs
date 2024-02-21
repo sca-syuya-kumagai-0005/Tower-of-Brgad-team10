@@ -128,7 +128,7 @@ public class SkillStorage : MonoBehaviour
                         {
                             addDamage=9999;
                         }
-                      
+                        ScoreManager.PlayerScore(rate,100);
                         Debug.Log(melodyBuff);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -149,8 +149,9 @@ public class SkillStorage : MonoBehaviour
                     }
                     
                     if (GameManager.state == GameManager.BattleState.move)
-                    { 
-                    pATKCorrect = (NotesEditor.NotesOKCount / CommandCount);
+                    {
+                        ScoreManager.PlayerScore(rate, 80);
+                        pATKCorrect = (NotesEditor.NotesOKCount / CommandCount);
                     p2AtkUpTime=p2AtkUpMaxTime;
                     comparText="“¬u“ü°‚ğŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ÌUŒ‚—Í‚ªã¸‚µ‚½";
                        publicPBuffStorage.Add(0);
@@ -167,7 +168,8 @@ public class SkillStorage : MonoBehaviour
                         NotesEditor.skillName = "–WŠQHì";
                     }
                    if(GameManager.state==GameManager.BattleState.move)
-                    { 
+                    {
+                        ScoreManager.PlayerScore(rate, 80);
                         playerSkill3Buff =(rate*100/20f)/100;
                         playerSkill3=1;
                         comparText="–WŠQHì‚ğŒJ‚èo‚µ‚½\n“G‚Ì”íƒ_ƒ[ƒW‚ªã¸‚·‚é";
@@ -186,7 +188,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                       float php=PlayerInfo.Player_HP[charaNumber];
+                        ScoreManager.PlayerScore(rate, 80);
+                        float php=PlayerInfo.Player_HP[charaNumber];
                         php+=(((rate*100*0.3f)/100))*PlayerEditorManager.MaxHP[charaNumber];
                         PlayerInfo.Player_HP[charaNumber]=(int)php;
                         PlayerManager.playerHPBer[charaNumber].fillAmount=PlayerInfo.Player_HP[charaNumber]/PlayerEditorManager.MaxHP[charaNumber];
@@ -216,6 +219,7 @@ public class SkillStorage : MonoBehaviour
                         {
                            pAtk = 9999;
                         }
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate)*GameManager.aliveCount + atkStatusBuff;
                         Debug.Log("ƒ_ƒ[ƒW‚Í"+pAtk * breakerRate * GameManager.aliveCount);
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -256,7 +260,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        addSpeed=1.3f;
+                        ScoreManager.PlayerScore(rate, 200);
+                        addSpeed =1.3f;
                         addSpeedTurn = 0;
                         for(float i=0.2f;i<5;i+=0.2f) 
                         {
@@ -280,6 +285,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 20);
                         addSpeed =0.7f;
                         for(float i = 0.2f; i < 5; i += 0.2f) 
                         {
@@ -305,7 +311,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        rateCorrection=(rate*100*0.3f)/100;
+                        ScoreManager.PlayerScore(rate, 50);
+                        rateCorrection =(rate*100*0.3f)/100;
                         comparText="‚ ‚è‚¦‚½‘I‘ğ‚ğŒJ‚èo‚µ‚½\nƒRƒ}ƒ“ƒh‚Ì¬Œ÷—¦‚ªã¸‚µ‚½";
                         publicPBuffStorage.Add(1);
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -321,6 +328,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 80);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0];
                         ehp -=ehp * (rate * 100 * 0.01f)*0.1f;
                         Debug.Log("ehp‚Í"+ehp);
@@ -344,6 +352,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         annBreakerMaxTime =breakerRate*100+25;
                         annBreakerTime=annBreakerMaxTime;
                         comparText= "’è‚ß‚ç‚ê‚µ‰^–½‚ğŒJ‚èo‚µ‚½\n¡‚±‚»‰^–½‚ğAA‚Ìˆê•¶š‚ÉI";
@@ -389,7 +398,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DameCutPar=(rate*100)-40f;
+                        ScoreManager.PlayerScore(rate, 50);
+                        DameCutPar =(rate*100)-40f;
                         DameCutTime=DameCutMaxTime;
                         publicPBuffStorage.Add(3);
                         comparText ="çŒì‚Ì\‚¦‚ğŒJ‚èo‚µ‚½\nƒS[ƒhƒ“‚ªƒ_ƒ[ƒW‚ğˆê•”–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
@@ -407,7 +417,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        if(gordonHateCorrection>=50)
+                        ScoreManager.PlayerScore(rate, 80);
+                        if (gordonHateCorrection>=50)
                         {
                             PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] -= 50;
                             gordonHateCorrection -=50;
@@ -433,6 +444,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 80);
                         float pAtk=PlayerInfo.Player_ATK[charaNumber];
                         atkDownDeBuff=(int)(rate*pAtk*0.3f);
                         Debug.Log(atkDownDeBuff);
@@ -456,6 +468,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 100);
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
@@ -486,6 +499,7 @@ public class SkillStorage : MonoBehaviour
                     }
                      if(GameManager.state==GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         if (gordonHateCorrection >= 50)
                         {
                             PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] -= 50;
@@ -534,7 +548,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DeBuffSpeed=((2-rate)/2);
+                        ScoreManager.PlayerScore(rate, 80);
+                        DeBuffSpeed =((2-rate)/2);
                         DeSpeedTime=DeSpeedMaxTime;
                         comparText="ô•„:“İ‘«‚ğŒJ‚èo‚µ‚½\n“G‚Ìs“®‘¬“x‚ªŒ¸­‚µ‚½";
                         publicEDeBuffStorage.Add(2);
@@ -552,7 +567,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        recoveryTarget=0;
+                        ScoreManager.PlayerScore(rate, 50);
+                        recoveryTarget =0;
                         if(!reCoveryTargetFlg)
                         {
                             recoveryTarget = RecoverySubject(recoveryTarget);
@@ -581,7 +597,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DeInvalidMaxTime=((rate*100)*0.3f)+10;
+                        ScoreManager.PlayerScore(rate, 80);
+                        DeInvalidMaxTime =((rate*100)*0.3f)+10;
                         DeInvalidTime=DeInvalidMaxTime;
                         comparText="Œì•„:–ï•¥‚ğŒJ‚èo‚µ‚½\nˆê’èŠÔã‘Ì‰»UŒ‚‚ğ–³Œø‰»‚·‚é";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -599,7 +616,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        RefrectCount=0;
+                        ScoreManager.PlayerScore(rate, 80);
+                        RefrectCount =0;
                         RefrectDamage=(PlayerInfo.Player_ATK[charaNumber]*pATKCorrect)/2;
                         for(int i=(int)(rate*100);i<=-1;i-=25)
                         {
@@ -622,7 +640,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                       
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         rinBreakerTime =130;
                         rinBreaker=90 * breakerRate;
                         comparText="‹Ö•„:Œä–@‚Ìá•Ç‚ğŒJ‚èo‚µ‚½\n–¡•û‘S‘Ì‚ªƒ_ƒ[ƒW‚Ìˆê•”‚ğ–h‚°‚é‚æ‚¤‚É‚È‚Á‚½";
@@ -1424,7 +1442,7 @@ public class SkillStorage : MonoBehaviour
                 {
                     if (publicPBuffStorage[i] == IconNumber)
                     {
-                        publicPBuffStorage.RemoveAt(IconNumber);
+                        publicPBuffStorage.Remove(IconNumber);
                     }
                 }
             }

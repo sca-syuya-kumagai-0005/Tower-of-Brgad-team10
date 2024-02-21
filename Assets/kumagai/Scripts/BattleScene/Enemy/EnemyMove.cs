@@ -60,6 +60,7 @@ public class EnemyMove : MonoBehaviour
         doragonSkill1Buff=1;
         doragonSkill1Flag=false;
         PegasusFirstFlag=false;
+        richardSkill3Buff=1;
         
     }
     void Start()
@@ -558,7 +559,7 @@ public class EnemyMove : MonoBehaviour
             }
         }
         int rand=Random.Range(0,101);
-        if(rand<=judge)
+        if(rand<=judge&&SkillStorage.DeInvalidTime<=0)
         {
             succubusSkill2Buff=1.3f;
             succubusSkill2Turn=5;
@@ -631,7 +632,7 @@ public class EnemyMove : MonoBehaviour
             GoblinBuffDamage();
             CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            SkillStorage.comparText = "ゴブリンは斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            SkillStorage.comparText = "ゴブリンは斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に" + Damage.ToString() + "のダメージ";
             if(goblinBuff>0)
             {
                 SkillStorage.comparText+="\nさらに仲間のゴブリンから追撃を受けた";
@@ -656,6 +657,20 @@ public class EnemyMove : MonoBehaviour
         GameManager.moveEnd = true;
     }
 
+    void GoblinSkillPoint()
+    {
+        if(CharaMoveGage.enemyName=="ゴブリン")
+        {
+            if(goblinBuff>7)
+            {
+                EnemySkill[1]=0;
+            }
+            else
+            {
+                EnemySkill[1]=50;
+            }
+        }
+    }
 
     void GoblinBuffDamage()
     {
@@ -684,7 +699,8 @@ public class EnemyMove : MonoBehaviour
     public static int octopusPostSkill1Turn;
     void OctopusPotSkill1()
     {
-        octopusPostSkill1Turn=6;
+        octopusPotSkill4Buff = 1;
+        octopusPostSkill1Turn =6;
         octopusPotSkill1Buff=0.75f;
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
@@ -696,6 +712,7 @@ public class EnemyMove : MonoBehaviour
 
     void OctopusPotSkill2()
     {
+        octopusPotSkill4Buff = 1;
         bool flg = false;
         int target = 0;
         if (!flg)
@@ -717,7 +734,7 @@ public class EnemyMove : MonoBehaviour
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0] = 9 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            SkillStorage.comparText = "タコ壺戦士は斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            SkillStorage.comparText = "タコ壺戦士は斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に" + Damage.ToString() + "のダメージ";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
             GameManager.moveEnd = true;
         }
@@ -727,7 +744,8 @@ public class EnemyMove : MonoBehaviour
     {
         int rand=Random.Range(1,4);
         int allDamage=0;
-        for(int i=0;i<rand;i++)
+        octopusPotSkill4Buff = 1;
+        for (int i=0;i<rand;i++)
         {
             bool flg = false;
             int target = 0;
@@ -824,10 +842,19 @@ public class EnemyMove : MonoBehaviour
     public static int kerberosPoisonTurn;
     void KerberosSkill3()
     {
-        kerberosPoisonTurn++;
+        if(SkillStorage.DeInvalidTime<=0)
+        {
+            kerberosPoisonTurn++;
+            SkillStorage.comparText = "ケルベロスは大きな舌で舐めまわしてきた\n冒険者たちは毒に侵されてしまった";
+        }
+        else
+        {
+            SkillStorage.comparText= "ケルベロスは大きな舌で舐めまわしてきた\nくすぐったい";
+        }
+       
         CharaMoveGage.ActTime[0] = 4 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-        SkillStorage.comparText="ケルベロスは大きな舌で舐めまわしてきた\n冒険者たちは毒に侵されてしまった";
+       
         publicPDeBuffStorage.Add(4);
         StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
         GameManager.moveEnd = true;
@@ -1031,8 +1058,6 @@ public class EnemyMove : MonoBehaviour
                 PlayerEditorManager.PlayerInfo.Player_HP[i] -= (int)Damage;
                 float hp = PlayerEditorManager.PlayerInfo.Player_HP[i];
                 PlayerManager.playerHPBer[i].fillAmount = hp / PlayerEditorManager.MaxHP[i];
-          
-          
         }
         CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
@@ -1138,6 +1163,8 @@ public class EnemyMove : MonoBehaviour
             if(PlayerEditorManager.PlayerInfo.Player_HP[i]!=0)
             {
                 PlayerEditorManager.PlayerInfo.Player_HP[i]=1;
+                PlayerManager.playerHPBer[i].fillAmount = PlayerEditorManager.PlayerInfo.Player_HP[i] / PlayerEditorManager.MaxHP[i];
+
             }
         }
         pegasusSkill4Flag = true;
@@ -1157,6 +1184,7 @@ public class EnemyMove : MonoBehaviour
             {
                 EnemySkill[0] = 0;
                 EnemySkill[1] = 0;
+                EnemySkill[3]=0;
             }
             else
             {
