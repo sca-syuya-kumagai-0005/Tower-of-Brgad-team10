@@ -959,6 +959,7 @@ public class SkillStorage : MonoBehaviour
                         publicPBuffStorage.Add(5);
                         StartCoroutine(moveTextCoroutine(comparText));
                         BreakerEditor.BreakerGageCount = 0;
+                        BreakerEditor.breakerGageMax = false;
                         GameManager.moveEnd = true;
                     }
                 }
@@ -1102,6 +1103,7 @@ public class SkillStorage : MonoBehaviour
                             PlayerManager.playerHPBer[i].fillAmount = php/ PlayerEditorManager.MaxHP[i];
                         }
                         BreakerEditor.BreakerGageCount = 0;
+                        BreakerEditor.breakerGageMax = false;
                         comparText = "¢ŠE÷‚Ì‰S‚ğŒJ‚èo‚µ‚½\n¢ŠE÷‚Ì‰S‚ªA—D‚µ‚­‹óŠÔ‚ğ•ï‚İ‚Ş";
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
@@ -1290,6 +1292,7 @@ public class SkillStorage : MonoBehaviour
                         richardSkill2Time=60;
                         richardSkill2MaxTime=richardSkill2Time;
                         BreakerEditor.BreakerGageCount = 0;
+                        BreakerEditor.breakerGageMax = false;
                         targetText = EnemyNameGet.enemyNameText;
                         publicPBuffStorage.Add(11);
                         comparText ="‡“dˆê‘M‚ğŒJ‚èo‚µ‚½\n"+targetText+"‚É"+pAtk.ToString()+"‚Ìƒ_ƒ[ƒW‚ğ—^‚¦‚½\n‚³‚ç‚ÉŒŒn‚ÌŒø‰Ê‚ª•t—^‚³‚ê‚½";

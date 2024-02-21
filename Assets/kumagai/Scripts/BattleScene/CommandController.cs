@@ -96,7 +96,7 @@ public class CommandController : MonoBehaviour
                 }
                 
                 //StartCoroutine(NotesEditor.good(this.gameObject));
-                Instantiate(okEff,pos,Quaternion.identity,mainCanvas.transform);
+                Instantiate(okEff, this.gameObject.transform.position, Quaternion.identity,mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
                 BreakerEditor.commandDestroy+=1;
                 // this.tag = "EndCommand";
@@ -110,7 +110,7 @@ public class CommandController : MonoBehaviour
                 OkFlag =true;
                 
                 //  this.tag = "EndCommand";
-                Instantiate(okEff, pos, Quaternion.identity, mainCanvas.transform);
+                Instantiate(okEff, this.gameObject.transform.position, Quaternion.identity, mainCanvas.transform);
                 NotesEditor.commandDestroy+=1;
                 BreakerEditor.commandDestroy += 1;
                 Destroy(this.gameObject);
