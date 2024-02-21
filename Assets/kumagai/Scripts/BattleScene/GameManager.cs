@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public static bool moveEnd;
     public static bool GameClear;
-    [SerializeField]private bool GameOver;
+    public static bool GameOver;
     [SerializeField]private bool tmpmoveEnd;
     [SerializeField]private Text gameSetText;
     public static int enemyTmpHP;
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private GameObject Player;
     [SerializeField]private GameObject Floor;
     [SerializeField]private GameObject redJudge;
+    [SerializeField]private GameObject backGround;
     private bool backGroundWalk;
     void Awake()
     {
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
     {
         
         GameClear=false;
+        GameOver=false;
         loopScene=false;
         Enemy.SetActive(true);
         Floor.SetActive(true);
@@ -71,6 +73,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (GameOver || GameClear)
+        {
+
+            state = BattleState.reSult;
+        }
         Debug.Log(state);
         if(!GameClear)StartMoveCharacter();
         else EndMoveCharacter();
@@ -78,6 +86,8 @@ public class GameManager : MonoBehaviour
         tmpAlliveFlag=aliveFlag;
         BattleStateManager();
         CharaAliveJudge();
+        
+        
         tmpmoveEnd=moveEnd;
         if (GameOver || GameClear)
         {
@@ -85,7 +95,8 @@ public class GameManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("TitleScene");
+            GameOver = true;
+            state =BattleState.reSult;
         }
     }
 
@@ -262,9 +273,15 @@ public class GameManager : MonoBehaviour
                     SkillSelection.breakerFlag=false;
                     SkillStorage.rate=0;
                     SkillStorage.debuffDelate=false;
+                    ScoreManager.addScoreFlag=false;
                     SkillStorage.Buff(EnemyMove.atkUpcorrection,EnemyMove.atkUpTurn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill1Buff,EnemyMove.octopusPostSkill1Turn,1);
                     SkillStorage.Buff(EnemyMove.octopusPotSkill4Buff,EnemyMove.octopusPotSkill4Turn,1);
+                    EnemyMove.octopusPotSkill4Turn--;
+                    if(EnemyMove.octopusPotSkill4Turn<=0)
+                    {
+                        EnemyMove.octopusPotSkill4Buff=1;
+                    }
                     EnemyMove.atkUpTurn=SkillStorage.BuffTurn(EnemyMove.atkUpTurn,BuffManager.publicEBuffStorage,0);
                     EnemyMove.moveUpTurn=SkillStorage.BuffTurn(EnemyMove.moveUpTurn,BuffManager.publicEBuffStorage,10);
                     EnemyMove.stoneSpeedTurn=SkillStorage.BuffTurn(EnemyMove.stoneSpeedTurn,BuffManager.publicPDeBuffStorage,2);
@@ -275,7 +292,7 @@ public class GameManager : MonoBehaviour
                     EnemyMove.kerberosPoisonTurn = SkillStorage.BuffTurn(EnemyMove.kerberosPoisonTurn, BuffManager.publicPDeBuffStorage, 4);
                     SkillStorage.Buff(EnemyMove.kerberosBuff,EnemyMove.kerberosBuffTurn,1);
                     BreakerEditor.circleSet=false;
-
+                    AliveJudge();
                     for(int i=0;i<4;i++)
                     {
                         if(PlayerEditorManager.PlayerInfo.Player_HP[i]!=0)
@@ -290,17 +307,7 @@ public class GameManager : MonoBehaviour
                             }
                         }
                     }
-
-
-                    if (GameOver||GameClear)
-                    {
-                     
-                       state =BattleState.reSult;
-                    }
-                    else 
-                    {
-                        state = BattleState.moveWait;
-                    }
+                      StartCoroutine(wait());
                     
                 }
                 break;
@@ -316,6 +323,28 @@ public class GameManager : MonoBehaviour
 
             //    }
             //    break;
+        }
+    }
+    IEnumerator wait()
+    {
+        yield return null;
+        state = BattleState.moveWait;
+    }
+
+    void AliveJudge()
+    {
+        bool flag=false;
+        for(int i=0;i<4;i++)
+        {
+            if(PlayerEditorManager.PlayerInfo.Player_HP[i]>0)
+            {
+                flag=true;
+                break;
+            }
+        }
+        if(!flag)
+        {
+            GameOver=true;
         }
     }
     public static bool loopScene;
@@ -336,7 +365,6 @@ public class GameManager : MonoBehaviour
         {
             GameOver=true;
             yield return new WaitForSeconds(3);
-            SceneManager.LoadScene("TitleScene");
         }
 
         if(loopScene)
@@ -384,46 +412,54 @@ public class GameManager : MonoBehaviour
 
     void CharaAliveJudge()
     {
-        for(int i=0;i<PlayerManager.playerHPBer.Length;i++)
+        if(EnemyManager.EnemyInfo.Enemy_HP[0]>0)
         {
-            if(PlayerEditor.PlayerName[i]!=""&&PlayerEditor.PlayerName[i]!=null) { 
-            if(PlayerManager.playerHPBer[i].fillAmount==0)
+            for (int i = 0; i < PlayerManager.playerHPBer.Length; i++)
             {
-                PlayerManager.playerDeadBackGround[i].SetActive(true);
-                if(CharaMoveGage.MoveChar[0]!=null)
+                if (PlayerEditor.PlayerName[i] != "" && PlayerEditor.PlayerName[i] != null)
                 {
-                    if (CharaMoveGage.MoveChar[0].name == PlayerEditor.PlayerName[i])
+                    if (PlayerManager.playerHPBer[i].fillAmount == 0)
                     {
-                        CharaMoveGage.MoveChar[0] = null;
-                        if(CharaMoveGage.MoveChar[1]!=null)
+                        PlayerManager.playerDeadBackGround[i].SetActive(true);
+                        if (CharaMoveGage.MoveChar[0] != null)
                         {
-                                //for (int j = 1; j < 5; j++)
-                                //{
-                                //    if (CharaMoveGage.MoveChar[j - 1] == null)
-                                //    {
-                                //        CharaMoveGage.order--;
-                                //        CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
-                                //        CharaMoveGage. MoveChar[j] = null;
-                                    
-                                //    }
-                                //}
-                            
+                            if (CharaMoveGage.MoveChar[0].name == PlayerEditor.PlayerName[i])
+                            {
+                                CharaMoveGage.MoveChar[0] = null;
+                                if (CharaMoveGage.MoveChar[1] != null)
+                                {
+                                    //for (int j = 1; j < 5; j++)
+                                    //{
+                                    //    if (CharaMoveGage.MoveChar[j - 1] == null)
+                                    //    {
+                                    //        CharaMoveGage.order--;
+                                    //        CharaMoveGage. MoveChar[j - 1] = CharaMoveGage.MoveChar[j];
+                                    //        CharaMoveGage. MoveChar[j] = null;
+
+                                    //    }
+                                    //}
+
+                                }
+                            }
                         }
+                        aliveFlag[i + 1] = false;
                     }
                 }
-                aliveFlag[i+1]=false;
-            }
             }
         }
+       
     }
     float f=0;
     private void  Walk()
     {
         float y;
+        Vector3 size=backGround.GetComponent<RectTransform>().localScale;
         if(f<=10)
         { 
             f+=Time.deltaTime*5;
             y=-Mathf.Abs(Mathf.Sin(f)/2);
+            size+=new Vector3(size.x,size.y,size.z)*Time.deltaTime/5;
+            backGround.GetComponent<RectTransform>().localScale=size;
             BackGround.transform.position=new Vector3(0,y,0);
         }
     }

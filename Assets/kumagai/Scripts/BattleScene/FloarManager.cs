@@ -8,10 +8,24 @@ public class FloarManager : MonoBehaviour
     public static int nowFloar=0;
     [SerializeField]
     private Text FloorText;
+    [SerializeField]
+    private GameObject BackGround;
     // Start is called before the first frame update
     void Start()
     {
         nowFloar++;
+        if (nowFloar>10)
+        {
+            BackGround.GetComponent<Image>().sprite=Resources.Load<Sprite>("BackGround/X");
+        }
+        if(nowFloar>20)
+        {
+            BackGround.GetComponent<Image>().sprite = Resources.Load<Sprite>("BackGround/“ƒ");
+        }
+        if(nowFloar/10==3&&nowFloar%10==1)
+        {
+            BackGround.GetComponent<Image>().sprite = Resources.Load<Sprite>("BackGround/“ƒ2");
+        }
         FloorText.text = nowFloar.ToString();
     }
 
@@ -22,7 +36,6 @@ public class FloarManager : MonoBehaviour
         {
             FloorText.text=nowFloar.ToString();
             //EnemyManager.EnemyInfo.Enemy_Lv[0]=30;
-            EnemyManager.EnemyInfo.Enemy_Lv[0]=1+(nowFloar-1)*3;
         }
     }
 }

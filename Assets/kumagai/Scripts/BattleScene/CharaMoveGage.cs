@@ -84,7 +84,10 @@ public class CharaMoveGage : MonoBehaviour
         {
             MoveCharaSort();
         }
-
+        if(MoveChar[0]==null)
+        {
+            MoveChar.RemoveAt(0);
+        }
 
     }
 
@@ -128,8 +131,9 @@ public class CharaMoveGage : MonoBehaviour
                         needle.transform.Rotate(0,0,-360*Time.deltaTime*SkillStorage.DeBuffSpeed/ActTime[0]);
                         alpha +=Time.deltaTime/ActTime[0]*SkillStorage.DeBuffSpeed;
                     }
-                    else { 
-                    elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff*EnemyMove.stoneSpeedDebuff;
+                    else if(GameManager.aliveFlag[i])
+                    { 
+                        elapsedTime[i] += Time.deltaTime*SkillStorage.gabBuff*EnemyMove.stoneSpeedDebuff;
                     }
                     if(Player_MoveGageImage[i].transform.parent.CompareTag("Enemy"))
                     {

@@ -87,7 +87,7 @@ public class BreakerEditor : MonoBehaviour
             }
         }
         light.SetActive(false);
-        
+        readyFlag=false;
     }
 
     void Update()

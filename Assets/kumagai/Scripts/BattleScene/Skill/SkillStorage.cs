@@ -128,7 +128,7 @@ public class SkillStorage : MonoBehaviour
                         {
                             addDamage=9999;
                         }
-                      
+                        ScoreManager.PlayerScore(rate,100);
                         Debug.Log(melodyBuff);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0]- addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -149,8 +149,9 @@ public class SkillStorage : MonoBehaviour
                     }
                     
                     if (GameManager.state == GameManager.BattleState.move)
-                    { 
-                    pATKCorrect = (NotesEditor.NotesOKCount / CommandCount);
+                    {
+                        ScoreManager.PlayerScore(rate, 80);
+                        pATKCorrect = (NotesEditor.NotesOKCount / CommandCount);
                     p2AtkUpTime=p2AtkUpMaxTime;
                     comparText="闘志入魂を繰り出した\n味方全体の攻撃力が上昇した";
                        publicPBuffStorage.Add(0);
@@ -167,7 +168,8 @@ public class SkillStorage : MonoBehaviour
                         NotesEditor.skillName = "妨害工作";
                     }
                    if(GameManager.state==GameManager.BattleState.move)
-                    { 
+                    {
+                        ScoreManager.PlayerScore(rate, 80);
                         playerSkill3Buff =(rate*100/20f)/100;
                         playerSkill3=1;
                         comparText="妨害工作を繰り出した\n敵の被ダメージが上昇する";
@@ -186,7 +188,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                       float php=PlayerInfo.Player_HP[charaNumber];
+                        ScoreManager.PlayerScore(rate, 80);
+                        float php=PlayerInfo.Player_HP[charaNumber];
                         php+=(((rate*100*0.3f)/100))*PlayerEditorManager.MaxHP[charaNumber];
                         PlayerInfo.Player_HP[charaNumber]=(int)php;
                         PlayerManager.playerHPBer[charaNumber].fillAmount=PlayerInfo.Player_HP[charaNumber]/PlayerEditorManager.MaxHP[charaNumber];
@@ -216,6 +219,7 @@ public class SkillStorage : MonoBehaviour
                         {
                            pAtk = 9999;
                         }
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - pAtk * (breakerRate)*GameManager.aliveCount + atkStatusBuff;
                         Debug.Log("ダメージは"+pAtk * breakerRate * GameManager.aliveCount);
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -256,7 +260,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        addSpeed=1.3f;
+                        ScoreManager.PlayerScore(rate, 200);
+                        addSpeed =1.3f;
                         addSpeedTurn = 0;
                         for(float i=0.2f;i<5;i+=0.2f) 
                         {
@@ -280,6 +285,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 20);
                         addSpeed =0.7f;
                         for(float i = 0.2f; i < 5; i += 0.2f) 
                         {
@@ -305,7 +311,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        rateCorrection=(rate*100*0.3f)/100;
+                        ScoreManager.PlayerScore(rate, 50);
+                        rateCorrection =(rate*100*0.3f)/100;
                         comparText="ありえた選択を繰り出した\nコマンドの成功率が上昇した";
                         publicPBuffStorage.Add(1);
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -321,6 +328,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 80);
                         float ehp= EnemyManager.EnemyInfo.Enemy_HP[0];
                         ehp -=ehp * (rate * 100 * 0.01f)*0.1f;
                         Debug.Log("ehpは"+ehp);
@@ -344,6 +352,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         annBreakerMaxTime =breakerRate*100+25;
                         annBreakerTime=annBreakerMaxTime;
                         comparText= "定められし運命を繰り出した\n今こそ運命を、Aの一文字に！";
@@ -389,7 +398,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DameCutPar=(rate*100)-40f;
+                        ScoreManager.PlayerScore(rate, 50);
+                        DameCutPar =(rate*100)-40f;
                         DameCutTime=DameCutMaxTime;
                         publicPBuffStorage.Add(3);
                         comparText ="守護の構えを繰り出した\nゴードンがダメージを一部防げるようになった";
@@ -407,7 +417,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        if(gordonHateCorrection>=50)
+                        ScoreManager.PlayerScore(rate, 80);
+                        if (gordonHateCorrection>=50)
                         {
                             PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] -= 50;
                             gordonHateCorrection -=50;
@@ -433,6 +444,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 80);
                         float pAtk=PlayerInfo.Player_ATK[charaNumber];
                         atkDownDeBuff=(int)(rate*pAtk*0.3f);
                         Debug.Log(atkDownDeBuff);
@@ -456,6 +468,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 100);
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
@@ -486,6 +499,7 @@ public class SkillStorage : MonoBehaviour
                     }
                      if(GameManager.state==GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         if (gordonHateCorrection >= 50)
                         {
                             PlayerEditorManager.PlayerInfo.Player_Hate[gordonCharaNumber] -= 50;
@@ -534,7 +548,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DeBuffSpeed=((2-rate)/2);
+                        ScoreManager.PlayerScore(rate, 80);
+                        DeBuffSpeed =((2-rate)/2);
                         DeSpeedTime=DeSpeedMaxTime;
                         comparText="呪符:鈍足香を繰り出した\n敵の行動速度が減少した";
                         publicEDeBuffStorage.Add(2);
@@ -552,7 +567,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state==GameManager.BattleState.move)
                     {
-                        recoveryTarget=0;
+                        ScoreManager.PlayerScore(rate, 50);
+                        recoveryTarget =0;
                         if(!reCoveryTargetFlg)
                         {
                             recoveryTarget = RecoverySubject(recoveryTarget);
@@ -581,7 +597,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        DeInvalidMaxTime=((rate*100)*0.3f)+10;
+                        ScoreManager.PlayerScore(rate, 80);
+                        DeInvalidMaxTime =((rate*100)*0.3f)+10;
                         DeInvalidTime=DeInvalidMaxTime;
                         comparText="護符:厄払を繰り出した\n一定時間弱体化攻撃を無効化する";
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -599,7 +616,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        RefrectCount=0;
+                        ScoreManager.PlayerScore(rate, 80);
+                        RefrectCount =0;
                         RefrectDamage=(PlayerInfo.Player_ATK[charaNumber]*pATKCorrect)/2;
                         for(int i=(int)(rate*100);i<=-1;i-=25)
                         {
@@ -622,9 +640,9 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                       
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         rinBreakerTime =130;
-                        rinBreaker=90 * breakerRate;
+                        rinBreaker=1-breakerRate*0.8f;
                         comparText="禁符:御法の障壁を繰り出した\n味方全体がダメージの一部を防げるようになった";
                         StartCoroutine(moveTextCoroutine(comparText));
                         publicPBuffStorage.Add(7);
@@ -659,6 +677,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 65);
                         int rand=Random.Range(1,6);
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
@@ -689,6 +708,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 70);
                         int rand = Random.Range(0, 4);
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
@@ -724,6 +744,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 80);
                         if (NextBarret)
                         {
                             NextBarret = false;
@@ -753,7 +774,8 @@ public class SkillStorage : MonoBehaviour
                     if (GameManager.state == GameManager.BattleState.move)
                     {
                         NextBarret=true;
-                        comparText="肉体に魔力を集中する\n次のマジックバレルの威力が上昇した";
+                        ScoreManager.PlayerScore(rate, 95);
+                        comparText ="肉体に魔力を集中する\n次のマジックバレルの威力が上昇した";
                         StartCoroutine(moveTextCoroutine(comparText));
                         MagicBarrelBuff = 1 + (rate) / 2;
                         GameManager.moveEnd=true;
@@ -769,7 +791,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        comparText="デクテットブロウを繰り出した\n敵に"+((int)(addDamage)).ToString()+"ダメージ\n与えた";
+                        ScoreManager.PlayerScore(breakerRate, 180);
+                        comparText ="デクテットブロウを繰り出した\n敵に"+((int)(addDamage)).ToString()+"ダメージ\n与えた";
                         int atkCount=(int)BreakerEditor.NotesOKCount+1;
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
@@ -817,6 +840,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move) 
                     {
+                        ScoreManager.PlayerScore(rate, 55);
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         DoctorNumber=charaNumber;
                         if (!EnemyMove.pegasusSkill4Flag)
@@ -855,7 +879,8 @@ public class SkillStorage : MonoBehaviour
                 if(GameManager.state == GameManager.BattleState.move) 
                 {
                     float pAtk = PlayerInfo.Player_ATK[charaNumber];
-                    DoctorAtkBuff=(int)(pAtk*rate);
+                        ScoreManager.PlayerScore(rate, 65);
+                        DoctorAtkBuff =(int)(pAtk*rate);
                     DoctorAtkBuffTime=60;
                     comparText="味方全体の攻撃力が上昇した";
                         publicPBuffStorage.Add(7);
@@ -873,7 +898,8 @@ public class SkillStorage : MonoBehaviour
                 }
                 if (GameManager.state == GameManager.BattleState.move)
                 {
-                     int rand=Random.Range(0,101);
+                        ScoreManager.PlayerScore(rate, 75);
+                        int rand=Random.Range(0,101);
                         sleep=true;
                      if(rand<=100*rate*0.2f)
                      {
@@ -899,6 +925,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 65);
                         Debug.Log("rateは"+rate);
                         if(rate<1&&!debuffDelate)
                         {
@@ -953,12 +980,14 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         DeInvalidMaxTime = (rate * 100) + 80;
                         DeInvalidTime = DeInvalidMaxTime;
                         comparText = "マッドワールド\n一定時間弱体化攻撃を無効化する";
                         publicPBuffStorage.Add(5);
                         StartCoroutine(moveTextCoroutine(comparText));
                         BreakerEditor.BreakerGageCount = 0;
+                        BreakerEditor.breakerGageMax = false;
                         GameManager.moveEnd = true;
                     }
                 }
@@ -997,6 +1026,7 @@ public class SkillStorage : MonoBehaviour
                         {
                             addDamage = 9999;
                         }
+                        ScoreManager.PlayerScore(rate, 70);
                         addDamage = ((pAtk * rate) * atkBuff + atkStatusBuff)*rate * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
                         float ehp = EnemyManager.EnemyInfo.Enemy_HP[0] - (int)addDamage;
                         EnemyManager.EnemyInfo.Enemy_HP[0] = ehp;
@@ -1017,6 +1047,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                            ScoreManager.PlayerScore(rate, 80);
                             float pAtk = PlayerInfo.Player_ATK[charaNumber];
                             DoctorNumber = charaNumber;
                             melodyBuffTime=30;
@@ -1026,7 +1057,7 @@ public class SkillStorage : MonoBehaviour
                             Debug.Log("melodyBuff"+melodyBuff);
                             targetText = EnemyNameGet.enemyNameText;
                             publicPBuffStorage.Add(8);
-                        comparText = "闘いの旋律を繰り出した\n味方全体の攻撃力が上昇した";
+                            comparText = "闘いの旋律を繰り出した\n味方全体の攻撃力が上昇した";
                             StartCoroutine(moveTextCoroutine(comparText));
                             GameManager.moveEnd=true;
                             GameManager.state=GameManager.BattleState.effect;
@@ -1042,7 +1073,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        imnTime=30+(rate*100);
+                        ScoreManager.PlayerScore(rate, 75);
+                        imnTime =30+(rate*100);
                         imnMaxTime=imnTime;
                         publicPBuffStorage.Add(9);
                         comparText = "祈りのイムンを繰り出した\n行動するたびに癒しの力が降りかかる";
@@ -1060,7 +1092,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        for(int i=0;i<PlayerEditor.PlayerName.Length;i++)
+                        ScoreManager.PlayerScore(rate, 75);
+                        for (int i=0;i<PlayerEditor.PlayerName.Length;i++)
                         {
                             float php = PlayerInfo.Player_HP[i];
                             php += 0.2f * PlayerEditorManager.MaxHP[i];
@@ -1086,6 +1119,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 180);
                         for (int i = 0; i < PlayerEditor.PlayerName.Length; i++)
                         {
                             if(!GameManager.aliveFlag[i+1])
@@ -1102,6 +1136,7 @@ public class SkillStorage : MonoBehaviour
                             PlayerManager.playerHPBer[i].fillAmount = php/ PlayerEditorManager.MaxHP[i];
                         }
                         BreakerEditor.BreakerGageCount = 0;
+                        BreakerEditor.breakerGageMax = false;
                         comparText = "世界樹の唄を繰り出した\n世界樹の唄が、優しく空間を包み込む";
                         StartCoroutine(moveTextCoroutine(comparText));
                         GameManager.moveEnd = true;
@@ -1132,10 +1167,11 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move) 
                     {
+                        ScoreManager.PlayerScore(rate, 60);
                         float pAtk = PlayerInfo.Player_ATK[charaNumber];
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
-                            addDamage = pAtk * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff;
+                            addDamage = pAtk * EnemyMove.octopusPotSkill1Buff * EnemyMove.doragonSkill1Buff*EnemyMove.octopusPotSkill4Buff;
                         }
                         else
                         {
@@ -1188,7 +1224,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if(GameManager.state == GameManager.BattleState.move) 
                     {
-                        richardSkill2Time=60*rate;
+                        ScoreManager.PlayerScore(rate, 60);
+                        richardSkill2Time =60*rate;
                         richardSkill2MaxTime=richardSkill2Time;
                         richardSkill2Buff=0.1f;
                         publicPBuffStorage.Add(11);
@@ -1206,7 +1243,8 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-                        richardNumber=charaNumber;
+                        ScoreManager.PlayerScore(rate, 100);
+                        richardNumber =charaNumber;
                         richardSkill3HateUp=30;
                         if(richardSkill3Time>0)
                         {
@@ -1240,6 +1278,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
+                        ScoreManager.PlayerScore(rate, 115);
                         int pAtk=(int)(PlayerInfo.Player_ATK[charaNumber]*rate);
                         int pAtk5=0;
                         if(playerSkill3Buff==1||atkDownTime>0||DeSpeedTime>0||sleep||poisonFlag)
@@ -1274,7 +1313,7 @@ public class SkillStorage : MonoBehaviour
                     }
                     if (GameManager.state == GameManager.BattleState.move)
                     {
-
+                        ScoreManager.PlayerScore(breakerRate, 200);
                         int pAtk=0;
                         if (!EnemyMove.pegasusSkill4Flag)
                         {
@@ -1290,6 +1329,7 @@ public class SkillStorage : MonoBehaviour
                         richardSkill2Time=60;
                         richardSkill2MaxTime=richardSkill2Time;
                         BreakerEditor.BreakerGageCount = 0;
+                        BreakerEditor.breakerGageMax = false;
                         targetText = EnemyNameGet.enemyNameText;
                         publicPBuffStorage.Add(11);
                         comparText ="紫電一閃を繰り出した\n"+targetText+"に"+pAtk.ToString()+"のダメージを与えた\nさらに血刃の効果が付与された";
@@ -1421,7 +1461,7 @@ public class SkillStorage : MonoBehaviour
                 {
                     if (publicPBuffStorage[i] == IconNumber)
                     {
-                        publicPBuffStorage.RemoveAt(IconNumber);
+                        publicPBuffStorage.Remove(IconNumber);
                     }
                 }
             }

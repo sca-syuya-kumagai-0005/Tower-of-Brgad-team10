@@ -33,7 +33,6 @@ public class SkillSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         f+=Time.deltaTime*5;
         SkillPosReset();
         SkillSet();
@@ -47,7 +46,6 @@ public class SkillSelection : MonoBehaviour
         }
         if (GameManager.state==GameManager.BattleState.skillSelect)
         { 
-
             SkillSelect();
             SelectSkill();
             SkillPosEffect();

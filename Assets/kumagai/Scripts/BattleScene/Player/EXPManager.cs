@@ -82,8 +82,8 @@ public class EXPManager : MonoBehaviour
         { 
             StartCoroutine(LvJudge()); 
         }
+     
       
-        coroutine= StartCoroutine(LvUpSheetManager());
 
     }
     [SerializeField]
@@ -123,12 +123,12 @@ public class EXPManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 int EXP = GetEXP;
-                
+                bool flag = false;
                 while (EXP != 0)
                 {
                     EXP -= PlayerEditorManager.PlayerInfo.Player_EXP[i];
                     int exp = EXP;
-                    bool flag=false;
+                   
                     if (exp >= 0)
                     {
                         if(!flag)
@@ -138,12 +138,16 @@ public class EXPManager : MonoBehaviour
                             LvUpChara++;
                             flag=true;
                         }
-                        PlayerEditorManager.Lv[i] += 1;
-                        LvUpCount[i]++;
-                        PlayerEditorManager. PlayerStatas(PlayerEditor.playerDatas[i], i);
-                        newHp[i] = (int)PlayerEditorManager.MaxHP[i];
-                        newAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
-                        newAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
+                        if(PlayerEditorManager.Lv[i]<=99)
+                        {
+                            PlayerEditorManager.Lv[i] += 1;
+                            LvUpCount[i]++;
+                            PlayerEditorManager.PlayerStatas(PlayerEditor.playerDatas[i], i);
+                            newHp[i] = (int)PlayerEditorManager.MaxHP[i];
+                            newAtk[i] = PlayerEditorManager.PlayerInfo.Player_ATK[i];
+                            newAct[i] = PlayerEditorManager.PlayerInfo.Player_ActTime[i];
+                        }
+                        
                     }
                     else
                     {
@@ -156,6 +160,14 @@ public class EXPManager : MonoBehaviour
             
            
             EXPGetFlag = true;
+            if (LvUpChara >= 1)
+            {
+                coroutine = StartCoroutine(LvUpSheetManager());
+            }
+            else if(!GameManager.GameOver)
+            {
+                GameManager.loopScene = true;
+            }
             yield break;
            
         }
@@ -164,7 +176,7 @@ public class EXPManager : MonoBehaviour
     bool coroutineFlag;
      private IEnumerator LvUpSheetManager()
     {
-        if (GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag)
+        if (GameManager.state==GameManager.BattleState.reSult&&!coroutineFlag&&GameManager.GameClear)
         {
             coroutineFlag = true;
             yield return new WaitForSeconds(1.5f);
@@ -186,7 +198,7 @@ public class EXPManager : MonoBehaviour
         }
         if(GameManager.loopScene)
         {
-            while (LvUpSheet.transform.position.y < 540+1200)
+            while (LvUpSheet.transform.position.y < 540+1300)
             {
                 Vector3 pos = LvUpSheet.transform.position;
                 LvUpSheet.transform.position = new Vector3(pos.x, LvUpSheet.transform.position.y + 1200 * Time.deltaTime, pos.z);
@@ -195,8 +207,5 @@ public class EXPManager : MonoBehaviour
         }
        
         yield break;
-    }
-    void PlayerAlilveJudge()
-    {
     }
 }
