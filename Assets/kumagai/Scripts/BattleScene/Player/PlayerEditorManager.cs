@@ -53,6 +53,13 @@ public class PlayerEditorManager : MonoBehaviour
     void Update()
     {
         tmpLv=Lv;
+        for(int i=0;i<4;i++)
+        {
+            if(Player_HP[i]>MaxHP[i])
+            {
+                Player_HP[i]=(int)MaxHP[i];
+            }
+        }
     }
 
     public static void PlayerStatas(List<string[]> EData, int Integer)

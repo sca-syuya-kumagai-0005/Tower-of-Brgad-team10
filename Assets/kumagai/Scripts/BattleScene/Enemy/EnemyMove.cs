@@ -36,7 +36,7 @@ public class EnemyMove : MonoBehaviour
     private Image[] charaAlive;
     float Damage;
     // Start is called before the first frame update
-    private void Awake()
+    void Awake()
     {
         CharaMoveGage.ActTime[0]=1;
         moveUpTurn=0;
@@ -61,7 +61,7 @@ public class EnemyMove : MonoBehaviour
         doragonSkill1Flag=false;
         PegasusFirstFlag=false;
         richardSkill3Buff=1;
-        
+        skillOK=false;
     }
     void Start()
     {

@@ -259,7 +259,7 @@ public class BreakerEditor : MonoBehaviour
             }　     //三列目の値によってノーツの向きを決定
             yield return new WaitForSeconds(t); //二列目の値分だけ待機
                 SpeedObject=Instantiate(notes[(int)c], pos, Quaternion.identity, transform); //生成
-                SpeedObject.GetComponent<Transform>().localScale=new Vector3(3,3,1);
+                SpeedObject.GetComponent<Transform>().localScale=new Vector3(15,15,1);
                 SpeedObject.transform.tag=data[i][3].ToString();
                 SpeedObject=SpeedObject.transform.GetChild(0).gameObject;
                 SpeedObject.name  = (float.Parse(data[i][2])).ToString();

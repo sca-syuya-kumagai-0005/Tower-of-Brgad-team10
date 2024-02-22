@@ -22,7 +22,7 @@ public class FloarManager : MonoBehaviour
         {
             BackGround.GetComponent<Image>().sprite = Resources.Load<Sprite>("BackGround/“ƒ");
         }
-        if(nowFloar/10==3&&nowFloar%10==1)
+        if(nowFloar/10==3&&nowFloar%10==0)
         {
             BackGround.GetComponent<Image>().sprite = Resources.Load<Sprite>("BackGround/“ƒ2");
         }
