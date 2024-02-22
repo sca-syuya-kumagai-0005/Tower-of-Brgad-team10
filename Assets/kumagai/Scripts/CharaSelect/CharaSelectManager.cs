@@ -8,7 +8,7 @@ public class CharaSelectManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] slotSelect;
-    public static int selectSlot;//デバッグ用にパブリックにしている
+    public static int selectSlot;
     [SerializeField]
     private GameObject[] sceneButtonSelect;
     private bool slot;

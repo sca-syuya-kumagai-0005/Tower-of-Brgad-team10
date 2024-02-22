@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 265850328}
   - component: {fileID: 265850327}
   m_Layer: 5
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u30EC\u30AA\u30F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1486,7 +1486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0211130ad48306c4692d224bdb57e11c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bba7bdb93020bdd43b057fa7f58c0ea6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9b80dfd789b011a49896735d6d4de859, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99b2545da02ad274fa249e5c95f75784, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4591,7 +4591,7 @@ GameObject:
   - component: {fileID: 1110071253}
   - component: {fileID: 1110071252}
   m_Layer: 5
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u30EC\u30AA\u30F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4636,7 +4636,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e55f0600ec034fd4ba33b66a7d896177, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1885f78ef16a2e4db45ad7e646a9be8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5299,7 +5299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5079d620232bec647988b322c9b7f2ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df2ada27a2b3a7b43aa486468f569de5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5535,7 +5535,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1347326170f8b7242a390e9e8942cac1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a39b8e64fa9175428d715aabd395be6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6115,7 +6115,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5d0de288056e7864ca8c1b08a8273fa0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dae3a67e4ec8c244f874c7a7b88dc442, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6542,7 +6542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d02a50fe2a5111344b0a8fce4bfa011e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08fc9dfb425cacd4fa62d44eaaf74a9d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6701,7 +6701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6509804}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7010,7 +7010,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5b883a08e2b5fb34ca8391bf6a366c2a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0de47eb3ea36a9b419455eb59d9467ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7885,7 +7885,7 @@ GameObject:
   - component: {fileID: 2138852229}
   - component: {fileID: 2138852228}
   m_Layer: 5
-  m_Name: "\u4E3B\u4EBA\u516C"
+  m_Name: "\u30EC\u30AA\u30F3"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

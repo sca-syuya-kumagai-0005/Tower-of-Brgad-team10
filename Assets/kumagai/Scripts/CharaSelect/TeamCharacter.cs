@@ -267,8 +267,6 @@ public class TeamCharacter : MonoBehaviour
 
     void ChangeCharaSpone()
     {
-            if (charaName[CharaSelectManager.selectSlot] != "")
-            {
                 for (int i = 0; i < 8; i++)
                 {
                     if (charaName[CharaSelectManager.selectSlot] == oldChara[i].name)
@@ -280,12 +278,7 @@ public class TeamCharacter : MonoBehaviour
                        oldChara[i].SetActive(false);
                     }
                 }
-            }
-            else
-            {
-                oldChara[8].SetActive(true);
-            Debug.Log("  ");
-            }
+            
             for(int i=0;i<8;i++)
             {
                 if(i==selectCharaNumber)
