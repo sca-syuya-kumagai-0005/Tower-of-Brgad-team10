@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class BuffManager : MonoBehaviour
@@ -15,6 +16,7 @@ public class BuffManager : MonoBehaviour
     [SerializeField] List<int> pDeBuffStorage;
     [SerializeField] List<int> eBuffStorage;
     [SerializeField] List<int> eDeBuffStorage;
+    [SerializeField] private GameObject playerOrEnemy;
     public static List<int> publicPBuffStorage;
     public static List<int> publicPDeBuffStorage;
     public static List<int> publicEBuffStorage;
@@ -30,6 +32,7 @@ public class BuffManager : MonoBehaviour
         pos=sponePos.GetComponent<RectTransform>().position;
         DerivaryRot=storageObject;
         StartCoroutine(ChangePlayerEnemyIcon());
+        playerOrEnemy.GetComponent<Image>().sprite = Resources.Load<Sprite>("アイコン/Player");
     }
 
     // Update is called once per frame
@@ -94,15 +97,16 @@ public class BuffManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             StopCoroutine(coroutine);
             IconSponeManager(eBuffStorage,eDeBuffStorage);
-            coroutine=StartCoroutine(BackGroundRotate2());
-            yield return new WaitForSeconds(0.5f);
+            playerOrEnemy.GetComponent<Image>().sprite = Resources.Load<Sprite>("アイコン/Enemy");
+            coroutine =StartCoroutine(BackGroundRotate2());            yield return new WaitForSeconds(0.5f);
             StopCoroutine(coroutine);
             yield return new WaitForSeconds(5f);
             coroutine=StartCoroutine(BackGroundRotate1());
             yield return new WaitForSeconds(0.5f);
             StopCoroutine(coroutine);
             IconSponeManager(pBuffStorage,pDeBuffStorage);
-            coroutine=StartCoroutine(BackGroundRotate2());
+            playerOrEnemy.GetComponent<Image>().sprite = Resources.Load<Sprite>("アイコン/Player");
+            coroutine =StartCoroutine(BackGroundRotate2());
             yield return new WaitForSeconds(0.5f);
             StopCoroutine(coroutine);
             yield return new WaitForSeconds(5f);

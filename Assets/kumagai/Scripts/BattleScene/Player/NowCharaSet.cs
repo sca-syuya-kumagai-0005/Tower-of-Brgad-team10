@@ -45,7 +45,7 @@ public class NowCharaSet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.BattleState.start!=GameManager.BattleState.flagReSet)
+        if(GameManager.state!=GameManager.BattleState.flagReSet&&GameManager.state!=GameManager.BattleState.enemyStay&&GameManager.state!=GameManager.BattleState.move)
         { 
             for(int i=0;i<PlayerEditor.PlayerName.Length;i++) 
             {
