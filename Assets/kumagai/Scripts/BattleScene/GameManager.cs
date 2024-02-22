@@ -221,6 +221,7 @@ public class GameManager : MonoBehaviour
                     if ((int)EnemyManager.EnemyInfo.Enemy_HP[0]!=enemyTmpHP)
                     {
                         StartCoroutine(enemyDamage());
+                        SkillStorage.BuffTurn(SkillStorage.playerSkill3, BuffManager.publicEDeBuffStorage, 0);
                         EnemyMove.goblinBuff--;
                         state = BattleState.flagReSet;
                     }
@@ -282,6 +283,7 @@ public class GameManager : MonoBehaviour
                     {
                         EnemyMove.octopusPotSkill4Buff=1;
                     }
+                    
                     EnemyMove.atkUpTurn=SkillStorage.BuffTurn(EnemyMove.atkUpTurn,BuffManager.publicEBuffStorage,0);
                     EnemyMove.moveUpTurn=SkillStorage.BuffTurn(EnemyMove.moveUpTurn,BuffManager.publicEBuffStorage,10);
                     EnemyMove.stoneSpeedTurn=SkillStorage.BuffTurn(EnemyMove.stoneSpeedTurn,BuffManager.publicPDeBuffStorage,2);

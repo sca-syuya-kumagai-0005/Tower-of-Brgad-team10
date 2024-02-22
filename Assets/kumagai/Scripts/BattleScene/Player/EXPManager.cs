@@ -180,7 +180,7 @@ public class EXPManager : MonoBehaviour
         {
             coroutineFlag = true;
             yield return new WaitForSeconds(1.5f);
-            while (LvUpSheet.transform.position.y > 540)
+            while (LvUpSheet.transform.position.y > 800)
             {
                 Vector3 pos = LvUpSheet.transform.position;
                 LvUpSheet.transform.position = new Vector3(pos.x, LvUpSheet.transform.position.y - 1200 * Time.deltaTime, pos.z);
@@ -198,7 +198,7 @@ public class EXPManager : MonoBehaviour
         }
         if(GameManager.loopScene)
         {
-            while (LvUpSheet.transform.position.y < 540+1300)
+            while (LvUpSheet.transform.position.y < 800+1700)
             {
                 Vector3 pos = LvUpSheet.transform.position;
                 LvUpSheet.transform.position = new Vector3(pos.x, LvUpSheet.transform.position.y + 1200 * Time.deltaTime, pos.z);

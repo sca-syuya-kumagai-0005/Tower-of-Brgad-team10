@@ -8,7 +8,7 @@ public class CharaSelectManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] slotSelect;
-    public static int selectSlot;//デバッグ用にパブリックにしている
+    public static int selectSlot;
     [SerializeField]
     private GameObject[] sceneButtonSelect;
     private bool slot;
@@ -24,6 +24,10 @@ public class CharaSelectManager : MonoBehaviour
         slot=true;
         FloarManager.nowFloar=0;
         sceneSelect=1;
+        BreakerEditor.BreakerGageCount=0;
+        BreakerEditor.breakerGageMax=false;
+        EnemyManager.EnemyInfo.Enemy_Lv[0]=0;
+        
     }
 
     // Update is called once per frame

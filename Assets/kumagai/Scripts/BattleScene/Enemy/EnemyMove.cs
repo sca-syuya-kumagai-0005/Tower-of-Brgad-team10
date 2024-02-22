@@ -36,7 +36,7 @@ public class EnemyMove : MonoBehaviour
     private Image[] charaAlive;
     float Damage;
     // Start is called before the first frame update
-    private void Awake()
+    void Awake()
     {
         CharaMoveGage.ActTime[0]=1;
         moveUpTurn=0;
@@ -61,7 +61,7 @@ public class EnemyMove : MonoBehaviour
         doragonSkill1Flag=false;
         PegasusFirstFlag=false;
         richardSkill3Buff=1;
-        
+        skillOK=false;
     }
     void Start()
     {
@@ -437,7 +437,7 @@ public class EnemyMove : MonoBehaviour
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0] = 10 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            SkillStorage.comparText = "口だけの像は魂を吸出してきた\n"+PlayerEditor.PlayerName[target]+"に\n"+Damage.ToString()+"のダメージ";
+            SkillStorage.comparText = "口だけの像は魂を吸出してきた\n"+PlayerEditor.PlayerName[target]+"に"+Damage.ToString()+"のダメージ";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
             GameManager.moveEnd = true;
         }
@@ -535,7 +535,7 @@ public class EnemyMove : MonoBehaviour
             PlayerManager.playerHPBer[target].fillAmount = hp / PlayerEditorManager.MaxHP[target];
             CharaMoveGage.ActTime[0] = 7 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            SkillStorage.comparText = "サキュバスは魂を吸い出してきた\n" + PlayerEditor.PlayerName[target] + "に\n" + Damage.ToString() + "のダメージ";
+            SkillStorage.comparText = "サキュバスは魂を吸い出してきた\n" + PlayerEditor.PlayerName[target] + "に" + Damage.ToString() + "のダメージ";
             StartCoroutine(MoveTextController.moveTextCoroutine(SkillStorage.comparText));
             succubusSkill2Turn--;
             GameManager.moveEnd = true;
@@ -570,7 +570,7 @@ public class EnemyMove : MonoBehaviour
         {
             succubusSkill2Buff=1;
             succubusSkill2Turn=0;
-            SkillStorage.comparText = "サキュバスはこちらを魅了してきた\nしかしうまくいかなかった\n";
+            SkillStorage.comparText = "サキュバスはこちらを魅了してきた\nしかしうまくいかなかった";
         }
         CharaMoveGage.ActTime[0] = 8 * moveUpcorrection;
         SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
@@ -581,7 +581,7 @@ public class EnemyMove : MonoBehaviour
     void SuccubusSkill3()
     {
         float eAtk=EnemyManager.EnemyInfo.Enemy_ATK[0];
-        Damage=eAtk/2;
+        Damage=(int)eAtk/2;
         if(succubusSkill2Turn>0)
         {
             Damage=eAtk/2+eAtk*2;
@@ -623,7 +623,7 @@ public class EnemyMove : MonoBehaviour
         if (flg)
         {
             int eAtk = (int)(EnemyManager.EnemyInfo.Enemy_ATK[0] * atkUpcorrection * richardSkill3Buff);
-            Damage =(int)( eAtk * succubusSkill2Buff);
+            Damage =(int)(eAtk * succubusSkill2Buff);
             DamageCutController(target);
             DamageReflection(Damage);
             PlayerEditorManager.PlayerInfo.Player_HP[target] -= (int)Damage;
@@ -632,7 +632,7 @@ public class EnemyMove : MonoBehaviour
             GoblinBuffDamage();
             CharaMoveGage.ActTime[0] = 5 * moveUpcorrection;
             SkillStorage.enemyActTime = CharaMoveGage.ActTime[0];
-            SkillStorage.comparText = "ゴブリンは斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に" + Damage.ToString() + "のダメージ";
+            SkillStorage.comparText = "ゴブリンは斬りかかってきた\n" + PlayerEditor.PlayerName[target] + "に" +((int) Damage).ToString() + "のダメージ";
             if(goblinBuff>0)
             {
                 SkillStorage.comparText+="\nさらに仲間のゴブリンから追撃を受けた";

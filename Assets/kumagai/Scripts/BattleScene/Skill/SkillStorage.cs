@@ -59,11 +59,15 @@ public class SkillStorage : MonoBehaviour
         tmpRate=rate;
         tmpSleep=sleep;
         AddStatus();
-        rate = NotesEditor.NotesOKCount / CommandCount;
+        rate = NotesEditor.NotesOKCount / CommandCount+rateCorrection;
+        if (SkillStorage.DeSpeedTime <= 0)
+        {
+            publicEDeBuffStorage.Remove(2);
+        }
         //if (CharaMoveGage.MoveChar==null||CharaMoveGage.MoveChar[0].name=="Enemy") {
         //    charaNumber=-1;
         //}
-       ATKBuff();
+        ATKBuff();
         if (CharaMoveGage.MoveChar.Count!=0)
         { 
             CharaSet();
@@ -241,6 +245,7 @@ public class SkillStorage : MonoBehaviour
     public static int addSpeedTurn;
     [SerializeField]
     private float rateCorrection;
+    private float rateCorrectionTime;
     public static float annaSKill3;
     public static float annaSkill3MaxTime;
     public static float annSkill3Time;
@@ -312,7 +317,8 @@ public class SkillStorage : MonoBehaviour
                     if(GameManager.state==GameManager.BattleState.move)
                     {
                         ScoreManager.PlayerScore(rate, 50);
-                        rateCorrection =(rate*100*0.3f)/100;
+                        rateCorrectionTime = (rate / 2 * 100);
+                        rateCorrection =(rate*0.3f);
                         comparText="ありえた選択を繰り出した\nコマンドの成功率が上昇した";
                         publicPBuffStorage.Add(1);
                         StartCoroutine(moveTextCoroutine(comparText));
@@ -1486,6 +1492,8 @@ public class SkillStorage : MonoBehaviour
         DameCutPar= Buff(DameCutTime,DameCutPar,0);
         hateUpTime=BuffTime(hateUpTime,hateUpMaxTime);
         melodyBuffTime=BuffTime(melodyBuffTime,melodyBuffMaxTime,8);
+        rateCorrectionTime=BuffTime(rateCorrectionTime,rateCorrectionTime,1);
+        rateCorrection=Buff(rateCorrectionTime,rateCorrection,0);
         //melodyBuff=Buff(melodyBuffTime,melodyBuff,0f);
         if(gordonHateCorrection>0)
         { 
@@ -1521,6 +1529,17 @@ public class SkillStorage : MonoBehaviour
         if (turn > 0)
         {
             turn -= 1;
+            bool flag = false;
+            if (!flag)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] == number)
+                    {
+                        list.Remove(number);
+                    }
+                }
+            }
             return turn;
         }
         else
@@ -1541,7 +1560,7 @@ public class SkillStorage : MonoBehaviour
     }
     public static void DBuffTurnStorage()
     {
-        BuffTurn(playerSkill3);
+      
     }
     public static void BuffTurnStorage()
     {
