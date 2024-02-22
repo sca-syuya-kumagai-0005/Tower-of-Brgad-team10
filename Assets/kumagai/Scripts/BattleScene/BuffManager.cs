@@ -81,7 +81,7 @@ public class BuffManager : MonoBehaviour
             {
                 break;
             }
-                GameObject obj=Instantiate(deBuffIcon[DeBuffStorage[i-BuffStorage.Count]], pos + new Vector3(i, 0, 0), Quaternion.Euler(0,0,0), storageObject.transform);
+                GameObject obj=Instantiate(deBuffIcon[DeBuffStorage[i-BuffStorage.Count]], pos + new Vector3(i, 0, 0), Quaternion.Euler(backGround.transform.rotation.x,0,0), storageObject.transform);
                 //GameObject obj=Instantiate(deBuffIcon[DeBuffStorage[i-BuffStorage.Count]], pos + new Vector3(i, 0, 0), Quaternion.identity, storageObject.transform);    
             }
         

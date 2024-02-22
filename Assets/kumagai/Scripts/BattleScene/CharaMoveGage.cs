@@ -84,10 +84,14 @@ public class CharaMoveGage : MonoBehaviour
         {
             MoveCharaSort();
         }
-        if(MoveChar[0]==null)
+        if(MoveChar.Count>0)
         {
-            MoveChar.RemoveAt(0);
+            if (MoveChar[0] == null)
+            {
+                MoveChar.RemoveAt(0);
+            }
         }
+      
 
     }
 
